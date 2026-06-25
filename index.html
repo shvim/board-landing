@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Board — Where designers collect their visual inspiration</title>
+<meta name="description" content="Board is where designers collect, organize, and rediscover their visual inspiration — tagged by AI that speaks their design language." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect x='4' y='6' width='32' height='8' rx='2' fill='%23FFB088'/%3E%3Crect x='4' y='16' width='32' height='8' rx='2' fill='%23E67E4A'/%3E%3Crect x='4' y='26' width='32' height='8' rx='2' fill='%23b85a28'/%3E%3C/svg%3E" />
+
+<!-- Google Fonts: DM Sans -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================ TOKENS */
+:root {
+  --bg:#0e0e0e; --surface:#141414; --surface-elevated:#1a1a1a;
+  --border-subtle:rgba(255,255,255,0.06); --border-medium:rgba(255,255,255,0.1);
+  --peach:#E67E4A; --peach-light:#FFB088; --peach-bright:#FF9866; --peach-deep:#b85a28;
+  --peach-gradient:linear-gradient(135deg,#FFB088,#E67E4A);
+  --peach-glow:0 0 30px rgba(230,126,74,0.3);
+  --text-primary:#f0f0f0; --text-secondary:rgba(255,255,255,0.6); --text-tertiary:rgba(255,255,255,0.45);
+  --max:1200px; --ease-out:cubic-bezier(0.16,1,0.3,1);
+}
+
+/* ============================================================ RESET */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{font-family:"DM Sans",-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);
+  color:var(--text-primary);line-height:1.6;font-size:17px;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
+img{max-width:100%;display:block;}
+::selection{background:rgba(230,126,74,0.3);color:#fff;}
+.container{width:100%;max-width:var(--max);margin:0 auto;padding:0 32px;}
+.eyebrow{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--peach);margin-bottom:22px;}
+
+/* ============================================================ CUSTOM CURSOR */
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;
+  z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;}
+.cursor-dot{width:6px;height:6px;background:var(--peach-light);}
+.cursor-ring{width:34px;height:34px;border:1px solid rgba(255,176,136,0.5);
+  transition:width .25s var(--ease-out),height .25s var(--ease-out),border-color .25s var(--ease-out),opacity .3s ease;}
+.cursor-ring.is-hover{width:56px;height:56px;border-color:var(--peach);}
+body.cursor-hidden .cursor-ring,body.cursor-hidden .cursor-dot{opacity:0;}
+@media (hover:none),(pointer:coarse){.cursor-dot,.cursor-ring{display:none;}}
+
+/* ============================================================ NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;border-bottom:1px solid transparent;
+  transition:background .4s ease,border-color .4s ease,backdrop-filter .4s ease;}
+.nav.scrolled{background:rgba(14,14,14,0.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border-subtle);}
+.nav-inner{height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.brand{display:flex;align-items:center;gap:11px;}
+.brand svg{width:30px;height:30px;overflow:visible;}
+.brand .bar{transition:transform .35s var(--ease-out);}
+.brand:hover .bar-top{transform:translateY(-2.5px);}
+.brand:hover .bar-bot{transform:translateY(2.5px);}
+.brand-name{font-weight:700;font-size:20px;letter-spacing:-0.02em;}
+.nav-links{display:flex;gap:34px;}
+.nav-link{position:relative;font-size:15px;font-weight:500;color:var(--text-secondary);
+  transition:color .25s ease;padding:4px 0;}
+.nav-link::after{content:"";position:absolute;left:0;bottom:0;height:1.5px;width:0;
+  background:var(--peach);transition:width .3s var(--ease-out);}
+.nav-link:hover{color:var(--text-primary);}
+.nav-link:hover::after{width:100%;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;
+  font-size:15px;border-radius:10px;padding:11px 22px;white-space:nowrap;
+  transition:transform .3s var(--ease-out),box-shadow .3s var(--ease-out);}
+.btn-peach{position:relative;color:#fff;background:linear-gradient(135deg,#E67E4A,#cf5f24);background-size:200% 200%;
+  box-shadow:0 0 0 rgba(230,126,74,0);overflow:hidden;}
+.btn-peach::before{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,0.45),transparent);
+  transform:skewX(-20deg);animation:shimmer 4.5s ease-in-out infinite;}
+@keyframes shimmer{0%{left:-60%;}55%{left:160%;}100%{left:160%;}}
+.btn-peach:hover{transform:scale(1.03);box-shadow:0 0 34px rgba(230,126,74,0.45);}
+.nav-toggle{display:none;flex-direction:column;gap:5px;padding:8px;}
+.nav-link-join{display:none;}
+.nav-toggle span{width:22px;height:2px;background:var(--text-primary);
+  transition:transform .3s var(--ease-out),opacity .3s ease;}
+.nav.menu-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav.menu-open .nav-toggle span:nth-child(2){opacity:0;}
+.nav.menu-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* ============================================================ SHARED IMAGE WALL (phantom-style) */
+.hero-wall-vp{position:fixed;inset:0;z-index:1;overflow:hidden;background:var(--bg);
+  perspective:1700px;perspective-origin:50% 42%;opacity:0;will-change:opacity,filter;}
+.hero-wall{position:absolute;top:50%;left:50%;width:132%;
+  display:grid;grid-template-columns:repeat(var(--cols,5),1fr);gap:2.4vw 1.8vw;
+  transform:translate(-50%,-50%);transform-style:preserve-3d;will-change:transform;}
+.wall-card{display:flex;flex-direction:column;gap:8px;will-change:transform,opacity;}
+.wc-top,.wc-bot{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.42);line-height:1;}
+.wc-src{font-size:11.5px;font-weight:600;letter-spacing:.02em;text-transform:none;color:rgba(255,255,255,.85);white-space:nowrap;}
+.wc-src .lg{height:11px;width:auto;vertical-align:-1px;margin-right:5px;filter:brightness(0) invert(1);opacity:.92;}
+.wc-ttl{text-align:right;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:rgba(255,255,255,.55);}
+.wc-img{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--surface-elevated);border:1px solid var(--border-subtle);}
+.wc-img img{width:100%;height:100%;object-fit:cover;filter:saturate(.96);transition:filter .5s var(--ease-out),transform .6s var(--ease-out);}
+.wc-tags{color:rgba(255,255,255,.42);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.wc-yr{color:rgba(255,255,255,.32);}
+.wall-card.lit .wc-img img{filter:none;transform:scale(1.03);}
+.wall-card.lit .wc-img{box-shadow:0 0 0 2px var(--peach),0 0 40px rgba(230,126,74,.55);z-index:2;}
+.wall-card.lit .wc-src,.wall-card.lit .wc-tags{color:var(--peach-light);}
+@media (max-width:767px){.hero-wall{width:152%;gap:4vw 3vw;}.wc-top,.wc-bot{font-size:8px;}.wc-src{font-size:10px;}}
+
+/* ============================================================ HERO */
+.hero{position:relative;z-index:2;min-height:100vh;min-height:100svh;display:flex;align-items:center;
+  padding:120px 0 80px;pointer-events:none;}
+/* let drags reach the canvas behind the hero, but keep the form interactive */
+.hero-inner form,.hero-inner .success-box,.hero a{pointer-events:auto;}
+.hero-wall-vp{pointer-events:none;}
+.hero-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;will-change:opacity;
+  background:radial-gradient(150% 140% at 50% 45%,rgba(14,14,14,0.34) 0%,rgba(14,14,14,0.5) 55%,rgba(14,14,14,0.72) 100%);}
+.hero-inner{max-width:680px;margin:0 auto;text-align:center;}
+.hero-headline{font-weight:700;font-size:clamp(40px,6.4vw,72px);line-height:1.02;
+  letter-spacing:-0.035em;margin-bottom:26px;perspective:800px;text-shadow:0 2px 30px rgba(0,0,0,.6),0 1px 3px rgba(0,0,0,.45);}
+.hero-headline .word{display:inline-block;transform-origin:bottom;will-change:transform,opacity;}
+.hero-headline .accent{background:none;-webkit-text-fill-color:#fff;color:#fff;}
+.hero-sub{font-size:clamp(17px,2vw,20px);color:#fff;max-width:52ch;margin:0 auto 36px;text-shadow:0 1px 16px rgba(0,0,0,.65);}
+.hero-hint{margin-top:30px;font-size:13px;color:var(--text-tertiary);display:flex;align-items:center;justify-content:center;gap:9px;}
+.hero-hint .pulse{width:7px;height:7px;border-radius:50%;background:var(--peach);
+  box-shadow:0 0 0 0 rgba(230,126,74,.5);animation:pulse 2.4s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(230,126,74,.5);}70%{box-shadow:0 0 0 10px rgba(230,126,74,0);}100%{box-shadow:0 0 0 0 rgba(230,126,74,0);}}
+
+/* signup */
+.signup{display:flex;gap:10px;max-width:460px;width:100%;margin:0 auto;}
+.signup-field{position:relative;flex:1;}
+.signup input{width:100%;font-family:inherit;font-size:16px;color:var(--text-primary);
+  background:var(--surface-elevated);border:1px solid var(--border-medium);border-radius:10px;
+  padding:14px 16px;transition:border-color .3s ease,box-shadow .3s ease;}
+.signup input::placeholder{color:var(--text-tertiary);transition:color .3s ease;}
+.signup input:focus{outline:none;border-color:var(--peach);
+  box-shadow:0 0 0 4px rgba(230,126,74,0.12),0 0 26px rgba(230,126,74,0.25);}
+.signup input:focus::placeholder{color:rgba(255,255,255,0.3);}
+.signup.invalid input{border-color:#d65c4a;box-shadow:0 0 0 4px rgba(214,92,74,0.12);}
+.signup .btn-peach{padding:14px 24px;}
+.form-msg{font-size:13px;margin-top:10px;min-height:18px;color:var(--text-tertiary);}
+.form-msg.error{color:#e87b69;}
+.signup .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,0.45);
+  border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.success-box{display:none;align-items:center;gap:12px;max-width:460px;margin:0 auto;padding:16px 20px;text-align:left;
+  background:var(--surface-elevated);border:1px solid var(--peach);border-radius:10px;box-shadow:var(--peach-glow);}
+.success-box.show{display:flex;}
+.success-box .check{flex-shrink:0;width:26px;height:26px;border-radius:50%;
+  background:var(--peach-gradient);display:grid;place-items:center;color:#1a0f08;font-weight:700;}
+.success-box p{font-size:15px;color:var(--text-primary);}
+.success-box span{color:var(--text-secondary);}
+
+/* ============================================================ TRANSFER SEQUENCE */
+.transfer{position:relative;z-index:2;}
+.transfer-stage{position:relative;height:100vh;overflow:hidden;}
+/* scripted peach select cursor + rings (during selection phase) */
+.select-cursor{position:fixed;top:0;left:0;width:30px;height:30px;border-radius:50%;
+  border:2px solid var(--peach);background:rgba(230,126,74,.12);z-index:40;pointer-events:none;
+  opacity:0;margin:-15px 0 0 -15px;box-shadow:0 0 18px rgba(230,126,74,.5);}
+.select-cursor::after{content:"save";position:absolute;left:34px;top:6px;font-size:11px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--peach-light);white-space:nowrap;}
+.sel-ring{position:fixed;top:0;left:0;width:96px;height:120px;margin:-60px 0 0 -48px;
+  border:2px solid var(--peach);border-radius:4px;z-index:38;pointer-events:none;opacity:0;
+  box-shadow:0 0 26px rgba(230,126,74,.45);}
+.flight-layer{position:fixed;inset:0;z-index:42;pointer-events:none;}
+.flight-clone{position:fixed;top:0;left:0;object-fit:cover;border-radius:4px;opacity:0;transform-origin:center;
+  box-shadow:0 22px 60px rgba(0,0,0,.6),0 0 0 2px var(--peach),0 0 34px rgba(230,126,74,.5);will-change:transform,width,height;}
+
+/* dashboard mockup — modeled on the live Board app (board-2-shvim.web.app) */
+.dashboard-mock{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(1180px,95vw);height:min(80vh,760px);background:#0d0d0d;
+  border:1px solid var(--border-medium);display:flex;flex-direction:column;
+  overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.6);opacity:0;}
+.bd-top{height:54px;flex-shrink:0;display:flex;align-items:center;gap:16px;padding:0 18px;border-bottom:1px solid var(--border-subtle);}
+.bd-burger{display:flex;flex-direction:column;gap:3px;padding:4px;}
+.bd-burger span{width:16px;height:1.5px;background:var(--text-secondary);display:block;}
+.bd-top .brand-name{font-size:16px;}
+.bd-nav{display:flex;gap:3px;}
+.bd-nav a{font-size:13px;color:var(--text-secondary);padding:6px 12px;border-radius:8px;}
+.bd-nav a.active{background:var(--surface-elevated);color:var(--text-primary);}
+.bd-search{flex:1;max-width:380px;height:34px;border:1px solid var(--border-subtle);border-radius:9px;
+  display:flex;align-items:center;gap:9px;padding:0 12px;color:var(--text-tertiary);font-size:13px;background:var(--surface);}
+.bd-search kbd{margin-left:auto;font-size:11px;border:1px solid var(--border-subtle);border-radius:4px;padding:1px 5px;color:var(--text-tertiary);}
+.bd-avatar{margin-left:auto;width:30px;height:30px;border-radius:50%;background:var(--peach-gradient);color:#1a0f08;font-weight:700;font-size:13px;display:grid;place-items:center;flex-shrink:0;}
+.bd-filters{flex-shrink:0;display:flex;align-items:center;gap:8px;padding:11px 18px;border-bottom:1px solid var(--border-subtle);overflow:hidden;}
+.bd-fchip,.bd-tag{font-size:12px;color:var(--text-secondary);border:1px solid var(--border-subtle);border-radius:18px;
+  padding:5px 11px;display:flex;align-items:center;gap:6px;white-space:nowrap;background:var(--surface);flex-shrink:0;}
+.bd-fchip .star{color:var(--peach);}
+.bd-fchip.ct{border-color:rgba(230,126,74,.3);color:var(--peach-light);}
+.bd-fchip.ct b{color:var(--text-primary);font-weight:600;}
+.bd-tag i{width:9px;height:9px;border-radius:50%;display:block;}
+.bd-div{width:1px;height:18px;background:var(--border-subtle);margin:0 2px;flex-shrink:0;}
+.bd-libhead{padding:15px 20px 2px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);flex-shrink:0;}
+.bd-libhead b{color:var(--text-secondary);}
+.bd-grid{flex:1;overflow:hidden;padding:14px 20px 20px;display:grid;
+  grid-template-columns:repeat(5,1fr);gap:18px 14px;align-content:start;}
+.bd-card{display:flex;flex-direction:column;min-width:0;}
+.bd-card-img{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--surface-elevated);border:1px solid var(--border-subtle);}
+.bd-card-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.bd-card-meta{padding:7px 1px 0;}
+.bd-card-title{font-size:12.5px;font-weight:500;color:var(--text-primary);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bd-card-src{font-size:11.5px;color:var(--peach-light);margin-top:2px;}
+.card-actions{position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;opacity:0;transition:opacity .25s ease;}
+.bd-card-img:hover .card-actions{opacity:1;}
+.card-actions .ca{width:25px;height:25px;border-radius:50%;background:rgba(10,10,10,.55);
+  display:grid;place-items:center;font-size:12px;color:#fff;}
+.card-actions .ca.star{color:var(--peach-light);}
+/* drop targets where clones land */
+.drop-img{border:1px dashed rgba(230,126,74,.5)!important;background:rgba(230,126,74,.05);display:grid;place-items:center;}
+.drop-img .drop-hint{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(230,126,74,.75);}
+.drop-cell .landed{position:absolute;inset:0;opacity:0;}
+.drop-cell .landed img{width:100%;height:100%;object-fit:cover;}
+.cell-tags{font-size:10.5px;line-height:1.4;color:var(--peach-light);margin-top:3px;min-height:14px;}
+.cell-tags::after{content:"▍";opacity:.8;animation:caret .8s steps(1) infinite;margin-left:1px;}
+.cell-tags.done::after{display:none;}
+@keyframes caret{50%{opacity:0;}}
+.cell-palette{position:absolute;top:8px;left:8px;display:flex;gap:4px;opacity:0;z-index:2;}
+.cell-palette i{width:13px;height:13px;border-radius:3px;display:block;box-shadow:0 0 0 1px rgba(0,0,0,.3);}
+.bd-fab{position:absolute;right:22px;bottom:22px;width:48px;height:48px;border-radius:50%;
+  background:var(--peach-gradient);color:#1a0f08;font-size:25px;font-weight:600;display:grid;place-items:center;
+  box-shadow:0 10px 30px rgba(230,126,74,.4);}
+.transfer-cap{position:absolute;left:0;right:0;bottom:26px;text-align:center;z-index:5;
+  font-size:13px;color:var(--text-tertiary);opacity:0;}
+.transfer-cap b{color:var(--peach-light);font-weight:600;}
+@media (max-width:767px){ .bd-grid{grid-template-columns:repeat(2,1fr);} .bd-nav,.bd-filters .bd-tag{display:none;} }
+
+/* ============================================================ PAGE BODY (occludes fixed canvas) */
+.page-body{position:relative;z-index:3;background:var(--bg);}
+
+/* ============================================================ GENERIC SECTIONS */
+section{position:relative;}
+.section-pad{padding:120px 0;}
+.section-head{font-weight:700;perspective:600px;}
+.section-head .word{display:inline-block;will-change:transform,opacity;}
+.reveal{opacity:0;}
+.no-anim .reveal{opacity:1!important;transform:none!important;}
+
+/* PROBLEM */
+.problem{padding:124px 0;text-align:center;}
+.problem h2{font-size:clamp(30px,5vw,56px);line-height:1.1;letter-spacing:-0.03em;max-width:18ch;margin:0 auto 26px;}
+.problem h2 .accent{background:var(--peach-gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.problem p{max-width:56ch;margin:0 auto;color:var(--text-secondary);font-size:clamp(16px,2vw,19px);}
+
+/* FEATURES */
+.feature{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;padding:70px 0;}
+.feature.reverse .feature-visual{order:2;}
+.feature.reverse .feature-text{order:1;}
+.feature-text h3{font-size:clamp(26px,3.4vw,40px);line-height:1.12;letter-spacing:-0.03em;margin-bottom:20px;}
+.feature-text p{color:var(--text-secondary);font-size:17px;max-width:46ch;}
+.feature-num{font-size:13px;font-weight:600;letter-spacing:.16em;color:var(--peach);margin-bottom:16px;}
+.feature-list{list-style:none;margin-top:26px;display:flex;flex-direction:column;gap:13px;}
+.feature-list li{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:var(--text-secondary);}
+.feature-list li::before{content:"";flex-shrink:0;margin-top:8px;width:6px;height:6px;background:var(--peach);border-radius:2px;}
+.feature-visual{will-change:transform,opacity;}
+.fcard{position:relative;transition:transform .4s var(--ease-out),box-shadow .4s var(--ease-out);}
+.fcard .shot,.fcard .demo{transition:transform .4s var(--ease-out);}
+.fcard:hover{transform:translateY(-4px) scale(1.01);}
+.fcard:hover .shot,.fcard:hover .demo{transform:scale(1.02);box-shadow:0 0 28px rgba(230,126,74,0.15);}
+
+/* placeholder shots */
+.shot{position:relative;width:100%;background:linear-gradient(160deg,var(--surface-elevated),var(--surface));
+  border:1px solid var(--border-medium);overflow:hidden;}
+.shot::after{content:attr(data-label);position:absolute;left:18px;bottom:14px;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);}
+.shot-4x3{aspect-ratio:4/3;}
+.shot-dots{position:absolute;top:16px;left:18px;display:flex;gap:7px;z-index:2;}
+.shot-dots i{width:9px;height:9px;border-radius:50%;background:var(--border-medium);display:block;}
+.shot .mini-grid{position:absolute;inset:44px 18px 18px;display:grid;grid-template-columns:repeat(3,1fr);
+  gap:8px;grid-auto-rows:1fr;}
+.shot .mini-grid img{width:100%;height:100%;object-fit:cover;}
+
+/* AI tag demo */
+.demo{background:var(--surface);border:1px solid var(--border-medium);padding:26px;}
+.demo-img{aspect-ratio:16/10;overflow:hidden;border:1px solid var(--border-subtle);margin-bottom:22px;position:relative;}
+.demo-img img{width:100%;height:100%;object-fit:cover;}
+.demo-row{margin-bottom:18px;}
+.demo-row:last-child{margin-bottom:0;}
+.demo-row .label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:10px;display:block;}
+.tags{display:flex;flex-wrap:wrap;gap:8px;}
+.tag{font-size:13px;font-weight:500;padding:6px 13px;border-radius:20px;white-space:nowrap;will-change:transform,opacity;}
+.tag.generic{color:var(--text-tertiary);background:rgba(255,255,255,0.04);border:1px solid var(--border-subtle);}
+.tag.board{color:var(--peach-light);background:rgba(230,126,74,0.12);border:1px solid rgba(230,126,74,0.35);}
+.tag .sw{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle;}
+.demo-vs{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--peach);margin:22px 0 18px;display:flex;align-items:center;gap:12px;}
+.demo-vs::before,.demo-vs::after{content:"";flex:1;height:1px;background:var(--border-subtle);}
+
+/* ============================================================ PRODUCT IN CONTEXT */
+.context{padding:120px 0;}
+.context-head{text-align:center;max-width:720px;margin:0 auto 80px;}
+.context-head h2{font-size:clamp(30px,4.6vw,52px);line-height:1.08;letter-spacing:-0.03em;margin-bottom:18px;}
+.context-head p{color:var(--text-secondary);font-size:18px;}
+.pc-row{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:54px 0;}
+.pc-row.reverse .pc-visual{order:2;}.pc-row.reverse .pc-text{order:1;}
+.pc-text h3{font-size:clamp(24px,3vw,34px);letter-spacing:-0.02em;line-height:1.12;margin-bottom:16px;}
+.pc-text p{color:var(--text-secondary);font-size:16px;max-width:42ch;}
+.pc-badge{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--peach);margin-bottom:14px;}
+.pc-visual{will-change:transform;}
+.pc-shot{display:none;width:100%;height:auto;border:1px solid var(--border-medium);box-shadow:0 30px 80px rgba(0,0,0,.5);}
+.pc-visual.shot-ready .pc-shot{display:block;}
+.pc-visual.shot-ready .mock{display:none;}
+
+/* app mockup chrome (shared) */
+.mock{position:relative;border:1px solid var(--border-medium);background:#111;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);}
+.mock .bd-avatar{flex-shrink:0;}
+
+/* ---- Figma + Board plugin ---- */
+.fig{background:#2c2c2c;}
+.fig-top{height:40px;display:flex;align-items:center;gap:12px;padding:0 12px;background:#2c2c2c;border-bottom:1px solid #1a1a1a;}
+.fig-top .fmenu{display:flex;gap:10px;}
+.fig-top .fmenu i{width:15px;height:15px;border-radius:3px;background:#4a4a4a;display:block;}
+.fig-top .fmenu i.logo{background:var(--peach);}
+.fig-top .fname{font-size:12px;color:#bdbdbd;}
+.fig-top .fright{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.fig-top .fplay{width:0;height:0;border-left:9px solid #7ab0ff;border-top:6px solid transparent;border-bottom:6px solid transparent;}
+.fig-top .fshare{font-size:11px;font-weight:600;color:#fff;background:#0d99ff;border-radius:6px;padding:5px 12px;}
+.fig-body{display:grid;grid-template-columns:188px 1fr 272px;height:392px;}
+.fig-left{background:#2c2c2c;border-right:1px solid #1a1a1a;padding:12px 10px;}
+.fig-left .fl-h{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8a8a8a;margin:0 0 8px;}
+.fig-left .fl-row{display:flex;align-items:center;gap:8px;font-size:12px;color:#cfcfcf;padding:5px 6px;border-radius:5px;}
+.fig-left .fl-row.sel{background:rgba(13,153,255,.18);color:#fff;}
+.fig-left .fl-row i{width:11px;height:11px;border-radius:3px;background:#5a5a5a;}
+.fig-canvas{position:relative;background:#1a1a1a;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:22px 22px;overflow:hidden;}
+.fig-frame{position:absolute;left:40px;top:46px;right:40px;bottom:46px;background:#0d0d0d;border:1px solid #3a3a3a;overflow:hidden;}
+.fig-frame .ttl{position:absolute;left:0;top:-20px;font-size:11px;color:#9b9b9b;}
+.fig-frame img{width:100%;height:100%;object-fit:cover;}
+.fig-drag{position:absolute;right:74px;bottom:64px;width:104px;height:132px;overflow:hidden;border:2px solid var(--peach);
+  box-shadow:0 18px 50px rgba(0,0,0,.6),var(--peach-glow);transform:rotate(-5deg);z-index:3;}
+.fig-drag img{width:100%;height:100%;object-fit:cover;}
+.fig-drag .cur{position:absolute;right:-7px;bottom:-9px;width:17px;height:17px;}
+.bp{background:#0e0e0e;border-left:1px solid #1a1a1a;display:flex;flex-direction:column;}
+.bp-tt{height:28px;display:flex;align-items:center;gap:8px;padding:0 11px;border-bottom:1px solid var(--border-subtle);font-size:11px;color:var(--text-tertiary);}
+.bp-tt .x{margin-left:auto;}
+.bp-h{display:flex;align-items:center;gap:8px;padding:11px 12px 8px;}
+.bp-h .nm{font-weight:700;font-size:14px;}
+.bp-h .conn{margin-left:auto;font-size:10px;color:#5fbf7f;display:flex;align-items:center;gap:5px;}
+.bp-h .conn::before{content:"";width:6px;height:6px;border-radius:50%;background:#5fbf7f;}
+.bp-search{margin:0 12px;height:30px;border:1px solid var(--border-subtle);border-radius:8px;display:flex;align-items:center;gap:7px;padding:0 9px;font-size:12px;color:var(--text-tertiary);}
+.bp-tabs{display:flex;gap:8px;padding:10px 12px 6px;}
+.bp-tabs .t{flex:1;text-align:center;font-size:12px;font-weight:600;padding:7px;border-radius:8px;color:var(--text-secondary);border:1px solid var(--border-subtle);}
+.bp-tabs .t.on{background:var(--peach-gradient);color:#1a0f08;border-color:transparent;}
+.bp-sub{display:flex;align-items:center;justify-content:space-between;padding:2px 12px 8px;font-size:10.5px;color:var(--text-tertiary);}
+.bp-sub .sort{display:flex;gap:5px;}
+.bp-sub .sort span{padding:3px 7px;border-radius:11px;border:1px solid var(--border-subtle);}
+.bp-sub .sort span.on{color:var(--peach-light);border-color:rgba(230,126,74,.4);}
+.bp-grid{flex:1;overflow:hidden;padding:0 12px 12px;display:grid;grid-template-columns:repeat(2,1fr);gap:8px;align-content:start;}
+.bp-grid img{width:100%;aspect-ratio:3/4;object-fit:cover;border:1px solid var(--border-subtle);}
+
+/* ---- Canva + Board app ---- */
+.cv{background:#18191b;}
+.cv-top{height:42px;display:flex;align-items:center;gap:14px;padding:0 14px;background:linear-gradient(90deg,#7b2ff7,#5b8cff);}
+.cv-top .ci{width:16px;height:16px;border-radius:4px;background:rgba(255,255,255,.35);}
+.cv-top .cm{font-size:12px;color:rgba(255,255,255,.92);}
+.cv-top .cname{margin:0 auto;font-size:12px;color:rgba(255,255,255,.85);}
+.cv-top .cpresent{font-size:11px;font-weight:600;color:#5b2ea6;background:#fff;border-radius:6px;padding:5px 12px;}
+.cv-top .cshare{font-size:11px;font-weight:600;color:#fff;border:1px solid rgba(255,255,255,.6);border-radius:6px;padding:5px 12px;}
+.cv-body{display:grid;grid-template-columns:66px 230px 1fr;height:392px;}
+.cv-rail{background:#1f2024;border-right:1px solid #000;display:flex;flex-direction:column;align-items:center;padding:8px 0;}
+.cv-rail .r{display:flex;flex-direction:column;align-items:center;gap:3px;width:100%;padding:7px 0;}
+.cv-rail .r i{width:22px;height:22px;border-radius:6px;background:#3a3b40;}
+.cv-rail .r span{font-size:8.5px;color:#9a9ba0;}
+.cv-rail .r.on i{background:var(--peach);}
+.cv-rail .r.on span{color:var(--peach-light);}
+.cv-panel{background:#0e0e0e;border-right:1px solid #000;display:flex;flex-direction:column;}
+.cv-ph{display:flex;align-items:center;gap:8px;padding:12px 12px 8px;}
+.cv-ph .nm{font-weight:700;font-size:14px;}
+.cv-ph .ic{margin-left:auto;color:var(--text-tertiary);font-size:13px;letter-spacing:2px;}
+.cv-tabs{display:flex;gap:16px;padding:0 12px;border-bottom:1px solid var(--border-subtle);}
+.cv-tabs span{font-size:12px;color:var(--text-tertiary);padding:7px 0;}
+.cv-tabs span.on{color:var(--text-primary);box-shadow:inset 0 -2px var(--peach);}
+.cv-pills{display:flex;gap:6px;padding:10px 12px 8px;flex-wrap:wrap;}
+.cv-pills .p{font-size:10.5px;color:var(--text-secondary);border:1px solid var(--border-subtle);border-radius:12px;padding:3px 8px;display:flex;align-items:center;gap:5px;}
+.cv-pills .p.on{color:var(--peach-light);border-color:rgba(230,126,74,.4);}
+.cv-pills .p i{width:8px;height:8px;border-radius:50%;}
+.cv-lib{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);padding:2px 12px 8px;}
+.cv-grid{flex:1;overflow:hidden;padding:0 12px 12px;display:grid;grid-template-columns:repeat(2,1fr);gap:8px;align-content:start;}
+.cv-grid img{width:100%;aspect-ratio:.8;object-fit:cover;border:1px solid var(--border-subtle);}
+.cv-stage{position:relative;background:#26272b;display:grid;place-items:center;}
+.cv-art{width:62%;aspect-ratio:16/10;background:#fff;box-shadow:0 20px 50px rgba(0,0,0,.4);overflow:hidden;display:grid;grid-template-columns:1.5fr 1fr;grid-template-rows:1fr 1fr;gap:6px;padding:8px;}
+.cv-art img{width:100%;height:100%;object-fit:cover;}
+.cv-art .s2{grid-row:span 2;}
+.cv-pages{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;}
+.cv-pages i{width:30px;height:20px;background:#fff;border-radius:2px;opacity:.85;}
+.cv-pages i.on{outline:2px solid #7b2ff7;}
+
+/* ---- SketchUp + Board extension (modeled on the identic.ai panel) ---- */
+.su{background:#cdd6dd;}
+.su-menu{height:26px;display:flex;align-items:center;gap:14px;padding:0 12px;background:#eef1f3;border-bottom:1px solid #c2cbd2;}
+.su-menu span{font-size:11px;color:#3a3f44;}
+.su-tools{height:30px;display:flex;align-items:center;gap:8px;padding:0 12px;background:#e2e7eb;border-bottom:1px solid #c2cbd2;}
+.su-tools i{width:15px;height:15px;border-radius:3px;background:#aeb8c0;}
+.su-view{position:relative;height:336px;overflow:hidden;background:linear-gradient(180deg,#bcd6ef 0,#dbe7f2 46%,#cfd4d6 46%,#eef1f2 100%);}
+.su-axis{position:absolute;left:28%;top:62%;width:1px;height:1px;}
+.su-axis i{position:absolute;transform-origin:0 0;height:1.5px;display:block;}
+.su-axis .ax{width:260px;background:#d23b3b;transform:rotate(10deg);}
+.su-axis .ay{width:260px;background:#3b9b3b;transform:rotate(170deg);}
+.su-axis .az{width:130px;background:#3b6bd2;transform:rotate(-90deg);}
+.su-win{position:absolute;left:50%;top:51%;transform:translate(-50%,-50%);width:560px;background:#fff;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.35);overflow:hidden;border:1px solid #e2e2e2;}
+.su-wh{display:flex;align-items:center;gap:9px;padding:13px 18px;border-bottom:1px solid #eee;}
+.su-wh .nm{font-weight:700;font-size:15px;color:#1a1a1a;}
+.su-wh .rem{margin-left:auto;font-size:12px;color:#777;}
+.su-wh .av{width:26px;height:26px;border-radius:50%;background:var(--peach-gradient);}
+.su-wb{display:grid;grid-template-columns:148px 1fr;}
+.su-nav{border-right:1px solid #eee;padding:14px;}
+.su-nav .h{font-size:11px;color:#999;margin-bottom:9px;}
+.su-nav .it{font-size:13px;color:#333;padding:7px 9px;border-radius:7px;margin-bottom:3px;}
+.su-nav .it.on{background:#f4ece5;color:var(--peach-deep);font-weight:600;}
+.su-main{padding:15px 18px;display:grid;grid-template-columns:150px 1fr;gap:16px;}
+.su-prev{border:1px solid #eee;border-radius:8px;overflow:hidden;}
+.su-prev img{width:100%;height:140px;object-fit:cover;display:block;}
+.su-prev .cap{font-size:11px;color:#555;padding:7px 9px;}
+.su-act{display:flex;flex-direction:column;gap:11px;padding-top:4px;}
+.su-act a{font-size:13px;color:#5b3aa6;display:flex;align-items:center;gap:8px;}
+.su-act a.primary{color:var(--peach-deep);font-weight:600;}
+.su-thumbs{grid-column:1/3;display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:2px;}
+.su-thumbs img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:5px;border:1px solid #eee;}
+
+/* ============================================================ HOW IT WORKS */
+.how{padding:120px 0;}
+.vtimeline{position:relative;max-width:680px;margin:60px 0 0;padding-left:78px;}
+.vt-line{position:absolute;left:21px;top:16px;bottom:16px;width:2px;background:var(--border-subtle);}
+.vt-progress{position:absolute;left:0;top:0;width:100%;height:0;background:var(--peach-gradient);box-shadow:0 0 14px rgba(230,126,74,.55);will-change:height;}
+.vt-step{position:relative;padding-bottom:26vh;opacity:.28;transform:translateY(14px);transition:opacity .55s var(--ease-out),transform .55s var(--ease-out);}
+.vt-step:last-child{padding-bottom:0;}
+.vt-step.active{opacity:1;transform:none;}
+.vt-node{position:absolute;left:-74px;top:4px;width:36px;height:36px;border-radius:50%;background:var(--bg);
+  border:1px solid var(--border-medium);display:grid;place-items:center;transition:border-color .5s var(--ease-out),box-shadow .5s var(--ease-out);}
+.vt-node::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--peach);box-shadow:0 0 0 0 rgba(230,126,74,.5);animation:vtpulse 2.8s ease-in-out infinite;}
+@keyframes vtpulse{0%{box-shadow:0 0 0 0 rgba(230,126,74,.5);}70%{box-shadow:0 0 0 13px rgba(230,126,74,0);}100%{box-shadow:0 0 0 0 rgba(230,126,74,0);}}
+.vt-step.active .vt-node{border-color:var(--peach);box-shadow:0 0 26px rgba(230,126,74,.4);}
+.vt-num{font-size:58px;font-weight:700;line-height:1;letter-spacing:-0.04em;
+  background:var(--peach-gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:14px;}
+.vt-step h4{font-size:22px;font-weight:600;letter-spacing:-0.02em;margin-bottom:11px;}
+.vt-step p{color:var(--text-secondary);font-size:16px;max-width:42ch;}
+.no-anim .vt-step{opacity:1;transform:none;}
+.no-anim .vt-progress{height:100%;}
+
+/* ============================================================ CREDIBILITY */
+.cred{padding:104px 0;border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);}
+.cred-tag{text-align:center;font-size:clamp(20px,3vw,30px);font-weight:600;letter-spacing:-0.02em;margin-bottom:48px;}
+.cred-tag .accent{background:var(--peach-gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.logos{display:flex;justify-content:center;align-items:center;gap:52px;flex-wrap:wrap;opacity:.78;}
+.logos .logo-item{display:flex;align-items:center;gap:11px;color:var(--text-secondary);font-weight:600;font-size:16px;transition:color .3s ease;}
+.logos .logo-item svg{width:26px;height:26px;}
+.logos .logo-item img{width:26px;height:26px;object-fit:contain;}
+.logos .logo-item .apple-glyph{width:20px;height:24px;object-fit:contain;filter:invert(1);opacity:.92;}
+.logos .logo-item:hover{color:var(--text-primary);}
+.logos .soon{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--peach);
+  border:1px solid rgba(230,126,74,0.35);border-radius:20px;padding:3px 9px;}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px;}
+.metric{text-align:center;}
+.metric .num{font-size:clamp(38px,5vw,56px);font-weight:700;letter-spacing:-0.03em;
+  background:var(--peach-gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.metric .lbl{font-size:14px;color:var(--text-secondary);margin-top:6px;}
+
+/* ============================================================ FINAL */
+.final{padding:140px 0;text-align:center;position:relative;overflow:hidden;}
+.final-glow{position:absolute;left:50%;top:50%;width:60%;height:70%;transform:translate(-50%,-50%);
+  background:radial-gradient(ellipse at center,rgba(230,126,74,0.18),rgba(230,126,74,0) 70%);filter:blur(50px);pointer-events:none;}
+.final h2{position:relative;font-size:clamp(34px,6vw,66px);line-height:1.04;letter-spacing:-0.035em;max-width:16ch;margin:0 auto 24px;}
+.final p{position:relative;color:var(--text-secondary);font-size:18px;margin-bottom:40px;}
+.final .signup,.final .success-box{margin:0 auto;}
+.final-count{position:relative;margin-top:22px;font-size:14px;color:var(--text-tertiary);}
+.final-count b{color:var(--peach-light);font-weight:600;}
+.pricing-line{position:relative;margin-top:70px;font-size:15px;color:var(--text-tertiary);}
+.pricing-line b{color:var(--text-secondary);font-weight:600;}
+
+/* ============================================================ FOOTER */
+.footer{padding:60px 0 50px;border-top:1px solid var(--border-subtle);}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap;}
+.footer .brand-name{font-size:18px;}
+.footer-copy{font-size:13px;color:var(--text-tertiary);}
+.footer-social{display:flex;gap:14px;}
+.footer-social a{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--border-subtle);
+  border-radius:10px;color:var(--text-secondary);
+  transition:transform .3s var(--ease-out),color .3s ease,box-shadow .3s ease,border-color .3s ease;}
+.footer-social a:hover{transform:translateY(-3px);color:var(--peach-light);
+  border-color:rgba(230,126,74,0.4);box-shadow:0 0 18px rgba(230,126,74,0.18);}
+.footer-social svg{width:18px;height:18px;}
+.built{font-size:12px;color:var(--text-tertiary);margin-top:26px;display:flex;align-items:center;gap:7px;}
+.built .dot{width:6px;height:6px;border-radius:50%;background:var(--peach);}
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:1023px){
+  .feature,.pc-row{grid-template-columns:1fr;gap:40px;padding:50px 0;}
+  .feature.reverse .feature-visual,.feature.reverse .feature-text,
+  .pc-row.reverse .pc-visual,.pc-row.reverse .pc-text{order:initial;}
+  .metrics{gap:16px;}
+}
+@media (max-width:767px){
+  body{font-size:16px;}
+  .container{padding:0 22px;}
+  .nav-links{position:fixed;top:72px;left:0;right:0;flex-direction:column;gap:0;
+    background:rgba(14,14,14,0.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border-subtle);padding:8px 22px 18px;transform:translateY(-130%);
+    transition:transform .4s var(--ease-out);}
+  .nav.menu-open .nav-links{transform:translateY(0);}
+  .nav-link{padding:14px 0;font-size:17px;border-bottom:1px solid var(--border-subtle);}
+  .nav-link:last-child{border-bottom:none;}
+  .nav-toggle{display:flex;}.nav-cta{display:none;}
+  .hero{padding:110px 0 70px;}
+  .hero-scrim{background:radial-gradient(130% 110% at 50% 42%,rgba(14,14,14,0.42) 0%,rgba(14,14,14,0.66) 100%);}
+  .signup{flex-direction:column;align-items:center;}
+  .signup .signup-field{width:100%;}
+  .signup .btn-peach{width:auto;padding:13px 36px;}
+  .dashboard-mock{width:94vw;height:74vh;height:min(78svh,640px);}
+  .bd-search,.bd-libhead{display:none;}            /* declutter the cramped app top bar */
+  .bd-top{gap:10px;padding:0 13px;}
+  .bd-filters{padding:9px 13px;}
+  .bd-grid{padding:12px 13px 16px;gap:12px 10px;}
+  .nav-link-join{display:block;color:var(--peach);font-weight:600;}
+  .transfer-cap{bottom:14px;font-size:12px;padding:0 18px;line-height:1.45;}
+  .fig-body,.cv-body{grid-template-columns:1fr;height:auto;}
+  .fig-left,.cv-rail{display:none;}
+  .fig-canvas{height:220px;}
+  .bp,.cv-panel{border-left:none;border-top:1px solid var(--border-subtle);}
+  .bp-grid,.cv-grid{grid-template-columns:repeat(3,1fr);}
+  .cv-stage{height:200px;}
+  .su-view{height:300px;}.su-win{width:94%;}
+  .su-main{grid-template-columns:1fr;}.su-thumbs{grid-column:1;}
+  .vtimeline{padding-left:56px;}.vt-line{left:15px;}.vt-node{left:-56px;width:32px;height:32px;}.vt-step{padding-bottom:16vh;}
+  .metrics{grid-template-columns:1fr;gap:36px;}.logos{gap:30px;}
+  .section-pad,.problem,.how,.final,.context,.cred{padding:78px 0;}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .btn-peach::before{display:none;}
+  .reveal{opacity:1!important;transform:none!important;}
+}
+</style>
+</head>
+<body>
+
+<!-- custom cursor -->
+<div class="cursor-ring" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+
+<!-- shared image wall (fixed, behind hero + transfer) -->
+<div class="hero-wall-vp" id="heroWallVp" aria-hidden="true"><div class="hero-wall" id="heroWall"></div><div class="hero-scrim" id="heroScrim"></div></div>
+
+<!-- ============================== NAV ============================== -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand" aria-label="Board home">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect class="bar bar-top" x="4" y="6"  width="32" height="8" rx="2" fill="#FFB088"/>
+        <rect class="bar bar-mid" x="4" y="16" width="32" height="8" rx="2" fill="#E67E4A"/>
+        <rect class="bar bar-bot" x="4" y="26" width="32" height="8" rx="2" fill="#b85a28"/>
+      </svg>
+      <span class="brand-name">Board</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a class="nav-link" href="#features">Features</a>
+      <a class="nav-link" href="#how">How it works</a>
+      <a class="nav-link" href="#pricing">Pricing</a>
+      <a class="nav-link nav-link-join" href="#join">Join the waitlist →</a>
+    </nav>
+    <a href="#join" class="btn btn-peach nav-cta">Join waitlist</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============================== HERO ============================== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <h1 class="hero-headline" id="heroHeadline">
+        Every reference you save, <span class="accent">findable again.</span>
+      </h1>
+      <p class="hero-sub reveal" id="heroSub">
+        Board is the inspiration library built for designers — capture anything on the web, and let AI tag it in the language of your craft, so the right image surfaces the moment you need it.
+      </p>
+      <form class="signup reveal" id="heroForm" novalidate>
+        <div class="signup-field">
+          <input type="email" id="heroEmail" placeholder="you@studio.com" autocomplete="email" aria-label="Email address" required />
+        </div>
+        <button type="submit" class="btn btn-peach" id="heroSubmit">Join waitlist</button>
+      </form>
+      <div class="form-msg" id="heroMsg" aria-live="polite"></div>
+      <div class="success-box" id="heroSuccess" role="status">
+        <span class="check">✓</span>
+        <p>You're in. <span>We'll email you when early access opens.</span></p>
+      </div>
+      <p class="hero-hint reveal"><span class="pulse"></span> Everything you’ve saved, in one place — scroll to watch it land in your library</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== TRANSFER SEQUENCE ============================== -->
+<!-- Pinned scroll moment: images are "saved" off the sphere and fly into the dashboard, AI tags typing in. -->
+<section class="transfer" id="transfer">
+  <div class="transfer-stage" id="transferStage">
+    <div class="select-cursor" id="selCursor" aria-hidden="true"></div>
+
+    <!-- SCREENSHOT SLOT: Board dashboard — modeled on the live app (board-2-shvim.web.app), populated with the inspiration set -->
+    <div class="dashboard-mock" id="dashboard" aria-label="Board dashboard preview">
+      <div class="bd-top">
+        <button class="bd-burger" aria-hidden="true"><span></span><span></span><span></span></button>
+        <div class="brand" style="gap:8px;">
+          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true" style="width:22px;height:22px;">
+            <rect x="4" y="6" width="32" height="8" rx="2" fill="#FFB088"/><rect x="4" y="16" width="32" height="8" rx="2" fill="#E67E4A"/><rect x="4" y="26" width="32" height="8" rx="2" fill="#b85a28"/>
+          </svg><span class="brand-name">Board</span>
+        </div>
+        <nav class="bd-nav"><a class="active">All</a><a>Boards</a><a>Canvas</a><a>Clusters</a></nav>
+        <div class="bd-search"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Search by tag, color, mood…<kbd>⌘K</kbd></div>
+        <div class="bd-avatar">M</div>
+      </div>
+      <div class="bd-filters">
+        <span class="bd-fchip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 5h18M6 12h12M10 19h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        <span class="bd-fchip"><span class="star">★</span> Favorites</span>
+        <span class="bd-fchip ct">Images <b>76</b></span>
+        <span class="bd-fchip ct">PDFs <b>13</b></span>
+        <span class="bd-fchip ct">Links <b>5</b></span>
+        <span class="bd-div"></span>
+        <span class="bd-tag">Needs Review</span>
+        <span class="bd-tag">High Contrast Palette</span>
+        <span class="bd-tag">Warm Neutrals</span>
+        <span class="bd-tag">Document Reference</span>
+        <span class="bd-tag">Material Spec</span>
+        <span class="bd-tag">Product Details</span>
+        <span class="bd-tag"><i style="background:#E67E4A"></i>Burnt Orange</span>
+        <span class="bd-tag"><i style="background:#e8e0d2"></i>Cool White</span>
+        <span class="bd-tag"><i style="background:#3a3a3a"></i>Deep Charcoal</span>
+        <span class="bd-tag"><i style="background:#1a1a1a"></i>Soft Black</span>
+        <span class="bd-tag"><i style="background:#b85a28"></i>Terracotta</span>
+      </div>
+      <div class="bd-libhead">Your library · <b>94 items</b></div>
+      <div class="bd-grid" id="dashGrid"><!-- cards populated by JS --></div>
+      <button class="bd-fab" aria-hidden="true">+</button>
+    </div>
+
+    <p class="transfer-cap" id="transferCap">This is what Board does — <b>collect, organize, rediscover</b>, tagged by AI that speaks your design language.</p>
+  </div>
+  <div class="flight-layer" id="flightLayer" aria-hidden="true"></div>
+</section>
+
+<!-- ====================================================================== PAGE BODY -->
+<div class="page-body">
+
+<!-- ============================== PROBLEM ============================== -->
+<section class="problem">
+  <div class="container">
+    <h2 class="section-head" data-split>You save hundreds of images. Then you <span class="accent">never find them again.</span></h2>
+    <p class="reveal">Pinterest is built for everyone. Bookmarks turn to chaos. Desktop folders are invisible to the tools you actually design in. Between collecting inspiration and starting real work, there's a gap — and nothing lives there. Board does.</p>
+  </div>
+</section>
+
+<!-- ============================== FEATURES ============================== -->
+<section class="section-pad" id="features">
+  <div class="container">
+
+    <div class="feature">
+      <div class="feature-text">
+        <div class="feature-num reveal">01 — CAPTURE</div>
+        <h3 class="section-head" data-split>Save any image on the web without leaving the page.</h3>
+        <p class="reveal">A Chrome extension that right-click-saves or hover-saves any image, anywhere — Dezeen, Instagram, a supplier site, a competitor's portfolio. One click, zero decisions. The image goes straight to your library; the details get handled later.</p>
+        <ul class="feature-list reveal">
+          <li>Right-click or hover-save on any website</li>
+          <li>iOS share extension for saving on mobile</li>
+          <li>Auto-assign to your active project board</li>
+        </ul>
+      </div>
+      <div class="feature-visual fcard">
+        <!-- SCREENSHOT SLOT: Chrome extension hover-save UI -->
+        <div class="shot shot-4x3" data-label="Chrome extension — hover save">
+          <div class="shot-dots"><i></i><i></i><i></i></div>
+          <div class="mini-grid" data-fill="3,4,5,8,9,10"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature reverse">
+      <div class="feature-text">
+        <div class="feature-num reveal">02 — INTELLIGENCE</div>
+        <h3 class="section-head" data-split>AI tagging that speaks your design language.</h3>
+        <p class="reveal">Every save is analyzed by Claude and tagged with discipline-specific vocabulary. You don't get "orange wall." You get terracotta accent wall, mid-century modern, warm earth palette. Board tags the aesthetic, not the object — 100+ nuanced color names, mood, era, and material, all searchable.</p>
+        <ul class="feature-list reveal">
+          <li>Discipline-aware: interiors, UI, or fashion vocabulary</li>
+          <li>Color names like burnt orange — never just "orange"</li>
+          <li>Mood, style era, and material, tagged automatically</li>
+        </ul>
+      </div>
+      <div class="feature-visual fcard">
+        <!-- SCREENSHOT SLOT: AI tag breakdown / card flip -->
+        <div class="demo" id="tagDemo">
+          <div class="demo-img"><img data-img="20" alt="Interior inspiration being tagged" loading="lazy" decoding="async"/></div>
+          <div class="demo-row">
+            <span class="label">Pinterest tags it</span>
+            <div class="tags">
+              <span class="tag generic" data-tag>orange</span>
+              <span class="tag generic" data-tag>modern</span>
+              <span class="tag generic" data-tag>furniture</span>
+              <span class="tag generic" data-tag>room</span>
+            </div>
+          </div>
+          <div class="demo-vs">Board tags it</div>
+          <div class="demo-row">
+            <div class="tags">
+              <span class="tag board" data-tag><span class="sw" style="background:#E67E4A"></span>terracotta accent wall</span>
+              <span class="tag board" data-tag>mid-century modern</span>
+              <span class="tag board" data-tag><span class="sw" style="background:#b85a28"></span>warm earth palette</span>
+              <span class="tag board" data-tag>organic texture</span>
+              <span class="tag board" data-tag>1960s revival</span>
+              <span class="tag board" data-tag><span class="sw" style="background:#FFB088"></span>burnt sienna</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-text">
+        <div class="feature-num reveal">03 — ORGANIZE</div>
+        <h3 class="section-head" data-split>A visual-first home for everything you've ever saved.</h3>
+        <p class="reveal">Your entire library as a masonry grid. Filter by AI tags, colors, and moods. A discovery strip surfaces the aesthetic patterns you reach for most. Flip any card to reveal the full tag breakdown, the color palette with hex codes, and the original source.</p>
+        <ul class="feature-list reveal">
+          <li>Filter by color, mood, and style instantly</li>
+          <li>Card flip → palette, hex codes, source attribution</li>
+          <li>Project boards with auto-assign on save</li>
+        </ul>
+      </div>
+      <div class="feature-visual fcard">
+        <!-- SCREENSHOT SLOT: masonry dashboard with color filters -->
+        <div class="shot shot-4x3" data-label="Library — filter by color & mood">
+          <div class="shot-dots"><i></i><i></i><i></i></div>
+          <div class="mini-grid" data-fill="22,23,24,25,26,27,28,29,30"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================== PRODUCT IN CONTEXT ============================== -->
+<section class="context" id="integrations">
+  <div class="container">
+    <div class="context-head">
+      <div class="eyebrow reveal">See it where you work</div>
+      <h2 class="section-head" data-split>Your inspiration, inside the tools you design in.</h2>
+      <p class="reveal">Board doesn't ask you to switch contexts. Your library lives inside Figma, SketchUp, and Canva — search it and drop references straight onto the canvas.</p>
+    </div>
+
+    <!-- Figma -->
+    <div class="pc-row">
+      <div class="pc-text">
+        <div class="pc-badge reveal">Figma plugin</div>
+        <h3 class="section-head" data-split>Search your library without leaving the file.</h3>
+        <p class="reveal">Open the Board panel, search by tag or color, and drag inspiration directly onto your canvas. No more alt-tabbing to a folder of screenshots.</p>
+      </div>
+      <div class="pc-visual">
+        <!-- REAL SCREENSHOT SLOT: Figma + Board plugin — modeled on the live plugin, populated with the inspiration set -->
+        <div class="mock fig">
+          <div class="fig-top">
+            <div class="fmenu"><i class="logo"></i><i></i></div>
+            <div class="fname">Coastal Villa — Untitled</div>
+            <div class="fright"><div class="fplay"></div><span class="fshare">Share</span><div class="bd-avatar" style="width:24px;height:24px;font-size:11px;">J</div></div>
+          </div>
+          <div class="fig-body">
+            <div class="fig-left">
+              <div class="fl-h">Layers</div>
+              <div class="fl-row sel"><i></i>Moodboard / Living</div>
+              <div class="fl-row"><i></i>Reference 01</div>
+              <div class="fl-row"><i></i>Reference 02</div>
+              <div class="fl-row"><i></i>Palette</div>
+              <div class="fl-row"><i></i>Notes</div>
+            </div>
+            <div class="fig-canvas">
+              <div class="fig-frame"><span class="ttl">Moodboard / Living</span><img data-img="14" alt="" loading="lazy" decoding="async"></div>
+              <div class="fig-drag"><img data-img="34" alt="" loading="lazy" decoding="async"><svg class="cur" viewBox="0 0 24 24" fill="#fff" stroke="#0a0a0a" stroke-width="1.2"><path d="M4 2l7 18 2.2-7 6.8-2.2z"/></svg></div>
+            </div>
+            <div class="bp">
+              <div class="bp-tt">&lt;/&gt; Board<span class="x">✕</span></div>
+              <div class="bp-h"><svg viewBox="0 0 40 40" fill="none" style="width:18px;height:18px"><rect x="4" y="6" width="32" height="8" rx="2" fill="#FFB088"/><rect x="4" y="16" width="32" height="8" rx="2" fill="#E67E4A"/><rect x="4" y="26" width="32" height="8" rx="2" fill="#b85a28"/></svg><span class="nm">Board</span><span class="conn">Connected</span></div>
+              <div class="bp-search"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Search tags, colors, mood…</div>
+              <div class="bp-tabs"><div class="t on">★ Favorites</div><div class="t">Boards ▾</div></div>
+              <div class="bp-sub"><span>48 items</span><div class="sort"><span class="on">Recent</span><span>Oldest</span><span>Random</span></div></div>
+              <div class="bp-grid" data-fill="34,38,5,17,40,42,7,24"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SketchUp -->
+    <div class="pc-row reverse">
+      <div class="pc-text">
+        <div class="pc-badge reveal">SketchUp · coming soon</div>
+        <h3 class="section-head" data-split>References pinned beside your model.</h3>
+        <p class="reveal">Pull a saved interior into your modeling viewport and keep it in view as you build — material, mood, and proportion right where you need them.</p>
+      </div>
+      <div class="pc-visual">
+        <!-- REAL SCREENSHOT SLOT: SketchUp + Board extension — modeled on a 3rd-party panel (identic.ai), populated with the inspiration set -->
+        <div class="mock su">
+          <div class="su-menu"><span>File</span><span>Edit</span><span>View</span><span>Camera</span><span>Draw</span><span>Tools</span><span>Window</span><span>Extensions</span><span>Help</span></div>
+          <div class="su-tools"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="su-view">
+            <div class="su-axis"><i class="ax"></i><i class="ay"></i><i class="az"></i></div>
+            <div class="su-win">
+              <div class="su-wh"><svg viewBox="0 0 40 40" fill="none" style="width:20px;height:20px"><rect x="4" y="6" width="32" height="8" rx="2" fill="#FFB088"/><rect x="4" y="16" width="32" height="8" rx="2" fill="#E67E4A"/><rect x="4" y="26" width="32" height="8" rx="2" fill="#b85a28"/></svg><span class="nm">Board</span><span class="rem">Library · 94 references</span><span class="av"></span></div>
+              <div class="su-wb">
+                <div class="su-nav">
+                  <div class="h">Browse</div>
+                  <div class="it on">Library</div>
+                  <div class="it">Boards</div>
+                  <div class="it">Favorites</div>
+                </div>
+                <div class="su-main">
+                  <div class="su-prev"><img data-img="38" alt="" loading="lazy" decoding="async"><div class="cap">Terracotta Accent Wall</div></div>
+                  <div class="su-act">
+                    <a class="primary">⬇&nbsp; Import to SketchUp</a>
+                    <a>⬇&nbsp; Download reference</a>
+                    <a>↗&nbsp; Open in Board</a>
+                  </div>
+                  <div class="su-thumbs" data-fill="14,5,40,22,9"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Canva -->
+    <div class="pc-row">
+      <div class="pc-text">
+        <div class="pc-badge reveal">Canva app · coming soon</div>
+        <h3 class="section-head" data-split>Drop saved inspiration into any design.</h3>
+        <p class="reveal">The Board app sits in Canva's side panel. Browse your tagged library and place references into client decks, moodboards, and presentations in a click.</p>
+      </div>
+      <div class="pc-visual">
+        <!-- REAL SCREENSHOT SLOT: drop a PNG at screenshots/canva.jpg and it replaces the mock automatically -->
+        <img class="pc-shot" src="screenshots/canva.jpg" alt="Board inside Canva" onload="this.closest('.pc-visual').classList.add('shot-ready')">
+        <div class="mock cv">
+          <div class="cv-top">
+            <div class="ci"></div><span class="cm">File</span><span class="cm">Resize</span><span class="cm">Editing</span>
+            <span class="cname">Client moodboard — Multi-design</span>
+            <span class="cpresent">Present</span><span class="cshare">Share</span>
+          </div>
+          <div class="cv-body">
+            <div class="cv-rail">
+              <div class="r"><i></i><span>Elements</span></div>
+              <div class="r"><i></i><span>Text</span></div>
+              <div class="r"><i></i><span>Brand</span></div>
+              <div class="r"><i></i><span>Uploads</span></div>
+              <div class="r on"><i></i><span>Board</span></div>
+              <div class="r"><i></i><span>Apps</span></div>
+            </div>
+            <div class="cv-panel">
+              <div class="cv-ph"><svg viewBox="0 0 40 40" fill="none" style="width:16px;height:16px"><rect x="4" y="6" width="32" height="8" rx="2" fill="#FFB088"/><rect x="4" y="16" width="32" height="8" rx="2" fill="#E67E4A"/><rect x="4" y="26" width="32" height="8" rx="2" fill="#b85a28"/></svg><span class="nm">Board</span><span class="ic">↻ ⋯</span></div>
+              <div class="cv-tabs"><span class="on">All</span><span>Boards</span></div>
+              <div class="cv-pills"><span class="p"><i style="background:#e8e0d2"></i>cool white</span><span class="p"><i style="background:#3a3a3a"></i>deep charcoal</span><span class="p on"><i style="background:#E67E4A"></i>burnt orange</span></div>
+              <div class="cv-lib">Your library · 76 images</div>
+              <div class="cv-grid" data-fill="13,27,9,44,11,16,22,40"></div>
+            </div>
+            <div class="cv-stage">
+              <div class="cv-art">
+                <img class="s2" data-img="40" alt="" loading="lazy" decoding="async">
+                <img data-img="24" alt="" loading="lazy" decoding="async">
+                <img data-img="5" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="cv-pages"><i class="on"></i><i></i><i></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================== HOW IT WORKS ============================== -->
+<section class="how" id="how">
+  <div class="container">
+    <div class="eyebrow reveal">How it works</div>
+    <h2 class="section-head" data-split style="font-size:clamp(28px,4vw,46px);letter-spacing:-0.03em;max-width:18ch;">From a page on the web to a reference on your canvas.</h2>
+    <div class="vtimeline">
+      <div class="vt-line" aria-hidden="true"><div class="vt-progress" id="vtProgress"></div></div>
+      <div class="vt-step"><div class="vt-node" aria-hidden="true"></div><div class="vt-num">1</div>
+        <h4>Save</h4>
+        <p>Right-click or hover-save any image from any website. One click — no folders, no decisions.</p></div>
+      <div class="vt-step"><div class="vt-node" aria-hidden="true"></div><div class="vt-num">2</div>
+        <h4>AI tags it</h4>
+        <p>Claude analyzes the image and tags it with the design vocabulary of your discipline.</p></div>
+      <div class="vt-step"><div class="vt-node" aria-hidden="true"></div><div class="vt-num">3</div>
+        <h4>Find it when you need it</h4>
+        <p>Search, filter, and pull the right reference straight into Figma when the project starts.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CREDIBILITY ============================== -->
+<section class="cred">
+  <div class="container">
+    <p class="cred-tag reveal">Built for designers, by designers — and it knows <span class="accent">what kind of designer you are.</span></p>
+    <div class="logos reveal">
+      <div class="logo-item">
+        <img src="logos/canva.png" alt="Canva" loading="lazy">Canva</div>
+      <div class="logo-item">
+        <img src="logos/figma.png" alt="Figma" loading="lazy">Figma</div>
+      <div class="logo-item">
+        <img src="logos/chrome.png" alt="Chrome" loading="lazy">Chrome</div>
+      <div class="logo-item">
+        <img src="logos/sketchup.png" alt="SketchUp" loading="lazy">SketchUp<span class="soon">Soon</span></div>
+      <div class="logo-item">
+        <img class="apple-glyph" src="logos/apple.svg" alt="App Store" loading="lazy">App Store</div>
+      <div class="logo-item">
+        <img src="logos/googleplay.png" alt="Google Play" loading="lazy">Google Play</div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="num" data-count="100" data-suffix="+">0</div><div class="lbl">Nuanced color names, not just "orange"</div></div>
+      <div class="metric"><div class="num" data-count="3" data-suffix="">0</div><div class="lbl">Design disciplines, each with its own vocabulary</div></div>
+      <div class="metric"><div class="num" data-count="1" data-suffix="">0</div><div class="lbl">Click to save anything you see on the web</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FINAL CTA ============================== -->
+<section class="final" id="join">
+  <div class="final-glow" aria-hidden="true"></div>
+  <div class="container">
+    <div class="eyebrow reveal" id="pricing">Early access</div>
+    <h2 class="section-head" data-split>Stop losing your best inspiration.</h2>
+    <p class="reveal">Join the waitlist and be first in when Board opens. Free during early access — Pro plans come later.</p>
+    <form class="signup reveal" id="finalForm" novalidate>
+      <div class="signup-field">
+        <input type="email" id="finalEmail" placeholder="you@studio.com" autocomplete="email" aria-label="Email address" required />
+      </div>
+      <button type="submit" class="btn btn-peach" id="finalSubmit">Join waitlist</button>
+    </form>
+    <div class="form-msg" id="finalMsg" aria-live="polite" style="text-align:center;"></div>
+    <div class="success-box" id="finalSuccess" role="status">
+      <span class="check">✓</span>
+      <p>You're in. <span>We'll be in touch the moment early access opens.</span></p>
+    </div>
+    <p class="final-count reveal">Join <b id="waitlistCount" data-count="2400" data-suffix="">0</b><b>+</b> designers on the waitlist</p>
+    <p class="pricing-line reveal"><b>Free during early access.</b> Pro plans coming soon.</p>
+  </div>
+</section>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <a href="#top" class="brand" aria-label="Board home">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:26px;height:26px;">
+          <rect x="4" y="6" width="32" height="8" rx="2" fill="#FFB088"/>
+          <rect x="4" y="16" width="32" height="8" rx="2" fill="#E67E4A"/>
+          <rect x="4" y="26" width="32" height="8" rx="2" fill="#b85a28"/>
+        </svg><span class="brand-name">Board</span>
+      </a>
+      <div class="footer-social">
+        <a href="#" aria-label="Board on Twitter"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 3h3.3l-7.2 8.2L23.5 21h-6.6l-5.2-6.8L5.8 21H2.5l7.7-8.8L2 3h6.8l4.7 6.2L18.9 3Zm-1.2 16h1.8L7.1 4.8H5.2L17.7 19Z"/></svg></a>
+        <a href="#" aria-label="Board on Instagram"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7"/><circle cx="17" cy="7" r="1.2" fill="currentColor"/></svg></a>
+      </div>
+    </div>
+    <p class="footer-copy" style="margin-top:24px;">© 2026 Board. Where designers collect, organize, and rediscover their visual inspiration.</p>
+    <p class="built"><span class="dot"></span> Tagging powered by Claude</p>
+  </div>
+</footer>
+
+</div><!-- /.page-body -->
+</main>
+
+<!-- ============================== CDN LIBS ============================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<!-- image wall is pure DOM/CSS; Three.js no longer required -->
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---- environment ---- */
+  var REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var TOUCH   = window.matchMedia("(hover: none),(pointer: coarse)").matches;
+  var hasGSAP = typeof window.gsap !== "undefined";
+  var hasST   = hasGSAP && typeof window.ScrollTrigger !== "undefined";
+  if (hasST) gsap.registerPlugin(ScrollTrigger);
+  if (REDUCED || !hasGSAP) document.body.classList.add("no-anim");
+
+  /* ---- image manifest. Change IMG_COUNT / path to swap the photo set. ---- */
+  var IMG_COUNT = 46;
+  function imgPath(n){ return "images/img_" + String(n).padStart(2,"0") + ".jpg"; }
+  var IMGS = []; for (var k=1;k<=IMG_COUNT;k++) IMGS.push(imgPath(k));
+
+  /* ---- helpers ---- */
+  function clamp01(x){ return x<0?0:x>1?1:x; }
+  function seg(p,a,b){ return clamp01((p-a)/(b-a)); }
+  function smooth(t){ return t*t*(3-2*t); }
+  function lerp(a,b,t){ return a+(b-a)*t; }
+
+  /* ---- fill helpers for mock grids (data-fill="3,4,5") ---- */
+  document.querySelectorAll("[data-fill]").forEach(function(el){
+    el.getAttribute("data-fill").split(",").forEach(function(n){
+      var im = document.createElement("img");
+      im.src = imgPath(parseInt(n,10)); im.alt=""; im.loading="lazy"; im.decoding="async";
+      el.appendChild(im);
+    });
+  });
+  document.querySelectorAll("[data-img]").forEach(function(el){
+    el.src = imgPath(parseInt(el.getAttribute("data-img"),10));
+  });
+
+  /* ---- build dashboard cards: 4 AI-tagged drop targets + library fillers ---- */
+  (function(){
+    var grid = document.getElementById("dashGrid");
+    if (!grid) return;
+    var actions = '<div class="card-actions"><span class="ca star">\u2605</span><span class="ca">\u22EF</span></div>';
+    var drops = [
+      {img:34, title:"Terracotta Sofa, Sage Wall", tags:"terracotta \u00b7 mid-century \u00b7 blush accent \u00b7 sage green",            pal:"#cc4e22,#a53212,#dead9e,#7c9d82,#f3e4d3"},
+      {img:38, title:"Cognac Linen Bedroom",       tags:"cognac linen \u00b7 japandi \u00b7 oak frame \u00b7 limewash wall",             pal:"#55290f,#88745f,#9c9589,#6c655a,#251c15"},
+      {img:40, title:"Emerald Velvet Dining",      tags:"emerald velvet \u00b7 brass accents \u00b7 glam modern \u00b7 round mirror",   pal:"#3a6b50,#b69a5e,#ece7dd,#1c251b,#8a8270"},
+      {img:5,  title:"Brass Dome Pendants",        tags:"brushed brass \u00b7 dome pendant \u00b7 warm metallic \u00b7 statement light", pal:"#916034,#b9925a,#6c4a28,#95836d,#6d655c"}
+    ];
+    drops.forEach(function(d){
+      var c = document.createElement("article");
+      c.className = "bd-card drop-cell";
+      c.setAttribute("data-tags", d.tags); c.setAttribute("data-palette", d.pal); c.setAttribute("data-title", d.title); c.setAttribute("data-landimg", d.img);
+      c.innerHTML =
+        '<div class="bd-card-img card-img drop-img">'+ actions +
+          '<div class="landed"><img alt="" decoding="async"></div>'+
+          '<div class="cell-palette"></div><span class="drop-hint">saving\u2026</span>'+
+        '</div>'+
+        '<div class="bd-card-meta"><div class="bd-card-title"></div><div class="cell-tags"></div></div>';
+      grid.appendChild(c);
+    });
+    var fillers = [
+      [14,"Butter & Oak Kitchen","More info \u2192"],[22,"Warm Neutrals Study","savee.com"],
+      [25,"Mid-Century Lounge","More info \u2192"],[9,"Soft Daylight Bedroom","dezeen.com"],
+      [27,"Boho Plaster Bath","More info \u2192"],[16,"Brass Console Vignette","savee.com"],
+      [44,"Oat Linen Corner","More info \u2192"],[7,"Amber Desk Vignette","More info \u2192"],
+      [30,"Sculptural Staircase","pinterest.com"],[11,"Gallery Wall Study","More info \u2192"],
+      [42,"Leather & Plants","savee.com"],[24,"Grey Boucl\u00e9 Sectional","More info \u2192"],
+      [13,"Tufted Headboard","dezeen.com"],[18,"Clay & Linen Palette","More info \u2192"],
+      [6,"Pendant Glow Dining","More info \u2192"],[19,"Open Shelving Kitchen","savee.com"]
+    ];
+    fillers.forEach(function(f){
+      var c = document.createElement("article"); c.className = "bd-card";
+      c.innerHTML =
+        '<div class="bd-card-img">'+ actions +
+          '<img src="'+imgPath(f[0])+'" alt="" loading="lazy" decoding="async">'+
+        '</div>'+
+        '<div class="bd-card-meta"><div class="bd-card-title">'+f[1]+'</div><div class="bd-card-src">'+f[2]+'</div></div>';
+      grid.appendChild(c);
+    });
+  })();
+
+  /* ============================================================ HEADLINE SPLIT */
+  function splitWords(el){
+    var frag = document.createDocumentFragment();
+    Array.prototype.forEach.call(el.childNodes, function(node){
+      if (node.nodeType===3){
+        node.textContent.split(/(\s+)/).forEach(function(part){
+          if (part.trim()===""){ frag.appendChild(document.createTextNode(part)); return; }
+          var w=document.createElement("span"); w.className="word"; w.textContent=part; frag.appendChild(w);
+        });
+      } else if (node.nodeType===1){
+        var cls=node.className;
+        node.textContent.split(/(\s+)/).forEach(function(part){
+          if (part.trim()===""){ frag.appendChild(document.createTextNode(part)); return; }
+          var w=document.createElement("span"); w.className="word "+cls; w.textContent=part; frag.appendChild(w);
+        });
+      }
+    });
+    el.innerHTML=""; el.appendChild(frag);
+    return el.querySelectorAll(".word");
+  }
+
+  var headline = document.getElementById("heroHeadline");
+  var heroWords = headline ? splitWords(headline) : [];
+
+  if (hasGSAP && !REDUCED){
+    // explicit opacity:1 targets (the .reveal class forces opacity:0, so .from() would animate 0->0)
+    gsap.set(heroWords,{ y:60, opacity:0, rotateX:-15 });
+    gsap.set([ "#heroSub", "#heroForm", ".hero-hint" ],{ y:24, opacity:0 });
+    var tl = gsap.timeline({ delay:0.25, defaults:{ ease:"power4.out" } });
+    tl.to(heroWords,{ y:0, opacity:1, rotateX:0, duration:1.1, stagger:0.05 })
+      .to("#heroSub",{ y:0, opacity:1, duration:0.9 },"-=0.7")
+      .to("#heroForm",{ y:0, opacity:1, duration:0.8 },"-=0.55")
+      .to(".hero-hint",{ y:0, opacity:1, duration:0.7 },"-=0.5");
+  } else {
+    document.querySelectorAll(".hero .reveal").forEach(function(el){ el.style.opacity="1"; });
+  }
+
+  /* ============================================================ IMAGE WALL (phantom-style, DOM/CSS) */
+  var WALL = { vp:null, el:null, cards:[], frozen:false, running:true, raf:null,
+               px:0, py:0, tpx:0, tpy:0, rx:5, ry:0, tRy:0, t:0, scale:1 };
+
+  (function initWall(){
+    var vp = document.getElementById("heroWallVp");
+    var el = document.getElementById("heroWall");
+    if (!vp || !el) return;
+    WALL.vp = vp; WALL.el = el;
+    var isMobile = window.innerWidth < 768;
+
+    // where each save came from — shown phantom-style. logos/<slug>.svg auto-swaps the wordmark if present.
+    var SOURCES = [
+      {n:"Pinterest",s:"pinterest"},{n:"Instagram",s:"instagram"},{n:"Houzz",s:"houzz"},
+      {n:"Dezeen",s:"dezeen"},{n:"ArchDaily",s:"archdaily"},{n:"AD PRO",s:"adpro"},
+      {n:"Material Bank",s:"materialbank"},{n:"Architonic",s:"architonic"},
+      {n:"Design Milk",s:"designmilk"},{n:"Dwell",s:"dwell"}
+    ];
+    var TITLES = ["Terracotta Accent Wall","Japandi Reading Nook","Walnut & Brass Study","Bouclé Lounge Chair",
+      "Butter & Oak Kitchen","Warm Neutrals Study","Mid-Century Lounge","Soft Daylight Bedroom",
+      "Boho Plaster Bath","Brass Console Vignette","Oat Linen Corner","Amber Desk Vignette",
+      "Sculptural Staircase","Gallery Wall Study","Leather & Plants","Clay & Linen Palette",
+      "Pendant Glow Dining","Open Shelving Kitchen","Travertine Bath","Lime-Wash Living"];
+    var TAGS = ["warm minimal","mid-century","organic modern","japandi","material spec","earth palette",
+      "soft daylight","brass accents","matte clay","terracotta","oat white","walnut","sculptural","bouclé"];
+    var YEARS = ["2024","2025","2026","2023"];
+
+    var COLS = isMobile ? 3 : 5, ROWS = isMobile ? 6 : 4;
+    el.style.setProperty("--cols", COLS);
+    for (var i=0;i<COLS*ROWS;i++){
+      var s = SOURCES[i % SOURCES.length], img = (i % IMG_COUNT)+1;
+      var card = document.createElement("article");
+      card.className = "wall-card"; card.dataset.src = imgPath(img);
+      card.innerHTML =
+        '<div class="wc-top"><span class="wc-src" data-logo="'+s.s+'">'+s.n+'</span>'+
+          '<span class="wc-ttl">'+TITLES[i % TITLES.length]+'</span></div>'+
+        '<div class="wc-img"><img src="'+imgPath(img)+'" alt="" loading="'+(i<10?"eager":"lazy")+'" decoding="async"></div>'+
+        '<div class="wc-bot"><span class="wc-tags">'+TAGS[i%TAGS.length]+' · '+TAGS[(i*3+1)%TAGS.length]+'</span>'+
+          '<span class="wc-yr">'+YEARS[i%YEARS.length]+'</span></div>';
+      el.appendChild(card); WALL.cards.push(card);
+    }
+
+    // show an official logo before the wordmark for any slug listed here (drop logos/<slug>.svg + add the slug)
+    var HAVE_LOGOS = { pinterest:1, instagram:1 };
+    WALL.cards.forEach(function(card){
+      var e = card.querySelector(".wc-src"), slug = e.getAttribute("data-logo");
+      if (HAVE_LOGOS[slug]) e.innerHTML = '<img class="lg" src="logos/'+slug+'.svg" alt=""> '+e.textContent;
+    });
+
+    WALL.setTransform = function(){
+      WALL.el.style.transform = "translate(-50%,-50%) rotateX("+WALL.rx+"deg) rotateY("+WALL.ry+"deg) "+
+        "translate3d("+WALL.px+"%,"+WALL.py+"%,0) scale("+WALL.scale+")";
+    };
+
+    if (!TOUCH){
+      window.addEventListener("mousemove", function(e){
+        if (WALL.frozen) return;
+        var nx=(e.clientX/window.innerWidth)*2-1, ny=(e.clientY/window.innerHeight)*2-1;
+        WALL.tpx=-nx*4.4; WALL.tpy=-ny*3.1; WALL.tRy=nx*6.5;
+      }, { passive:true });
+    }
+
+    function loop(){
+      if (!WALL.running) return;
+      WALL.t += 0.0016;
+      if (!WALL.frozen){
+        var dX=Math.sin(WALL.t*0.7)*1.3, dY=Math.cos(WALL.t*0.55)*0.9;
+        WALL.px += ((WALL.tpx+dX)-WALL.px)*0.07;
+        WALL.py += ((WALL.tpy+dY)-WALL.py)*0.07;
+        WALL.ry += (WALL.tRy-WALL.ry)*0.07;
+        WALL.setTransform();
+      }
+      WALL.raf = requestAnimationFrame(loop);
+    }
+    WALL.start = function(){ if(!WALL.running){ WALL.running=true; loop(); } };
+    WALL.stop  = function(){ WALL.running=false; if(WALL.raf) cancelAnimationFrame(WALL.raf); };
+
+    if (hasGSAP && !REDUCED){
+      WALL.setTransform();
+      gsap.to(vp,{ opacity:1, duration:1.4, ease:"power2.out" });
+      gsap.from(WALL.cards,{ opacity:0, y:26, duration:0.7, ease:"power3.out", stagger:0.015, delay:0.2 });
+      loop();
+    } else {
+      vp.style.opacity = "1"; WALL.setTransform();
+      if (!REDUCED) loop();
+    }
+  })();
+
+  /* rect (viewport px) of a wall card's image area */
+  function cardRect(card){
+    var r = (card.querySelector(".wc-img")||card).getBoundingClientRect();
+    return { x:r.left+r.width/2, y:r.top+r.height/2, w:r.width, h:r.height };
+  }
+
+  /* the hero veil fades out in place as you scroll (it never slides off like a panel) */
+  (function(){
+    var scrim = document.getElementById("heroScrim");
+    function f(){
+      var t = clamp01(window.scrollY/(window.innerHeight*0.8));   // 0 at top -> 1 once the veil is gone
+      if (scrim) scrim.style.opacity = String(1 - t);
+      if (WALL.el) WALL.el.style.filter = "brightness(" + (0.78 + 0.22*t) + ")";  // wall sharpens to a full, clear 100%
+    }
+    window.addEventListener("scroll", f, { passive:true }); f();
+  })();
+
+  /* ============================================================ TRANSFER SEQUENCE */
+  (function transfer(){
+    var stage   = document.getElementById("transferStage");
+    var dash    = document.getElementById("dashboard");
+    var cap     = document.getElementById("transferCap");
+    var cursor  = document.getElementById("selCursor");
+    var layer   = document.getElementById("flightLayer");
+    var dropCells = Array.prototype.slice.call(document.querySelectorAll(".drop-cell"));
+    if (!stage || !dash) return;
+
+    // prepare drop cells: palette swatches, tag targets, landed images
+    var dropData = dropCells.map(function(cell){
+      var pal = cell.querySelector(".cell-palette");
+      (cell.getAttribute("data-palette")||"").split(",").forEach(function(hex){
+        if(!hex) return; var i=document.createElement("i"); i.style.background=hex; pal.appendChild(i);
+      });
+      return {
+        cell: cell,
+        tagsText: cell.getAttribute("data-tags")||"",
+        title: cell.getAttribute("data-title")||"",
+        titleEl: cell.querySelector(".bd-card-title"),
+        tagEl: cell.querySelector(".cell-tags"),
+        paletteEl: pal,
+        hint: cell.querySelector(".drop-hint"),
+        landed: cell.querySelector(".landed"),
+        landedImg: cell.querySelector(".landed img"),
+        landImg: parseInt(cell.getAttribute("data-landimg"),10) || 34
+      };
+    });
+
+    /* ---------- REDUCED MOTION / NO-GSAP : static resolve ---------- */
+    if (REDUCED || !hasST){
+      stage.style.height = "auto";
+      stage.style.minHeight = "100vh";
+      dash.style.position="relative"; dash.style.left="auto"; dash.style.top="auto";
+      dash.style.transform="none"; dash.style.opacity="1"; dash.style.margin="100px auto";
+      dropData.forEach(function(d,i){
+        d.landedImg.src = imgPath(d.landImg);
+        d.landed.style.opacity="1";
+        if (d.hint) d.hint.style.opacity="0";
+        if (d.titleEl) d.titleEl.textContent = d.title;
+        d.tagEl.textContent = d.tagsText; d.tagEl.classList.add("done");
+        d.paletteEl.style.opacity="1";
+      });
+      if (cap) cap.style.opacity="1";
+      return;
+    }
+
+    // choose source images for clones (will be overwritten by sphere selection if available)
+    var fallbackSrc = [34,38,40,5];
+    var sel = [];        // {screen:{x,y}, src, planeIndex|null}
+    var clones = [];
+    var cellRects = [];
+    var setupDone = false;
+
+    function buildClones(){
+      layer.innerHTML = "";
+      clones = sel.map(function(s){
+        var c = document.createElement("img");
+        c.className = "flight-clone"; c.src = s.src; c.alt="";
+        layer.appendChild(c); return c;
+      });
+    }
+
+    function pickSelection(){
+      sel = [];
+      if (WALL.cards && WALL.cards.length){
+        WALL.frozen = true;                       // freeze drift so card positions are stable
+        var W = window.innerWidth, H = window.innerHeight;
+        // take the topmost on-screen cards, then spread 4 across the row so they fly down into the board
+        var on = WALL.cards.map(function(card){ return { card:card, r:cardRect(card) }; })
+          .filter(function(o){ return o.r.w > 30 && o.r.x > W*0.14 && o.r.x < W*0.98 && o.r.y > -H*0.05 && o.r.y < H*0.85; })
+          .sort(function(a,b){ return a.r.y - b.r.y; });
+        var top = on.slice(0, Math.min(on.length, 8)).sort(function(a,b){ return a.r.x - b.r.x; });
+        var chosen = [];
+        if (top.length >= 4){ for (var k=0;k<4;k++) chosen.push(top[Math.round(k*(top.length-1)/3)]); }
+        else chosen = top;
+        chosen.forEach(function(o,i){
+          o.card.classList.add("lit");
+          var cs = dropData[i] ? imgPath(dropData[i].landImg) : o.card.dataset.src;  // the image that flies in == the image that gets tagged
+          var cim = o.card.querySelector("img"); if (cim) cim.src = cs;
+          o.card.dataset.src = cs;
+          sel.push({ screen:{x:o.r.x,y:o.r.y}, w:o.r.w, h:o.r.h, src:cs, card:o.card });
+        });
+      }
+      while (sel.length < 4){
+        var i = sel.length;
+        sel.push({ screen:{ x:window.innerWidth*(0.28+0.16*i), y:window.innerHeight*0.26 }, w:150, h:112,
+                   src: imgPath(dropData[i] ? dropData[i].landImg : fallbackSrc[i]), card:null });
+      }
+    }
+
+    function captureCellRects(){
+      // measure drop cells at the dashboard's final (centered) position
+      var prevT = dash.style.transform, prevO = dash.style.opacity;
+      dash.style.transform = "translate(-50%,-50%)"; dash.style.opacity = "1";
+      cellRects = dropData.map(function(d){
+        var r = (d.cell.querySelector('.card-img')||d.cell).getBoundingClientRect();
+        return { x:r.left + r.width/2, y:r.top + r.height/2, w:r.width, h:r.height };
+      });
+      dash.style.transform = prevT; dash.style.opacity = prevO;
+    }
+
+    function setup(){
+      pickSelection();
+      buildClones();
+      captureCellRects();
+      setupDone = true;
+    }
+
+    /* ---------- the scrubbed driver ---------- */
+    function drive(p){
+      if (!setupDone) return;
+
+      // 1) selection — the cursor sweeps the four picks (already peach-lit on the wall)
+      var selP = seg(p, 0.00, 0.16);
+      if (sel.length){
+        var f = selP*sel.length, idx = Math.min(sel.length-1, Math.floor(f)), frac = f-idx;
+        var a = sel[idx].screen, b = sel[Math.min(sel.length-1, idx+1)].screen;
+        cursor.style.transform = "translate("+lerp(a.x,b.x,smooth(frac))+"px,"+lerp(a.y,b.y,smooth(frac))+"px)";
+      }
+      cursor.style.opacity = String(clamp01(selP*3) * (1 - seg(p,0.28,0.40)));
+
+      // 2) the wall eases back (gentle dim + slight blur); the lifted clones carry the highlight
+      var recP = seg(p, 0.18, 0.46);
+      if (WALL.el){ WALL.scale = 1 - 0.09*recP; WALL.setTransform(); }
+      if (WALL.vp){ WALL.vp.style.filter = "blur("+(5*recP)+"px)"; WALL.vp.style.opacity = String(1 - 0.5*recP); }
+
+      // 3) dashboard rises to receive them
+      var riseP = seg(p, 0.34, 0.56);
+      dash.style.opacity = String(smooth(riseP));
+      dash.style.transform = "translate(-50%,-50%) translateY(" + (1-smooth(riseP))*70 + "px)";
+
+      // 4) cards lift off the wall, then glide into the grid — clean crossfade, no blink
+      var liftP = seg(p, 0.16, 0.32);
+      sel.forEach(function(s){ if (s.card) s.card.style.opacity = String(1 - liftP); });
+      clones.forEach(function(c,i){
+        var fly = clamp01((seg(p, 0.32, 0.80) - i*0.07) / 0.72);
+        var s = sel[i].screen, e = cellRects[i] || { x:s.x, y:s.y, w:140, h:112 };
+        var fp = smooth(fly);
+        var w = lerp(sel[i].w||150, e.w, fp), h = lerp(sel[i].h||112, e.h, fp);
+        var x = lerp(s.x, e.x, fp), y = lerp(s.y, e.y, fp) - Math.sin(fly*Math.PI)*72;
+        var lift = 1 + 0.06*liftP*(1-fly);                 // gentle scale-up while still on the wall
+        c.style.width=w+"px"; c.style.height=h+"px";
+        c.style.transform = "translate("+(x-w/2)+"px,"+(y-h/2)+"px) scale("+lift+")";
+        c.style.opacity = String( clamp01(liftP*1.4) * (1 - seg(fly,0.94,1.0)) );
+        var d = dropData[i];
+        if (!d.landedImg.src) d.landedImg.src = sel[i].src;
+        d.landed.style.opacity = String(seg(fly,0.80,0.96));   // landed fully in by 0.96, clone gone by 1.0
+        if (d.hint) d.hint.style.opacity = String(1 - seg(fly,0.2,0.55));
+        if (d.titleEl) d.titleEl.textContent = fly>0.88 ? d.title : "";
+        d.paletteEl.style.opacity = String(seg(fly,0.9,1));
+      });
+
+      // 5) AI tags type in, caption resolves
+      var tagP = seg(p, 0.80, 1.0);
+      dropData.forEach(function(d,i){
+        var full = d.tagsText;
+        var n = Math.round(full.length * seg(tagP, i*0.10, i*0.10+0.72));
+        d.tagEl.textContent = full.slice(0,n);
+        d.tagEl.classList.toggle("done", n>=full.length);
+      });
+      if (cap) cap.style.opacity = String(seg(p,0.86,1));
+    }
+
+    /* ---------- pin + scrub ---------- */
+    var st = ScrollTrigger.create({
+      trigger: "#transfer",
+      start: "top top",
+      end: "+=2600",
+      pin: "#transferStage",
+      pinSpacing: true,
+      scrub: 1,
+      onRefreshInit: function(){ /* reset before measuring */ },
+      onRefresh: function(){ if (setupDone){ captureCellRects(); } },
+      onEnter: function(){ if (!setupDone) setup(); document.body.classList.add("cursor-hidden"); },
+      onEnterBack: function(){ WALL.frozen = true; if (WALL.start) WALL.start(); document.body.classList.add("cursor-hidden"); },
+      onUpdate: function(self){ if (!setupDone) setup(); drive(self.progress); },
+      onLeave: function(){            // scrolled past: pause the wall loop
+        document.body.classList.remove("cursor-hidden");
+        if (WALL.stop) WALL.stop();
+      },
+      onLeaveBack: function(){        // back into hero: restore the wall
+        document.body.classList.remove("cursor-hidden");
+        WALL.frozen = false; WALL.scale = 1;
+        if (WALL.vp){ WALL.vp.style.filter=""; WALL.vp.style.opacity="1"; }
+        if (WALL.el) WALL.setTransform();
+        WALL.cards.forEach(function(c){ c.style.opacity="1"; c.classList.remove("lit"); });
+        if (WALL.start) WALL.start();
+        if (cursor) cursor.style.opacity="0";
+      }
+    });
+
+    // make sure the very first paint of the section is correct
+    ScrollTrigger.addEventListener("refresh", function(){ if (setupDone) drive(st.progress); });
+  })();
+
+  /* ============================================================ SCROLL REVEALS (page body) */
+  if (hasST && !REDUCED){
+    var smallScreen = window.innerWidth < 1024;
+    gsap.utils.toArray("[data-split]").forEach(function(el){
+      var words = splitWords(el);
+      gsap.set(words,{ y:smallScreen?26:50, opacity:0 });
+      gsap.to(words,{ y:0, opacity:1, duration:smallScreen?0.6:0.8, ease:"power3.out", stagger:smallScreen?0.022:0.04,
+        scrollTrigger:{ trigger:el, start:"top 86%" } });
+    });
+    gsap.utils.toArray(".page-body .reveal").forEach(function(el){
+      gsap.set(el,{ y:28, opacity:0 });
+      gsap.to(el,{ y:0, opacity:1, duration:0.8, ease:"power3.out",
+        scrollTrigger:{ trigger:el, start:"top 90%" } });
+    });
+    // feature + product visuals slide in from alternating sides
+    gsap.utils.toArray(".feature, .pc-row").forEach(function(row){
+      var vis = row.querySelector(".feature-visual, .pc-visual");
+      if (!vis) return;
+      if (smallScreen){
+        gsap.set(vis,{ y:42, opacity:0 });
+        gsap.to(vis,{ y:0, opacity:1, duration:0.85, ease:"power3.out",
+          scrollTrigger:{ trigger:row, start:"top 84%" } });
+      } else {
+        var fromX = row.classList.contains("reverse") ? 60 : -60;
+        gsap.set(vis,{ x:fromX, opacity:0 });
+        gsap.to(vis,{ x:0, opacity:1, duration:1, ease:"power3.out",
+          scrollTrigger:{ trigger:row, start:"top 78%" } });
+      }
+    });
+    // parallax on product mockups
+    gsap.utils.toArray(".pc-visual .mock").forEach(function(m){
+      gsap.to(m,{ y:"-7%", ease:"none",
+        scrollTrigger:{ trigger:m, start:"top bottom", end:"bottom top", scrub:true } });
+    });
+    // AI tag demo — one by one
+    var demo = document.getElementById("tagDemo");
+    if (demo){
+      var dtags = demo.querySelectorAll("[data-tag]");
+      gsap.set(dtags,{ scale:0.85, opacity:0, y:8 });
+      gsap.to(dtags,{ scale:1, opacity:1, y:0, duration:0.5, ease:"power2.out", stagger:0.1,
+        scrollTrigger:{ trigger:demo, start:"top 74%" } });
+    }
+    // how-it-works vertical timeline: the line travels with scroll, steps light up in turn
+    var vtProgress = document.getElementById("vtProgress");
+    if (vtProgress){
+      gsap.to(vtProgress,{ height:"100%", ease:"none",
+        scrollTrigger:{ trigger:".vtimeline", start:"top 55%", end:"bottom 70%", scrub:0.4 } });
+      gsap.utils.toArray(".vt-step").forEach(function(step){
+        ScrollTrigger.create({ trigger:step, start:"top 78%", end:"bottom 42%",
+          onToggle:function(self){ step.classList.toggle("active", self.isActive); } });
+      });
+    }
+    // number counters
+    gsap.utils.toArray("[data-count]").forEach(function(el){
+      var target = parseFloat(el.getAttribute("data-count"));
+      var suffix = el.getAttribute("data-suffix")||"";
+      var obj = { v:0 };
+      ScrollTrigger.create({ trigger:el, start:"top 90%", once:true, onEnter:function(){
+        gsap.to(obj,{ v:target, duration:1.5, ease:"power2.out", onUpdate:function(){
+          var val=Math.round(obj.v); el.textContent=(val>=1000?val.toLocaleString():val)+suffix;
+        }});
+      }});
+    });
+  } else {
+    document.querySelectorAll("[data-count]").forEach(function(el){
+      var t=parseFloat(el.getAttribute("data-count")), s=el.getAttribute("data-suffix")||"";
+      el.textContent=(t>=1000?t.toLocaleString():t)+s;
+    });
+    var vtp=document.getElementById("vtProgress"); if(vtp) vtp.style.height="100%";
+    document.querySelectorAll(".vt-step").forEach(function(st){ st.classList.add("active"); });
+  }
+
+  /* ---- sticky nav frosted state ---- */
+  function navScroll(){ document.getElementById("nav").classList.toggle("scrolled", window.scrollY>80); }
+  window.addEventListener("scroll", navScroll, { passive:true }); navScroll();
+
+  /* ============================================================ MOBILE NAV */
+  var nav = document.getElementById("nav"), toggle = document.getElementById("navToggle");
+  toggle.addEventListener("click", function(){
+    var open = nav.classList.toggle("menu-open");
+    toggle.setAttribute("aria-expanded", String(open));
+  });
+  document.querySelectorAll("#navLinks a").forEach(function(a){
+    a.addEventListener("click", function(){ nav.classList.remove("menu-open"); toggle.setAttribute("aria-expanded","false"); });
+  });
+
+  /* ============================================================ CUSTOM CURSOR */
+  if (!TOUCH && hasGSAP && !REDUCED){
+    var dot=document.querySelector(".cursor-dot"), ring=document.querySelector(".cursor-ring");
+    var xTo=gsap.quickTo(ring,"x",{duration:0.4,ease:"power3"}), yTo=gsap.quickTo(ring,"y",{duration:0.4,ease:"power3"});
+    var xDot=gsap.quickTo(dot,"x",{duration:0.12,ease:"power3"}), yDot=gsap.quickTo(dot,"y",{duration:0.12,ease:"power3"});
+    window.addEventListener("mousemove", function(e){ xTo(e.clientX); yTo(e.clientY); xDot(e.clientX); yDot(e.clientY); });
+    document.querySelectorAll("a,button,input,.fcard,.logo-item").forEach(function(el){
+      el.addEventListener("mouseenter", function(){ ring.classList.add("is-hover"); });
+      el.addEventListener("mouseleave", function(){ ring.classList.remove("is-hover"); });
+    });
+  }
+
+  /* ============================================================ EMAIL SIGNUP
+     localStorage fallback. To wire Firebase Firestore, replace the saveEmail body with:
+       firebase.firestore().collection('waitlist').add({ email, timestamp:Date.now(), source:'landing' })
+  ============================================================ */
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function saveEmail(email){
+    try{ var l=JSON.parse(localStorage.getItem("board_waitlist")||"[]");
+      if(l.indexOf(email)<0){ l.push(email); localStorage.setItem("board_waitlist",JSON.stringify(l)); }
+    }catch(e){}
+  }
+  function wireForm(formId,emailId,btnId,msgId,successId){
+    var form=document.getElementById(formId), input=document.getElementById(emailId),
+        btn=document.getElementById(btnId), msg=document.getElementById(msgId), success=document.getElementById(successId);
+    if(!form) return;
+    function setMsg(t,c){ msg.textContent=t; msg.className="form-msg"+(c?" "+c:""); }
+    input.addEventListener("input", function(){ form.classList.remove("invalid"); if(msg.classList.contains("error")) setMsg("",""); });
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      var email=input.value.trim();
+      if(!EMAIL_RE.test(email)){ form.classList.add("invalid"); setMsg("Please enter a valid email address.","error"); return; }
+      btn.disabled=true; var original=btn.innerHTML; btn.innerHTML='<span class="spinner"></span>'; setMsg("","");
+      setTimeout(function(){
+        saveEmail(email); btn.innerHTML="You're in&nbsp;✓";
+        setTimeout(function(){
+          form.style.display="none"; success.classList.add("show");
+          if(hasGSAP && !REDUCED) gsap.from(success,{ y:14, opacity:0, duration:0.5, ease:"power3.out" });
+          btn.disabled=false; btn.innerHTML=original;
+        },650);
+      },850);
+    });
+  }
+  wireForm("heroForm","heroEmail","heroSubmit","heroMsg","heroSuccess");
+  wireForm("finalForm","finalEmail","finalSubmit","finalMsg","finalSuccess");
+
+  /* refresh ScrollTrigger after fonts + images settle */
+  if (hasST){
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
+    window.addEventListener("load", function(){ ScrollTrigger.refresh(); });
+  }
+})();
+</script>
+</body>
+</html>

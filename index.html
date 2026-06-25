@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Board — Where designers collect their visual inspiration</title>
 <meta name="description" content="Board is where designers collect, organize, and rediscover their visual inspiration — tagged by AI that speaks their design language." />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect x='4' y='6' width='32' height='8' rx='2' fill='%23FFB088'/%3E%3Crect x='4' y='16' width='32' height='8' rx='2' fill='%23E67E4A'/%3E%3Crect x='4' y='26' width='32' height='8' rx='2' fill='%23b85a28'/%3E%3C/svg%3E" />
+<link rel="icon" href="logos/board-favicon-master.svg" />
+<link rel="apple-touch-icon" href="logos/board-app-icon-ios-180.svg" />
 
 <!-- Google Fonts: DM Sans -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -502,11 +503,16 @@ section{position:relative;}
   .signup{flex-direction:column;align-items:center;}
   .signup .signup-field{width:100%;}
   .signup .btn-peach{width:auto;padding:13px 36px;}
-  .dashboard-mock{width:94vw;height:74vh;height:min(78svh,640px);}
+  .dashboard-mock{width:94vw;height:78vh;height:min(82svh,720px);}
   .bd-search,.bd-libhead{display:none;}            /* declutter the cramped app top bar */
-  .bd-top{gap:10px;padding:0 13px;}
-  .bd-filters{padding:9px 13px;}
-  .bd-grid{padding:12px 13px 16px;gap:12px 10px;}
+  .bd-top{gap:10px;padding:0 13px;height:46px;}
+  .bd-filters{padding:8px 13px;}
+  .bd-grid{padding:10px 13px 14px;gap:10px 10px;}
+  .bd-card-img{aspect-ratio:1/1;}                  /* squarer cards leave room for the tag rows */
+  .cell-tags{font-size:10px;line-height:1.35;white-space:normal;}
+  .bd-card-title{font-size:11.5px;}
+  .bd-fab{display:none;}                           /* + button was covering the bottom-right card's tags */
+  .transfer-cap{display:none;}                     /* not enough room on a phone; the visual speaks for itself */
   .nav-link-join{display:block;color:var(--peach);font-weight:600;}
   .transfer-cap{bottom:14px;font-size:12px;padding:0 18px;line-height:1.45;}
   .fig-body,.cv-body{grid-template-columns:1fr;height:auto;}
@@ -541,11 +547,7 @@ section{position:relative;}
 <header class="nav" id="nav">
   <div class="container nav-inner">
     <a href="#top" class="brand" aria-label="Board home">
-      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect class="bar bar-top" x="4" y="6"  width="32" height="8" rx="2" fill="#FFB088"/>
-        <rect class="bar bar-mid" x="4" y="16" width="32" height="8" rx="2" fill="#E67E4A"/>
-        <rect class="bar bar-bot" x="4" y="26" width="32" height="8" rx="2" fill="#b85a28"/>
-      </svg>
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path class="bar bar-top" d="M28 18 L61.67 18 A10.33 10.33 0 0 1 61.67 38.67 L28 38.67 Z" fill="#FF9866"/><path class="bar bar-mid" d="M28 39.67 L61.67 39.67 A10.33 10.33 0 0 1 61.67 60.33 L28 60.33 Z" fill="#FF9866"/><path class="bar bar-bot" d="M28 61.33 L61.67 61.33 A10.33 10.33 0 0 1 61.67 82 L28 82 Z" fill="#FF9866"/></svg>
       <span class="brand-name">Board</span>
     </a>
     <nav class="nav-links" id="navLinks">
@@ -600,9 +602,7 @@ section{position:relative;}
       <div class="bd-top">
         <button class="bd-burger" aria-hidden="true"><span></span><span></span><span></span></button>
         <div class="brand" style="gap:8px;">
-          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true" style="width:22px;height:22px;">
-            <rect x="4" y="6" width="32" height="8" rx="2" fill="#FFB088"/><rect x="4" y="16" width="32" height="8" rx="2" fill="#E67E4A"/><rect x="4" y="26" width="32" height="8" rx="2" fill="#b85a28"/>
-          </svg><span class="brand-name">Board</span>
+          <svg viewBox="0 0 100 100" fill="none" aria-hidden="true" style="width:22px;height:22px;"><path class="bar bar-top" d="M28 18 L61.67 18 A10.33 10.33 0 0 1 61.67 38.67 L28 38.67 Z" fill="#FF9866"/><path class="bar bar-mid" d="M28 39.67 L61.67 39.67 A10.33 10.33 0 0 1 61.67 60.33 L28 60.33 Z" fill="#FF9866"/><path class="bar bar-bot" d="M28 61.33 L61.67 61.33 A10.33 10.33 0 0 1 61.67 82 L28 82 Z" fill="#FF9866"/></svg><span class="brand-name">Board</span>
         </div>
         <nav class="bd-nav"><a class="active">All</a><a>Boards</a><a>Canvas</a><a>Clusters</a></nav>
         <div class="bd-search"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Search by tag, color, mood…<kbd>⌘K</kbd></div>
@@ -773,7 +773,7 @@ section{position:relative;}
             </div>
             <div class="bp">
               <div class="bp-tt">&lt;/&gt; Board<span class="x">✕</span></div>
-              <div class="bp-h"><svg viewBox="0 0 40 40" fill="none" style="width:18px;height:18px"><rect x="4" y="6" width="32" height="8" rx="2" fill="#FFB088"/><rect x="4" y="16" width="32" height="8" rx="2" fill="#E67E4A"/><rect x="4" y="26" width="32" height="8" rx="2" fill="#b85a28"/></svg><span class="nm">Board</span><span class="conn">Connected</span></div>
+              <div class="bp-h"><svg viewBox="0 0 100 100" fill="none" style="width:18px;height:18px"><path class="bar bar-top" d="M28 18 L61.67 18 A10.33 10.33 0 0 1 61.67 38.67 L28 38.67 Z" fill="#FF9866"/><path class="bar bar-mid" d="M28 39.67 L61.67 39.67 A10.33 10.33 0 0 1 61.67 60.33 L28 60.33 Z" fill="#FF9866"/><path class="bar bar-bot" d="M28 61.33 L61.67 61.33 A10.33 10.33 0 0 1 61.67 82 L28 82 Z" fill="#FF9866"/></svg><span class="nm">Board</span><span class="conn">Connected</span></div>
               <div class="bp-search"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Search tags, colors, mood…</div>
               <div class="bp-tabs"><div class="t on">★ Favorites</div><div class="t">Boards ▾</div></div>
               <div class="bp-sub"><span>48 items</span><div class="sort"><span class="on">Recent</span><span>Oldest</span><span>Random</span></div></div>
@@ -799,7 +799,7 @@ section{position:relative;}
           <div class="su-view">
             <div class="su-axis"><i class="ax"></i><i class="ay"></i><i class="az"></i></div>
             <div class="su-win">
-              <div class="su-wh"><svg viewBox="0 0 40 40" fill="none" style="width:20px;height:20px"><rect x="4" y="6" width="32" height="8" rx="2" fill="#FFB088"/><rect x="4" y="16" width="32" height="8" rx="2" fill="#E67E4A"/><rect x="4" y="26" width="32" height="8" rx="2" fill="#b85a28"/></svg><span class="nm">Board</span><span class="rem">Library · 94 references</span><span class="av"></span></div>
+              <div class="su-wh"><svg viewBox="0 0 100 100" fill="none" style="width:20px;height:20px"><path class="bar bar-top" d="M28 18 L61.67 18 A10.33 10.33 0 0 1 61.67 38.67 L28 38.67 Z" fill="#FF9866"/><path class="bar bar-mid" d="M28 39.67 L61.67 39.67 A10.33 10.33 0 0 1 61.67 60.33 L28 60.33 Z" fill="#FF9866"/><path class="bar bar-bot" d="M28 61.33 L61.67 61.33 A10.33 10.33 0 0 1 61.67 82 L28 82 Z" fill="#FF9866"/></svg><span class="nm">Board</span><span class="rem">Library · 94 references</span><span class="av"></span></div>
               <div class="su-wb">
                 <div class="su-nav">
                   <div class="h">Browse</div>
@@ -849,7 +849,7 @@ section{position:relative;}
               <div class="r"><i></i><span>Apps</span></div>
             </div>
             <div class="cv-panel">
-              <div class="cv-ph"><svg viewBox="0 0 40 40" fill="none" style="width:16px;height:16px"><rect x="4" y="6" width="32" height="8" rx="2" fill="#FFB088"/><rect x="4" y="16" width="32" height="8" rx="2" fill="#E67E4A"/><rect x="4" y="26" width="32" height="8" rx="2" fill="#b85a28"/></svg><span class="nm">Board</span><span class="ic">↻ ⋯</span></div>
+              <div class="cv-ph"><svg viewBox="0 0 100 100" fill="none" style="width:16px;height:16px"><path class="bar bar-top" d="M28 18 L61.67 18 A10.33 10.33 0 0 1 61.67 38.67 L28 38.67 Z" fill="#FF9866"/><path class="bar bar-mid" d="M28 39.67 L61.67 39.67 A10.33 10.33 0 0 1 61.67 60.33 L28 60.33 Z" fill="#FF9866"/><path class="bar bar-bot" d="M28 61.33 L61.67 61.33 A10.33 10.33 0 0 1 61.67 82 L28 82 Z" fill="#FF9866"/></svg><span class="nm">Board</span><span class="ic">↻ ⋯</span></div>
               <div class="cv-tabs"><span class="on">All</span><span>Boards</span></div>
               <div class="cv-pills"><span class="p"><i style="background:#e8e0d2"></i>cool white</span><span class="p"><i style="background:#3a3a3a"></i>deep charcoal</span><span class="p on"><i style="background:#E67E4A"></i>burnt orange</span></div>
               <div class="cv-lib">Your library · 76 images</div>
@@ -945,11 +945,7 @@ section{position:relative;}
   <div class="container">
     <div class="footer-inner">
       <a href="#top" class="brand" aria-label="Board home">
-        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:26px;height:26px;">
-          <rect x="4" y="6" width="32" height="8" rx="2" fill="#FFB088"/>
-          <rect x="4" y="16" width="32" height="8" rx="2" fill="#E67E4A"/>
-          <rect x="4" y="26" width="32" height="8" rx="2" fill="#b85a28"/>
-        </svg><span class="brand-name">Board</span>
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:26px;height:26px;"><path class="bar bar-top" d="M28 18 L61.67 18 A10.33 10.33 0 0 1 61.67 38.67 L28 38.67 Z" fill="#FF9866"/><path class="bar bar-mid" d="M28 39.67 L61.67 39.67 A10.33 10.33 0 0 1 61.67 60.33 L28 60.33 Z" fill="#FF9866"/><path class="bar bar-bot" d="M28 61.33 L61.67 61.33 A10.33 10.33 0 0 1 61.67 82 L28 82 Z" fill="#FF9866"/></svg><span class="brand-name">Board</span>
       </a>
       <div class="footer-social">
         <a href="#" aria-label="Board on Twitter"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 3h3.3l-7.2 8.2L23.5 21h-6.6l-5.2-6.8L5.8 21H2.5l7.7-8.8L2 3h6.8l4.7 6.2L18.9 3Zm-1.2 16h1.8L7.1 4.8H5.2L17.7 19Z"/></svg></a>
@@ -1356,10 +1352,11 @@ section{position:relative;}
     }
 
     /* ---------- pin + scrub ---------- */
+    var pinEnd = (window.innerWidth < 768) ? "+=1500" : "+=2600";
     var st = ScrollTrigger.create({
       trigger: "#transfer",
       start: "top top",
-      end: "+=2600",
+      end: pinEnd,
       pin: "#transferStage",
       pinSpacing: true,
       scrub: 1,

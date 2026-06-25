@@ -1,0 +1,19 @@
+<svg width="180" height="180" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Board app icon">
+  <defs>
+    <linearGradient id="gBack" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE2CF"/><stop offset="1" stop-color="#FFC2A0"/></linearGradient>
+    <linearGradient id="gMid" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFCBA6"/><stop offset="1" stop-color="#FFA070"/></linearGradient>
+    <linearGradient id="gFront" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB080"/><stop offset="1" stop-color="#F0823E"/></linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="30" result="b"/>
+      <feFlood flood-color="#FF8A3D" flood-opacity="0.6"/>
+      <feComposite in2="b" operator="in" result="g"/>
+      <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1024" height="1024" fill="#0A0A0A"/>
+  <g filter="url(#glow)">
+    <rect x="267" y="267" width="380" height="380" rx="84" fill="url(#gBack)"/>
+    <rect x="322" y="322" width="380" height="380" rx="84" fill="url(#gMid)"/>
+    <rect x="377" y="377" width="380" height="380" rx="84" fill="url(#gFront)"/>
+  </g>
+</svg>

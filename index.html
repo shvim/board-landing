@@ -532,6 +532,136 @@ section{position:relative;}
   .btn-peach::before{display:none;}
   .reveal{opacity:1!important;transform:none!important;}
 }
+
+/* ============================== COLLABORATION ============================== */
+.collab{position:relative;background:var(--bg);}
+.collab-stage{position:relative;min-height:100vh;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:clamp(14px,2.4vh,30px);padding:clamp(20px,4vh,54px) 20px;}
+.collab-stage::before{content:"";position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);
+  width:min(900px,90vw);height:min(900px,90vw);border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(230,126,74,.13),transparent 62%);filter:blur(10px);z-index:0;}
+.collab-head{position:relative;z-index:2;text-align:center;max-width:640px;}
+.collab-head .eyebrow{margin-bottom:12px;}
+.collab-head h2{font-size:clamp(23px,3.4vw,40px);font-weight:700;letter-spacing:-0.03em;line-height:1.08;}
+.collab-head h2 .accent{background:var(--peach-gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+
+/* --- devices row --- */
+.collab-devices{position:relative;z-index:2;display:flex;align-items:flex-end;justify-content:center;
+  gap:clamp(14px,3vw,52px);width:100%;}
+.cdev{position:relative;flex-shrink:0;filter:drop-shadow(0 26px 50px rgba(0,0,0,.55));
+  opacity:0;transform:translateY(26px);}
+.no-anim .cdev{opacity:1;transform:none;}
+/* desktop browser */
+.cdev-desktop{width:clamp(300px,40vh,452px);}
+.cdev-desktop .cdev-frame{border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.1);
+  background:#1c1c1e;}
+.cdev-bar{display:flex;align-items:center;gap:7px;padding:8px 11px;background:#2a2a2c;}
+.cdev-bar .tl{display:flex;gap:5px;}
+.cdev-bar .tl i{width:9px;height:9px;border-radius:50%;background:#4a4a4c;}
+.cdev-bar .tl i:nth-child(1){background:#ff5f57;}.cdev-bar .tl i:nth-child(2){background:#febc2e;}.cdev-bar .tl i:nth-child(3){background:#28c840;}
+.cdev-url{flex:1;text-align:center;font-size:10.5px;color:#9a9a9c;background:#1c1c1e;
+  border-radius:6px;padding:4px 10px;max-width:210px;margin:0 auto;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.cdev-desktop .cdev-screen{display:block;position:relative;}
+.cdev-screen img.cdev-shot{display:block;width:100%;height:auto;}
+/* phone */
+.cdev-phone{width:clamp(118px,15.5vh,166px);}
+.cdev-phone .cdev-frame{border-radius:24px;padding:6px;background:#0a0a0a;
+  border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 0 0 1.5px #2a2a2c;position:relative;}
+.cdev-phone .cdev-notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);
+  width:34%;height:12px;background:#0a0a0a;border-radius:0 0 9px 9px;z-index:3;}
+.cdev-phone .cdev-screen{border-radius:18px;overflow:hidden;position:relative;}
+.cdev-phone{transform:translateY(26px);}
+.cdev-phone.p-left{margin-bottom:clamp(6px,3vh,40px);}
+.cdev-phone.p-right{margin-bottom:clamp(14px,5vh,72px);}
+.cdev-desktop{margin-bottom:0;}
+
+/* hotspot — clean image overlaid on the screenshot, seamless until it lifts */
+.chot{position:absolute;overflow:hidden;border-radius:3px;z-index:2;
+  box-shadow:0 0 0 0 rgba(230,126,74,0);transition:box-shadow .35s ease;}
+.chot img{display:block;width:100%;height:100%;object-fit:cover;}
+.chot.armed{box-shadow:0 0 0 2.5px var(--peach),0 0 26px rgba(230,126,74,.6);}
+.chot .chot-saved{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(14,14,14,.55);opacity:0;transition:opacity .3s ease;}
+.chot .chot-saved svg{width:26px;height:26px;}
+.chot.saved .chot-saved{opacity:1;}
+
+/* presence pill */
+.cpill{position:absolute;z-index:6;display:inline-flex;align-items:center;gap:6px;
+  padding:5px 11px 5px 8px;border-radius:100px;font-size:12px;font-weight:600;color:#fff;
+  background:rgba(20,20,20,.82);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.14);
+  white-space:nowrap;box-shadow:0 8px 22px rgba(0,0,0,.5);animation:cfloat 3.4s ease-in-out infinite;}
+.cpill .cdot{width:8px;height:8px;border-radius:50%;box-shadow:0 0 0 3px rgba(255,255,255,.12);}
+.cpill .ccur{position:absolute;bottom:-13px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5));}
+.cpill.pill-lisa{top:-16px;right:-10px;}.cpill.pill-lisa .cdot{background:#FF9866;} .cpill.pill-lisa .ccur{left:-8px;}
+.cpill.pill-michael{top:-16px;left:-12px;}.cpill.pill-michael .cdot{background:#E8B04B;} .cpill.pill-michael .ccur{right:-6px;transform:scaleX(-1);}
+.cpill.pill-monica{top:-16px;right:-12px;}.cpill.pill-monica .cdot{background:#D98C7A;} .cpill.pill-monica .ccur{left:-6px;}
+@keyframes cfloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+.cpill.pill-michael{animation-delay:-1.1s;}.cpill.pill-monica{animation-delay:-2.2s;}
+
+/* --- shared board --- */
+.collab-board{position:relative;z-index:2;width:clamp(320px,52vh,620px);max-width:94vw;
+  background:linear-gradient(180deg,#161616,#111);border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;box-shadow:0 30px 70px rgba(0,0,0,.5);overflow:hidden;
+  opacity:0;transform:translateY(30px);}
+.no-anim .collab-board{opacity:1;transform:none;}
+.cb-top{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,.06);}
+.cb-title{display:flex;flex-direction:column;line-height:1.25;}
+.cb-title b{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.01em;}
+.cb-title span{font-size:11px;color:#8a8a8a;}
+.cb-members{margin-left:auto;display:flex;align-items:center;}
+.cb-av{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;
+  color:#1a0f08;border:2px solid #141414;margin-left:-8px;transition:transform .3s ease,box-shadow .3s ease;}
+.cb-av.a-lisa{background:#FF9866;}.cb-av.a-michael{background:#E8B04B;}.cb-av.a-monica{background:#D98C7A;}
+.cb-av.pop{transform:translateY(-2px) scale(1.12);box-shadow:0 0 0 2px rgba(255,255,255,.25),0 6px 16px rgba(0,0,0,.4);}
+.cb-shared{margin-left:10px;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--peach-light);background:rgba(230,126,74,.12);border:1px solid rgba(230,126,74,.3);
+  padding:4px 9px;border-radius:20px;}
+.cb-grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px 16px 18px;
+  min-height:clamp(150px,26vh,240px);}
+.cbc-cell{position:relative;border-radius:9px;overflow:hidden;background:rgba(255,255,255,.03);
+  border:1px dashed rgba(255,255,255,.09);aspect-ratio:3/4;}
+.cbc-cell.filled{border-style:solid;border-color:rgba(255,255,255,.08);}
+.cbc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s ease;}
+.cbc-cell.filled .cbc-img{opacity:1;}
+.cbc-meta{position:absolute;left:0;right:0;bottom:0;padding:16px 8px 7px;font-size:10px;font-weight:600;
+  color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.72));opacity:0;transform:translateY(4px);
+  transition:opacity .4s ease .1s,transform .4s ease .1s;display:flex;align-items:center;gap:5px;}
+.cbc-cell.filled .cbc-meta{opacity:1;transform:none;}
+.cbc-meta .md{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.cb-empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;color:#5c5c5c;font-size:13px;pointer-events:none;transition:opacity .4s ease;}
+.cb-empty svg{width:26px;height:26px;opacity:.6;}
+.collab-board.has-items .cb-empty{opacity:0;}
+
+/* flight layer */
+.collab-flight{position:fixed;inset:0;z-index:60;pointer-events:none;}
+.cfly{position:absolute;overflow:hidden;border-radius:6px;opacity:0;will-change:transform,width,height,left,top;
+  box-shadow:0 26px 60px rgba(0,0,0,.6),0 0 0 2px var(--peach),0 0 30px rgba(230,126,74,.5);}
+.cfly img{display:block;width:100%;height:100%;object-fit:cover;}
+
+@media (max-width:900px){
+  .collab-devices{gap:clamp(8px,2vw,20px);}
+  .cdev-desktop{width:clamp(230px,52vw,330px);}
+  .cdev-phone{width:clamp(90px,20vw,120px);}
+}
+@media (max-width:600px){
+  .collab-stage{gap:14px;justify-content:flex-start;padding-top:46px;}
+  .collab-head h2{font-size:22px;}
+  .collab-devices{gap:5px;align-items:flex-end;}
+  .cdev-desktop{width:min(53vw,246px);}
+  .cdev-phone{width:min(19.5vw,90px);}
+  .cdev-phone.p-left,.cdev-phone.p-right{margin-bottom:10px;}
+  .cpill{font-size:9.5px;padding:3px 7px 3px 5px;gap:4px;}
+  .cpill .cdot{width:6px;height:6px;}
+  .cpill.pill-michael{left:0;}.cpill.pill-monica{right:0;}
+  .cpill.pill-lisa{right:-4px;}
+  .cpill .ccur{bottom:-11px;}
+  .cb-title b{font-size:13px;}
+  .cb-shared{display:none;}
+  .cb-grid{gap:7px;padding:11px 12px 14px;}
+  .cbc-meta{font-size:8.5px;padding:12px 5px 5px;}
+}
 </style>
 </head>
 <body>
@@ -869,6 +999,89 @@ section{position:relative;}
     </div>
 
   </div>
+</section>
+
+<!-- ============================== COLLABORATION ============================== -->
+<section class="collab" id="collab">
+  <div class="collab-stage" id="collabStage">
+
+    <div class="collab-head">
+      <div class="eyebrow">Collaboration</div>
+      <h2 data-split>One board. Your whole team <span class="accent">collecting into it.</span></h2>
+    </div>
+
+    <!-- three people, three sites -->
+    <div class="collab-devices" id="collabDevices">
+
+      <!-- MICHAEL · Instagram (left phone) -->
+      <figure class="cdev cdev-phone p-left" data-person="michael">
+        <div class="cdev-frame">
+          <span class="cdev-notch" aria-hidden="true"></span>
+          <div class="cdev-screen">
+            <img class="cdev-shot" src="images/collab-scr-instagram.jpg" alt="Instagram feed" loading="lazy" decoding="async">
+            <span class="chot" id="hotMichael" style="left:11.5%;top:15.5%;width:35%;height:31%;">
+              <img src="images/collab-img-instagram.jpg" alt="" loading="lazy" decoding="async">
+              <span class="chot-saved"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#E67E4A"/><path d="M7 12.5l3.2 3.2L17 9" stroke="#1a0f08" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </span>
+          </div>
+        </div>
+        <span class="cpill pill-michael"><span class="cdot"></span>Michael<svg class="ccur" width="12" height="12" viewBox="0 0 12 12" fill="#E8B04B"><path d="M1 1l10 4-4 1.4L5.4 11 1 1z"/></svg></span>
+      </figure>
+
+      <!-- LISA · Pinterest (center desktop) -->
+      <figure class="cdev cdev-desktop" data-person="lisa">
+        <div class="cdev-frame">
+          <div class="cdev-bar"><span class="tl"><i></i><i></i><i></i></span><span class="cdev-url">pinterest.com</span></div>
+          <div class="cdev-screen">
+            <img class="cdev-shot" src="images/collab-scr-pinterest.jpg" alt="Pinterest board" loading="lazy" decoding="async">
+            <span class="chot" id="hotLisa" style="left:38.5%;top:30%;width:16%;height:40%;">
+              <img src="images/collab-img-pinterest.jpg" alt="" loading="lazy" decoding="async">
+              <span class="chot-saved"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#E67E4A"/><path d="M7 12.5l3.2 3.2L17 9" stroke="#1a0f08" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </span>
+          </div>
+        </div>
+        <span class="cpill pill-lisa"><span class="cdot"></span>Lisa<svg class="ccur" width="12" height="12" viewBox="0 0 12 12" fill="#FF9866"><path d="M1 1l10 4-4 1.4L5.4 11 1 1z"/></svg></span>
+      </figure>
+
+      <!-- MONICA · Architectural Digest (right phone) -->
+      <figure class="cdev cdev-phone p-right" data-person="monica">
+        <div class="cdev-frame">
+          <span class="cdev-notch" aria-hidden="true"></span>
+          <div class="cdev-screen">
+            <img class="cdev-shot" src="images/collab-scr-ad.jpg" alt="Architectural Digest article" loading="lazy" decoding="async">
+            <span class="chot" id="hotMonica" style="left:10.5%;top:29%;width:79%;height:34%;">
+              <img src="images/collab-img-ad.jpg" alt="" loading="lazy" decoding="async">
+              <span class="chot-saved"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#E67E4A"/><path d="M7 12.5l3.2 3.2L17 9" stroke="#1a0f08" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </span>
+          </div>
+        </div>
+        <span class="cpill pill-monica"><span class="cdot"></span>Monica<svg class="ccur" width="12" height="12" viewBox="0 0 12 12" fill="#D98C7A"><path d="M1 1l10 4-4 1.4L5.4 11 1 1z"/></svg></span>
+      </figure>
+
+    </div>
+
+    <!-- the one shared board -->
+    <div class="collab-board" id="collabBoard">
+      <div class="cb-top">
+        <svg viewBox="0 0 100 100" fill="none" aria-hidden="true" style="width:22px;height:22px;flex-shrink:0;"><path d="M28 18 L61.67 18 A10.33 10.33 0 0 1 61.67 38.67 L28 38.67 Z" fill="#FF9866"/><path d="M28 39.67 L61.67 39.67 A10.33 10.33 0 0 1 61.67 60.33 L28 60.33 Z" fill="#FF9866"/><path d="M28 61.33 L61.67 61.33 A10.33 10.33 0 0 1 61.67 82 L28 82 Z" fill="#FF9866"/></svg>
+        <div class="cb-title"><b>215 Union Square</b><span id="cbCount">0 items · shared board</span></div>
+        <div class="cb-members">
+          <span class="cb-av a-lisa" id="avLisa">L</span>
+          <span class="cb-av a-michael" id="avMichael">M</span>
+          <span class="cb-av a-monica" id="avMonica">M</span>
+        </div>
+        <span class="cb-shared">Shared</span>
+      </div>
+      <div class="cb-grid" id="cbGrid">
+        <div class="cbc-cell" data-cell="0"><img class="cbc-img" src="images/collab-img-pinterest.jpg" alt="" loading="lazy" decoding="async"><span class="cbc-meta"><span class="md" style="background:#FF9866"></span>Lisa · Pinterest</span></div>
+        <div class="cbc-cell" data-cell="1"><img class="cbc-img" src="images/collab-img-instagram.jpg" alt="" loading="lazy" decoding="async"><span class="cbc-meta"><span class="md" style="background:#E8B04B"></span>Michael · Instagram</span></div>
+        <div class="cbc-cell" data-cell="2"><img class="cbc-img" src="images/collab-img-ad.jpg" alt="" loading="lazy" decoding="async"><span class="cbc-meta"><span class="md" style="background:#D98C7A"></span>Monica · AD</span></div>
+        <div class="cb-empty" id="cbEmpty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 15l5-5 4 4 3-3 6 6"/></svg>No items in this board yet</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="collab-flight" id="collabFlight" aria-hidden="true"></div>
 </section>
 
 <!-- ============================== HOW IT WORKS ============================== -->
@@ -1515,6 +1728,102 @@ section{position:relative;}
   }
   wireForm("heroForm","heroEmail","heroSubmit","heroMsg","heroSuccess");
   wireForm("finalForm","finalEmail","finalSubmit","finalMsg","finalSuccess");
+
+  /* ============================== COLLABORATION SEQUENCE ============================== */
+  (function collab(){
+    var section = document.getElementById("collab");
+    if (!section) return;
+    var stage   = document.getElementById("collabStage");
+    var board   = document.getElementById("collabBoard");
+    var empty   = document.getElementById("cbEmpty");
+    var countEl = document.getElementById("cbCount");
+    var flightL = document.getElementById("collabFlight");
+    var devices = Array.prototype.slice.call(section.querySelectorAll(".cdev"));
+
+    var specs = [
+      { hot:"hotLisa",    cell:0, av:"avLisa",    dot:"#FF9866", s:0.12, e:0.40, src:"images/collab-img-pinterest.jpg" },
+      { hot:"hotMichael", cell:1, av:"avMichael", dot:"#E8B04B", s:0.34, e:0.62, src:"images/collab-img-instagram.jpg" },
+      { hot:"hotMonica",  cell:2, av:"avMonica",  dot:"#D98C7A", s:0.56, e:0.84, src:"images/collab-img-ad.jpg" }
+    ];
+    var cells = Array.prototype.slice.call(section.querySelectorAll(".cbc-cell"));
+
+    // build the three flight clones once
+    specs.forEach(function(sp){
+      sp.hotEl  = document.getElementById(sp.hot);
+      sp.cellEl = cells[sp.cell];
+      sp.avEl   = document.getElementById(sp.av);
+      var fly = document.createElement("div"); fly.className = "cfly";
+      var im  = document.createElement("img"); im.src = sp.src; im.alt = ""; im.decoding = "async";
+      fly.appendChild(im); flightL.appendChild(fly); sp.fly = fly;
+    });
+
+    function clamp01(x){ return x < 0 ? 0 : x > 1 ? 1 : x; }
+    function ease(t){ return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; } // easeInOutCubic
+
+    // static fallback (reduced motion / no GSAP): just show the finished board
+    function fillAll(){
+      devices.forEach(function(d){ d.style.opacity=1; d.style.transform="none"; });
+      board.style.opacity=1; board.style.transform="none"; board.classList.add("has-items");
+      specs.forEach(function(sp){ sp.cellEl.classList.add("filled"); sp.hotEl.classList.add("saved"); sp.avEl.classList.add("pop"); });
+      countEl.textContent = "3 items · shared board";
+    }
+    if (REDUCED || !hasGSAP || !hasST){ fillAll(); return; }
+
+    // entrance reveal (before pin)
+    ScrollTrigger.create({ trigger: section, start: "top 74%", once:true, onEnter:function(){
+      gsap.to(devices, { opacity:1, y:0, duration:0.7, stagger:0.12, ease:"power3.out" });
+      gsap.to(board,   { opacity:1, y:0, duration:0.7, delay:0.18, ease:"power3.out" });
+    }});
+
+    var shown = false;
+    function drive(p){
+      if (!shown){ // guarantee visible once the pin is active
+        gsap.set(devices, { opacity:1, y:0 }); gsap.set(board, { opacity:1, y:0 }); shown = true;
+      }
+      var filled = 0;
+      for (var i=0;i<specs.length;i++){
+        var sp = specs[i];
+        var sub = clamp01((p - sp.s)/(sp.e - sp.s));
+        var landed = sub >= 0.999;
+        var flying = sub > 0.001 && sub < 0.999;
+
+        // hotspot state
+        sp.hotEl.classList.toggle("armed", sub > 0.02 && sub < 0.9);
+        sp.hotEl.classList.toggle("saved", sub >= 0.9);
+        // cell + avatar
+        sp.cellEl.classList.toggle("filled", sub >= 0.82);
+        sp.avEl.classList.toggle("pop", sub >= 0.82);
+        if (sub >= 0.82) filled++;
+
+        if (!flying){ sp.fly.style.opacity = 0; continue; }
+
+        // measure source (hotspot) + destination (cell) in viewport coords
+        var s = sp.hotEl.getBoundingClientRect();
+        var d = sp.cellEl.getBoundingClientRect();
+        var e = ease(sub);
+        var lift = Math.sin(sub * Math.PI) * (window.innerHeight * 0.12);
+        var w = s.width  + (d.width  - s.width ) * e;
+        var h = s.height + (d.height - s.height) * e;
+        var x = (s.left + (d.left - s.left) * e) + (s.width - w)/2;
+        var y = (s.top  + (d.top  - s.top ) * e) + (s.height - h)/2 - lift;
+
+        var op = sub < 0.10 ? sub/0.10 : (sub > 0.85 ? clamp01((0.999 - sub)/0.149) : 1);
+        var st = sp.fly.style;
+        st.opacity = op; st.left = x+"px"; st.top = y+"px"; st.width = w+"px"; st.height = h+"px";
+      }
+      board.classList.toggle("has-items", filled >= 1 || p > 0.12);
+      countEl.textContent = (filled) + (filled===1 ? " item · shared board" : " items · shared board");
+    }
+
+    var pinEnd = (window.innerWidth < 768) ? "+=1500" : "+=2400";
+    ScrollTrigger.create({
+      trigger: section, start: "top top", end: pinEnd,
+      pin: stage, scrub: 1, anticipatePin: 1,
+      onUpdate: function(self){ drive(self.progress); },
+      onRefresh: function(self){ drive(self.progress); }
+    });
+    drive(0);
+  })();
 
   /* refresh ScrollTrigger after fonts + images settle */
   if (hasST){

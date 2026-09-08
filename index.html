@@ -482,7 +482,9 @@ section{position:relative;}
 
 /* ============================================================ RESPONSIVE */
 @media (max-width:1023px){
-  .feature,.pc-row{grid-template-columns:1fr;gap:40px;padding:50px 0;}
+  .feature,.pc-row{grid-template-columns:minmax(0,1fr);gap:40px;padding:50px 0;}
+  /* Product mockup min-content widths must not widen the mobile page. */
+  .pc-row > *{min-width:0;}
   .feature.reverse .feature-visual,.feature.reverse .feature-text,
   .pc-row.reverse .pc-visual,.pc-row.reverse .pc-text{order:initial;}
   .metrics{gap:16px;}
@@ -637,15 +639,15 @@ section{position:relative;}
 
 @media (max-width:900px){
   .collab-devices{gap:clamp(8px,2vw,20px);}
-  .cdev-desktop{width:clamp(230px,52vw,330px);}
-  .cdev-phone{width:clamp(90px,20vw,120px);}
+  .cdev-desktop{width:min(53%,330px);}
+  .cdev-phone{width:min(19.5%,120px);}
 }
 @media (max-width:600px){
   .collab-stage{gap:14px;justify-content:flex-start;padding-top:46px;}
   .collab-head h2{font-size:22px;}
   .collab-devices{gap:5px;align-items:flex-end;}
-  .cdev-desktop{width:min(53vw,246px);}
-  .cdev-phone{width:min(19.5vw,90px);}
+  .cdev-desktop{width:min(53%,246px);}
+  .cdev-phone{width:min(19.5%,90px);}
   .cdev-phone.p-left,.cdev-phone.p-right{margin-bottom:10px;}
   .cpill{font-size:9.5px;padding:3px 7px 3px 5px;gap:4px;}
   .cpill .cdot{width:6px;height:6px;}

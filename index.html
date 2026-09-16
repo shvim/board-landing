@@ -421,6 +421,8 @@ section{position:relative;}
 .vt-line{position:absolute;left:21px;top:16px;bottom:16px;width:2px;background:var(--border-subtle);}
 .vt-progress{position:absolute;left:0;top:0;width:100%;height:0;background:var(--peach-gradient);box-shadow:0 0 14px rgba(230,126,74,.55);will-change:height;}
 .vt-step{position:relative;padding-bottom:26vh;opacity:.28;transform:translateY(14px);transition:opacity .55s var(--ease-out),transform .55s var(--ease-out);}
+.how{scroll-margin-top:84px;}
+.how.anchor-arrival .vt-step{opacity:1;transform:none;}
 .vt-step:last-child{padding-bottom:0;}
 .vt-step.active{opacity:1;transform:none;}
 .vt-node{position:absolute;left:-74px;top:4px;width:36px;height:36px;border-radius:50%;background:var(--bg);
@@ -1669,6 +1671,18 @@ section{position:relative;}
   });
   document.querySelectorAll("#navLinks a").forEach(function(a){
     a.addEventListener("click", function(){ nav.classList.remove("menu-open"); toggle.setAttribute("aria-expanded","false"); });
+  });
+  var howSection = document.getElementById("how");
+  var howArrivalTimer;
+  document.querySelectorAll('a[href="#how"]').forEach(function(a){
+    a.addEventListener("click", function(){
+      if (!howSection) return;
+      howSection.classList.add("anchor-arrival");
+      window.clearTimeout(howArrivalTimer);
+      howArrivalTimer = window.setTimeout(function(){
+        howSection.classList.remove("anchor-arrival");
+      }, 1400);
+    });
   });
 
   /* ============================================================ CUSTOM CURSOR */

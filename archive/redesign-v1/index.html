@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Loupe — Never lose the one you know you saw</title>
+<meta name="description" content="Loupe is the visual library for interior designers and studios. Save from Chrome or your iPhone, and Loupe tags every image the way a designer sees it, so you can find it again just by describing it. Free to use.">
+<meta name="theme-color" content="#0e0e0e">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shvim.github.io/board-landing/">
+<meta property="og:title" content="Loupe — Never lose the one you know you saw">
+<meta property="og:description" content="The visual library for interior designers and studios. Save anything. Find it by describing it. Free to use.">
+<meta property="og:image" content="https://shvim.github.io/board-landing/images/img_34.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="../../docs/assets/loupe-favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../docs/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../docs/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="../../docs/assets/apple-touch-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap">
+<link rel="stylesheet" href="css/site.css">
+<noscript><style>.nav{background:rgba(14,14,14,.92)}@media (min-width:960px){.how-stage{display:none}.how-grid{grid-template-columns:1fr}.how-step,.how-step:first-child,.how-step:last-child{min-height:0;padding:0;display:grid;grid-template-columns:5fr 7fr;gap:64px;align-items:center}.how-step+.how-step{margin-top:96px}.hs-text{opacity:1}.how-step .scene{aspect-ratio:1/.9}}</style></noscript>
+<script>if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('anim');setTimeout(function(){if(!window.__loupe)document.documentElement.classList.add('anim-off')},3500)}</script>
+</head>
+<body>
+
+<!-- Icon sprite: Lucide (ISC), stroke 1.75 -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-chev-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></symbol>
+  <symbol id="i-crop" viewBox="0 0 24 24"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></symbol>
+  <symbol id="i-pointer" viewBox="0 0 24 24"><path d="M4.04 4.69a.5.5 0 0 1 .65-.65l16 6.5a.5.5 0 0 1-.06.95l-6.13 1.58a2 2 0 0 0-1.43 1.43l-1.58 6.13a.5.5 0 0 1-.95.06z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+  <symbol id="i-message" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M6 3l14 9-14 9V3z"/></symbol>
+  <symbol id="i-panel" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M15 3v18"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.59 2.59A2 2 0 0 0 11.17 2H4a2 2 0 0 0-2 2v7.17a2 2 0 0 0 .59 1.42l8.7 8.7a2.43 2.43 0 0 0 3.42 0l6.58-6.58a2.43 2.43 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============================== NAV ============================== -->
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="lk nav-logo" aria-label="Loupe home"><i class="s"></i><i class="s"></i><i class="b"></i><i class="s"></i><span class="w">loupe</span></a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#studios">Studios</a>
+      <a href="#integrations">Integrations</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost btn-sm nav-signin" data-href="signin" href="https://board-2-shvim.web.app/">Sign in</a>
+      <a class="btn btn-brand btn-sm" data-href="signup" href="https://board-2-shvim.web.app/">Start free</a>
+      <button class="nav-menu" id="navMenu" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><svg class="i"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="sheet" id="sheet" hidden>
+  <nav class="sheet-links" aria-label="Menu">
+    <a href="#how">How it works</a>
+    <a href="#studios">Studios</a>
+    <a href="#integrations">Integrations</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <div class="sheet-cta">
+    <a class="btn btn-brand btn-lg" data-href="signup" href="https://board-2-shvim.web.app/">Start free</a>
+    <a class="btn btn-secondary btn-lg" data-href="signin" href="https://board-2-shvim.web.app/">Sign in</a>
+    <p class="micro">Free to use — not a trial.</p>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ============================== HERO ============================== -->
+<section class="hero" id="top">
+  <div class="hero-wall" id="heroWall" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <p class="hero-eyebrow" data-rise>The visual library for interior designers and studios</p>
+    <h1 class="hero-h1" id="heroH1">Never lose the one <span class="dim">you know you saw.</span></h1>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="hero-sub" data-rise>Save from any site or your iPhone in one tap. Loupe tags every image the way a designer sees it — color, material, era, mood — so you find it again just by describing it.</p>
+        <div class="hero-ctas" data-rise>
+          <a class="btn btn-brand btn-lg" data-href="signup" href="https://board-2-shvim.web.app/">Start free</a>
+          <a class="btn btn-secondary btn-lg" href="#how">See how it works</a>
+        </div>
+        <p class="micro" data-rise>Free to use — not a trial. Chrome, iPhone and web.</p>
+
+        <!-- Picture-in-picture: real screen recording when provided (CONFIG.DEMO_VIDEO), animated fallback otherwise -->
+        <figure class="pip" id="pip" data-rise>
+          <button class="pip-frame" id="pipBtn" type="button" aria-label="Watch Loupe save an image">
+            <span class="pip-video" id="pipVideo"></span>
+            <span class="pip-fallback" id="pipFallback" aria-hidden="true">
+              <span class="pf-page">
+                <span class="pf-url">dezeen.com</span>
+                <span class="pf-lines"><i></i><i></i></span>
+                <span class="pf-img"><img src="../../images/t/img_38.jpg" alt=""><span class="pf-badge"><span class="pf-badge-dot"></span></span></span>
+              </span>
+              <span class="pf-pop">
+                <span class="pf-pop-row"><img src="../../images/t/img_38.jpg" alt=""><span><b>Saving to</b>Hartley bedroom</span></span>
+                <span class="pf-save"><span class="pf-save-l">Save</span><span class="pf-save-d"><svg class="i"><use href="#i-check"/></svg>Saved</span></span>
+              </span>
+              <svg class="pf-cursor i" viewBox="0 0 24 24"><use href="#i-pointer"/></svg>
+            </span>
+          </button>
+          <figcaption class="pip-cap"><span class="pip-dot"></span><span id="pipCap">Saving from Chrome, in real time</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="hero-demo" data-rise>
+        <div class="app" id="app" aria-hidden="true">
+          <div class="app-top">
+            <svg class="i app-burger"><use href="#i-menu"/></svg>
+            <span class="lk app-logo"><i class="s"></i><i class="s"></i><i class="b"></i><i class="s"></i><span class="w">loupe</span></span>
+            <span class="app-toggle"><span class="on">All</span><span>Boards</span></span>
+            <span class="app-search" id="appSearch"><svg class="i"><use href="#i-search"/></svg><span class="app-q" id="appQ"></span><span class="app-caret"></span><span class="app-ph" id="appPh">Search by color, material, mood…</span><kbd>⌘K</kbd></span>
+            <span class="avatar">M</span>
+          </div>
+          <div class="app-chips">
+            <span class="chip ico"><svg class="i"><use href="#i-filter"/></svg></span>
+            <span class="chip"><svg class="i"><use href="#i-star"/></svg>Favorites</span>
+            <span class="chip">Warm neutrals</span>
+            <span class="chip">Cognac leather</span>
+            <span class="chip">Brushed brass</span>
+            <span class="chip">Japandi</span>
+            <span class="chip"><i class="sw" style="background:#7B9D82"></i>Sage</span>
+            <span class="chip"><i class="sw" style="background:#D05326"></i>Terracotta</span>
+            <span class="chip"><i class="sw" style="background:#E9E2D6"></i>Bone</span>
+          </div>
+          <div class="app-head"><b id="appHeadT">Your library</b><span class="count" id="appCount">248</span></div>
+          <div class="app-grid" id="appGrid">
+            <div class="tile" data-n="21"><img src="../../images/t/img_21.jpg" alt="" width="360" height="450" decoding="async"><span class="tile-cap">Cognac Leather Lounge<span>cognac leather · rattan pendant · mid-century</span></span></div>
+            <div class="tile" data-n="40"><img src="../../images/t/img_40.jpg" alt="" width="360" height="450" decoding="async"><span class="tile-cap">Emerald Velvet Dining<span>emerald velvet · brass · glam modern</span></span></div>
+            <div class="tile" data-n="38"><img src="../../images/t/img_38.jpg" alt="" width="360" height="450" decoding="async"><span class="tile-cap">Rust Linen Bedroom<span>limewash wall · rust linen · oak · japandi</span></span></div>
+            <div class="tile" data-n="20"><img src="../../images/t/img_20.jpg" alt="" width="360" height="450" decoding="async"><span class="tile-cap">Sage Calm Living<span>sage green wall · knit pouf · warm wood</span></span></div>
+            <div class="tile" data-n="27"><img src="../../images/t/img_27.jpg" alt="" width="360" height="450" decoding="async"><span class="tile-cap">Macramé and Cognac<span>cognac leather · macramé · boho</span></span></div>
+            <div class="tile" data-n="5"><img src="../../images/t/img_05.jpg" alt="" width="360" height="450" decoding="async"><span class="tile-cap">Brass Dome Pendants<span>brushed brass · dome pendant · warm metallic</span></span></div>
+            <div class="tile" data-n="9"><img src="../../images/t/img_09.jpg" alt="" width="360" height="450" decoding="async"><span class="tile-cap">Emerald Console Vignette<span>emerald green · white brick · pampas</span></span></div>
+            <div class="tile" data-n="16"><img src="../../images/t/img_16.jpg" alt="" width="360" height="450" decoding="async"><span class="tile-cap">Oak Mirror Bedroom<span>round oak mirror · walnut bed · calm</span></span></div>
+            <div class="tile" data-n="34"><img src="../../images/t/img_34.jpg" alt="" width="360" height="450" decoding="async"><span class="tile-cap">Terracotta Sofa, Sage Wall<span>terracotta tweed · sage green · mid-century</span></span></div>
+            <div class="tile" data-n="10"><img src="../../images/t/img_10.jpg" alt="" width="360" height="450" decoding="async"><span class="tile-cap">Shaker Kitchen, Leather Pulls<span>white shaker · hex tile · leather pulls</span></span></div>
+            <div class="tile" data-n="44"><img src="../../images/t/img_44.jpg" alt="" width="360" height="450" decoding="async"><span class="tile-cap">Teal Gallery Living<span>cognac leather · deep teal · gallery wall</span></span></div>
+            <div class="tile" data-n="8"><img src="../../images/t/img_08.jpg" alt="" width="360" height="450" decoding="async"><span class="tile-cap">Emerald Lounge Chairs<span>emerald velvet · steel windows · floor lamp</span></span></div>
+            <div class="tile" data-n="28"><img src="../../images/t/img_28.jpg" alt="" width="360" height="450" decoding="async"><span class="tile-cap">Monochrome Oak Bedroom<span>oak floor · black and white rug · minimal</span></span></div>
+            <div class="tile" data-n="30"><img src="../../images/t/img_30.jpg" alt="" width="360" height="450" decoding="async"><span class="tile-cap">Oak Stair, Brass Glow<span>oak staircase · brass pendants · black rail</span></span></div>
+            <div class="tile" data-n="46"><img src="../../images/t/img_46.jpg" alt="" width="360" height="450" decoding="async"><span class="tile-cap">Sage Open Kitchen<span>cognac leather · sage green wall · open plan</span></span></div>
+            <div class="tile" data-n="37"><img src="../../images/t/img_37.jpg" alt="" width="360" height="450" decoding="async"><span class="tile-cap">Channel-Tufted Bedroom<span>channel tufting · brass chandelier · chevron</span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sources" aria-label="Save from anywhere">
+    <span class="sources-l">Save from</span>
+    <div class="marquee"><div class="marquee-track">
+      <span>Instagram</span><span>Pinterest</span><span>Dezeen</span><span>Architectural Digest</span><span>Houzz</span><span>1stDibs</span><span>Remodelista</span><span>Showroom sites</span><span>Your camera roll</span><span>Screenshots</span>
+      <span aria-hidden="true">Instagram</span><span aria-hidden="true">Pinterest</span><span aria-hidden="true">Dezeen</span><span aria-hidden="true">Architectural Digest</span><span aria-hidden="true">Houzz</span><span aria-hidden="true">1stDibs</span><span aria-hidden="true">Remodelista</span><span aria-hidden="true">Showroom sites</span><span aria-hidden="true">Your camera roll</span><span aria-hidden="true">Screenshots</span>
+    </div></div>
+  </div>
+</section>
+
+<!-- ============================== THE DIFFERENCE: the loupe ============================== -->
+<section class="sec diff" id="difference">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="label" data-rise>The difference</p>
+      <h2 class="h2" data-split>Pinterest sees “orange.” <span class="dim">You see <em>terracotta.</em></span></h2>
+      <p class="lede" data-rise>Loupe was tuned on how designers actually describe a room. Every save gets the color names, materials, era and mood you'd use yourself — and you can add your own tags on top.</p>
+    </header>
+
+    <div class="lens-grid">
+      <div class="lens-stage" data-rise>
+        <div class="lens-img" id="lensImg">
+          <img id="lensPhoto" src="../../images/img_34.jpg" alt="Terracotta tweed sofa with a blush cushion against a sage green wall" width="600" height="750">
+          <div class="lens-spots" id="lensSpots"></div>
+          <div class="lens" id="lens" aria-hidden="true"><div class="lens-zoom" id="lensZoom"></div></div>
+          <div class="lens-tip" id="lensTip" aria-live="polite"><span class="lt-k" id="lensK">Material</span><span class="lt-v" id="lensV">Terracotta tweed</span></div>
+        </div>
+        <p class="lens-hint"><span class="hint-fine">Move the loupe over the photo</span><span class="hint-touch">Tap a point on the photo</span></p>
+      </div>
+
+      <div class="tagpanel" data-rise>
+        <div class="tp-picks" role="tablist" aria-label="Example rooms" id="lensPicks"></div>
+
+        <div class="tp-generic">
+          <p class="tp-k">What a generic tagger sees</p>
+          <p class="tp-generic-v" id="tpGeneric"></p>
+        </div>
+
+        <div class="tp-card">
+          <div class="tp-card-h"><span class="lk"><i class="s"></i><i class="s"></i><i class="b"></i><i class="s"></i><span class="w">loupe</span></span><span class="tp-card-t">sees</span></div>
+          <div class="tp-block"><p class="tp-k">Primary</p><p class="tp-primary" id="tpPrimary"></p></div>
+          <div class="tp-block"><p class="tp-k">Details</p><p class="tp-detail" id="tpDetail"></p></div>
+          <div class="tp-block"><p class="tp-k">Mood</p><p class="tp-mood" id="tpMood"></p></div>
+          <div class="tp-block"><p class="tp-k">Palette</p><div class="tp-pal" id="tpPal"></div><div class="tp-paln" id="tpPalN"></div></div>
+          <div class="tp-block">
+            <p class="tp-k">Your tags</p>
+            <div class="tp-custom" id="tpCustom">
+              <span class="ctag">Hartley — option B</span>
+              <form class="ctag-add" id="ctagForm"><label class="sr" for="ctagIn">Add a tag</label><svg class="i"><use href="#i-plus"/></svg><input id="ctagIn" type="text" maxlength="28" placeholder="Add tag" autocomplete="off"></form>
+            </div>
+          </div>
+        </div>
+
+        <p class="tp-search"><svg class="i"><use href="#i-search"/></svg><span>Later, search <b id="tpQuery">“rust sofa, sage wall”</b> and it's the first result.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== HOW IT WORKS: save from anywhere ============================== -->
+<section class="sec how" id="how">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="label" data-rise>How it works</p>
+      <h2 class="h2" data-split>Save it the second you see it. <span class="dim">Loupe does the filing.</span></h2>
+    </header>
+
+    <div class="how-grid">
+      <ol class="how-steps">
+        <li class="how-step" data-step="0">
+          <div class="hs-text">
+            <p class="hs-n">On any website</p>
+            <h3 class="h3">The Chrome extension</h3>
+            <p>Hover any image and hit Save. Crop to the detail, circle what matters, choose a board — without leaving the page.</p>
+            <a class="btn btn-secondary" data-href="chrome" href="https://board-2-shvim.web.app/"><img src="../../logos/chrome.png" alt="" width="18" height="18">Add to Chrome</a>
+          </div>
+          <div class="scene sc-chrome" data-scene="0" aria-hidden="true">
+            <div class="br">
+              <div class="br-bar"><span class="br-dots"><i></i><i></i><i></i></span><span class="br-url">archdigest.com/story/hartley-house</span><span class="br-ext"><span class="appicon"></span></span></div>
+              <div class="br-page">
+                <div class="br-lines"><i style="width:38%"></i><i style="width:72%"></i><i style="width:64%"></i></div>
+                <div class="br-img"><img src="../../images/img_10.jpg" alt="" loading="lazy"><span class="qs-badge"><span></span></span></div>
+                <div class="br-lines"><i style="width:80%"></i><i style="width:58%"></i></div>
+              </div>
+              <div class="ext">
+                <div class="ext-h"><span class="lk"><i class="s"></i><i class="s"></i><i class="b"></i><i class="s"></i><span class="w">loupe</span></span><svg class="i"><use href="#i-x"/></svg></div>
+                <div class="ext-img">
+                  <img src="../../images/img_10.jpg" alt="" loading="lazy">
+                  <svg class="ext-stroke" viewBox="0 0 100 100" preserveAspectRatio="none"><path pathLength="1" d="M50 70 C 58 73, 59 86, 49 91 C 40 95, 28 90, 28 81 C 28 72, 37 67, 48 69"/></svg>
+                </div>
+                <div class="ext-tools"><span><svg class="i"><use href="#i-crop"/></svg></span><span class="on"><svg class="i"><use href="#i-pen"/></svg></span><span><svg class="i"><use href="#i-undo"/></svg></span></div>
+                <p class="ext-k">Saving to</p>
+                <div class="ext-board"><img src="../../images/t/img_40.jpg" alt=""><span>Hartley kitchen</span><svg class="i"><use href="#i-check"/></svg></div>
+                <div class="ext-save"><span class="es-l">Save</span><span class="es-s"><span class="spin"></span>Saving…</span><span class="es-d"><svg class="i"><use href="#i-check"/></svg>Saved to Hartley kitchen</span></div>
+              </div>
+              <svg class="cursor i" viewBox="0 0 24 24"><use href="#i-pointer"/></svg>
+            </div>
+          </div>
+        </li>
+
+        <li class="how-step" data-step="1">
+          <div class="hs-text">
+            <p class="hs-n">In any app on your iPhone</p>
+            <h3 class="h3">The share sheet</h3>
+            <p>On Instagram, Pinterest or Safari, tap Share, then Loupe. It's saved before the story ends.</p>
+            <a class="btn btn-secondary" data-href="appstore" href="https://board-2-shvim.web.app/"><img src="../../logos/apple.svg" alt="" width="16" height="18" class="inv">Get the iPhone app</a>
+          </div>
+          <div class="scene sc-share" data-scene="1" aria-hidden="true">
+            <div class="phone">
+              <span class="island"></span>
+              <div class="ph-screen">
+                <div class="post-h"><i></i><span><b></b><b></b></span></div>
+                <div class="post-img"><img src="../../images/img_44.jpg" alt="" loading="lazy"></div>
+                <div class="post-a"><svg class="i"><use href="#i-heart"/></svg><svg class="i"><use href="#i-message"/></svg><svg class="i pa-share"><use href="#i-share"/></svg></div>
+                <div class="post-l"><i style="width:70%"></i><i style="width:45%"></i></div>
+                <div class="share">
+                  <span class="grab"></span>
+                  <div class="share-apps"><span class="sa"><i></i><b></b></span><span class="sa"><i></i><b></b></span><span class="sa sa-loupe"><span class="appicon"></span><b>Loupe</b></span><span class="sa"><i></i><b></b></span></div>
+                  <div class="share-rows"><i></i><i></i><i></i></div>
+                </div>
+                <div class="scard">
+                  <div class="scard-h"><span class="lk"><i class="s"></i><i class="s"></i><i class="b"></i><i class="s"></i><span class="w">loupe</span></span></div>
+                  <div class="scard-row"><img src="../../images/t/img_44.jpg" alt=""><span><b>Saved to</b>Hartley living</span><span class="btn-mini sec">Change</span></div>
+                  <div class="scard-tags">Cognac leather sofa · Deep teal wall · <em>moody</em></div>
+                  <span class="btn-mini pri">Done</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="how-step" data-step="2">
+          <div class="hs-text">
+            <p class="hs-n">From your camera roll</p>
+            <h3 class="h3">The Loupe app</h3>
+            <p>Showroom photos, site visits, screenshots. Add them with one tap and watch them get tagged.</p>
+          </div>
+          <div class="scene sc-app" data-scene="2" aria-hidden="true">
+            <div class="phone">
+              <span class="island"></span>
+              <div class="ph-screen">
+                <div class="pa-top"><svg class="i"><use href="#i-menu"/></svg><span class="lk"><i class="s"></i><i class="s"></i><i class="b"></i><i class="s"></i><span class="w">loupe</span></span><span class="pa-count">248</span><span class="avatar sm">M</span></div>
+                <div class="pa-grid">
+                  <span class="pa-tile pa-new"><img src="../../images/t/img_12.jpg" alt=""><span class="tagging"><i></i>Tagging…</span></span>
+                  <span class="pa-tile"><img src="../../images/t/img_34.jpg" alt=""></span>
+                  <span class="pa-tile"><img src="../../images/t/img_05.jpg" alt=""></span>
+                  <span class="pa-tile"><img src="../../images/t/img_38.jpg" alt=""></span>
+                  <span class="pa-tile"><img src="../../images/t/img_20.jpg" alt=""></span>
+                  <span class="pa-tile"><img src="../../images/t/img_21.jpg" alt=""></span>
+                </div>
+                <span class="fab"><svg class="i"><use href="#i-plus"/></svg></span>
+                <div class="pa-tabs"><span class="on"><svg class="i"><use href="#i-grid"/></svg>All</span><span><svg class="i"><use href="#i-image"/></svg>Boards</span><span><svg class="i"><use href="#i-search"/></svg>Search</span></div>
+                <div class="pa-sheet">
+                  <span class="grab"></span>
+                  <p class="pas-t">Whitewashed Oak Stool</p>
+                  <p class="pas-p">Counter stool · Whitewashed oak · Scandinavian</p>
+                  <p class="pas-d">splayed legs · square seat · <em>calm, airy</em></p>
+                  <div class="pas-pal"><i style="background:#d9d4cc"></i><i style="background:#b9ad9c"></i><i style="background:#9fb3c4"></i><i style="background:#7a6f63"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ol>
+      <div class="how-stage" id="howStage" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== STUDIOS ============================== -->
+<section class="sec studios" id="studios">
+  <div class="wrap">
+    <div class="studio-panel">
+      <header class="sec-head">
+        <p class="label" data-rise>For studios</p>
+        <h2 class="h2" data-split>Everything your team finds. <span class="dim">One library the studio keeps.</span></h2>
+        <p class="lede" data-rise>Your designers find the perfect reference all day: on their phones, in a dozen tabs, in Slack threads nobody can search. Give every project a shared board and let everyone save into it. Loupe tags it, credits who found it, and keeps it with the studio.</p>
+      </header>
+
+      <div class="board-demo" id="boardDemo" aria-hidden="true">
+        <div class="bd">
+          <div class="bd-h">
+            <span class="bd-back"><svg class="i"><use href="#i-chev-left"/></svg>Boards</span>
+            <div class="bd-titlerow">
+              <div><p class="bd-name">Hartley kitchen</p><p class="bd-count"><span id="bdCount">0 items</span> · shared with 4</p></div>
+              <div class="bd-right">
+                <span class="members"><span class="avatar xs">M</span><span class="mav">L</span><span class="mav">MK</span><span class="mav">MO</span></span>
+                <span class="btn btn-secondary btn-sm"><svg class="i"><use href="#i-share"/></svg>Share</span>
+                <span class="btn btn-secondary btn-sm"><svg class="i"><use href="#i-download"/></svg>Download zip</span>
+                <svg class="i bd-more"><use href="#i-more"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="bd-grid" id="bdGrid"></div>
+        </div>
+        <aside class="feed">
+          <p class="feed-h">Activity</p>
+          <ul class="feed-list" id="feedList"></ul>
+        </aside>
+      </div>
+
+      <div class="values">
+        <div class="val" data-rise>
+          <svg class="i"><use href="#i-grid"/></svg>
+          <h3>A board for every project</h3>
+          <p>Hartley kitchen. Union Square lobby. The whole team saves to the same place from any device, and anyone can search it.</p>
+        </div>
+        <div class="val" data-rise>
+          <svg class="i"><use href="#i-building"/></svg>
+          <h3>The library stays with the studio</h3>
+          <p>What your designers find on studio time belongs to the studio. When someone moves on, their references don't leave with them.</p>
+        </div>
+        <div class="val" data-rise>
+          <svg class="i"><use href="#i-download"/></svg>
+          <h3>Hand it off as a zip</h3>
+          <p>Download a whole board for the client deck, the contractor or the presentation. Every image, one click.</p>
+        </div>
+      </div>
+      <div class="studio-cta" data-rise>
+        <a class="btn btn-brand btn-lg" data-href="signup" href="https://board-2-shvim.web.app/">Start a studio library</a>
+        <p class="micro">Free to start. Invite your team when you're ready.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== INTEGRATIONS: drag into any canvas ============================== -->
+<section class="sec canvas" id="integrations">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="label" data-rise>Works where you design</p>
+      <h2 class="h2" data-split>Drag it straight onto your canvas.</h2>
+      <p class="lede" data-rise>Open the Loupe sidebar in Chrome next to Figma, Canva or any canvas in your browser. Search by color or mood, then drag the image in. No downloading, no re-uploading.</p>
+    </header>
+
+    <div class="cv-demo" id="cvDemo" aria-hidden="true">
+      <div class="cv-bar"><span class="br-dots"><i></i><i></i><i></i></span><span class="cv-tab">Hartley kitchen — concept A</span><span class="cv-side-ic"><svg class="i"><use href="#i-panel"/></svg></span></div>
+      <div class="cv-body">
+        <div class="cv-canvas">
+          <div class="artboard" id="artboard">
+            <p class="ab-t">Hartley kitchen<span>Concept A — warm minimal</span></p>
+            <div class="ab-grid">
+              <div class="ab-cell ab-a"><img src="../../images/img_10.jpg" alt="" loading="lazy"></div>
+              <div class="ab-cell ab-b slot" id="slotA"></div>
+              <div class="ab-cell ab-c"><img src="../../images/img_46.jpg" alt="" loading="lazy"></div>
+              <div class="ab-cell ab-d slot" id="slotB"></div>
+              <div class="ab-note"><i></i><i></i><i></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="cv-side">
+          <div class="cs-h"><span class="lk"><i class="s"></i><i class="s"></i><i class="b"></i><i class="s"></i><span class="w">loupe</span></span><span class="cs-board">Hartley kitchen<svg class="i"><use href="#i-chev-down"/></svg></span></div>
+          <div class="cs-search"><svg class="i"><use href="#i-search"/></svg><span id="csQ">brass, oak</span></div>
+          <div class="cs-grid" id="csGrid">
+            <span class="cs-t" data-n="05"><img src="../../images/t/img_05.jpg" alt=""></span>
+            <span class="cs-t" data-n="12"><img src="../../images/t/img_12.jpg" alt=""></span>
+            <span class="cs-t"><img src="../../images/t/img_30.jpg" alt=""></span>
+            <span class="cs-t"><img src="../../images/t/img_40.jpg" alt=""></span>
+            <span class="cs-t"><img src="../../images/t/img_09.jpg" alt=""></span>
+            <span class="cs-t"><img src="../../images/t/img_21.jpg" alt=""></span>
+          </div>
+        </div>
+        <svg class="cursor i" id="cvCursor" viewBox="0 0 24 24"><use href="#i-pointer"/></svg>
+      </div>
+    </div>
+
+    <div class="ints">
+      <article class="int" data-rise>
+        <div class="int-h"><img src="../../logos/chrome.png" alt="" width="28" height="28"><span class="status live">Live</span></div>
+        <h3>Chrome sidebar</h3>
+        <p>Drag from Loupe onto any canvas in your browser: Figma, Canva and everything else.</p>
+      </article>
+      <article class="int" data-rise>
+        <div class="int-h"><img src="../../logos/canva.png" alt="" width="28" height="28"><span class="status live">Live</span></div>
+        <h3>Canva app</h3>
+        <p>Your tagged library in Canva's side panel. Drop references into any deck or moodboard.</p>
+      </article>
+      <article class="int" data-rise>
+        <div class="int-h"><img src="../../logos/figma.png" alt="" width="20" height="28"><span class="status">Coming soon</span></div>
+        <h3>Figma plugin</h3>
+        <p>Search your library inside the file and place references without leaving the canvas.</p>
+      </article>
+      <article class="int" data-rise>
+        <div class="int-h"><img src="../../logos/sketchup.png" alt="" width="26" height="28"><span class="status">Coming soon</span></div>
+        <h3>SketchUp extension</h3>
+        <p>Keep material and mood references pinned beside your model as you build.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PRICING: free band ============================== -->
+<section class="sec free" id="pricing">
+  <div class="wrap free-in">
+    <div class="free-l">
+      <p class="label" data-rise>Pricing</p>
+      <h2 class="h2" data-split>Free to use. <span class="dim">Not a free trial.</span></h2>
+      <p class="lede" data-rise>Save, tag and find your references for free, with no clock running. Upgrade when you want more, or when you bring your whole studio in.</p>
+      <div class="free-ctas" data-rise>
+        <a class="btn btn-brand btn-lg" data-href="signup" href="https://board-2-shvim.web.app/">Start free</a>
+        <a class="btn btn-ghost btn-lg" id="plansLink" data-href="pricing" href="#pricing" hidden>See plans</a>
+      </div>
+    </div>
+    <div class="plans">
+      <div class="plan" data-rise>
+        <p class="plan-k">Personal</p>
+        <p class="plan-p">Free</p>
+        <p class="plan-d">For designers building their own library.</p>
+        <ul><li><svg class="i"><use href="#i-check"/></svg>Save from Chrome, iPhone and web</li><li><svg class="i"><use href="#i-check"/></svg>Tagged in your design language</li><li><svg class="i"><use href="#i-check"/></svg>Search by color, material, mood</li></ul>
+      </div>
+      <div class="plan" data-rise>
+        <p class="plan-k">Studio</p>
+        <p class="plan-p">For teams</p>
+        <p class="plan-d">One shared library for everyone in the studio.</p>
+        <ul><li><svg class="i"><use href="#i-check"/></svg>Shared project boards</li><li><svg class="i"><use href="#i-check"/></svg>Every save credited to who found it</li><li><svg class="i"><use href="#i-check"/></svg>Owned by the studio</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FAQ ============================== -->
+<section class="sec faq" id="faq">
+  <div class="wrap faq-in">
+    <header class="faq-head">
+      <p class="label" data-rise>Questions</p>
+      <h2 class="h2" data-split>Before you start.</h2>
+    </header>
+    <div class="faq-list">
+      <details class="qa"><summary>Is Loupe really free?<svg class="i"><use href="#i-plus"/></svg></summary><div class="qa-a"><p>Yes. Loupe is free to use, not a trial that runs out. Paid plans add more for heavy users and for studios that want one shared library.</p></div></details>
+      <details class="qa"><summary>Where can I save from?<svg class="i"><use href="#i-plus"/></svg></summary><div class="qa-a"><p>Any website through the Chrome extension, any app on your iPhone through the share sheet, and your camera roll through the Loupe iOS app. Everything lands in the same library.</p></div></details>
+      <details class="qa"><summary>What does Loupe actually tag?<svg class="i"><use href="#i-plus"/></svg></summary><div class="qa-a"><p>Colors by name (rust, sage, warm white), materials and finishes (bouclé, fluted oak, unlacquered brass), style and era, mood, and the pieces in the room. You can add or remove your own tags at any time.</p></div></details>
+      <details class="qa"><summary>How does sharing with my studio work?<svg class="i"><use href="#i-plus"/></svg></summary><div class="qa-a"><p>Make a board for a project and share it with your team. Everything anyone saves to it shows up for everyone, tagged and credited to whoever found it.</p></div></details>
+      <details class="qa"><summary>Can I get my images out?<svg class="i"><use href="#i-plus"/></svg></summary><div class="qa-a"><p>Yes. Download any board as a zip, or drag images straight into Canva, Figma or any canvas in your browser from the Chrome sidebar.</p></div></details>
+      <details class="qa"><summary>Does it work with Figma and SketchUp?<svg class="i"><use href="#i-plus"/></svg></summary><div class="qa-a"><p>Today you can drag from the Loupe sidebar in Chrome onto any browser canvas, Figma included. A dedicated Figma plugin and a SketchUp extension are on the way.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FINAL CTA ============================== -->
+<section class="final" id="start">
+  <div class="final-wall" id="finalWall" aria-hidden="true"></div>
+  <div class="wrap final-in">
+    <h2 class="final-h" data-split>Next time, <span class="dim">you'll find it.</span></h2>
+    <p class="lede" data-rise>Start your library in a minute. Save the next one in seconds.</p>
+    <div class="final-ctas" data-rise>
+      <a class="btn btn-brand btn-lg" data-href="signup" href="https://board-2-shvim.web.app/">Start free</a>
+      <a class="btn btn-secondary btn-lg" data-href="signin" href="https://board-2-shvim.web.app/">Sign in</a>
+    </div>
+    <p class="micro" data-rise>Free to use — not a trial.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <a href="#top" class="lk" aria-label="Loupe home"><i class="s"></i><i class="s"></i><i class="b"></i><i class="s"></i><span class="w">loupe</span></a>
+      <p>The visual library for interior designers and studios.</p>
+    </div>
+    <nav class="foot-cols" aria-label="Footer">
+      <div><p>Product</p><a href="#how">How it works</a><a href="#studios">Studios</a><a href="#integrations">Integrations</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+      <div><p>Get Loupe</p><a data-href="signup" href="https://board-2-shvim.web.app/">Start free</a><a data-href="signin" href="https://board-2-shvim.web.app/">Sign in</a><a data-href="chrome" href="https://board-2-shvim.web.app/">Chrome extension</a><a data-href="appstore" href="https://board-2-shvim.web.app/">iPhone app</a></div>
+    </nav>
+  </div>
+  <div class="wrap foot-base"><p>© 2026 Loupe</p><p>Tagging powered by Claude</p></div>
+</footer>
+
+<!-- Video lightbox (only used when CONFIG.DEMO_VIDEO is set) -->
+<div class="vbox" id="vbox" hidden>
+  <button class="vbox-x" id="vboxX" aria-label="Close video"><svg class="i"><use href="#i-x"/></svg></button>
+  <div class="vbox-in" id="vboxIn"></div>
+</div>
+
+<script src="../../vendor/gsap/gsap.min.js"></script>
+<script src="../../vendor/gsap/ScrollTrigger.min.js"></script>
+<script src="../../vendor/gsap/Flip.min.js"></script>
+<script src="../../vendor/gsap/SplitText.min.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

@@ -6,16 +6,53 @@
     WALL.vp = vp; WALL.el = el;
     WALL.cards = Array.prototype.slice.call(el.querySelectorAll(".cphoto"));
     WALL.setTransform = function(){ el.style.transform = "scale(" + (WALL.scale * WALL.dusk) + ")"; };
-    WALL.start = function(){ WALL.running = true; };
+    WALL.start = function(){ WALL.running = true; if (WALL.kick) WALL.kick(); };
     WALL.stop  = function(){ WALL.running = false; };
     var ins = WALL.cards.map(function(c){ return c.querySelector(".cp-in"); });
     if (hasGSAP && !REDUCED){
       // drift in: staggered, easing out, no bounce
       ins.forEach(function(inner, i){
         var c = WALL.cards[i], dx = parseFloat(c.getAttribute("data-dx") || 0);
-        gsap.fromTo(inner, { opacity:0, x:dx, y:22 }, { opacity:1, x:0, y:0, duration:0.75 + (i % 3) * 0.08, ease:"power2.out", delay:0.15 + i * 0.07 });
+        gsap.fromTo(inner, { opacity:0, x:dx, y:22 }, { opacity:1, x:0, y:0, duration:0.75 + (i % 3) * 0.08, ease:"power2.out", delay:0.1 + i * 0.045 });
       });
     }
+  })();
+
+  /* ============================================================ SUSPENDED: photos hang in the air and follow the mouse */
+  (function suspended(){
+    if (!WALL.cards.length || REDUCED) return;
+    var cards = WALL.cards.map(function(c, i){
+      return { el:c, depth:parseFloat(c.getAttribute("data-depth") || 0.6),
+               rot:parseFloat(getComputedStyle(c).getPropertyValue("--r")) || 0,
+               ph:i * 1.7, sp:0.55 + (i % 5) * 0.09, py:0 };
+    });
+    WALL.cardState = cards;
+    var fine = window.matchMedia("(hover:hover) and (pointer:fine)").matches;
+    var tx = 0, ty = 0, mx = 0, my = 0, raf = null, t0 = performance.now();
+    var AMP = 30;                                         // px at depth 1
+    if (fine) window.addEventListener("pointermove", function(e){
+      tx = e.clientX / window.innerWidth * 2 - 1; ty = e.clientY / window.innerHeight * 2 - 1; kick();
+    }, { passive:true });
+    document.addEventListener("mouseleave", function(){ tx = 0; ty = 0; });
+    function live(){ return WALL.running && !WALL.frozen && window.scrollY < window.innerHeight * 1.6 && !document.hidden; }
+    function frame(now){
+      raf = null;
+      if (!live()) return;
+      mx += (tx - mx) * 0.055; my += (ty - my) * 0.055;   // heavy, slow follow: feels weighted, not twitchy
+      var t = (now - t0) / 1000;
+      for (var i = 0; i < cards.length; i++){
+        var c = cards[i], d = c.depth;
+        var fx = Math.sin(t * c.sp * 0.6 + c.ph) * 2.2, fy = Math.cos(t * c.sp * 0.8 + c.ph) * 3.2;   // slow hang-in-the-air sway
+        var x = mx * d * AMP + fx, y = my * d * AMP * 0.7 + fy + c.py;
+        c.el.style.transform = "translate3d(" + x.toFixed(2) + "px," + y.toFixed(2) + "px,0) rotate(" + (c.rot + mx * d * 0.5).toFixed(3) + "deg)";
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    function kick(){ if (!raf && live()) raf = requestAnimationFrame(frame); }
+    WALL.kick = kick;
+    window.addEventListener("scroll", kick, { passive:true });
+    document.addEventListener("visibilitychange", kick);
+    kick();
   })();
 
   /* ============================================================ HERO SEARCH (light): types a description, your library answers */
@@ -60,45 +97,43 @@
     return { x:r.left + r.width/2, y:r.top + r.height/2, w:r.width, h:r.height };
   }
 
-  /* ============================================================ DUSK: light hero -> dark product, tied to scroll */
+  /* ============================================================ DUSK: the dark rises as a gradient, tied to scroll */
   (function dusk(){
-    var root = document.documentElement;
-    var A = { bg:[246,241,234,1], fg:[28,26,23,1], muted:[28,26,23,.66], border:[28,26,23,.14] };
-    var B = { bg:[14,14,14,1], fg:[255,255,255,1], muted:[255,255,255,.72], border:[255,255,255,.12] };
-    function mix(a, b, t){ return "rgba(" + Math.round(lerp(a[0],b[0],t)) + "," + Math.round(lerp(a[1],b[1],t)) + "," + Math.round(lerp(a[2],b[2],t)) + "," + lerp(a[3],b[3],t).toFixed(3) + ")"; }
+    var root = document.documentElement, sky = document.getElementById("sky"), hero = document.querySelector(".hero");
     var ins = WALL.cards.map(function(c){ return c.querySelector(".cp-in"); });
-    var depth = WALL.cards.map(function(c){ return parseFloat(c.getAttribute("data-depth") || 0.6); });
     var phone = window.matchMedia("(max-width:767px)");
+    if (!sky) return;
 
     if (REDUCED){
-      // no parallax or drift: a short, simple crossfade once the hero is mostly gone
-      root.classList.add("dusk-fade");
-      function flip(){ var dark = window.scrollY > window.innerHeight * 0.5; root.classList.toggle("dusk-dark", dark); root.classList.toggle("dusk", !dark); }
+      // no movement: the light simply crossfades to dark once the hero is mostly gone
+      root.classList.add("sky-fade");
+      function flip(){ var dark = window.scrollY > (hero ? hero.offsetTop + hero.offsetHeight : window.innerHeight) - window.innerHeight * 0.5; root.classList.toggle("sky-off", dark); root.classList.toggle("nav-dark", dark); }
       window.addEventListener("scroll", flip, { passive:true }); flip();
       return;
     }
     var last = -1;
     function apply(){
-      var y = window.scrollY, H = window.innerHeight;
-      var t = smooth(clamp01(y / H));                 // one viewport of scrolling = the whole dusk
-      if (t !== last){
-        var first = last < 0; last = t;
-        root.style.setProperty("--bg", mix(A.bg, B.bg, t));
-        root.style.setProperty("--fg", mix(A.fg, B.fg, t));
-        root.style.setProperty("--muted", mix(A.muted, B.muted, t));
-        root.style.setProperty("--border", mix(A.border, B.border, t));
-        WALL.dusk = 1 - 0.08 * t;                     // photos step back to 0.92
+      var H = window.innerHeight, band = sky.offsetHeight / 3;   // sky = light | gradient | dark, a viewport each
+      // the dusk starts once the hero's last line is about to leave (on a phone the hero is taller than the screen)
+      var start = hero ? Math.max(0, hero.offsetTop + hero.offsetHeight - H) : 0;
+      var y = window.scrollY - start, p = clamp01(y / H);
+      if (p !== last){
+        var first = last < 0; last = p;
+        sky.style.transform = "translate3d(0," + (-2 * band * p).toFixed(1) + "px,0)";
+        // nav turns white once the gradient under it is past its midpoint
+        var under = (36 - (H - 2 * H * p)) / H;
+        root.classList.toggle("nav-dark", under > 0.55);
+        WALL.dusk = 1 - 0.08 * smooth(p);                 // photos step back to 0.92 ...
         if (WALL.setTransform) WALL.setTransform();
-        if (!(first && t === 0)) ins.forEach(function(inner){ inner.style.opacity = String(1 - 0.7 * t); });   // ... and fade to 30% (left alone on first paint so the drift-in can play)
-      }
-      if (!phone.matches){
-        var p = clamp01(y / H);
-        WALL.cards.forEach(function(c, i){ c.style.setProperty("--py", (-30 * depth[i] * p).toFixed(1) + "px"); });   // max 30px, each at its own speed
+        if (!(first && p === 0)) ins.forEach(function(inner){ inner.style.opacity = String(1 - 0.7 * smooth(seg(p, 0.3, 1))); });   // ... and fade to 30%, but only once the dark reaches them
+        if (!phone.matches && WALL.cardState){
+          WALL.cardState.forEach(function(c){ c.py = -30 * c.depth * p; });   // scroll parallax, max 30px, read by the suspended loop
+          if (WALL.kick) WALL.kick();
+        }
       }
     }
     var ticking = false;
     window.addEventListener("scroll", function(){ if (!ticking){ ticking = true; requestAnimationFrame(function(){ ticking = false; apply(); }); } }, { passive:true });
-    window.addEventListener("resize", apply);
+    window.addEventListener("resize", function(){ last = -1; apply(); });
     apply();
   })();
-

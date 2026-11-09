@@ -1,48 +1,22 @@
-/* ============================================================ v4: LIGHT HERO + linear-gradient(to bottom,#F6F1EA 0%,rgb(246,241,234) 33.3%,rgb(244,239,232) 36.7%,rgb(233,228,221) 40.0%,rgb(208,204,198) 43.3%,rgb(172,169,164) 46.7%,rgb(130,128,124) 50.0%,rgb(88,86,84) 53.3%,rgb(52,51,50) 56.7%,rgb(27,27,27) 60.0%,rgb(16,16,16) 63.3%,rgb(14,14,14) 66.7%,#0e0e0e 100%)IENT DUSK (overrides on top of the original site CSS) */
+/* ============================================================ v4: VORTEX HERO + IRIS INTO THE PRODUCT (overrides on top of the original site CSS) */
 :root{--linen:#F6F1EA;--ink:#1C1A17;--serif:"Cormorant Garamond","Cormorant",Georgia,"Times New Roman",serif}
 
-/* the light wall behind the photos. Two ways into the dark product (switch in the preview):
-   SHEET (default): the dark rises as a solid sheet with rounded top corners, sliding over the light wall, so no gray ever shows.
-   OMBRE: the wall turns to dusk through warm colours (linen, peach, amber, terracotta, espresso, black), never through gray. */
-.sky{position:fixed;left:0;right:0;top:0;height:100vh;z-index:0;pointer-events:none;background:#F6F1EA}
-html.t-ombre .sky{height:300vh;will-change:transform;
-  background:linear-gradient(in oklab to bottom,#F6F1EA 0%,#F6F1EA 33.3%,#F4E4D3 38%,#EFCBAE 43%,#E2A47F 48%,#C27551 53%,#8A4930 58%,#4B2618 62.5%,#1F120D 65%,#0e0e0e 66.7%,#0e0e0e 100%)}
-html.sky-fade .sky{transition:opacity .6s ease}
-html.sky-off .sky{opacity:0}
-.night{position:fixed;left:0;right:0;top:0;height:calc(100vh + 48px);z-index:3;pointer-events:none;
-  background:linear-gradient(to bottom,#17120f 0,#0e0e0e 180px);border-radius:36px 36px 0 0;
-  box-shadow:0 -1px 0 rgba(255,255,255,.04),0 -30px 70px -24px rgba(28,26,23,.45);
-  transform:translate3d(0,105vh,0);will-change:transform}
-html.t-ombre .night{display:none}
-.hero{z-index:2}
-.transfer{z-index:4}
-/* reduced motion, no JS or no GSAP: no sheet animation, the product section is simply dark with the same rounded top */
-html.static-dusk .night{display:none}
-html.static-dusk .transfer,html:not(.dusk) .transfer{background:#0e0e0e;border-radius:36px 36px 0 0}
+/* light wall behind everything on the hero */
+.sky{position:fixed;inset:0;z-index:0;pointer-events:none;background:#F6F1EA}
 
-/* preview-only switch between the two transitions (remove before launch) */
-.tswitch{position:fixed;left:16px;bottom:16px;z-index:120;display:flex;gap:2px;padding:3px;border-radius:999px;
-  background:rgba(20,18,16,.86);font:500 12px/1 "DM Sans",system-ui,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.25)}
-.tswitch span{color:rgba(255,255,255,.55);padding:8px 10px 8px 12px}
-.tswitch button{font:inherit;color:rgba(255,255,255,.78);background:none;border:0;border-radius:999px;padding:8px 12px;cursor:pointer}
-.tswitch button[aria-pressed="true"]{background:#F6F1EA;color:#1C1A17}
-@media (max-width:767px){.tswitch{bottom:86px;left:10px;font-size:11px}.tswitch span{display:none}.tswitch button{padding:7px 10px}}
-
-/* nav: ink on the light hero, white once the dark arrives */
-.nav{transition:background .4s ease,border-color .4s ease,color .35s ease}
+/* nav: a linen bar on the light hero, dark once the product opens */
+.nav,.nav.scrolled{background:rgba(246,241,234,.94);border-bottom:1px solid rgba(28,26,23,.08);transition:background .4s ease,border-color .4s ease}
 .nav .brand-name{color:var(--ink);transition:color .35s ease}
 .nav-toggle span{background:var(--ink);transition:background .35s ease}
-.nav,.nav.scrolled{background:rgba(246,241,234,.94);border-bottom:1px solid rgba(28,26,23,.08)}
 @media (min-width:768px){
   .nav .nav-link{color:rgba(28,26,23,.66);transition:color .35s ease}
   .nav .nav-link:hover{color:var(--ink)}
   html.nav-dark .nav .nav-link{color:var(--text-secondary)}
   html.nav-dark .nav .nav-link:hover{color:#fff}
 }
-html.nav-dark .nav .brand-name{color:#fff}
-html.nav-dark .nav-toggle span{background:#fff}
+html.nav-dark .nav .brand-name,.nav.menu-open .brand-name{color:#fff}
+html.nav-dark .nav-toggle span,.nav.menu-open .nav-toggle span{background:#fff}
 html.nav-dark .nav,html.nav-dark .nav.scrolled,.nav.menu-open{background:rgba(14,14,14,.86);border-bottom-color:var(--border-subtle)}
-.nav.menu-open .brand-name{color:#fff}.nav.menu-open .nav-toggle span{background:#fff}
 
 /* v1.2 CTA: flat-edged peach gradient, dark text, no glow, no shimmer */
 .btn-peach{color:#1A0F0A;background:linear-gradient(135deg,#F4AE93 0%,#EF8A66 55%,#D3714F 100%);box-shadow:none}
@@ -50,39 +24,54 @@ html.nav-dark .nav,html.nav-dark .nav.scrolled,.nav.menu-open{background:rgba(14
 .btn-peach:hover{transform:none;box-shadow:none;filter:brightness(1.05)}
 .lmark i:nth-child(3){box-shadow:none}
 
-/* ---------- the collage (gallery wall) ---------- */
+/* ---------- the vortex: rings of photos around the headline, the centre reads as the mouth of a tunnel ---------- */
 .collage-vp{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
-.collage{position:absolute;inset:0;transform-origin:50% 45%;will-change:transform}
-.cphoto{position:absolute;left:var(--x);top:var(--y);width:var(--w);margin:0;transform:rotate(var(--r,0deg));will-change:transform}
+.collage{position:absolute;inset:0;transform-origin:50% 50%;will-change:transform}
+.ring{position:absolute;left:50%;top:50%;width:0;height:0;will-change:transform}
+.ring .cphoto{position:absolute;margin:0;will-change:transform}
 .cp-in{will-change:opacity,transform}
-.cphoto .wc-img{position:relative;aspect-ratio:var(--ar,4/5);overflow:hidden;border-radius:2px;background:#e9e2d8;box-shadow:0 1px 2px rgba(28,26,23,.08),0 24px 40px -22px rgba(28,26,23,.45)}
+.cphoto .wc-img{position:relative;aspect-ratio:var(--ar,3/2);overflow:hidden;border-radius:2px;background:#e9e2d8;box-shadow:0 1px 2px rgba(28,26,23,.08),0 18px 34px -20px rgba(28,26,23,.45)}
 .cphoto .wc-img img{width:100%;height:100%;object-fit:cover;display:block}
-.cphoto figcaption{margin-top:6px;font:400 11px/1.3 "DM Sans",system-ui,sans-serif;color:#8C8378;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:opacity .3s}
+.cphoto figcaption{position:absolute;left:0;right:0;top:100%;margin-top:5px;font:400 11px/1.25 "DM Sans",system-ui,sans-serif;color:#8C8378;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:opacity .3s}
 .cphoto.lit .cp-in{opacity:1!important}
 .cphoto.lit figcaption{opacity:0}
 .cphoto.lit .wc-img{box-shadow:0 0 0 2px #fff,0 18px 40px rgba(0,0,0,.45)}
 
-/* ---------- hero copy: a mounted card hung over the wall (a solid panel keeps the type legible on any photo) ---------- */
-.hero{background:transparent;pointer-events:none;--fg:#1C1A17;--muted:rgba(28,26,23,.7)}
-.hero .hero-inner{position:relative;z-index:2;max-width:620px;padding:clamp(30px,3.6vw,48px) clamp(26px,3.4vw,52px) clamp(26px,3vw,40px);
-  background:#FAF7F2;border-radius:2px;box-shadow:0 0 0 1px rgba(28,26,23,.07),0 2px 4px rgba(28,26,23,.06),0 50px 90px -40px rgba(28,26,23,.55),0 24px 40px -30px rgba(28,26,23,.35)}
+/* fog: thick in the centre where the words are, thinning toward the edges (the far end of the tunnel is hazy) */
+.fog{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(circle at 50% 50%,rgba(246,241,234,.9) 0,rgba(246,241,234,.84) calc(var(--hole,300px) * .78),rgba(246,241,234,.5) var(--hole,300px),rgba(246,241,234,.3) calc(var(--hole,300px) * 1.7),rgba(246,241,234,.12) calc(var(--hole,300px) * 2.6))}
+
+/* iris: the dark product opens as a circle from the centre of the tunnel. Crisp edge, no gray, transform-only */
+.night{position:fixed;left:50%;top:50%;width:var(--iris,200vmax);height:var(--iris,200vmax);margin:calc(var(--iris,200vmax) / -2) 0 0 calc(var(--iris,200vmax) / -2);
+  z-index:3;pointer-events:none;border-radius:50%;background:radial-gradient(circle,#0e0e0e 0,#0e0e0e 62%,#16110e 100%);
+  box-shadow:0 0 0 1px rgba(28,26,23,.25),0 0 90px 10px rgba(28,26,23,.28);transform:scale(0);will-change:transform}
+.hero{z-index:2}
+.transfer{z-index:4}
+/* reduced motion, no JS or no GSAP: no animation; the product section is simply dark */
+html.static-dusk .night{display:none}
+html.static-dusk .transfer,html:not(.dusk) .transfer{background:#0e0e0e}
+html:not(.dusk) .collage-vp,html:not(.dusk) .fog{display:none}
+
+/* ---------- hero copy: straight on the fog, no card ---------- */
+.hero{background:transparent;pointer-events:none;--fg:#1C1A17;--muted:rgba(28,26,23,.72)}
+.hero .hero-inner{position:relative;z-index:2;max-width:640px;will-change:transform,opacity}
 .flight-clone{box-shadow:0 0 0 2px #fff,0 22px 50px rgba(0,0,0,.55)!important}
-.select-cursor{border-color:#fff!important;box-shadow:none!important}
-.select-cursor::after{color:#fff!important}
-.hero .hero-eyebrow{font:500 15px/1.3 "DM Sans",system-ui,sans-serif;letter-spacing:0;text-transform:none;color:var(--muted);text-shadow:none;margin-bottom:18px}
-.hero .hero-headline{font-family:var(--serif);font-weight:500;font-size:clamp(44px,5vw,76px);text-wrap:balance;line-height:.98;letter-spacing:-.01em;color:var(--fg);text-shadow:none;margin-bottom:28px}
+.select-cursor{border-color:#fff!important;box-shadow:none!important;background:rgba(255,255,255,.12)!important}
+.select-cursor::after{color:#1C1A17!important}
+.hero .hero-eyebrow{font:500 15px/1.3 "DM Sans",system-ui,sans-serif;letter-spacing:0;text-transform:none;color:var(--muted);text-shadow:none;margin-bottom:14px}
+.hero .hero-headline{font-family:var(--serif);font-weight:500;font-size:clamp(46px,7.6vmin,88px);text-wrap:balance;line-height:.96;letter-spacing:-.012em;color:var(--fg);text-shadow:0 0 30px rgba(246,241,234,.9);margin-bottom:24px}
 .hero .hero-headline .accent{-webkit-text-fill-color:currentColor;color:inherit;font-style:italic}
-.hero .hero-sub{color:var(--muted);text-shadow:none;font-size:clamp(17px,1.5vw,19px);line-height:1.6}
-.hero .hero-hint{color:var(--muted);text-shadow:none;margin-top:20px}
+.hero .hero-sub{color:rgba(28,26,23,.78);text-shadow:0 0 18px rgba(246,241,234,1);font-size:clamp(16px,1.4vw,18px);line-height:1.55;max-width:40ch;margin-bottom:22px}
+.hero .hero-hint{color:var(--muted);text-shadow:none;margin-top:18px}
 .hero .hero-hint .pulse{background:#EF8A66;box-shadow:none;animation:none}
 
 /* search demo, light */
-.hero .hero-search{background:#FFFDF9;border:1px solid rgba(28,26,23,.14);box-shadow:0 1px 2px rgba(28,26,23,.06),0 18px 40px -22px rgba(28,26,23,.35);color:#6b645b;margin-bottom:14px}
+.hero .hero-search{background:#FFFDF9;border:1px solid rgba(28,26,23,.14);box-shadow:0 1px 2px rgba(28,26,23,.06),0 18px 40px -22px rgba(28,26,23,.35);color:#6b645b;margin-bottom:12px;max-width:500px;margin-left:auto;margin-right:auto}
 .hero .hs-text{color:#1C1A17}
 .hero .hs-caret{background:#EF8A66}
 .hero .hs-count{color:#1C1A17;background:#F3ECE3;border:1px solid rgba(28,26,23,.1)}
-.hits{display:flex;align-items:center;justify-content:center;gap:8px;height:64px;margin:0 auto 18px;pointer-events:none}
-.hits img{width:48px;height:60px;object-fit:cover;border-radius:6px;opacity:0;transform:translateY(6px);transition:opacity .4s ease,transform .5s cubic-bezier(.22,1,.36,1);box-shadow:0 8px 18px -10px rgba(28,26,23,.5)}
+.hits{display:flex;align-items:center;justify-content:center;gap:8px;height:60px;margin:0 auto 14px;pointer-events:none}
+.hits img{width:44px;height:56px;object-fit:cover;border-radius:6px;opacity:0;transform:translateY(6px);transition:opacity .4s ease,transform .5s cubic-bezier(.22,1,.36,1);box-shadow:0 8px 18px -10px rgba(28,26,23,.5)}
 .hits.show img{opacity:1;transform:none}
 .hits.show img:nth-child(2){transition-delay:.06s}.hits.show img:nth-child(3){transition-delay:.12s}.hits.show img:nth-child(4){transition-delay:.18s}
 .hits span{font:400 13px/1.3 "DM Sans",system-ui,sans-serif;color:var(--muted);margin-left:6px;opacity:0;transition:opacity .4s ease .2s}
@@ -96,7 +85,6 @@ html.nav-dark .nav,html.nav-dark .nav.scrolled,.nav.menu-open{background:rgba(14
 .hero .success-box{background:#FFFDF9;border-color:rgba(28,26,23,.14);box-shadow:none}
 .hero .success-box p{color:#1C1A17}.hero .success-box span{color:#6b645b}
 
-
 /* ---------- studio section, promoted ---------- */
 .collab .teams-intro{padding-top:clamp(96px,12vw,170px)}
 .collab .teams-intro .section-head{font-family:var(--serif);font-weight:500;font-size:clamp(52px,8vw,124px);line-height:.95;letter-spacing:-.01em;max-width:13ch;margin-left:auto;margin-right:auto}
@@ -106,16 +94,12 @@ html.nav-dark .nav,html.nav-dark .nav.scrolled,.nav.menu-open{background:rgba(14
 
 /* ---------- mobile ---------- */
 @media (max-width:767px){
-  .cphoto{left:var(--mx);top:var(--my);width:var(--mw)}
-  .cphoto.m-hide{display:none}
-  .cphoto figcaption{font-size:11px;line-height:1.25;margin-top:4px;white-space:normal}
-  .hero{align-items:flex-start;padding-top:44vh;padding-top:44svh}
-  .hero .hero-inner{margin:0 -8px;padding:28px 18px 24px}
-  .night{border-radius:24px 24px 0 0}
-  .cp-ph{display:none}
-  .hero .hero-headline{font-size:clamp(38px,10.6vw,50px);margin-bottom:20px}
-  .hits{height:58px}
-  .hits img{width:42px;height:52px}
+  .hero{padding:96px 0 48px;align-items:center}
+  .hero .hero-headline{font-size:clamp(40px,11vw,52px);margin-bottom:18px}
+  .hero .hero-sub{font-size:16px}
+  .cphoto figcaption{display:none}
+  .hits{height:54px}
+  .hits img{width:40px;height:50px}
 }
 @media (prefers-reduced-motion:reduce){
   .hits img,.hits span{transition:none}

@@ -1,58 +1,106 @@
-  /* ============================================================ v4 COLLAGE (gallery wall; feeds the transfer flight like the old wall) */
+  /* ============================================================ v4 VORTEX: rings of photos around the headline */
   var WALL = { vp:null, el:null, cards:[], frozen:false, running:true, raf:null, scale:1, dusk:1 };
-  (function initCollage(){
-    var vp = document.getElementById("collageVp"), el = document.getElementById("collage");
-    if (!vp || !el) return;
+  (function vortex(){
+    var vp = document.getElementById("collageVp"), el = document.getElementById("collage"), dataEl = document.getElementById("wallData");
+    if (!vp || !el || !dataEl) return;
+    var DATA = JSON.parse(dataEl.textContent), byFile = {};
+    DATA.forEach(function(d){ byFile[d.f] = d; });
     WALL.vp = vp; WALL.el = el;
-    WALL.cards = Array.prototype.slice.call(el.querySelectorAll(".cphoto"));
-    WALL.setTransform = function(){ el.style.transform = "scale(" + (WALL.scale * WALL.dusk) + ")"; };
-    WALL.start = function(){ WALL.running = true; if (WALL.kick) WALL.kick(); };
-    WALL.stop  = function(){ WALL.running = false; };
-    var ins = WALL.cards.map(function(c){ return c.querySelector(".cp-in"); });
-    if (hasGSAP && !REDUCED){
-      // drift in: staggered, easing out, no bounce
-      ins.forEach(function(inner, i){
-        var c = WALL.cards[i], dx = parseFloat(c.getAttribute("data-dx") || 0);
-        gsap.fromTo(inner, { opacity:0, x:dx, y:22 }, { opacity:1, x:0, y:0, duration:0.75 + (i % 3) * 0.08, ease:"power2.out", delay:0.1 + i * 0.045 });
+    WALL.setTransform = function(){ el.style.transform = "scale(" + (WALL.scale * WALL.dusk).toFixed(4) + ")"; };
+    var rings = [], ringEls = [], built = "", fine = window.matchMedia("(hover:hover) and (pointer:fine)").matches;
+
+    // geometry from the viewport: a tight inner circle that frames the words, two wider rings that run off the screen
+    function geometry(){
+      var W = window.innerWidth, H = window.innerHeight, phone = W < 768;
+      var base = phone ? W * 0.5 : Math.min(H * 0.43, W * 0.3);
+      var w1 = phone ? W * 0.21 : base * 0.36, w2 = w1 * 1.6, w3 = w2 * 1.45;
+      var R1 = phone ? W * 0.46 : base, R2 = R1 + (w1 + w2) * 0.62, R3 = R2 + (w2 + w3) * 0.62;
+      var spec = [ { R:R1, w:w1, depth:0.35, fog:0.7,  speed: 1/150 },
+                   { R:R2, w:w2, depth:0.7,  fog:0.8,  speed: 1/210 },
+                   { R:R3, w:w3, depth:1.0,  fog:0.92, speed: 1/290 } ];
+      spec.forEach(function(s){ s.n = Math.max(8, Math.floor(2 * Math.PI * s.R / (s.w * 1.12))); });
+      return { W:W, H:H, phone:phone, spec:spec, hole:R1 - w1 * 0.5 };
+    }
+    function build(){
+      var g = geometry(), key = g.spec.map(function(s){ return s.n; }).join(",");
+      document.documentElement.style.setProperty("--hole", Math.round(g.hole) + "px");
+      document.documentElement.style.setProperty("--iris", Math.ceil(Math.hypot(g.W, g.H) * 1.04) + "px");
+      if (key === built){ place(g); return; }
+      built = key; el.innerHTML = ""; rings = []; ringEls = [];
+      var k = 0;
+      g.spec.forEach(function(s, ri){
+        var r = document.createElement("div"); r.className = "ring"; r.style.opacity = s.fog;
+        var spin = document.createElement("div"); spin.className = "spin"; r.appendChild(spin);
+        var cards = [];
+        for (var i = 0; i < s.n; i++){
+          var d = DATA[(k++ * 7 + ri * 3) % DATA.length];   // spread the 20 photos so neighbours differ
+          var f = document.createElement("figure"); f.className = "cphoto"; f.setAttribute("data-ring", ri); f.setAttribute("data-f", d.f);
+          f.style.setProperty("--ar", d.ar);
+          f.innerHTML = '<div class="cp-in"><div class="wc-img"><img src="media/wall-' + d.f + '.jpg" alt="" decoding="async"></div><figcaption>' + d.cap + '</figcaption></div>';
+          spin.appendChild(f); cards.push(f);
+        }
+        el.appendChild(r);
+        rings.push({ el:r, spin:spin, cards:cards, s:s, phase: ri * 0.37 });
+      });
+      WALL.cards = [].concat.apply([], rings.map(function(r){ return r.cards; }));
+      place(g);
+      if (hasGSAP && !REDUCED){
+        // the tunnel opens: inner ring first, each photo grows out of the haze
+        rings.forEach(function(r, ri){
+          r.cards.forEach(function(c, i){
+            gsap.fromTo(c.querySelector(".cp-in"), { opacity:0, scale:0.82 }, { opacity:1, scale:1, duration:0.8, ease:"power2.out", delay:0.1 + ri * 0.18 + i * 0.025 });
+          });
+        });
+      }
+    }
+    function place(g){
+      rings.forEach(function(r, ri){
+        var s = g.spec[ri]; r.s.R = s.R; r.s.w = s.w;
+        r.cards.forEach(function(c, i){
+          var th = 360 * i / r.cards.length, ar = parseFloat(c.style.getPropertyValue("--ar")) || 1.5, h = s.w / ar;
+          c.style.width = s.w.toFixed(1) + "px"; c.style.left = (-s.w / 2).toFixed(1) + "px"; c.style.top = (-h / 2).toFixed(1) + "px";
+          c.style.transform = "rotate(" + th.toFixed(2) + "deg) translate(" + s.R.toFixed(1) + "px,0) rotate(90deg)";   // top edge faces outward: a tunnel
+          c._th = th;
+        });
       });
     }
-  })();
+    build();
+    var rz; window.addEventListener("resize", function(){ clearTimeout(rz); rz = setTimeout(build, 120); });
 
-  /* ============================================================ SUSPENDED: photos hang in the air and follow the mouse */
-  (function suspended(){
-    if (!WALL.cards.length || REDUCED) return;
-    var cards = WALL.cards.map(function(c, i){
-      return { el:c, depth:parseFloat(c.getAttribute("data-depth") || 0.6),
-               rot:parseFloat(getComputedStyle(c).getPropertyValue("--r")) || 0,
-               ph:i * 1.7, sp:0.55 + (i % 5) * 0.09, py:0 };
-    });
-    WALL.cardState = cards;
-    var fine = window.matchMedia("(hover:hover) and (pointer:fine)").matches;
-    var tx = 0, ty = 0, mx = 0, my = 0, raf = null, t0 = performance.now();
-    var AMP = 38;                                         // px at depth 1
-    if (fine) window.addEventListener("pointermove", function(e){
-      tx = e.clientX / window.innerWidth * 2 - 1; ty = e.clientY / window.innerHeight * 2 - 1; kick();
-    }, { passive:true });
-    document.addEventListener("mouseleave", function(){ tx = 0; ty = 0; });
-    function live(){ return WALL.running && !WALL.frozen && window.scrollY < window.innerHeight * 1.6 && !document.hidden; }
+    // the rings turn (inner fastest, like water going down a drain) and lean toward the mouse at their own depth
+    var t0 = performance.now(), tx = 0, ty = 0, mx = 0, my = 0, raf = null, spinT = 0, lastNow = t0;
+    if (fine) window.addEventListener("pointermove", function(e){ tx = e.clientX / window.innerWidth * 2 - 1; ty = e.clientY / window.innerHeight * 2 - 1; kick(); }, { passive:true });
+    function live(){ return !REDUCED && WALL.running && !WALL.frozen && !document.hidden && window.scrollY < window.innerHeight * 3; }
+    WALL.angle = function(card){ var r = rings[+card.getAttribute("data-ring")]; return (r ? r.rot : 0) + card._th + 90; };
     function frame(now){
-      raf = null;
-      if (!live()) return;
-      mx += (tx - mx) * 0.055; my += (ty - my) * 0.055;   // heavy, slow follow: feels weighted, not twitchy
-      var t = (now - t0) / 1000;
-      for (var i = 0; i < cards.length; i++){
-        var c = cards[i], d = c.depth;
-        var fx = Math.sin(t * c.sp * 0.6 + c.ph) * 2.2, fy = Math.cos(t * c.sp * 0.8 + c.ph) * 3.2;   // slow hang-in-the-air sway
-        var x = mx * d * AMP + fx, y = my * d * AMP * 0.7 + fy + c.py;
-        c.el.style.transform = "translate3d(" + x.toFixed(2) + "px," + y.toFixed(2) + "px,0) rotate(" + (c.rot + mx * d * 0.5).toFixed(3) + "deg)";
-      }
+      raf = null; if (!live()) return;
+      spinT += Math.min(50, now - lastNow) / 1000; lastNow = now;
+      mx += (tx - mx) * 0.05; my += (ty - my) * 0.05;
+      rings.forEach(function(r){
+        r.rot = (360 * spinT * r.s.speed + r.phase * 57) % 360;
+        var d = r.s.depth * 34;
+        r.el.style.transform = "translate3d(" + (mx * d).toFixed(2) + "px," + (my * d).toFixed(2) + "px,0)";
+        r.spin.style.transform = "rotate(" + r.rot.toFixed(3) + "deg)";
+      });
       raf = requestAnimationFrame(frame);
     }
-    function kick(){ if (!raf && live()) raf = requestAnimationFrame(frame); }
+    function kick(){ if (!raf && live()){ lastNow = performance.now(); raf = requestAnimationFrame(frame); } }
+    WALL.start = function(){ WALL.running = true; kick(); };
+    WALL.stop  = function(){ WALL.running = false; };
     WALL.kick = kick;
+    WALL.setClear = function(c){ rings.forEach(function(r){ r.el.style.opacity = String(r.s.fog + (1 - r.s.fog) * c); }); };
     window.addEventListener("scroll", kick, { passive:true });
     document.addEventListener("visibilitychange", kick);
+    rings.forEach(function(r){ r.rot = r.phase * 57; r.spin.style.transform = "rotate(" + r.rot + "deg)"; });
     kick();
+
+    // the board re-tags a drop cell for the photo that actually flies in
+    WALL.retag = function(d, card){
+      var info = byFile[card.getAttribute("data-f")]; if (!info) return;
+      d.title = info.t; d.tagsText = info.tags; d.landSrc = "media/wall-" + info.f + ".jpg";
+      d.landedImg.src = d.landSrc;
+      d.paletteEl.innerHTML = info.pal.split(",").map(function(hex){ return '<i style="background:' + hex + '"></i>'; }).join("");
+    };
   })();
 
   /* ============================================================ HERO SEARCH (light): types a description, your library answers */
@@ -91,95 +139,54 @@
     HERO_SEARCH.start();
   })();
 
-  /* rect (viewport px) of a collage photo */
+  /* rect (viewport px) of a vortex photo: true centre, unrotated size, current angle */
   function cardRect(card){
-    var r = (card.querySelector(".wc-img") || card).getBoundingClientRect();
-    return { x:r.left + r.width/2, y:r.top + r.height/2, w:r.width, h:r.height };
+    var img = card.querySelector(".wc-img") || card, r = img.getBoundingClientRect(), k = WALL.scale * WALL.dusk;
+    return { x:r.left + r.width/2, y:r.top + r.height/2, w:img.offsetWidth * k, h:img.offsetHeight * k, rot: WALL.angle ? WALL.angle(card) : 0 };
   }
 
-  /* ============================================================ INTO THE DARK: sheet (default) or warm ombre */
-  (function dusk(){
-    var root = document.documentElement, sky = document.getElementById("sky"), night = document.getElementById("night");
-    var hero = document.querySelector(".hero"), transfer = document.getElementById("transfer");
-    var ins = WALL.cards.map(function(c){ return c.querySelector(".cp-in"); });
+  /* ============================================================ INTO THE PRODUCT: the words sink into the tunnel, then a dark iris opens from its centre */
+  (function intoTheDark(){
+    var root = document.documentElement, night = document.getElementById("night"), fog = document.getElementById("fog");
+    var hero = document.querySelector(".hero"), inner = hero && hero.querySelector(".hero-inner");
     var phone = window.matchMedia("(max-width:767px)");
-    if (!sky) return;
-
-    // preview-only: compare the two transitions (remove this block and the .tswitch CSS before launch)
-    var MODE = "sheet";
-    try { MODE = (location.search.match(/[?&]t=(sheet|ombre)/) || [])[1] || localStorage.getItem("loupe-t") || "sheet"; } catch(e){}
-    root.classList.toggle("t-ombre", MODE === "ombre");
-    (function switcher(){
-      var w = document.createElement("div"); w.className = "tswitch"; w.setAttribute("role", "group"); w.setAttribute("aria-label", "Preview transition");
-      w.innerHTML = '<span>Transition</span><button type="button" data-m="sheet">Sheet</button><button type="button" data-m="ombre">Ombre</button>';
-      Array.prototype.forEach.call(w.querySelectorAll("button"), function(b){
-        b.setAttribute("aria-pressed", String(b.getAttribute("data-m") === MODE));
-        b.addEventListener("click", function(){
-          try { localStorage.setItem("loupe-t", b.getAttribute("data-m")); } catch(e){}
-          window.scrollTo(0, 0); location.reload();
-        });
-      });
-      document.body.appendChild(w);
-    })();
-
     function heroEnd(){ return hero ? hero.offsetTop + hero.offsetHeight : window.innerHeight; }
 
     if (REDUCED || !hasST){
-      // no movement: the product section is dark with a rounded top (CSS); the nav flips when it arrives
       root.classList.add("static-dusk");
-      if (MODE === "ombre") root.classList.add("sky-fade");
-      function flip(){
-        var dark = window.scrollY > heroEnd() - 60;
-        root.classList.toggle("nav-dark", dark);
-        if (MODE === "ombre") root.classList.toggle("sky-off", window.scrollY > heroEnd() - window.innerHeight * 0.5);
-      }
+      function flip(){ root.classList.toggle("nav-dark", window.scrollY > heroEnd() - 60); }
       window.addEventListener("scroll", flip, { passive:true }); flip();
       return;
     }
 
-    /* ---- SHEET: rises with the transfer, after the four photos are picked and lifting ---- */
-    if (MODE === "sheet"){
-      var pinLen = phone.matches ? 1000 : 1700;              // matches the transfer pin
-      var setSheet = function(q){
-        var H = window.innerHeight, e = 1 - Math.pow(1 - q, 3);     // ease out: the sheet arrives softly
-        var y = (1 - e) * (H + 30) - 48 * e;                    // ends 48px above the top so its rounded corners are off-screen
-        night.style.transform = "translate3d(0," + y.toFixed(1) + "px,0) scaleX(" + (0.94 + 0.06 * e).toFixed(4) + ")";
-        root.classList.toggle("nav-dark", y < 64);
-        WALL.dusk = 1 - 0.04 * e; if (WALL.setTransform) WALL.setTransform();   // the wall steps back a little as it is covered
-      };
-      setSheet(0);
-      ScrollTrigger.create({ trigger:"#transfer", start:"top top", end:"+=" + pinLen, scrub:1,
-        onUpdate:function(self){ setSheet(seg(self.progress, 0.22, 0.5)); },
-        onLeaveBack:function(){ setSheet(0); } });
+    // 1) hero scroll: the words drift back toward the centre and fade, the tunnel edges in a little
+    var ticking = false;
+    function heroScroll(){
+      var H = window.innerHeight, start = Math.max(0, heroEnd() - H), y = window.scrollY;
+      var p = clamp01((y - start) / H);
+      if (inner){
+        var back = start > 0 ? 0 : y * 0.55;               // desktop: hold the words near the centre while they recede
+        inner.style.transform = "translate3d(0," + back.toFixed(1) + "px,0) scale(" + (1 - 0.3 * smooth(p)).toFixed(4) + ")";
+        inner.style.opacity = String(clamp01(1 - 1.25 * p));
+      }
+      if (!WALL.frozen){ WALL.dusk = 1 + 0.1 * smooth(p); if (WALL.setTransform) WALL.setTransform(); }
     }
+    window.addEventListener("scroll", function(){ if (!ticking){ ticking = true; requestAnimationFrame(function(){ ticking = false; heroScroll(); }); } }, { passive:true });
+    window.addEventListener("resize", heroScroll);
+    heroScroll();
 
-    /* ---- OMBRE: the wall dusks through warm colours over one screen as the hero leaves ---- */
-    if (MODE === "ombre"){
-      var last = -1;
-      var apply = function(){
-        var H = window.innerHeight, band = sky.offsetHeight / 3;
-        var start = Math.max(0, heroEnd() - H);              // on a phone, wait until the hero copy has gone
-        var p = clamp01((window.scrollY - start) / H);
-        if (p === last) return;
-        var first = last < 0; last = p;
-        sky.style.transform = "translate3d(0," + (-2 * band * p).toFixed(1) + "px,0)";
-        root.classList.toggle("nav-dark", (36 - (H - 2 * H * p)) / H > 0.5);
-        WALL.dusk = 1 - 0.06 * smooth(p); if (WALL.setTransform) WALL.setTransform();
-        if (!(first && p === 0)) ins.forEach(function(inner){ inner.style.opacity = String(1 - 0.55 * smooth(seg(p, 0.4, 1))); });
-      };
-      var ticking = false;
-      window.addEventListener("scroll", function(){ if (!ticking){ ticking = true; requestAnimationFrame(function(){ ticking = false; apply(); }); } }, { passive:true });
-      window.addEventListener("resize", function(){ last = -1; apply(); });
-      apply();
+    // 2) inside the pinned transfer: fog clears so the picks read, then the iris opens while the camera flies into the tunnel
+    var pinLen = phone.matches ? 1000 : 1700;              // matches the transfer pin
+    function setIris(q, clear){
+      var e = q < 0.5 ? 4 * q * q * q : 1 - Math.pow(-2 * q + 2, 3) / 2;   // ease in-out: opens slowly, then sweeps
+      night.style.transform = "scale(" + e.toFixed(4) + ")";
+      if (fog) fog.style.opacity = String(1 - clear);
+      if (WALL.setClear) WALL.setClear(clear);
+      var rEdge = e * Math.hypot(window.innerWidth, window.innerHeight) * 0.52;
+      root.classList.toggle("nav-dark", rEdge > window.innerHeight / 2 - 10);
     }
-
-    /* scroll parallax on the wall (desktop), max 30px, read by the suspended loop */
-    if (!phone.matches && WALL.cardState){
-      var par = function(){
-        var p = clamp01(window.scrollY / window.innerHeight);
-        WALL.cardState.forEach(function(c){ c.py = -30 * c.depth * p; });
-        if (WALL.kick) WALL.kick();
-      };
-      window.addEventListener("scroll", par, { passive:true }); par();
-    }
+    setIris(0, 0);
+    ScrollTrigger.create({ trigger:"#transfer", start:"top top", end:"+=" + pinLen, scrub:1,
+      onUpdate:function(self){ setIris(seg(self.progress, 0.2, 0.5), seg(self.progress, 0, 0.1)); },
+      onLeaveBack:function(){ setIris(0, 0); } });
   })();

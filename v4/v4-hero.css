@@ -1,18 +1,38 @@
 /* ============================================================ v4: LIGHT HERO + linear-gradient(to bottom,#F6F1EA 0%,rgb(246,241,234) 33.3%,rgb(244,239,232) 36.7%,rgb(233,228,221) 40.0%,rgb(208,204,198) 43.3%,rgb(172,169,164) 46.7%,rgb(130,128,124) 50.0%,rgb(88,86,84) 53.3%,rgb(52,51,50) 56.7%,rgb(27,27,27) 60.0%,rgb(16,16,16) 63.3%,rgb(14,14,14) 66.7%,#0e0e0e 100%)IENT DUSK (overrides on top of the original site CSS) */
 :root{--linen:#F6F1EA;--ink:#1C1A17;--serif:"Cormorant Garamond","Cormorant",Georgia,"Times New Roman",serif}
 
-/* the sky: one tall light-to-dark gradient behind the photos. No-JS it sits in the page under the hero;
-   with JS it is fixed and slides up with the scroll, so the dark rises as a gradient instead of the page turning gray */
-.sky{position:absolute;left:0;right:0;top:0;height:300vh;z-index:0;pointer-events:none;background:linear-gradient(to bottom,#F6F1EA 0%,rgb(246,241,234) 33.3%,rgb(244,239,232) 36.7%,rgb(233,228,221) 40.0%,rgb(208,204,198) 43.3%,rgb(172,169,164) 46.7%,rgb(130,128,124) 50.0%,rgb(88,86,84) 53.3%,rgb(52,51,50) 56.7%,rgb(27,27,27) 60.0%,rgb(16,16,16) 63.3%,rgb(14,14,14) 66.7%,#0e0e0e 100%)}
-html.dusk .sky{position:fixed;will-change:transform}
+/* the light wall behind the photos. Two ways into the dark product (switch in the preview):
+   SHEET (default): the dark rises as a solid sheet with rounded top corners, sliding over the light wall, so no gray ever shows.
+   OMBRE: the wall turns to dusk through warm colours (linen, peach, amber, terracotta, espresso, black), never through gray. */
+.sky{position:fixed;left:0;right:0;top:0;height:100vh;z-index:0;pointer-events:none;background:#F6F1EA}
+html.t-ombre .sky{height:300vh;will-change:transform;
+  background:linear-gradient(in oklab to bottom,#F6F1EA 0%,#F6F1EA 33.3%,#F4E4D3 38%,#EFCBAE 43%,#E2A47F 48%,#C27551 53%,#8A4930 58%,#4B2618 62.5%,#1F120D 65%,#0e0e0e 66.7%,#0e0e0e 100%)}
 html.sky-fade .sky{transition:opacity .6s ease}
 html.sky-off .sky{opacity:0}
+.night{position:fixed;left:0;right:0;top:0;height:calc(100vh + 48px);z-index:3;pointer-events:none;
+  background:linear-gradient(to bottom,#17120f 0,#0e0e0e 180px);border-radius:36px 36px 0 0;
+  box-shadow:0 -1px 0 rgba(255,255,255,.04),0 -30px 70px -24px rgba(28,26,23,.45);
+  transform:translate3d(0,105vh,0);will-change:transform}
+html.t-ombre .night{display:none}
+.hero{z-index:2}
+.transfer{z-index:4}
+/* reduced motion, no JS or no GSAP: no sheet animation, the product section is simply dark with the same rounded top */
+html.static-dusk .night{display:none}
+html.static-dusk .transfer,html:not(.dusk) .transfer{background:#0e0e0e;border-radius:36px 36px 0 0}
+
+/* preview-only switch between the two transitions (remove before launch) */
+.tswitch{position:fixed;left:16px;bottom:16px;z-index:120;display:flex;gap:2px;padding:3px;border-radius:999px;
+  background:rgba(20,18,16,.86);font:500 12px/1 "DM Sans",system-ui,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.tswitch span{color:rgba(255,255,255,.55);padding:8px 10px 8px 12px}
+.tswitch button{font:inherit;color:rgba(255,255,255,.78);background:none;border:0;border-radius:999px;padding:8px 12px;cursor:pointer}
+.tswitch button[aria-pressed="true"]{background:#F6F1EA;color:#1C1A17}
+@media (max-width:767px){.tswitch{bottom:86px;left:10px;font-size:11px}.tswitch span{display:none}.tswitch button{padding:7px 10px}}
 
 /* nav: ink on the light hero, white once the dark arrives */
 .nav{transition:background .4s ease,border-color .4s ease,color .35s ease}
 .nav .brand-name{color:var(--ink);transition:color .35s ease}
 .nav-toggle span{background:var(--ink);transition:background .35s ease}
-.nav.scrolled{background:rgba(246,241,234,.8);border-bottom-color:rgba(28,26,23,.1)}
+.nav,.nav.scrolled{background:rgba(246,241,234,.94);border-bottom:1px solid rgba(28,26,23,.08)}
 @media (min-width:768px){
   .nav .nav-link{color:rgba(28,26,23,.66);transition:color .35s ease}
   .nav .nav-link:hover{color:var(--ink)}
@@ -21,7 +41,7 @@ html.sky-off .sky{opacity:0}
 }
 html.nav-dark .nav .brand-name{color:#fff}
 html.nav-dark .nav-toggle span{background:#fff}
-html.nav-dark .nav.scrolled,.nav.menu-open{background:rgba(14,14,14,.78);border-bottom-color:var(--border-subtle)}
+html.nav-dark .nav,html.nav-dark .nav.scrolled,.nav.menu-open{background:rgba(14,14,14,.86);border-bottom-color:var(--border-subtle)}
 .nav.menu-open .brand-name{color:#fff}.nav.menu-open .nav-toggle span{background:#fff}
 
 /* v1.2 CTA: flat-edged peach gradient, dark text, no glow, no shimmer */
@@ -42,17 +62,18 @@ html.nav-dark .nav.scrolled,.nav.menu-open{background:rgba(14,14,14,.78);border-
 .cphoto.lit figcaption{opacity:0}
 .cphoto.lit .wc-img{box-shadow:0 0 0 2px #fff,0 18px 40px rgba(0,0,0,.45)}
 
-/* ---------- hero copy ---------- */
-.hero{background:transparent;pointer-events:none;--fg:#1C1A17;--muted:rgba(28,26,23,.68)}
-.hero .hero-inner{position:relative;z-index:2;max-width:640px}
+/* ---------- hero copy: a mounted card hung over the wall (a solid panel keeps the type legible on any photo) ---------- */
+.hero{background:transparent;pointer-events:none;--fg:#1C1A17;--muted:rgba(28,26,23,.7)}
+.hero .hero-inner{position:relative;z-index:2;max-width:620px;padding:clamp(30px,3.6vw,48px) clamp(26px,3.4vw,52px) clamp(26px,3vw,40px);
+  background:#FAF7F2;border-radius:2px;box-shadow:0 0 0 1px rgba(28,26,23,.07),0 2px 4px rgba(28,26,23,.06),0 50px 90px -40px rgba(28,26,23,.55),0 24px 40px -30px rgba(28,26,23,.35)}
 .flight-clone{box-shadow:0 0 0 2px #fff,0 22px 50px rgba(0,0,0,.55)!important}
 .select-cursor{border-color:#fff!important;box-shadow:none!important}
 .select-cursor::after{color:#fff!important}
 .hero .hero-eyebrow{font:500 15px/1.3 "DM Sans",system-ui,sans-serif;letter-spacing:0;text-transform:none;color:var(--muted);text-shadow:none;margin-bottom:18px}
-.hero .hero-headline{font-family:var(--serif);font-weight:500;font-size:clamp(46px,5.6vw,84px);text-wrap:balance;line-height:.98;letter-spacing:-.01em;color:var(--fg);text-shadow:none;margin-bottom:28px}
+.hero .hero-headline{font-family:var(--serif);font-weight:500;font-size:clamp(44px,5vw,76px);text-wrap:balance;line-height:.98;letter-spacing:-.01em;color:var(--fg);text-shadow:none;margin-bottom:28px}
 .hero .hero-headline .accent{-webkit-text-fill-color:currentColor;color:inherit;font-style:italic}
 .hero .hero-sub{color:var(--muted);text-shadow:none;font-size:clamp(17px,1.5vw,19px);line-height:1.6}
-.hero .hero-hint{color:var(--muted);text-shadow:none}
+.hero .hero-hint{color:var(--muted);text-shadow:none;margin-top:20px}
 .hero .hero-hint .pulse{background:#EF8A66;box-shadow:none;animation:none}
 
 /* search demo, light */
@@ -85,13 +106,14 @@ html.nav-dark .nav.scrolled,.nav.menu-open{background:rgba(14,14,14,.78);border-
 
 /* ---------- mobile ---------- */
 @media (max-width:767px){
-  .collage-vp{position:absolute;height:100svh;height:100vh}
   .cphoto{left:var(--mx);top:var(--my);width:var(--mw)}
   .cphoto.m-hide{display:none}
   .cphoto figcaption{font-size:11px;line-height:1.25;margin-top:4px;white-space:normal}
-  .hero{align-items:flex-start;padding-top:58vh;padding-top:58svh}
+  .hero{align-items:flex-start;padding-top:44vh;padding-top:44svh}
+  .hero .hero-inner{margin:0 -8px;padding:28px 18px 24px}
+  .night{border-radius:24px 24px 0 0}
   .cp-ph{display:none}
-  .hero .hero-headline{font-size:clamp(40px,11.5vw,54px);margin-bottom:22px}
+  .hero .hero-headline{font-size:clamp(38px,10.6vw,50px);margin-bottom:20px}
   .hits{height:58px}
   .hits img{width:42px;height:52px}
 }

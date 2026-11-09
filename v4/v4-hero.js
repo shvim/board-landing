@@ -29,7 +29,7 @@
     WALL.cardState = cards;
     var fine = window.matchMedia("(hover:hover) and (pointer:fine)").matches;
     var tx = 0, ty = 0, mx = 0, my = 0, raf = null, t0 = performance.now();
-    var AMP = 30;                                         // px at depth 1
+    var AMP = 38;                                         // px at depth 1
     if (fine) window.addEventListener("pointermove", function(e){
       tx = e.clientX / window.innerWidth * 2 - 1; ty = e.clientY / window.innerHeight * 2 - 1; kick();
     }, { passive:true });
@@ -97,43 +97,89 @@
     return { x:r.left + r.width/2, y:r.top + r.height/2, w:r.width, h:r.height };
   }
 
-  /* ============================================================ DUSK: the dark rises as a gradient, tied to scroll */
+  /* ============================================================ INTO THE DARK: sheet (default) or warm ombre */
   (function dusk(){
-    var root = document.documentElement, sky = document.getElementById("sky"), hero = document.querySelector(".hero");
+    var root = document.documentElement, sky = document.getElementById("sky"), night = document.getElementById("night");
+    var hero = document.querySelector(".hero"), transfer = document.getElementById("transfer");
     var ins = WALL.cards.map(function(c){ return c.querySelector(".cp-in"); });
     var phone = window.matchMedia("(max-width:767px)");
     if (!sky) return;
 
-    if (REDUCED){
-      // no movement: the light simply crossfades to dark once the hero is mostly gone
-      root.classList.add("sky-fade");
-      function flip(){ var dark = window.scrollY > (hero ? hero.offsetTop + hero.offsetHeight : window.innerHeight) - window.innerHeight * 0.5; root.classList.toggle("sky-off", dark); root.classList.toggle("nav-dark", dark); }
+    // preview-only: compare the two transitions (remove this block and the .tswitch CSS before launch)
+    var MODE = "sheet";
+    try { MODE = (location.search.match(/[?&]t=(sheet|ombre)/) || [])[1] || localStorage.getItem("loupe-t") || "sheet"; } catch(e){}
+    root.classList.toggle("t-ombre", MODE === "ombre");
+    (function switcher(){
+      var w = document.createElement("div"); w.className = "tswitch"; w.setAttribute("role", "group"); w.setAttribute("aria-label", "Preview transition");
+      w.innerHTML = '<span>Transition</span><button type="button" data-m="sheet">Sheet</button><button type="button" data-m="ombre">Ombre</button>';
+      Array.prototype.forEach.call(w.querySelectorAll("button"), function(b){
+        b.setAttribute("aria-pressed", String(b.getAttribute("data-m") === MODE));
+        b.addEventListener("click", function(){
+          try { localStorage.setItem("loupe-t", b.getAttribute("data-m")); } catch(e){}
+          window.scrollTo(0, 0); location.reload();
+        });
+      });
+      document.body.appendChild(w);
+    })();
+
+    function heroEnd(){ return hero ? hero.offsetTop + hero.offsetHeight : window.innerHeight; }
+
+    if (REDUCED || !hasST){
+      // no movement: the product section is dark with a rounded top (CSS); the nav flips when it arrives
+      root.classList.add("static-dusk");
+      if (MODE === "ombre") root.classList.add("sky-fade");
+      function flip(){
+        var dark = window.scrollY > heroEnd() - 60;
+        root.classList.toggle("nav-dark", dark);
+        if (MODE === "ombre") root.classList.toggle("sky-off", window.scrollY > heroEnd() - window.innerHeight * 0.5);
+      }
       window.addEventListener("scroll", flip, { passive:true }); flip();
       return;
     }
-    var last = -1;
-    function apply(){
-      var H = window.innerHeight, band = sky.offsetHeight / 3;   // sky = light | gradient | dark, a viewport each
-      // the dusk starts once the hero's last line is about to leave (on a phone the hero is taller than the screen)
-      var start = hero ? Math.max(0, hero.offsetTop + hero.offsetHeight - H) : 0;
-      var y = window.scrollY - start, p = clamp01(y / H);
-      if (p !== last){
+
+    /* ---- SHEET: rises with the transfer, after the four photos are picked and lifting ---- */
+    if (MODE === "sheet"){
+      var pinLen = phone.matches ? 1000 : 1700;              // matches the transfer pin
+      var setSheet = function(q){
+        var H = window.innerHeight, e = 1 - Math.pow(1 - q, 3);     // ease out: the sheet arrives softly
+        var y = (1 - e) * (H + 30) - 48 * e;                    // ends 48px above the top so its rounded corners are off-screen
+        night.style.transform = "translate3d(0," + y.toFixed(1) + "px,0) scaleX(" + (0.94 + 0.06 * e).toFixed(4) + ")";
+        root.classList.toggle("nav-dark", y < 64);
+        WALL.dusk = 1 - 0.04 * e; if (WALL.setTransform) WALL.setTransform();   // the wall steps back a little as it is covered
+      };
+      setSheet(0);
+      ScrollTrigger.create({ trigger:"#transfer", start:"top top", end:"+=" + pinLen, scrub:1,
+        onUpdate:function(self){ setSheet(seg(self.progress, 0.22, 0.5)); },
+        onLeaveBack:function(){ setSheet(0); } });
+    }
+
+    /* ---- OMBRE: the wall dusks through warm colours over one screen as the hero leaves ---- */
+    if (MODE === "ombre"){
+      var last = -1;
+      var apply = function(){
+        var H = window.innerHeight, band = sky.offsetHeight / 3;
+        var start = Math.max(0, heroEnd() - H);              // on a phone, wait until the hero copy has gone
+        var p = clamp01((window.scrollY - start) / H);
+        if (p === last) return;
         var first = last < 0; last = p;
         sky.style.transform = "translate3d(0," + (-2 * band * p).toFixed(1) + "px,0)";
-        // nav turns white once the gradient under it is past its midpoint
-        var under = (36 - (H - 2 * H * p)) / H;
-        root.classList.toggle("nav-dark", under > 0.55);
-        WALL.dusk = 1 - 0.08 * smooth(p);                 // photos step back to 0.92 ...
-        if (WALL.setTransform) WALL.setTransform();
-        if (!(first && p === 0)) ins.forEach(function(inner){ inner.style.opacity = String(1 - 0.7 * smooth(seg(p, 0.3, 1))); });   // ... and fade to 30%, but only once the dark reaches them
-        if (!phone.matches && WALL.cardState){
-          WALL.cardState.forEach(function(c){ c.py = -30 * c.depth * p; });   // scroll parallax, max 30px, read by the suspended loop
-          if (WALL.kick) WALL.kick();
-        }
-      }
+        root.classList.toggle("nav-dark", (36 - (H - 2 * H * p)) / H > 0.5);
+        WALL.dusk = 1 - 0.06 * smooth(p); if (WALL.setTransform) WALL.setTransform();
+        if (!(first && p === 0)) ins.forEach(function(inner){ inner.style.opacity = String(1 - 0.55 * smooth(seg(p, 0.4, 1))); });
+      };
+      var ticking = false;
+      window.addEventListener("scroll", function(){ if (!ticking){ ticking = true; requestAnimationFrame(function(){ ticking = false; apply(); }); } }, { passive:true });
+      window.addEventListener("resize", function(){ last = -1; apply(); });
+      apply();
     }
-    var ticking = false;
-    window.addEventListener("scroll", function(){ if (!ticking){ ticking = true; requestAnimationFrame(function(){ ticking = false; apply(); }); } }, { passive:true });
-    window.addEventListener("resize", function(){ last = -1; apply(); });
-    apply();
+
+    /* scroll parallax on the wall (desktop), max 30px, read by the suspended loop */
+    if (!phone.matches && WALL.cardState){
+      var par = function(){
+        var p = clamp01(window.scrollY / window.innerHeight);
+        WALL.cardState.forEach(function(c){ c.py = -30 * c.depth * p; });
+        if (WALL.kick) WALL.kick();
+      };
+      window.addEventListener("scroll", par, { passive:true }); par();
+    }
   })();

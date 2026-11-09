@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Loupe — Describe it. Loupe finds it.</title>
+<meta name="description" content="Loupe is the visual library for interior designers and studios. Save from Chrome or iPhone, and find any image again by describing it. Free to use.">
+<meta name="theme-color" content="#0e0e0e">
+<link rel="icon" type="image/svg+xml" href="../docs/assets/loupe-favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../docs/assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../docs/assets/apple-touch-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display:ital@0;1&display=swap">
+<link rel="stylesheet" href="v3.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 5v14M15 5v14"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8V4z"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="lk" aria-label="Loupe home"><i class="s"></i><i class="s"></i><i class="b"></i><i class="s"></i><span class="w">loupe</span></a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#tagged">How it works</a>
+      <a href="#studios">Studios</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost btn-sm nav-signin" data-href="signin" href="https://board-2-shvim.web.app/">Sign in</a>
+      <a class="btn btn-brand btn-sm" data-href="signup" href="https://board-2-shvim.web.app/">Start free</a>
+      <button class="nav-menu" id="navMenu" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><svg class="i"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="sheet" id="sheet" hidden>
+  <nav aria-label="Menu"><a href="#tagged">How it works</a><a href="#studios">Studios</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
+  <div class="sheet-cta">
+    <a class="btn btn-brand btn-lg" data-cta="primary" data-href="signup" href="https://board-2-shvim.web.app/">Start free</a>
+    <a class="btn btn-line btn-lg" data-href="signin" href="https://board-2-shvim.web.app/">Sign in</a>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- HERO: a living wall of saves; the search cuts through it -->
+<section class="hero" id="top">
+  <div class="wall" id="wall" aria-hidden="true"></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <p class="eyebrow">The visual library for interior designers and studios</p>
+    <h1 class="h1">Describe it.<br><span class="soft">Loupe finds it.</span></h1>
+    <div class="search" id="search" role="img" aria-label="A search for “cognac leather, deep teal” lighting up the matching saved interiors.">
+      <svg class="i"><use href="#i-search"/></svg>
+      <span class="q" id="q">cognac leather, deep teal</span><span class="caret" aria-hidden="true"></span>
+      <span class="found" id="found" aria-hidden="true"><b id="foundN">4</b> found</span>
+    </div>
+    <p class="hero-sub">Save from Chrome or your iPhone. Loupe tags every image the way a designer would, so you can find it again in your own words.</p>
+    <div class="ctas">
+      <a class="btn btn-brand btn-lg" data-cta="primary" data-href="signup" href="https://board-2-shvim.web.app/">Start free</a>
+      <a class="btn btn-line btn-lg" href="#tagged">See how it works</a>
+    </div>
+    <p class="micro">Free to use — not a trial. Chrome, iPhone and web.</p>
+  </div>
+  <button class="motion-toggle" id="motionToggle" type="button" aria-pressed="false"><svg class="i"><use href="#i-pause"/></svg><span>Pause motion</span></button>
+</section>
+
+<!-- A single photograph, read the way a designer reads it -->
+<section class="tagged" id="tagged">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow">How Loupe sees it</p>
+      <h2 class="h2">Pinterest sees “orange.” <span class="soft">You see <em>terracotta.</em></span></h2>
+      <p class="lede">Every save is described in the words you'd use yourself: the color by name, the material, the era, the mood. Then you find it by describing it.</p>
+    </header>
+  </div>
+  <div class="wrap plate-grid">
+    <figure class="plate" id="plate">
+      <img src="../images/img_34.jpg" alt="Terracotta tweed sofa with a blush cushion against a sage green wall" width="600" height="750">
+      <figcaption class="spots">
+        <span class="spot flip" style="--x:62%;--y:60%;--d:0"><i></i><span><b>Material</b>Terracotta tweed</span></span>
+        <span class="spot" style="--x:8%;--y:12%;--d:1"><i></i><span><b>Color</b>Sage green, matte</span></span>
+        <span class="spot" style="--x:36%;--y:30%;--d:2"><i></i><span><b>Accent</b>Blush quilted cushion</span></span>
+        <span class="spot" style="--x:14%;--y:73%;--d:3"><i></i><span><b>Detail</b>Tapered oak legs</span></span>
+        <span class="spot" style="--x:28%;--y:90%;--d:4"><i></i><span><b>Material</b>Natural jute rug</span></span>
+      </figcaption>
+    </figure>
+    <dl class="plate-key">
+      <div><dt>Color</dt><dd>Terracotta · Sage · Blush</dd></div>
+      <div><dt>Material</dt><dd>Tweed · Oak · Jute</dd></div>
+      <div><dt>Era</dt><dd>Mid-century modern</dd></div>
+      <div><dt>Mood</dt><dd><em>warm, playful, sunlit</em></dd></div>
+      <div><dt>Search it later as</dt><dd class="say">“rust sofa, sage wall”</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- YOUR SAVES, NOT SUGGESTIONS -->
+<section class="sec saves">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">Your library</p>
+      <h2 class="h2">Your saves, <span class="soft">not suggestions.</span></h2>
+      <p class="lede">Open Loupe and you see what you saved. Nothing recommended in front of it, nothing generated, nothing to scroll past.</p>
+      <ul class="points">
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>The source stays attached.</b> Credit the photographer, or go back to the product page when it's time to specify.</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>Your tags sit beside Loupe's.</b> Add the client, the project, or why you saved it.</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>Take it with you any time.</b> Download any board as a zip.</span></li>
+      </ul>
+    </div>
+    <article class="card-detail" data-reveal>
+      <div class="cd-img"><img src="../images/img_38.jpg" alt="Bedroom with rust linen bedding, a slatted oak bed and a limewash plaster wall" width="600" height="750" loading="lazy"></div>
+      <div class="cd-body">
+        <p class="cd-src">dezeen.com <svg class="i"><use href="#i-link"/></svg></p>
+        <p class="cd-t">Rust Linen Bedroom</p>
+        <p class="cd-p">Limewash plaster · Rust linen · Slatted oak</p>
+        <p class="cd-d">japandi · bouclé cushion · wool shag · <em>calm, earthy</em></p>
+        <div class="cd-pal"><i style="background:#8A3A12"></i><i style="background:#938E83"></i><i style="background:#B79A90"></i><i style="background:#B8946A"></i><i style="background:#2B2622"></i></div>
+        <div class="cd-tags"><span>Hartley — main bedroom</span><span>Client favourite</span><span class="add"><svg class="i"><use href="#i-plus"/></svg>Add tag</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- CAPTURE -->
+<section class="sec capture">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow">Save from anywhere</p>
+      <h2 class="h2">Save it the second you see it.</h2>
+    </header>
+    <div class="cap-grid">
+      <article class="cap" data-reveal>
+        <div class="cap-vis" aria-hidden="true"><img src="../images/t/img_10.jpg" alt="" loading="lazy"><span class="cv-url">archdigest.com</span><span class="qs"><span></span></span></div>
+        <h3>Chrome extension</h3>
+        <p>Hover any image on any site and hit Save. Crop to the detail or circle what matters.</p>
+        <a class="btn btn-line btn-sm" data-href="chrome" href="https://board-2-shvim.web.app/"><img src="../logos/chrome.png" alt="" width="16" height="16">Add to Chrome</a>
+      </article>
+      <article class="cap" data-reveal>
+        <div class="cap-vis" aria-hidden="true"><img src="../images/t/img_44.jpg" alt="" loading="lazy"><span class="share-row"><i></i><i></i><span class="appicon"></span><i></i></span></div>
+        <h3>iPhone share sheet</h3>
+        <p>On Instagram, Pinterest or Safari, tap Share, then Loupe. Done before the story ends.</p>
+        <a class="btn btn-line btn-sm" data-href="appstore" href="https://board-2-shvim.web.app/"><img class="inv" src="../logos/apple.svg" alt="" width="14" height="16">Get the iPhone app</a>
+      </article>
+      <article class="cap" data-reveal>
+        <div class="cap-vis" aria-hidden="true"><img src="../images/t/img_12.jpg" alt="" loading="lazy"><span class="tagging"><i></i>Tagging…</span><span class="fab"><svg class="i"><use href="#i-plus"/></svg></span></div>
+        <h3>The Loupe app</h3>
+        <p>Showroom photos, site visits and market-trip snaps from your camera roll, tagged as they land.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- STUDIOS -->
+<section class="sec studio" id="studios">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow">For studios</p>
+      <h2 class="h2 wide">One library your studio owns. <span class="soft">When a designer leaves, the library stays.</span></h2>
+      <p class="lede">Give every project a shared board. Everyone saves into it from their own phone or browser, every save is credited, and it all belongs to the studio, not to someone's camera roll.</p>
+    </header>
+    <div class="board" data-reveal>
+      <div class="bd-h">
+        <div><p class="bd-name">Hartley kitchen</p><p class="bd-count">6 items · shared with 4</p></div>
+        <div class="bd-r"><span class="members" aria-hidden="true"><span class="avatar">M</span><span class="mav">L</span><span class="mav">MK</span><span class="mav">MO</span></span><span class="bd-btn"><svg class="i"><use href="#i-share"/></svg>Share</span><span class="bd-btn"><svg class="i"><use href="#i-download"/></svg>Download zip</span></div>
+      </div>
+      <div class="bd-grid">
+        <figure><img src="../images/t/img_10.jpg" alt="Shaker kitchen with leather pulls" loading="lazy"><figcaption><b>MK</b><span>Michael · instagram.com</span></figcaption></figure>
+        <figure><img src="../images/t/img_05.jpg" alt="Brushed brass dome pendants" loading="lazy"><figcaption><b>L</b><span>Lisa · pinterest.com</span></figcaption></figure>
+        <figure><img src="../images/t/img_40.jpg" alt="Emerald velvet dining chairs" loading="lazy"><figcaption><b>MO</b><span>Monica · archdigest.com</span></figcaption></figure>
+        <figure><img src="../images/t/img_12.jpg" alt="Whitewashed oak counter stool" loading="lazy"><figcaption><b class="me">M</b><span>You · showroom photo</span></figcaption></figure>
+        <figure><img src="../images/t/img_04.jpg" alt="Brick loft with bar seating" loading="lazy"><figcaption><b>L</b><span>Lisa · dezeen.com</span></figcaption></figure>
+        <figure><img src="../images/t/img_46.jpg" alt="Open kitchen with cognac leather sofa" loading="lazy"><figcaption><b>MK</b><span>Michael · houzz.com</span></figcaption></figure>
+      </div>
+    </div>
+    <div class="values">
+      <div><h3>A board for every project</h3><p>The whole team saves to the same place, and anyone can search it in designer language.</p></div>
+      <div><h3>Credited, every time</h3><p>See who found each image and where it came from.</p></div>
+      <div><h3>Ready for the client</h3><p>Download a whole board as a zip for the presentation or the contractor.</p></div>
+    </div>
+    <a class="btn btn-brand btn-lg" data-href="signup" href="https://board-2-shvim.web.app/">Start a studio library</a>
+  </div>
+</section>
+
+<!-- OUT -->
+<section class="sec out">
+  <div class="wrap split">
+    <div class="canvas" data-reveal aria-label="A moodboard on a canvas with the Loupe sidebar open beside it">
+      <div class="artboard">
+        <p class="ab-t">Hartley kitchen<span>Concept A — warm minimal</span></p>
+        <div class="ab-grid"><img src="../images/t/img_10.jpg" alt="" loading="lazy"><img src="../images/t/img_05.jpg" alt="" loading="lazy"><img src="../images/t/img_46.jpg" alt="" loading="lazy"><span class="ab-slot"></span></div>
+      </div>
+      <div class="side">
+        <span class="lk lk-sm"><i class="s"></i><i class="s"></i><i class="b"></i><i class="s"></i><span class="w">loupe</span></span>
+        <span class="side-q"><svg class="i"><use href="#i-search"/></svg>oak stool</span>
+        <div class="side-grid"><img src="../images/t/img_12.jpg" alt="" loading="lazy"><img src="../images/t/img_30.jpg" alt="" loading="lazy"><img src="../images/t/img_09.jpg" alt="" loading="lazy"><img src="../images/t/img_21.jpg" alt="" loading="lazy"></div>
+      </div>
+      <span class="ghost" aria-hidden="true"><img src="../images/t/img_12.jpg" alt=""></span>
+    </div>
+    <div>
+      <p class="eyebrow">Works where you design</p>
+      <h2 class="h2">Drag it straight onto your canvas.</h2>
+      <p class="lede">Open the Loupe sidebar in Chrome next to Canva, Figma or any canvas in your browser and drag images in. Inside Canva, Loupe lives in the side panel.</p>
+      <ul class="ints">
+        <li><img src="../logos/chrome.png" alt="" width="20" height="20">Chrome sidebar<span class="st live">Live</span></li>
+        <li><img src="../logos/canva.png" alt="" width="20" height="20">Canva app<span class="st live">Live</span></li>
+        <li><img src="../logos/figma.png" alt="" width="14" height="20">Figma plugin<span class="st">Coming soon</span></li>
+        <li><img src="../logos/sketchup.png" alt="" width="19" height="20">SketchUp extension<span class="st">Coming soon</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- AI, named once -->
+<section class="sec quiet">
+  <div class="wrap quiet-in">
+    <h2 class="h2 center">Loupe doesn't make images. <span class="soft">It helps you find yours.</span></h2>
+    <p class="lede center">Loupe's AI describes the images you save, in your trade's vocabulary. It never generates or recommends new ones, and you can see and edit every tag.</p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sec pricing" id="pricing">
+  <div class="wrap">
+    <header class="sec-head center">
+      <p class="eyebrow">Pricing</p>
+      <h2 class="h2 center">Free to use. <span class="soft">Not a free trial.</span></h2>
+      <p class="lede center">Save, tag and find your references with no clock running. Upgrade when you want more, or when you bring your studio in.</p>
+    </header>
+    <div class="plans">
+      <div class="plan"><p class="plan-k">Personal</p><p class="plan-p">Free</p><p class="plan-d">Your own library, from Chrome, iPhone and web.</p></div>
+      <div class="plan"><p class="plan-k">Studio</p><p class="plan-p">For teams</p><p class="plan-d">Shared project boards that belong to the studio.</p></div>
+    </div>
+    <div class="ctas center">
+      <a class="btn btn-brand btn-lg" data-cta="primary" data-href="signup" href="https://board-2-shvim.web.app/">Start free</a>
+      <a class="btn btn-line btn-lg" id="plansLink" data-href="pricing" href="#pricing" hidden>See plans</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec faq" id="faq">
+  <div class="wrap faq-in">
+    <h2 class="h2">Questions</h2>
+    <div>
+      <details><summary>Is Loupe really free?<svg class="i"><use href="#i-plus"/></svg></summary><p>Yes. Loupe is free to use, not a trial that runs out. Paid plans add more for heavy users and for studios.</p></details>
+      <details><summary>Does Loupe make or suggest images?<svg class="i"><use href="#i-plus"/></svg></summary><p>No. Your library holds only what you and your team saved. Loupe describes those images so you can find them.</p></details>
+      <details><summary>Where can I save from?<svg class="i"><use href="#i-plus"/></svg></summary><p>Any website through the Chrome extension, any app on your iPhone through the share sheet, and your camera roll through the Loupe app.</p></details>
+      <details><summary>Can I fix a tag Loupe got wrong?<svg class="i"><use href="#i-plus"/></svg></summary><p>Yes. You can see every tag, remove the ones you don't want and add your own.</p></details>
+      <details><summary>Can I get my images out?<svg class="i"><use href="#i-plus"/></svg></summary><p>Yes. Download any board as a zip, or drag images into Canva, Figma or any canvas in your browser.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL: the wall returns -->
+<section class="final">
+  <div class="wall wall-final" id="wall2" aria-hidden="true"></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="wrap final-in">
+    <h2 class="h1">Next time,<br><span class="soft">you'll find it.</span></h2>
+    <div class="ctas center">
+      <a class="btn btn-brand btn-lg" data-cta="primary" data-href="signup" href="https://board-2-shvim.web.app/">Start free</a>
+      <a class="btn btn-line btn-lg" data-href="signin" href="https://board-2-shvim.web.app/">Sign in</a>
+    </div>
+    <p class="micro">Free to use — not a trial. Chrome, iPhone and web.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <a href="#top" class="lk" aria-label="Loupe home"><i class="s"></i><i class="s"></i><i class="b"></i><i class="s"></i><span class="w">loupe</span></a>
+    <nav aria-label="Footer"><a href="#tagged">How it works</a><a href="#studios">Studios</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a data-href="signin" href="https://board-2-shvim.web.app/">Sign in</a></nav>
+    <p>© 2026 Loupe · The visual library for interior designers and studios</p>
+  </div>
+</footer>
+
+<script src="v3.js"></script>
+</body>
+</html>

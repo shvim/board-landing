@@ -1,0 +1,884 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Loupe Design System v1.2</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap">
+<style>
+/* Layout: a single dark reference sheet in Loupe's own skin. Every swatch, button and screen below
+   is drawn with the exact v1.2 tokens, so the page itself is the proof. Dark only, like the product. */
+:root{
+  color-scheme:dark;
+  /* Surfaces */
+  --lp-bg:#0e0e0e; --lp-surface:#141414; --lp-raised:#1c1c1c;
+  /* Text ladder */
+  --lp-fg-1:#ffffff; --lp-fg-2:rgba(255,255,255,.85); --lp-fg-3:rgba(255,255,255,.60); --lp-fg-4:rgba(255,255,255,.40); --lp-fg-5:rgba(255,255,255,.25);
+  /* Lines */
+  --lp-line-1:rgba(255,255,255,.06); --lp-line-2:rgba(255,255,255,.12); --lp-line-3:rgba(255,255,255,.30);
+  /* State */
+  --lp-active-bg:rgba(255,255,255,.12); --lp-veil:rgba(255,255,255,.06); --lp-focus:rgba(255,255,255,.70);
+  --lp-primary:#ffffff; --lp-primary-hover:#e6e6e6; --lp-on-primary:#0e0e0e;
+  /* Brand */
+  --lp-peach:#EF8A66; --lp-peach-hover:#F29A79; --lp-peach-press:#D77C5C; --lp-on-peach:#1A0F0A;
+  --lp-peach-grad:linear-gradient(135deg,#F4AE93 0%,#EF8A66 55%,#D3714F 100%);
+  /* Danger */
+  --lp-danger:#FF6B5E; --lp-danger-bg:rgba(255,107,94,.12);
+  /* Documentation-only colors (never in product) */
+  --doc-wrong:#C27552; --doc-frost:rgba(14,14,14,.62);
+  /* Type */
+  --font:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--lp-bg);color:var(--lp-fg-2);font:400 14px/1.5 var(--font);-webkit-font-smoothing:antialiased}
+code{font-family:var(--mono);font-size:12px;color:var(--lp-fg-2)}
+.lucide{width:var(--s,18px);height:var(--s,18px);stroke-width:1.75;flex:none;display:block}
+.lucide.fill{fill:currentColor}
+
+/* ---------- page chrome ---------- */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--lp-bg)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(14,14,14,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--lp-line-1)}
+.top-in{max-width:1120px;margin:0 auto;display:flex;align-items:center;gap:20px;height:56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;min-width:0}
+.top nav::-webkit-scrollbar{display:none}
+.top nav a{white-space:nowrap;color:var(--lp-fg-4);text-decoration:none;font:500 13px/1 var(--font);padding:8px 10px;border-radius:999px;transition:color .15s,background .15s}
+.top nav a.on{color:#fff;background:var(--lp-active-bg)}
+@media (hover:hover) and (pointer:fine){.top nav a:hover{color:var(--lp-fg-2)}}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* logo lockup */
+.lk{display:inline-flex;align-items:center;white-space:nowrap;line-height:1;font-size:var(--F,20px)}
+.lk i{display:block;border-radius:50%;background:var(--lp-peach)}
+.lk .s{width:.24em;height:.24em}
+.lk .b{width:.78em;height:.78em}
+.lk .w{font:700 1em/1 var(--font);color:#fff;letter-spacing:-.01em;transform:translateY(-.04em)}
+
+/* sections */
+.hero{padding-block:72px 56px;border-bottom:1px solid var(--lp-line-1)}
+.eyebrow{font:500 12px/1.4 var(--font);color:var(--lp-fg-4)}
+.hero h1{font:600 clamp(34px,6vw,60px)/1.02 var(--font);letter-spacing:-.03em;color:#fff;margin:28px 0 0;text-wrap:balance;max-width:16ch}
+.hero h1 em{font-style:normal;color:var(--lp-peach)}
+.hero h1 .red{color:var(--lp-danger)}
+.hero p.lead{font:400 17px/1.55 var(--font);color:var(--lp-fg-3);max-width:60ch;margin:22px 0 0}
+.budget{margin-top:40px}
+.budget-bar{display:flex;height:64px;border-radius:10px;overflow:hidden;border:1px solid var(--lp-line-2)}
+.budget-bar i{display:block;height:100%}
+.budget-key{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:12px;font:400 12px/1.4 var(--font);color:var(--lp-fg-4)}
+.budget-key span{display:inline-flex;align-items:center;gap:7px}
+.budget-key b{display:inline-block;width:10px;height:10px;border-radius:3px;border:1px solid var(--lp-line-3)}
+
+.sec{padding-block:76px 12px;border-bottom:1px solid var(--lp-line-1)}
+.sec:last-of-type{border-bottom:0;padding-bottom:96px}
+.sec>h2{font:600 30px/1.15 var(--font);letter-spacing:-.02em;color:#fff;margin:0;text-wrap:balance}
+.sec>.lede{font:400 15.5px/1.6 var(--font);color:var(--lp-fg-3);max-width:66ch;margin:12px 0 40px}
+.sub{margin-bottom:56px}
+.sub>h3{font:600 17px/1.3 var(--font);color:#fff;margin:0 0 6px}
+.sub>p{font:400 14.5px/1.6 var(--font);color:var(--lp-fg-3);max-width:68ch;margin:0 0 20px}
+.stage{border:1px solid var(--lp-line-1);border-radius:16px;padding:28px;background:var(--lp-bg)}
+.cap{font:400 12px/1.5 var(--font);color:var(--lp-fg-4);margin-top:10px}
+.cap code{font-size:11.5px;color:var(--lp-fg-3)}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:820px){.grid2,.grid3{grid-template-columns:minmax(0,1fr)}.stage{padding:18px}}
+.scroll{overflow-x:auto}
+
+/* ---------- palette ---------- */
+.nest{position:relative;background:var(--lp-bg);border:1px solid var(--lp-line-2);border-radius:16px;padding:22px}
+.nest .lbl{display:flex;justify-content:space-between;gap:12px;font:500 13px/1.3 var(--font);color:#fff;margin-bottom:14px}
+.nest .lbl code{color:var(--lp-fg-4)}
+.nest .l2{background:var(--lp-surface);border-radius:10px;padding:20px;border:1px solid var(--lp-line-1)}
+.nest .l3{background:var(--lp-raised);border-radius:6px;padding:16px 18px}
+.nest small{display:block;font:400 12px/1.45 var(--font);color:var(--lp-fg-4);margin-top:4px}
+.ladder{display:flex;flex-direction:column;border:1px solid var(--lp-line-1);border-radius:16px;overflow:hidden}
+.ladder>div{display:grid;grid-template-columns:minmax(0,1.3fr) 120px minmax(0,1.4fr);gap:16px;align-items:center;padding:16px 20px;border-top:1px solid var(--lp-line-1)}
+.ladder>div:first-child{border-top:0}
+.ladder .smp{font:500 18px/1.2 var(--font)}
+.ladder .use{font:400 12.5px/1.45 var(--font);color:var(--lp-fg-4)}
+@media (max-width:620px){.ladder>div{grid-template-columns:1fr;gap:4px}}
+.lines{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.lines>div{border-radius:10px;padding:22px 18px;background:var(--lp-surface)}
+.lines .demo{height:44px;border-radius:6px;margin-bottom:12px}
+@media (max-width:620px){.lines{grid-template-columns:1fr}}
+.chipsw{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.sw{border:1px solid var(--lp-line-1);border-radius:10px;overflow:hidden;background:var(--lp-surface)}
+.sw .c{height:84px}
+.sw .t{padding:11px 13px 13px}
+.sw b{display:block;font:600 13px/1.3 var(--font);color:#fff}
+.sw code{display:block;color:var(--lp-fg-4);font-size:11.5px;margin-top:3px}
+.sw span{display:block;font:400 12px/1.45 var(--font);color:var(--lp-fg-4);margin-top:6px}
+
+/* ---------- product components (.c-*) ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:6px;border:0;font:500 14px/1 var(--font);white-space:nowrap;cursor:pointer;transition:background .15s,color .15s,transform .1s}
+.btn .lucide{--s:16px}
+.btn:active{transform:scale(.98)}
+.btn:focus-visible,.chip:focus-visible,.ibtn:focus-visible{outline:2px solid var(--lp-focus);outline-offset:2px}
+.btn-primary{background:var(--lp-primary);color:var(--lp-on-primary);font-weight:600}
+.btn-secondary{background:var(--lp-raised);color:var(--lp-fg-2)}
+.btn-ghost{background:transparent;color:var(--lp-fg-3)}
+.btn-danger{background:var(--lp-danger-bg);color:var(--lp-danger);font-weight:600}
+.btn-brand{background:var(--lp-peach);color:var(--lp-on-peach);font-weight:600}
+.btn-primary.h{background:var(--lp-primary-hover)}
+.btn-secondary.h{background-image:linear-gradient(var(--lp-veil),var(--lp-veil))}
+.btn-ghost.h{background:var(--lp-veil);color:var(--lp-fg-2)}
+.btn-danger.h{background:rgba(255,107,94,.2)}
+.btn-brand.h{background:var(--lp-peach-hover)}
+.btn.p{transform:scale(.98)}
+.btn-brand.p{background:var(--lp-peach-press)}
+.btn.f{outline:2px solid var(--lp-focus);outline-offset:2px}
+.btn.d{opacity:.38;pointer-events:none}
+.btn-sm{height:32px;padding:0 12px;font-size:13px}
+.btn-xl{height:50px;width:100%;font-size:15px;font-weight:600}
+@media (hover:hover) and (pointer:fine){
+  .btn-primary:hover{background:var(--lp-primary-hover)}
+  .btn-secondary:hover{background-image:linear-gradient(var(--lp-veil),var(--lp-veil))}
+  .btn-ghost:hover{background:var(--lp-veil);color:var(--lp-fg-2)}
+  .btn-danger:hover{background:rgba(255,107,94,.2)}
+  .btn-brand:hover{background:var(--lp-peach-hover)}
+}
+.spin{width:14px;height:14px;border-radius:50%;border:1.6px solid currentColor;border-top-color:transparent;animation:spin .7s linear infinite;flex:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.bmatrix{display:grid;grid-template-columns:110px repeat(5,minmax(120px,1fr));gap:12px 14px;align-items:center;min-width:820px}
+.bmatrix .hd{font:400 12px/1.3 var(--font);color:var(--lp-fg-4)}
+.bmatrix .rk{font:600 13px/1.3 var(--font);color:#fff}
+.bmatrix .rk small{display:block;font:400 11.5px/1.35 var(--font);color:var(--lp-fg-4);margin-top:2px}
+.bmatrix .btn{width:100%}
+
+.ibtn{width:36px;height:36px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:0;color:var(--lp-fg-2);cursor:pointer}
+.ibtn.h{background:var(--lp-veil);color:#fff}
+.ibtn.frost{width:28px;height:28px;border-radius:50%;background:var(--doc-frost);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff}
+.ibtn.frost .lucide{--s:15px}
+
+.chip{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 14px;border-radius:999px;background:var(--lp-surface);border:1px solid var(--lp-line-2);color:var(--lp-fg-2);font:500 14px/1 var(--font);white-space:nowrap;flex:none;cursor:pointer}
+.chip .lucide{--s:16px}
+.chip.on{background:var(--lp-active-bg);border-color:var(--lp-line-3);color:#fff}
+.chip.ico{width:40px;padding:0;justify-content:center;border-radius:10px}
+.chip .dot{width:12px;height:12px;border-radius:50%;border:1px solid var(--lp-line-3);display:block}
+.seg{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:var(--lp-surface);border:1px solid var(--lp-line-1)}
+.seg button{height:32px;padding:0 16px;border-radius:999px;border:0;background:transparent;color:var(--lp-fg-4);font:500 14px/1 var(--font);cursor:pointer}
+.seg button.on{background:var(--lp-active-bg);color:#fff}
+.search{display:flex;align-items:center;gap:10px;height:44px;padding:0 10px 0 14px;border-radius:10px;background:var(--lp-surface);border:1px solid var(--lp-line-2);color:var(--lp-fg-3);flex:1;min-width:0}
+.search span{flex:1;color:var(--lp-fg-4);font:400 14px/1 var(--font);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kbd{height:22px;padding:0 7px;border-radius:6px;background:var(--lp-raised);color:var(--lp-fg-4);font:500 11px/22px var(--font)}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--lp-peach);color:var(--lp-on-peach);font:600 13px/1 var(--font);display:flex;align-items:center;justify-content:center;flex:none}
+.fab{width:56px;height:56px;border-radius:50%;background:var(--lp-peach);color:var(--lp-on-peach);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,.45)}
+.fab .lucide{--s:26px;stroke-width:2}
+
+.switch{position:relative;width:38px;height:22px;border-radius:999px;background:var(--lp-active-bg);flex:none}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.6)}
+.switch.on{background:#fff}
+.switch.on::after{left:18px;background:#0e0e0e}
+.check{width:20px;height:20px;border-radius:6px;border:1.5px solid rgba(255,255,255,.4);display:inline-flex;align-items:center;justify-content:center;color:#0e0e0e;flex:none}
+.check.on{background:#fff;border-color:#fff}
+.check .lucide{--s:14px;stroke-width:2.6}
+.selc{width:24px;height:24px;border-radius:50%;border:2px solid #fff;background:rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;color:#0e0e0e}
+.selc.on{background:#fff}
+.selc .lucide{--s:14px;stroke-width:3}
+
+.tile{position:relative;border-radius:10px;overflow:hidden}
+.tagging{position:absolute;top:8px;left:8px;height:24px;padding:0 9px 0 8px;border-radius:999px;background:var(--doc-frost);backdrop-filter:blur(12px);display:flex;align-items:center;gap:6px;font:500 11px/1 var(--font);color:#fff}
+.tagging i{width:6px;height:6px;border-radius:50%;background:#fff;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+.fav{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(14,14,14,.55);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;color:#fff}
+.fav .lucide{--s:14px}
+
+.menu{width:232px;background:var(--lp-raised);border:1px solid var(--lp-line-2);border-radius:10px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.6)}
+.menu div{display:flex;align-items:center;justify-content:space-between;height:46px;padding:0 16px;border-top:1px solid var(--lp-line-1);color:var(--lp-fg-2);font:400 15px/1 var(--font)}
+.menu div:first-child{border-top:0}
+.menu div.h{background:var(--lp-veil)}
+.menu .gap{height:6px;padding:0;background:var(--lp-surface)}
+.menu .gap+div{border-top:0}
+.menu .danger{color:var(--lp-danger)}
+.dialog{width:340px;max-width:100%;background:var(--lp-surface);border:1px solid var(--lp-line-1);border-radius:10px;padding:22px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.dialog h4{font:600 17px/1.3 var(--font);color:#fff;margin:0}
+.dialog p{font:400 14px/1.5 var(--font);color:var(--lp-fg-3);margin:8px 0 20px}
+.dialog .row{justify-content:flex-end;gap:8px}
+.toast{position:relative;overflow:hidden;display:flex;align-items:center;gap:10px;width:340px;max-width:100%;padding:10px 8px 12px 10px;background:var(--lp-surface);border:1px solid var(--lp-line-2);border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.55)}
+.toast .th{position:relative;width:38px;height:38px;border-radius:6px;overflow:hidden;flex:none}
+.toast .th::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.34)}
+.toast .th .lucide{position:absolute;inset:0;margin:auto;color:#fff;z-index:1;--s:16px;stroke-width:2.2}
+.toast .gl{width:18px;display:flex;justify-content:center;color:var(--lp-fg-2)}
+.toast .bd{flex:1;min-width:0}
+.toast .t1{font:600 13px/1.35 var(--font);color:var(--lp-fg-2)}
+.toast .t2{font:400 12px/1.4 var(--font);color:var(--lp-fg-3)}
+.toast .act{font:600 13px/1 var(--font);color:#fff;padding:0 8px;white-space:nowrap}
+.toast .rail{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.06)}
+.toast .rail i{display:block;height:100%;width:58%;background:rgba(255,255,255,.55)}
+.toast.err .gl{color:var(--lp-danger)}
+.toast.err .rail i{width:100%;background:var(--lp-danger)}
+
+/* phone frame */
+.phone{width:300px;max-width:100%;height:620px;border-radius:38px;border:1px solid var(--lp-line-2);overflow:hidden;position:relative;background:var(--lp-bg);flex:none}
+.phone .status{height:40px}
+.phone .tabbar{position:absolute;left:0;right:0;bottom:0;height:70px;border-top:1px solid var(--lp-line-1);background:var(--lp-bg);display:flex;padding-top:8px}
+.phone .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--lp-fg-4);font:500 11px/1 var(--font)}
+.phone .tab .lucide{--s:22px}
+.phone .tab.on{color:#fff}
+.phone .fab{position:absolute;right:14px;bottom:84px}
+.ph-grid{display:flex;gap:8px;padding:0 8px}
+.ph-grid .col{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
+
+/* placeholder imagery */
+.im1{background:radial-gradient(90% 70% at 72% 18%,rgba(255,238,214,.55),transparent 60%),linear-gradient(180deg,#cdb79c 0 60%,#8b6d52 60% 100%)}
+.im2{background:radial-gradient(70% 60% at 30% 30%,rgba(255,255,255,.18),transparent 60%),linear-gradient(160deg,#2f3a4f,#151b28)}
+.im3{background:radial-gradient(60% 50% at 50% 45%,#d9c7ae 0 38%,transparent 39%),linear-gradient(180deg,#5b6b4c,#3a4632)}
+.im4{background:linear-gradient(90deg,#efe3d2 0 22%,#c9a27c 22% 44%,#8e5a3c 44% 62%,#3c3029 62% 80%,#1d1a18 80%)}
+.im5{background:radial-gradient(80% 60% at 50% 100%,#b98b63,transparent 70%),linear-gradient(180deg,#e8dccb,#cdbba4)}
+.im6{background:radial-gradient(50% 40% at 65% 35%,rgba(255,220,180,.35),transparent 70%),linear-gradient(200deg,#6d4f3c,#2b211b)}
+.im7{background:linear-gradient(180deg,#a7b4c2 0 40%,#d8d2c6 40% 100%)}
+.neo{background:
+  linear-gradient(#e8402a,#e8402a) 50% 12%/74% 10% no-repeat,
+  linear-gradient(#1f4fd8,#1f4fd8) 50% 25%/62% 2% no-repeat,
+  repeating-linear-gradient(90deg,#e8402a 0 14%,transparent 14% 20%,#1f4fd8 20% 34%,transparent 34% 40%,#f2b632 40% 54%,transparent 54% 60%,#121212 60% 74%,transparent 74% 80%,#e8402a 80% 94%,transparent 94% 100%) 50% 54%/84% 26% no-repeat,
+  repeating-linear-gradient(90deg,#f2b632 0 14%,transparent 14% 20%,#e8402a 20% 34%,transparent 34% 40%,#1f4fd8 40% 54%,transparent 54% 60%,#e8402a 60% 74%,transparent 74% 80%,#121212 80% 94%,transparent 94% 100%) 50% 88%/84% 26% no-repeat,
+  #ece5d8}
+.bulb{background:radial-gradient(circle at 50% 44%,#f7dc5c 0 23%,#111 23% 27%,transparent 27%),linear-gradient(#111,#111) 50% 76%/16% 10% no-repeat,#3557f0}
+
+/* peach cards */
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.pgrid{grid-template-columns:minmax(0,1fr)}}
+.pcard{border:1px solid var(--lp-line-1);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.pcard .show{height:180px;display:flex;align-items:center;justify-content:center;position:relative;background:var(--lp-bg)}
+.pcard .meta{padding:14px 16px 16px;border-top:1px solid var(--lp-line-1);background:var(--lp-surface);flex:1}
+.pcard .meta b{display:flex;align-items:baseline;gap:8px;font:600 14px/1.3 var(--font);color:#fff}
+.pcard .meta b span{font:500 12px/1 var(--font);color:var(--lp-fg-4)}
+.pcard .meta p{margin:5px 0 0;font:400 12.5px/1.5 var(--font);color:var(--lp-fg-3)}
+
+.swap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.swap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.swap{grid-template-columns:minmax(0,1fr)}}
+.swap>div{border:1px solid var(--lp-line-1);border-radius:10px;padding:16px;background:var(--lp-surface)}
+.swap .pair{display:flex;align-items:center;gap:12px;min-height:44px}
+.swap .pair .arrow{color:var(--lp-fg-5)}
+.swap .pair .arrow .lucide{--s:16px}
+.swap h5{font:500 13px/1.35 var(--font);color:var(--lp-fg-2);margin:12px 0 0}
+.never{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.never>div{border:1px solid var(--lp-line-1);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;min-height:104px}
+.never span{font:400 12px/1.35 var(--font);color:var(--lp-fg-4);margin-top:auto}
+
+/* type */
+.type{border-top:1px solid var(--lp-line-1)}
+.type>div{display:grid;grid-template-columns:200px minmax(0,1fr);gap:4px 24px;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--lp-line-1)}
+.type .k{font:500 13px/1.3 var(--font);color:#fff}
+.type .k small{display:block;font:400 12px/1.45 var(--font);color:var(--lp-fg-4);margin-top:3px}
+@media (max-width:620px){.type>div{grid-template-columns:1fr}}
+
+/* shape */
+.radii{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.radii div{height:110px;border:1px solid var(--lp-line-3);background:var(--lp-surface);display:flex;flex-direction:column;justify-content:flex-end;padding:12px 14px;font:600 14px/1.3 var(--font);color:#fff}
+.radii small{font:400 12px/1.4 var(--font);color:var(--lp-fg-4)}
+@media (max-width:620px){.radii{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.heights{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.heights>div{display:flex;flex-direction:column;gap:8px;font:400 12px/1.4 var(--font);color:var(--lp-fg-4)}
+.heights i{display:block;width:104px;border-radius:6px;background:var(--lp-raised);border:1px solid var(--lp-line-2)}
+.heights b{color:#fff;font-weight:600}
+.space{display:flex;flex-direction:column;gap:8px}
+.space div{display:flex;align-items:center;gap:14px;font:400 12px/1 var(--font);color:var(--lp-fg-4)}
+.space code{width:44px;color:var(--lp-fg-3)}
+.space i{display:block;height:12px;border-radius:2px;background:var(--lp-fg-5)}
+.space .core i{background:#fff}
+
+/* before/after */
+.ba-label{display:inline-flex;align-items:center;gap:8px;font:600 13px/1 var(--font);margin-bottom:12px}
+.ba-label.now{color:var(--lp-danger)}
+.ba-label.fix{color:#fff}
+.ba-label i{width:8px;height:8px;border-radius:50%;background:currentColor;display:block}
+.mark{position:absolute;width:20px;height:20px;border-radius:50%;background:var(--lp-danger);color:#0e0e0e;font:700 11px/20px var(--font);text-align:center;z-index:5;box-shadow:0 0 0 3px var(--lp-bg)}
+.mk{display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--lp-danger);color:#0e0e0e;font:700 10.5px/18px var(--font);justify-content:center;flex:none;margin-top:1px}
+.issues{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.issues li{display:flex;gap:10px;font:400 13.5px/1.5 var(--font);color:var(--lp-fg-3)}
+.issues li b{color:var(--lp-fg-2);font-weight:600}
+.desk{border:1px solid var(--lp-line-2);border-radius:12px;overflow:hidden;background:var(--lp-bg);min-width:900px;position:relative}
+.desk .nav{display:flex;align-items:center;gap:16px;height:68px;padding:0 20px;border-bottom:1px solid var(--lp-line-1)}
+.desk .strip{display:flex;gap:8px;padding:14px 20px;border-bottom:1px solid var(--lp-line-1);overflow:hidden}
+.desk .lib{padding:18px 20px 22px;display:flex;align-items:baseline;gap:10px}
+.wrong-av{width:34px;height:34px;border-radius:6px;background:linear-gradient(160deg,#D99070,var(--doc-wrong));color:#2a160c;font:600 13px/34px var(--font);text-align:center;flex:none}
+
+/* codex */
+pre.prompt{margin:0;max-height:480px;overflow:auto;background:var(--lp-surface);border:1px solid var(--lp-line-1);border-radius:10px;padding:20px 22px;font:12.5px/1.7 var(--mono);color:var(--lp-fg-3);white-space:pre}
+.copybar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+.checklist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 24px}
+.checklist li{display:flex;gap:10px;align-items:flex-start;font:400 13.5px/1.5 var(--font);color:var(--lp-fg-3)}
+.checklist .check{margin-top:1px}
+@media (max-width:760px){.checklist{grid-template-columns:minmax(0,1fr)}}
+.note{border-left:2px solid var(--lp-line-3);padding:2px 0 2px 16px;margin-top:18px;color:var(--lp-fg-3);font:400 14px/1.6 var(--font);max-width:72ch}
+.note b{color:var(--lp-fg-2)}
+a.doclink{color:#fff;text-decoration:underline;text-decoration-color:var(--lp-line-3);text-underline-offset:3px}
+</style>
+</head>
+<body>
+
+
+<header class="top"><div class="top-in">
+  <span class="lk" style="--F:18px"><i class="s" style="margin-right:.22em"></i><i class="s" style="margin-right:.36em"></i><i class="b" style="margin-right:.36em"></i><i class="s" style="margin-right:.58em"></i><span class="w">loupe</span></span>
+  <nav id="nav">
+    <a href="#palette">Palette</a><a href="#peach">Peach</a><a href="#buttons">Buttons</a><a href="#components">Components</a><a href="#type">Type</a><a href="#shape">Shape</a><a href="#fixes">Fixes</a><a href="#codex">Codex</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+
+<section class="hero" id="top">
+  <div class="eyebrow">Design system v1.2 · color and type · 29 October 2026</div>
+  <h1>Black, gray and white. <em>Peach in six places.</em> <span class="red">Red only for delete.</span></h1>
+  <p class="lead">Every swatch, button and screen on this page is drawn with the real tokens, so what you see is exactly what Codex should build. The full written spec, with the token file, is <code>docs/design-system.md</code>.</p>
+  <div class="budget">
+    <div class="budget-bar" aria-label="Rough color share of a typical screen">
+      <i style="flex:54;background:var(--lp-bg)"></i><i style="flex:16;background:var(--lp-surface)"></i><i style="flex:10;background:var(--lp-raised)"></i><i style="flex:16;background:#e9e9e9"></i><i style="flex:2.5;background:var(--lp-peach)"></i><i style="flex:1.5;background:var(--lp-danger)"></i>
+    </div>
+    <div class="budget-key">
+      <span><b style="background:var(--lp-bg)"></b>Background 54%</span><span><b style="background:var(--lp-surface)"></b>Surface 16%</span><span><b style="background:var(--lp-raised)"></b>Raised 10%</span><span><b style="background:#e9e9e9"></b>White text and state 16%</span><span><b style="background:var(--lp-peach)"></b>Peach 2–3%</span><span><b style="background:var(--lp-danger)"></b>Red, only when deleting</span>
+    </div>
+    <div class="cap">Roughly how any Loupe screen should read, not counting the user's images.</div>
+  </div>
+</section>
+
+<!-- PALETTE -->
+<section class="sec" id="palette">
+  <h2>The whole palette</h2>
+  <p class="lede">14 values cover the entire product. v1.1 had 8 grays and 7 text levels, and that spread is where the mismatched buttons came from. Hover is no longer its own gray: it's a thin white veil over whatever is underneath.</p>
+
+  <div class="sub">
+    <h3>Three surfaces, nested</h3>
+    <p>Each step sits inside the one before it. Nothing in the UI uses a fourth gray.</p>
+    <div class="nest">
+      <div class="lbl">Background <code>--lp-bg #0e0e0e</code></div>
+      <small style="margin:-10px 0 16px">Page, phone tab bar, extension popup, behind contained images</small>
+      <div class="l2">
+        <div class="lbl">Surface <code>--lp-surface #141414</code></div>
+        <small style="margin:-10px 0 16px">Sheets, modals, card backs, toasts, chips and inputs at rest</small>
+        <div class="l3">
+          <div class="lbl" style="margin-bottom:0">Raised <code>--lp-raised #1c1c1c</code></div>
+          <small>Secondary buttons, action tiles, custom tag pills, menus</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Five text levels</h3>
+    <p>All text and icons are white at one of these opacities. Pick by role, not by eye.</p>
+    <div class="ladder">
+      <div><span class="smp" style="color:var(--lp-fg-1)">Warm Oak Lounge</span><code>fg-1 · 100%</code><span class="use">Titles, headings, active chip and tab text</span></div>
+      <div><span class="smp" style="color:var(--lp-fg-2)">Add to board</span><code>fg-2 · 85%</code><span class="use">Body, button labels, icons at rest, primary tags</span></div>
+      <div><span class="smp" style="color:var(--lp-fg-3)">Layered greige living room</span><code>fg-3 · 60%</code><span class="use">Descriptions, detail and mood tags, source domain</span></div>
+      <div><span class="smp" style="color:var(--lp-fg-4)">Saved Oct 29 · 52</span><code>fg-4 · 40%</code><span class="use">Labels, dates, counts, placeholders, inactive tabs</span></div>
+      <div><span class="smp" style="color:var(--lp-fg-5)">Unavailable</span><code>fg-5 · 25%</code><span class="use">Disabled text, tag separators</span></div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Three lines</h3>
+    <div class="lines">
+      <div><div class="demo" style="border-bottom:1px solid var(--lp-line-1);border-radius:0"></div><code>line-1 · 6%</code><div class="cap" style="margin-top:4px">Dividers, nav border</div></div>
+      <div><div class="demo" style="border:1px solid var(--lp-line-2)"></div><code>line-2 · 12%</code><div class="cap" style="margin-top:4px">Chip, input, toast, menu borders</div></div>
+      <div><div class="demo" style="border:1px solid var(--lp-line-3)"></div><code>line-3 · 30%</code><div class="cap" style="margin-top:4px">Active chip, focused input, swatch rim</div></div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>State, brand, danger</h3>
+    <div class="chipsw">
+      <div class="sw"><div class="c" style="background:linear-gradient(var(--lp-active-bg),var(--lp-active-bg)),var(--lp-bg)"></div><div class="t"><b>Active</b><code>rgba(255,255,255,.12)</code><span>Active chip, view toggle segment</span></div></div>
+      <div class="sw"><div class="c" style="background:#fff"></div><div class="t"><b>Primary white</b><code>#ffffff · text #0e0e0e</code><span>Primary buttons, checked, selected, switches on</span></div></div>
+      <div class="sw"><div class="c" style="background:var(--lp-peach)"></div><div class="t"><b>Peach</b><code>#EF8A66 · text #1A0F0A</code><span>The six brand places only</span></div></div>
+      <div class="sw"><div class="c" style="background:var(--lp-danger)"></div><div class="t"><b>Danger</b><code>#FF6B5E</code><span>Delete, errors, error rail on toasts</span></div></div>
+    </div>
+    <p class="note">No green, blue or yellow anywhere in the interface. Success is white text and a check. Image palettes, color-chip swatches and board covers are the user's content, so they keep whatever colors the images have.</p>
+  </div>
+</section>
+
+<!-- PEACH -->
+<section class="sec" id="peach">
+  <h2>Peach: six places, nothing else</h2>
+  <p class="lede">One peach, always flat. No darker shade, no browner shade, no gradient, no tint. If something looks peach-brown in the build, it's an old value or a gradient, and it's a bug.</p>
+
+  <div class="pgrid">
+    <div class="pcard"><div class="show"><span class="lk" style="--F:40px"><i class="s" style="margin-right:.22em"></i><i class="s" style="margin-right:.36em"></i><i class="b" style="margin-right:.36em"></i><i class="s" style="margin-right:.58em"></i><span class="w">loupe</span></span></div>
+      <div class="meta"><b>Logo dots <span>everywhere</span></b><p>Four flat peach dots, white wordmark.</p></div></div>
+    <div class="pcard"><div class="show"><div class="row" style="gap:22px;align-items:flex-end">
+        <svg viewBox="0 0 100 100" width="88" height="88" aria-label="App icon" style="display:block"><rect width="100" height="100" rx="22" fill="#EF8A66"/><circle cx="50" cy="50" r="20" fill="#0E0E0E"/></svg>
+        <svg viewBox="0 0 100 100" width="40" height="40" aria-label="Favicon 40px" style="display:block"><rect width="100" height="100" rx="22" fill="#EF8A66"/><circle cx="50" cy="50" r="20" fill="#0E0E0E"/></svg>
+        <svg viewBox="0 0 100 100" width="16" height="16" aria-label="Favicon 16px" style="display:block"><rect width="100" height="100" rx="22" fill="#EF8A66"/><circle cx="50" cy="50" r="20" fill="#0E0E0E"/></svg></div></div>
+      <div class="meta"><b>App icon and favicon <span>logo, place 1</span></b><p>Peach square, #0E0E0E circle dead center, 40% of the width. Nothing else. OS-masked icons ship full-bleed; everything else has 22% corners.</p></div></div>
+    <div class="pcard"><div class="show"><div class="row" style="gap:28px;align-items:center"><span class="avatar" style="width:56px;height:56px;font-size:21px">M</span><span class="avatar">M</span><span class="avatar" style="width:30px;height:30px;font-size:12px">M</span></div></div>
+      <div class="meta"><b>Avatar <span>desktop, phone, menu</span></b><p>A circle, never a rounded square. 34px desktop, 30px phone. Initials #1A0F0A, 600.</p></div></div>
+    <div class="pcard"><div class="show"><span class="fab"><i data-lucide="plus"></i></span></div>
+      <div class="meta"><b>FAB <span>phone only</span></b><p>56px circle, plus icon 26px in #1A0F0A. Hidden in selection mode.</p></div></div>
+    <div class="pcard"><div class="show" style="padding:0 28px"><div style="width:100%;background:var(--lp-surface);border:1px solid var(--lp-line-2);border-radius:16px;padding:14px">
+        <div style="font:400 11px/1 var(--font);color:var(--lp-fg-4);margin-bottom:8px">Saving to</div>
+        <div style="height:36px;border-radius:6px;background:var(--lp-raised);display:flex;align-items:center;justify-content:space-between;padding:0 12px;font:500 13px/1 var(--font);color:var(--lp-fg-2);margin-bottom:10px">Feldman Kitchen<i data-lucide="chevron-down" style="--s:15px"></i></div>
+        <button class="btn btn-brand btn-xl" style="height:42px;font-size:14px">Save</button></div></div>
+      <div class="meta"><b>Save <span>Chrome extension only</span></b><p>The same button is Save in crop and annotate modes. Never two on screen.</p></div></div>
+    <div class="pcard"><div class="show im5" style="flex-direction:column;gap:0">
+        <svg viewBox="0 0 240 150" width="100%" height="100%" style="position:absolute;inset:0" aria-hidden="true"><rect x="118" y="34" width="86" height="62" rx="2" fill="none" stroke="#EF8A66" stroke-width="3"/><path d="M40 118 L104 72" stroke="#EF8A66" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M90 70 L106 71 L100 86" stroke="#EF8A66" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        <div style="position:absolute;bottom:10px;display:flex;gap:2px;padding:4px;border-radius:999px;background:var(--lp-raised);border:1px solid var(--lp-line-2)">
+          <span class="ibtn" style="width:30px;height:30px;border-radius:999px;background:var(--lp-active-bg);color:#fff"><i data-lucide="move-up-right" style="--s:15px"></i></span><span class="ibtn" style="width:30px;height:30px;color:var(--lp-fg-3)"><i data-lucide="pen-line" style="--s:15px"></i></span><span class="ibtn" style="width:30px;height:30px;color:var(--lp-fg-3)"><i data-lucide="square" style="--s:15px"></i></span><span class="ibtn" style="width:30px;height:30px;color:var(--lp-fg-3)"><i data-lucide="undo-2" style="--s:15px"></i></span>
+        </div></div>
+      <div class="meta"><b>Annotation strokes <span>extension drawing</span></b><p>3px peach strokes on the image. The toolbar stays gray, active tool white.</p></div></div>
+    <div class="pcard"><div class="show"><button class="btn" style="background:var(--lp-peach-grad);color:var(--lp-on-peach);font-weight:600;height:52px;padding:0 26px;font-size:15px">Start saving</button></div>
+      <div class="meta"><b>Marketing CTAs <span>landing, sign-in, pricing</span></b><p>The only place a gradient is allowed. Never inside the product, never with a glow.</p></div></div>
+  </div>
+
+  <div class="sub" style="margin-top:56px">
+    <h3>These were peach and are now white</h3>
+    <div class="swap">
+      <div><div class="pair"><span style="font:600 13px/1 var(--font);color:var(--lp-peach)">More info</span><span class="arrow"><i data-lucide="arrow-right"></i></span><span style="font:500 13px/1 var(--font);color:var(--lp-fg-2)">More info</span></div><h5>Link on the flipped card back</h5></div>
+      <div><div class="pair"><i style="width:8px;height:8px;border-radius:50%;background:var(--lp-peach);display:block"></i><span style="font:500 12px/1 var(--font);color:var(--lp-fg-3)">Capturing</span><span class="arrow"><i data-lucide="arrow-right"></i></span><i style="width:8px;height:8px;border-radius:50%;background:#fff;display:block"></i><span style="font:500 12px/1 var(--font);color:var(--lp-fg-3)">Capturing</span></div><h5>Extension status dots</h5></div>
+      <div><div class="pair"><span style="width:26px;height:26px;border-radius:50%;background:var(--lp-peach);color:var(--lp-on-peach);display:flex;align-items:center;justify-content:center"><i data-lucide="plus" style="--s:15px"></i></span><span class="arrow"><i data-lucide="arrow-right"></i></span><span style="width:26px;height:26px;border-radius:50%;background:#fff;color:#0e0e0e;display:flex;align-items:center;justify-content:center"><i data-lucide="plus" style="--s:15px"></i></span></div><h5>Armed quick-save badge on images</h5></div>
+      <div><div class="pair"><span style="width:44px;height:30px;border-radius:6px;background:linear-gradient(135deg,#FFB088,#E67E4A)"></span><span class="arrow"><i data-lucide="arrow-right"></i></span><span style="width:44px;height:30px;border-radius:6px;background:linear-gradient(135deg,#9BC4FF,#5A8FE0)"></span></div><h5>Board color "clay" removed</h5></div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Never peach. These are always white.</h3>
+    <div class="never">
+      <div><span class="chip on">Warm neutrals</span><span>Active chip</span></div>
+      <div><div class="seg"><button class="on">All</button><button>Boards</button></div><span>View toggle</span></div>
+      <div><div class="row" style="gap:10px"><span class="check on"><i data-lucide="check"></i></span><span class="switch on"></span></div><span>Checkbox, switch</span></div>
+      <div><span class="selc on"><i data-lucide="check"></i></span><span>Selection circle</span></div>
+      <div><span class="spin" style="color:#fff;width:18px;height:18px"></span><span>Spinner, progress</span></div>
+      <div><div style="display:flex;flex-direction:column;align-items:center;gap:4px;color:#fff;font:500 11px/1 var(--font)"><i data-lucide="folders" style="--s:22px"></i>Boards</div><span>Active tab</span></div>
+      <div><span class="ibtn frost"><i data-lucide="star" class="fill"></i></span><span>Favorite on</span></div>
+      <div><button class="btn btn-primary btn-sm">Done</button><span>Primary buttons</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BUTTONS -->
+<section class="sec" id="buttons">
+  <h2>Buttons: five kinds</h2>
+  <p class="lede">One shape for all of them: 44px tall, 6px corners, DM Sans 14px. The main action on any screen is white. Everything else is gray or plain text. Peach is only the extension's Save.</p>
+
+  <div class="sub">
+    <div class="stage scroll">
+      <div class="bmatrix">
+        <span></span><span class="hd">Rest</span><span class="hd">Hover (desktop)</span><span class="hd">Keyboard focus</span><span class="hd">Loading</span><span class="hd">Disabled</span>
+        <span class="rk">Primary<small>Done, Create board, Confirm</small></span>
+        <button class="btn btn-primary">Create board</button><button class="btn btn-primary h">Create board</button><button class="btn btn-primary f">Create board</button><button class="btn btn-primary"><span class="spin"></span>Creating…</button><button class="btn btn-primary d">Create board</button>
+        <span class="rk">Secondary<small>Add to board, Share, Download</small></span>
+        <button class="btn btn-secondary"><i data-lucide="folder-plus"></i>Add to board</button><button class="btn btn-secondary h"><i data-lucide="folder-plus"></i>Add to board</button><button class="btn btn-secondary f"><i data-lucide="folder-plus"></i>Add to board</button><button class="btn btn-secondary"><span class="spin"></span>Adding…</button><button class="btn btn-secondary d"><i data-lucide="folder-plus"></i>Add to board</button>
+        <span class="rk">Ghost<small>Cancel, Not now, Clear all</small></span>
+        <button class="btn btn-ghost">Cancel</button><button class="btn btn-ghost h">Cancel</button><button class="btn btn-ghost f">Cancel</button><span></span><button class="btn btn-ghost d">Cancel</button>
+        <span class="rk">Danger<small>Confirming a delete</small></span>
+        <button class="btn btn-danger">Delete</button><button class="btn btn-danger h">Delete</button><button class="btn btn-danger f">Delete</button><button class="btn btn-danger"><span class="spin"></span>Deleting…</button><button class="btn btn-danger d">Delete</button>
+        <span class="rk">Brand<small>Extension Save only</small></span>
+        <button class="btn btn-brand">Save</button><button class="btn btn-brand h">Save</button><button class="btn btn-brand f">Save</button><button class="btn btn-brand"><span class="spin"></span>Saving…</button><button class="btn btn-brand d">Save</button>
+      </div>
+    </div>
+    <div class="cap">Press: every kind scales to 98% for 100ms. Loading keeps the width and changes the label to present tense.</div>
+  </div>
+
+  <div class="grid2">
+    <div class="sub">
+      <h3>Sizes</h3>
+      <div class="stage"><div class="row" style="align-items:flex-end">
+        <div><button class="btn btn-secondary btn-sm">Small</button><div class="cap">32px</div></div>
+        <div><button class="btn btn-secondary">Default</button><div class="cap">44px</div></div>
+        <div style="flex:1;min-width:160px"><button class="btn btn-primary btn-xl">Save to board</button><div class="cap">50px, full width in sheets</div></div>
+      </div></div>
+    </div>
+    <div class="sub">
+      <h3>Icon buttons</h3>
+      <div class="stage"><div class="row" style="gap:18px;align-items:flex-end">
+        <div><span class="ibtn"><i data-lucide="share"></i></span><div class="cap">Plain 36</div></div>
+        <div><span class="ibtn h"><i data-lucide="share"></i></span><div class="cap">Hover</div></div>
+        <div><span class="im6" style="width:76px;height:52px;border-radius:10px;display:flex;align-items:center;justify-content:center"><span class="ibtn frost"><i data-lucide="ellipsis"></i></span></span><div class="cap">On an image 28</div></div>
+        <div><span class="im3" style="width:76px;height:52px;border-radius:10px;display:flex;align-items:center;justify-content:center"><span class="ibtn frost"><i data-lucide="star" class="fill"></i></span></span><div class="cap">Toggled on</div></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPONENTS -->
+<section class="sec" id="components">
+  <h2>Every element, drawn</h2>
+  <p class="lede">The main pieces of the product with their exact values. The written element map in the doc covers the rest.</p>
+
+  <div class="sub">
+    <h3>Desktop nav and filter strip</h3>
+    <div class="scroll">
+      <div class="desk">
+        <div class="nav">
+          <span style="color:var(--lp-fg-2)"><i data-lucide="menu" style="--s:22px"></i></span>
+          <div class="seg"><button class="on">All</button><button>Boards</button><button>Canvas</button><button>Clusters</button></div>
+          <div class="search" style="max-width:440px"><i data-lucide="search"></i><span>Search by tag, color, mood</span><span class="kbd">⌘K</span></div>
+          <span style="flex:1"></span><span class="avatar">M</span>
+        </div>
+        <div class="strip">
+          <span class="chip ico"><i data-lucide="filter"></i></span>
+          <span class="chip"><i data-lucide="star"></i>Favorites</span>
+          <span class="chip on">Warm neutrals</span><span class="chip">High contrast palette</span><span class="chip">Monochrome base</span>
+          <span class="chip"><i class="dot" style="background:#2c2c2c"></i>Charcoal</span><span class="chip"><i class="dot" style="background:#E8D5C2"></i>Warm sand</span><span class="chip"><i class="dot" style="background:#1E2A4A"></i>Deep navy</span>
+        </div>
+      </div>
+    </div>
+    <div class="grid3" style="margin-top:14px">
+      <div class="cap" style="margin:0">View toggle: track <code>surface</code>, active segment <code>active-bg</code> + <code>#fff</code>, inactive <code>fg-4</code>.</div>
+      <div class="cap" style="margin:0">Chips: <code>surface</code>, border <code>line-2</code>, text <code>fg-2</code>. Active: <code>active-bg</code>, border <code>line-3</code>, <code>#fff</code>. Sentence case.</div>
+      <div class="cap" style="margin:0">Color dots have a <code>line-3</code> rim, so charcoal and white swatches never disappear.</div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Phone: grid, selection, detail sheet</h3>
+    <div class="row" style="align-items:flex-start;gap:24px">
+      <div>
+        <div class="phone">
+          <div class="status"></div>
+          <div style="height:46px;display:flex;align-items:center;gap:12px;padding:0 14px">
+            <span style="color:var(--lp-fg-2)"><i data-lucide="menu" style="--s:21px"></i></span>
+            <span class="lk" style="--F:17px"><i class="s" style="margin-right:.22em"></i><i class="s" style="margin-right:.36em"></i><i class="b" style="margin-right:.36em"></i><i class="s" style="margin-right:.58em"></i><span class="w">loupe</span></span>
+            <span style="flex:1"></span><span style="font:500 13px/1 var(--font);color:var(--lp-fg-4)">256</span><span class="avatar" style="width:30px;height:30px;font-size:12px">M</span>
+          </div>
+          <div style="display:flex;gap:7px;padding:4px 10px 10px;overflow:hidden">
+            <span class="chip ico" style="height:32px;width:36px"><i data-lucide="filter" style="--s:15px"></i></span>
+            <span class="chip" style="height:32px;font-size:13px;padding:0 12px"><i data-lucide="star" style="--s:14px"></i>Favorites</span>
+            <span class="chip on" style="height:32px;font-size:13px;padding:0 12px">Warm neutrals</span>
+          </div>
+          <div class="ph-grid">
+            <div class="col"><div class="tile im1" style="aspect-ratio:4/5"></div><div class="tile im4" style="aspect-ratio:1/1"><span class="fav"><i data-lucide="star" class="fill"></i></span></div><div class="tile im7" style="aspect-ratio:3/4"></div></div>
+            <div class="col"><div class="tile im2" style="aspect-ratio:16/11"><span class="tagging"><i></i>Tagging…</span></div><div class="tile im3" style="aspect-ratio:2/3"></div><div class="tile im5" style="aspect-ratio:1/1"></div></div>
+          </div>
+          <span class="fab"><i data-lucide="plus"></i></span>
+          <div class="tabbar"><div class="tab on"><i data-lucide="layout-grid"></i>All</div><div class="tab"><i data-lucide="folders"></i>Boards</div><div class="tab"><i data-lucide="search"></i>Search</div></div>
+        </div>
+        <div class="cap" style="max-width:300px">Tiles: 10px corners, 8px gap and gutter, nothing on them at rest. Tab bar active <code>#fff</code>, inactive <code>fg-4</code>.</div>
+      </div>
+
+      <div>
+        <div class="phone">
+          <div class="status"></div>
+          <div style="height:46px;display:flex;align-items:center;padding:0 14px;font:600 15px/1 var(--font);color:#fff">2 selected</div>
+          <div class="ph-grid" style="margin-top:8px">
+            <div class="col">
+              <div class="tile im1" style="aspect-ratio:4/5"><span class="selc on" style="position:absolute;right:8px;bottom:8px"><i data-lucide="check"></i></span></div>
+              <div class="tile im4" style="aspect-ratio:1/1;opacity:.5"><span class="selc" style="position:absolute;right:8px;bottom:8px"></span></div>
+              <div class="tile im7" style="aspect-ratio:3/4;opacity:.5"><span class="selc" style="position:absolute;right:8px;bottom:8px"></span></div>
+            </div>
+            <div class="col">
+              <div class="tile im2" style="aspect-ratio:16/11;opacity:.5"><span class="selc" style="position:absolute;right:8px;bottom:8px"></span></div>
+              <div class="tile im3" style="aspect-ratio:2/3"><span class="selc on" style="position:absolute;right:8px;bottom:8px"><i data-lucide="check"></i></span></div>
+              <div class="tile im5" style="aspect-ratio:1/1;opacity:.5"><span class="selc" style="position:absolute;right:8px;bottom:8px"></span></div>
+            </div>
+          </div>
+          <div style="position:absolute;left:10px;right:10px;bottom:82px;display:flex;align-items:center;gap:2px;height:50px;padding:0 5px 0 14px;border-radius:999px;background:rgba(28,28,28,.92);backdrop-filter:blur(20px);border:1px solid var(--lp-line-2);box-shadow:0 12px 40px rgba(0,0,0,.6)">
+            <span style="font:600 13px/1 var(--font);color:#fff;margin-right:auto">2</span>
+            <span class="ibtn"><i data-lucide="folder-plus" style="--s:19px"></i></span><span class="ibtn"><i data-lucide="download" style="--s:19px"></i></span><span class="ibtn"><i data-lucide="share" style="--s:19px"></i></span><span class="ibtn" style="color:var(--lp-danger)"><i data-lucide="trash-2" style="--s:19px"></i></span>
+            <span style="height:34px;padding:0 13px;border-radius:999px;background:var(--lp-active-bg);color:#fff;font:600 13px/34px var(--font)">Done</span>
+          </div>
+          <div class="tabbar"><div class="tab on"><i data-lucide="layout-grid"></i>All</div><div class="tab"><i data-lucide="folders"></i>Boards</div><div class="tab"><i data-lucide="search"></i>Search</div></div>
+        </div>
+        <div class="cap" style="max-width:300px">Selected: full brightness, white circle, dark check. Unselected: 50%. Only Delete is red. No FAB.</div>
+      </div>
+
+      <div>
+        <div class="phone">
+          <div class="im1" style="position:absolute;inset:0;opacity:.35"></div>
+          <div style="position:absolute;inset:0;background:rgba(0,0,0,.6)"></div>
+          <div style="position:absolute;left:0;right:0;top:58px;bottom:0;background:var(--lp-surface);border-radius:16px 16px 0 0;overflow:hidden">
+            <div class="im6" style="height:170px;position:relative"><span style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:36px;height:5px;border-radius:3px;background:rgba(255,255,255,.6)"></span></div>
+            <div style="padding:16px 18px">
+              <div style="display:flex;align-items:center;gap:5px;font:400 12px/1 var(--font);color:var(--lp-fg-3)">archdaily.com<i data-lucide="external-link" style="--s:12px"></i></div>
+              <div style="font:600 22px/1.2 var(--font);letter-spacing:-.01em;color:#fff;margin-top:8px">Warm Oak Lounge</div>
+              <div style="font:400 13px/1.45 var(--font);color:var(--lp-fg-3);margin-top:5px">Layered greige living room with raw oak and linen.</div>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:14px">
+                <div style="height:54px;border-radius:10px;background:var(--lp-raised);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;color:var(--lp-fg-2)"><i data-lucide="star" class="fill" style="--s:17px;color:#fff"></i><span style="font:500 10.5px/1 var(--font);color:var(--lp-fg-3)">Starred</span></div>
+                <div style="height:54px;border-radius:10px;background:var(--lp-raised);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;color:var(--lp-fg-2)"><i data-lucide="folder-plus" style="--s:17px"></i><span style="font:500 10.5px/1 var(--font);color:var(--lp-fg-3)">Board</span></div>
+                <div style="height:54px;border-radius:10px;background:var(--lp-raised);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;color:var(--lp-fg-2)"><i data-lucide="share" style="--s:17px"></i><span style="font:500 10.5px/1 var(--font);color:var(--lp-fg-3)">Share</span></div>
+                <div style="height:54px;border-radius:10px;background:var(--lp-raised);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;color:var(--lp-fg-2)"><i data-lucide="ellipsis" style="--s:17px"></i><span style="font:500 10.5px/1 var(--font);color:var(--lp-fg-3)">More</span></div>
+              </div>
+              <div style="font:400 12px/1 var(--font);color:var(--lp-fg-4);margin-top:18px">Palette</div>
+              <div style="display:flex;height:30px;margin-top:8px;border-radius:10px;overflow:hidden"><i style="flex:30;background:#cdb79c"></i><i style="flex:24;background:#8b6d52"></i><i style="flex:20;background:#efe3d2"></i><i style="flex:16;background:#3c3029"></i><i style="flex:10;background:#d9c7ae"></i></div>
+              <div style="font:400 12px/1 var(--font);color:var(--lp-fg-4);margin-top:16px">Tags</div>
+              <div style="font:500 14px/1.5 var(--font);color:var(--lp-fg-2);margin-top:6px">japandi living room <span style="color:var(--lp-fg-5)">·</span> raw oak</div>
+              <div style="font:400 13px/1.5 var(--font);color:var(--lp-fg-3)">linen upholstery <span style="color:var(--lp-fg-5)">·</span> travertine</div>
+              <div style="font:400 13px/1.5 var(--font);font-style:italic;color:var(--lp-fg-3)">quiet and tactile</div>
+            </div>
+          </div>
+        </div>
+        <div class="cap" style="max-width:300px">No peach anywhere in the sheet. Star on fills white. Source link is gray, not peach.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <h3>Menu, dialog, toast, controls</h3>
+    <div class="grid3">
+      <div class="stage" style="display:flex;justify-content:center">
+        <div class="menu"><div>Add to board<i data-lucide="folder-plus"></i></div><div class="h">Download<i data-lucide="download"></i></div><div>Share<i data-lucide="share"></i></div><div class="gap"></div><div class="danger">Delete<i data-lucide="trash-2"></i></div></div>
+      </div>
+      <div class="stage" style="display:flex;align-items:center;justify-content:center">
+        <div class="dialog"><h4>Delete this image?</h4><p>It's removed from your library and every board. This can't be undone.</p><div class="row"><button class="btn btn-ghost">Cancel</button><button class="btn btn-danger">Delete</button></div></div>
+      </div>
+      <div class="stage" style="display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center">
+        <div class="toast"><div class="th im6"><i data-lucide="check"></i></div><div class="bd"><div class="t1">Saved to Feldman Kitchen</div><div class="t2">Tagging in the background</div></div><span class="act">View</span><div class="rail"><i></i></div></div>
+        <div class="toast err"><div class="gl"><i data-lucide="triangle-alert" style="--s:15px"></i></div><div class="bd"><div class="t1">Couldn't upload kitchen.png</div><div class="t2">The file is 48 MB; the limit is 25 MB</div></div><span class="act">Retry</span><div class="rail"><i></i></div></div>
+        <div class="row" style="gap:16px;margin-top:6px"><span class="switch"></span><span class="switch on"></span><span class="check"></span><span class="check on"><i data-lucide="check"></i></span></div>
+      </div>
+    </div>
+    <div class="grid3" style="margin-top:10px">
+      <div class="cap" style="margin:0">Menu <code>raised</code>, border <code>line-2</code>, 10px corners, rows 46px. Delete grouped last, red text.</div>
+      <div class="cap" style="margin:0">Dialog <code>surface</code>. Ghost + Danger, or Ghost + Primary.</div>
+      <div class="cap" style="margin:0">Toast <code>surface</code>, white rail, red only on error. Switch and checkbox are white when on.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TYPE -->
+<section class="sec" id="type">
+  <h2>Typography</h2>
+  <p class="lede">DM Sans only, nine sizes, three weights. Sentence case everywhere: no all-caps labels. Hierarchy comes from size, weight and opacity, never color.</p>
+  <div class="type">
+    <div><div class="k">Display<small>26 · 600 · #fff · desktop detail title</small></div><div style="font:600 26px/1.2 var(--font);letter-spacing:-.01em;color:#fff">Warm 70s Palette Study</div></div>
+    <div><div class="k">Title<small>22 · 600 · #fff · phone title, page titles</small></div><div style="font:600 22px/1.2 var(--font);letter-spacing:-.01em;color:#fff">Digital Design</div></div>
+    <div><div class="k">Board<small>20 · 600 · #fff · names on covers</small></div><div style="font:600 20px/1.2 var(--font);letter-spacing:-.01em;color:#fff">Feldman Kitchen</div></div>
+    <div><div class="k">Heading<small>17 · 600 · #fff · sheets, dialogs, "Your library"</small></div><div style="font:600 17px/1.3 var(--font);color:#fff">Your library <span style="font:400 12px/1 var(--font);color:var(--lp-fg-4);margin-left:6px">52</span></div></div>
+    <div><div class="k">Lead<small>15 · 500 · fg-2 · primary tags, menu rows</small></div><div style="font:500 15px/1.55 var(--font);color:var(--lp-fg-2)">japandi living room <span style="color:var(--lp-fg-5)">·</span> travertine <span style="color:var(--lp-fg-5)">·</span> warm neutrals</div></div>
+    <div><div class="k">Body<small>14 · 400 · fg-2 / fg-3 · descriptions</small></div><div style="font:400 14px/1.5 var(--font);color:var(--lp-fg-3);max-width:58ch">A layered living room in warm greige and raw oak, with a travertine side table and linen upholstery.</div></div>
+    <div><div class="k">Control<small>14 · 500 (600 primary) · buttons, chips</small></div><div class="row"><button class="btn btn-primary btn-sm">Create board</button><span class="chip" style="height:32px">Warm neutrals</span></div></div>
+    <div><div class="k">Small<small>13 · 500 · fg-2 · toast titles, pills, counts</small></div><div style="font:500 13px/1.35 var(--font);color:var(--lp-fg-2)">Saved to Warm Neutrals</div></div>
+    <div><div class="k">Caption<small>12 · 400 · fg-4 · labels, dates, metadata</small></div><div style="font:400 12px/1.4 var(--font);color:var(--lp-fg-4)">Saved Oct 29, 2026 · 1448 × 1086</div></div>
+    <div><div class="k">Micro<small>11 · 500 · fg-3 · smallest allowed</small></div><div style="font:500 11px/1.3 var(--font);color:var(--lp-fg-3)">Add to board</div></div>
+  </div>
+</section>
+
+<!-- SHAPE -->
+<section class="sec" id="shape">
+  <h2>Corners, heights, spacing</h2>
+  <p class="lede">Four corner sizes, four control heights, one spacing scale. Nothing is square-cornered, including image tiles.</p>
+  <div class="sub">
+    <div class="radii">
+      <div style="border-radius:6px">6px<small>Buttons, pills, checkboxes</small></div>
+      <div style="border-radius:10px">10px<small>Tiles, inputs, menus, dialogs, toasts</small></div>
+      <div style="border-radius:16px">16px<small>Board covers, sheets, extension popup</small></div>
+      <div style="border-radius:55px">Pill<small>Chips, toggle, FAB, avatar</small></div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="sub"><h3>Control heights</h3><div class="stage"><div class="heights">
+      <div><i style="height:32px"></i><span><b>32</b> small buttons</span></div>
+      <div><i style="height:36px"></i><span><b>36</b> chips, icon buttons</span></div>
+      <div><i style="height:44px"></i><span><b>44</b> buttons, inputs, min tap area</span></div>
+      <div><i style="height:50px"></i><span><b>50</b> full-width in sheets</span></div>
+    </div></div></div>
+    <div class="sub"><h3>Spacing scale</h3><div class="stage"><div class="space" id="space"></div><div class="cap">White = the core rhythm. No values outside this scale.</div></div></div>
+  </div>
+</section>
+
+<!-- FIXES -->
+<section class="sec" id="fixes">
+  <h2>Your two screens: now vs fixed</h2>
+  <p class="lede">Every red number is something in the current build that breaks this system. The fixed version uses only the values above.</p>
+
+  <div class="sub">
+    <h3>Desktop dashboard</h3>
+    <div class="ba-label now"><i></i>Now</div>
+    <div class="scroll"><div class="desk">
+      <span class="mark" style="right:8px;top:6px">1</span>
+      <span class="mark" style="left:18px;top:128px">4</span>
+      <span class="mark" style="left:640px;top:86px">5</span>
+      <span class="mark" style="right:16px;top:86px">6</span>
+      <span class="mark" style="left:18px;top:198px">2</span>
+      <span class="mark" style="left:18px;top:262px">3</span>
+      <div class="nav">
+        <span style="color:var(--lp-fg-2)"><i data-lucide="menu" style="--s:22px"></i></span>
+        <div class="seg"><button class="on">All</button><button>Boards</button><button>Canvas</button><button>Clusters</button></div>
+        <div class="search" style="max-width:440px"><i data-lucide="search"></i><span>Search by tag, color, mood…</span><span class="kbd">⌘K</span></div>
+        <span style="flex:1"></span><span class="wrong-av">M</span>
+      </div>
+      <div class="strip">
+        <span class="chip ico" style="border-radius:0"><i data-lucide="filter"></i></span><span class="chip"><i data-lucide="star"></i>Favorites</span><span class="chip">High Contrast Palette</span><span class="chip">Warm Neutrals</span><span class="chip">High Contrast</span><span class="chip">Monochrome Base</span><span class="chip"><i class="dot" style="background:#1a1a1a;border-color:#222"></i>Deep Charcoal</span><span class="chip"><i class="dot" style="background:#3a3a3a;border-color:#3a3a3a"></i>Charcoal</span><span class="chip"><i class="dot" style="background:#111;border-color:#1a1a1a"></i>Near Black</span><span class="ibtn" style="border:1px solid var(--lp-line-2);border-radius:6px"><i data-lucide="refresh-cw" style="--s:15px"></i></span>
+      </div>
+      <div style="display:flex;gap:10px;padding:18px 20px 0">
+        <div style="flex:1;height:48px;border-radius:999px;background:var(--lp-surface);border:1px solid var(--lp-line-2);display:flex;align-items:center;padding:0 22px;color:var(--lp-fg-4);font:400 15px/1 var(--font)">Ask BOARD a question about what you saved</div>
+        <div style="height:48px;padding:0 20px;border-radius:999px;background:var(--lp-surface);display:flex;align-items:center;gap:8px;color:var(--lp-fg-2);font:500 15px/1 var(--font)"><i data-lucide="sparkles" style="--s:17px"></i>Ask</div>
+      </div>
+      <div class="lib" style="padding-left:48px"><span style="font:600 20px/1 var(--font);color:#fff;letter-spacing:.01em">YOUR LIBRARY · 52 ITEMS</span></div>
+    </div></div>
+    <ul class="issues" style="margin:16px 0 34px">
+      <li><span class="mk">1</span><span><b>Avatar</b> is a rounded square in a muddy peach-brown gradient. It should be a flat peach circle.</span></li>
+      <li><span class="mk">2</span><span><b>"Ask BOARD" bar</b> is back. It's on the never-re-add list.</span></li>
+      <li><span class="mk">3</span><span><b>All-caps heading.</b> Use "Your library" with a plain "52" beside it.</span></li>
+      <li><span class="mk">4</span><span><b>Title Case chips</b> and a square filter chip. Sentence case, and the filter chip gets 10px corners.</span></li>
+      <li><span class="mk">5</span><span><b>Near-duplicates.</b> "High contrast" sits next to "High contrast palette", and three near-blacks crowd the colors. Dedupe them, and give dark swatches a visible rim.</span></li>
+      <li><span class="mk">6</span><span><b>Refresh icon</b> at the end of the strip. Remove it; suggestions refresh on their own.</span></li>
+    </ul>
+
+    <div class="ba-label fix"><i></i>Fixed</div>
+    <div class="scroll"><div class="desk">
+      <div class="nav">
+        <span style="color:var(--lp-fg-2)"><i data-lucide="menu" style="--s:22px"></i></span>
+        <div class="seg"><button class="on">All</button><button>Boards</button><button>Canvas</button><button>Clusters</button></div>
+        <div class="search" style="max-width:440px"><i data-lucide="search"></i><span>Search by tag, color, mood</span><span class="kbd">⌘K</span></div>
+        <span style="flex:1"></span><span class="avatar">M</span>
+      </div>
+      <div class="strip">
+        <span class="chip ico"><i data-lucide="filter"></i></span><span class="chip"><i data-lucide="star"></i>Favorites</span><span class="chip">High contrast palette</span><span class="chip on">Warm neutrals</span><span class="chip">Monochrome base</span><span class="chip">Clean white ground</span><span class="chip"><i class="dot" style="background:#2c2c2c"></i>Charcoal</span><span class="chip"><i class="dot" style="background:#E8D5C2"></i>Warm sand</span><span class="chip"><i class="dot" style="background:#fafafa"></i>Crisp white</span><span class="chip"><i class="dot" style="background:#1E2A4A"></i>Deep navy</span>
+      </div>
+      <div class="lib"><span style="font:600 17px/1 var(--font);color:#fff">Your library</span><span style="font:400 12px/1 var(--font);color:var(--lp-fg-4)">52</span></div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:0 20px 20px;align-items:start">
+        <div class="tile im1" style="aspect-ratio:4/5"></div><div class="tile im2" style="aspect-ratio:16/11"></div><div class="tile im3" style="aspect-ratio:3/4"></div><div class="tile im5" style="aspect-ratio:1/1"></div><div class="tile im6" style="aspect-ratio:4/5"></div>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="sub">
+    <h3>Phone board page</h3>
+    <div class="row" style="align-items:flex-start;gap:28px">
+      <div>
+        <div class="ba-label now"><i></i>Now</div>
+        <div class="phone">
+          <div class="status"></div>
+          <div style="padding:6px 16px 0;display:flex;align-items:center;gap:6px;color:var(--lp-fg-2);font:500 15px/1 var(--font)"><i data-lucide="chevron-left" style="--s:18px"></i>Boards</div>
+          <div style="padding:16px 16px 0;font:600 26px/1.1 var(--font);color:#fff">Digital Design</div>
+          <div style="padding:6px 16px 0;font:400 13px/1 var(--font);color:var(--lp-fg-4)">3 items · Updated recently</div>
+          <div style="position:relative;margin:18px 10px 12px;border:1px solid var(--lp-line-2);border-radius:14px;padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <span class="mark" style="left:-8px;top:-10px">3</span>
+            <div style="height:40px;border-radius:6px;background:var(--lp-raised);border:1px solid var(--lp-line-2);display:flex;align-items:center;justify-content:center;gap:6px;font:500 13px/1 var(--font);color:var(--lp-fg-2)"><i data-lucide="settings" style="--s:14px"></i>Edit</div>
+            <div style="position:relative;height:40px;border-radius:6px;border:1px solid var(--lp-line-2);display:flex;align-items:center;justify-content:center;gap:6px;font:500 13px/1 var(--font);color:var(--lp-fg-2)"><span class="mark" style="right:-8px;top:-10px">2</span><span class="switch on" style="transform:scale(.75);margin:0 -4px"></span>Share board</div>
+            <div style="height:40px;border-radius:6px;background:var(--lp-raised);border:1px solid var(--lp-line-2);display:flex;align-items:center;justify-content:center;gap:6px;font:500 13px/1 var(--font);color:var(--lp-fg-2)"><i data-lucide="copy" style="--s:14px"></i>Copy link</div>
+            <div style="position:relative;height:40px;border-radius:6px;background:#D08566;display:flex;align-items:center;justify-content:center;gap:6px;font:500 13px/1 var(--font);color:#1A0F0A"><span class="mark" style="right:-8px;top:-10px">1</span><i data-lucide="plus" style="--s:14px"></i>Add items</div>
+          </div>
+          <div style="display:flex;gap:6px;position:relative">
+            <span class="mark" style="left:4px;top:6px">4</span>
+            <div style="flex:1;display:flex;flex-direction:column;gap:6px"><div class="neo" style="aspect-ratio:1/1"></div></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:6px;position:relative"><div class="bulb" style="aspect-ratio:1/1"></div><div class="neo" style="aspect-ratio:1/1"></div><span class="mark" style="left:-30px;top:178px">5</span></div>
+          </div>
+          <span class="fab" style="background:#D08566;bottom:78px"><i data-lucide="plus"></i></span>
+          <div class="tabbar"><div class="tab"><i data-lucide="layout-grid"></i>All</div><div class="tab on"><i data-lucide="folders"></i>Boards</div><div class="tab"><i data-lucide="search"></i>Search</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="ba-label fix"><i></i>Fixed</div>
+        <div class="phone">
+          <div class="status"></div>
+          <div style="padding:6px 8px 0 16px;display:flex;align-items:center;justify-content:space-between">
+            <span style="display:flex;align-items:center;gap:6px;color:var(--lp-fg-2);font:500 15px/1 var(--font)"><i data-lucide="chevron-left" style="--s:18px"></i>Boards</span>
+            <span class="ibtn"><i data-lucide="ellipsis"></i></span>
+          </div>
+          <div style="padding:10px 16px 0;font:600 22px/1.2 var(--font);letter-spacing:-.01em;color:#fff">Digital Design</div>
+          <div style="padding:4px 16px 0;font:400 13px/1 var(--font);color:var(--lp-fg-4)">3 items</div>
+          <div style="padding:16px 16px 16px"><button class="btn btn-secondary btn-sm" style="height:36px"><i data-lucide="share" style="--s:15px"></i>Share</button></div>
+          <div class="ph-grid">
+            <div class="col"><div class="tile neo" style="aspect-ratio:1/1"></div><div class="tile neo" style="aspect-ratio:1/1"></div></div>
+            <div class="col"><div class="tile bulb" style="aspect-ratio:1/1"></div></div>
+          </div>
+          <span class="fab"><i data-lucide="plus"></i></span>
+          <div class="tabbar"><div class="tab"><i data-lucide="layout-grid"></i>All</div><div class="tab on"><i data-lucide="folders"></i>Boards</div><div class="tab"><i data-lucide="search"></i>Search</div></div>
+        </div>
+      </div>
+      <div style="flex:1;min-width:260px;max-width:420px">
+        <ul class="issues" style="margin-top:28px">
+          <li><span class="mk">1</span><span><b>Peach "Add items" button</b> plus a peach FAB that does the same thing, both in an off peach. Remove Add items; the FAB adds to this board, in the real peach.</span></li>
+          <li><span class="mk">2</span><span><b>A switch inside a button.</b> No other screen does this. The switch moves into the Share sheet.</span></li>
+          <li><span class="mk">3</span><span><b>Four buttons, three styles, in a box.</b> Replace with one Secondary Share button, no box. Edit, Rename and Delete go in the ⋯ menu.</span></li>
+          <li><span class="mk">4</span><span><b>Square tiles touching the screen edge.</b> 10px corners, 8px gutter.</span></li>
+          <li><span class="mk">5</span><span><b>A hole in the grid.</b> The third image went into the taller column. Each new tile goes into the shorter one.</span></li>
+        </ul>
+        <p class="note">The duplicate Neohaus image is a data issue, not design: check for a double save or double board membership.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CODEX -->
+<section class="sec" id="codex">
+  <h2>Hand this to Codex</h2>
+  <p class="lede">The rules and tokens live in <code>docs/design-system.md</code>. The pass prompts in the <code>prompts</code> folder tell Instinct what to change and test, one surface at a time. The block below is the short version.</p>
+  <div class="sub">
+    <div class="copybar"><h3 style="margin:0;font:600 17px/1.3 var(--font);color:#fff">Prompt</h3><button class="btn btn-secondary btn-sm" id="copyBtn"><i data-lucide="copy" style="--s:14px"></i><span>Copy</span></button></div>
+<pre class="prompt" id="prompt">DESIGN SYSTEM v1.2 is the source of truth for every color, size and weight.
+If code, v1.1 or any older doc disagrees, v1.2 wins. docs/design-reference.html
+shows every element drawn with the real values; docs/design-system.md has
+the token CSS and the full element map.
+
+1. Replace src/styles/tokens.css with the complete token block in
+   docs/design-system.md.
+2. Replace every hardcoded color, radius and font size in src (and the Chrome
+   extension, iOS share extension, Figma and Canva plugins) with a token.
+3. Apply the element map component by component. Anything not listed: copy
+   the closest listed element, else white or gray. Never peach.
+4. Fix every numbered issue in "Your two screens: now vs fixed".
+
+Hard rules
+- App icon and favicon: peach square, #0E0E0E circle in the middle (40%
+  of width). Use the files in docs/assets/. Never redraw them.
+- Peach #EF8A66 only in: logo dots, avatar, phone FAB, extension Save,
+  annotation strokes, marketing CTAs. Always flat in the product.
+- Primary buttons are white with #0e0e0e text. Five button kinds only:
+  Primary, Secondary, Ghost, Danger, Brand.
+- Active, selected, checked and focused states are white.
+- Three surfaces only: #0e0e0e, #141414, #1c1c1c. Hover is a 6% white veil.
+- DM Sans only. Sizes 26/22/20/17/15/14/13/12/11. Weights 400/500/600.
+- Sentence case, no uppercase labels, nothing under 11px.
+- Corners 6 / 10 / 16 / pill. No square corners anywhere.
+- Every :hover inside @media (hover:hover) and (pointer:fine).
+
+Autonomous mandate: inspect existing source before changing anything, don't
+guess, decide at ambiguous points and note the decision, run the build, and
+pass the checklist before reporting complete.</pre>
+  </div>
+  <div class="sub">
+    <h3>Checklist Instinct tests before reporting done</h3>
+    <ul class="checklist">
+      <li><span class="check"></span><span>Old values gone: <code>e38c6f d97a5a e67e4a ff9866 ffd8be e8b59a f0c4a8 b85a28</code></span></li>
+      <li><span class="check"></span><span><code>ef8a66</code> appears only in tokens.css</span></li>
+      <li><span class="check"></span><span>Every peach use is one of the six places</span></li>
+      <li><span class="check"></span><span>No gradient on any in-product element</span></li>
+      <li><span class="check"></span><span>No hex literals outside tokens.css and image data</span></li>
+      <li><span class="check"></span><span>No <code>text-transform: uppercase</code> in UI</span></li>
+      <li><span class="check"></span><span>No font size under 11px, no other font family</span></li>
+      <li><span class="check"></span><span>No square corners on tiles, cards or buttons</span></li>
+      <li><span class="check"></span><span>Avatar is a flat peach circle on desktop and phone</span></li>
+      <li><span class="check"></span><span>Board page: one Share button, ⋯ in header, no Add items</span></li>
+      <li><span class="check"></span><span>Every main action on every screen is a white button</span></li>
+      <li><span class="check"></span><span>Tapping tiles at 390px leaves nothing hovered</span></li>
+      <li><span class="check"></span><span>Screens match this page at 390, 820, 1180, 1600px</span></li>
+      <li><span class="check"></span><span>"Ask BOARD" bar removed</span></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+try{ lucide.createIcons(); }catch(e){}
+/* spacing bars */
+(function(){
+  var el=document.getElementById('space');
+  [[4],[6,1],[8],[10,1],[12],[16,1],[20],[24],[32],[48]].forEach(function(r){
+    var d=document.createElement('div'); if(r[1]) d.className='core';
+    d.innerHTML='<code>'+r[0]+'px</code><i style="width:'+(r[0]*4)+'px"></i>';
+    el.appendChild(d);
+  });
+})();
+/* copy */
+document.getElementById('copyBtn').addEventListener('click',function(){
+  var b=this, t=document.getElementById('prompt').textContent, lbl=b.querySelector('span');
+  function done(){lbl.textContent='Copied';setTimeout(function(){lbl.textContent='Copy'},1600);}
+  try{
+    navigator.clipboard.writeText(t).then(done,function(){sel();});
+  }catch(e){sel();}
+  function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('prompt'));var s=getSelection();s.removeAllRanges();s.addRange(r);lbl.textContent='Selected, press ⌘C';}
+});
+/* nav highlight */
+(function(){
+  var links=[].slice.call(document.querySelectorAll('#nav a'));
+  if(!('IntersectionObserver' in window))return;
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-30% 0px -65% 0px'});
+  links.forEach(function(a){var s=document.querySelector(a.getAttribute('href'));if(s)io.observe(s)});
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+/* Direction B: "Tallis and tekhelet". Softer and more modern.
+   Wool-white ground, blue-black ink, one tekhelet-blue accent and a lighter
+   tekhelet thread in place of gold. Floating rounded panels, sans-forward type. */
+
+:root {
+  --stage-bg: #E8EAEC; --stage-ink: #1F2430; --stage-ink2: #5D6472; --stage-rule: #D3D7DD;
+  --ui: "Albert Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --display: "Albert Sans", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --text: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --stage-bg: #0C0E12; --stage-ink: #E4E8EF; --stage-ink2: #9AA4B4; --stage-rule: #2A313C; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --stage-bg: #0C0E12; --stage-ink: #E4E8EF; --stage-ink2: #9AA4B4; --stage-rule: #2A313C; color-scheme: dark; }
+
+/* Linen (default) */
+.app {
+  --page: #F3F4F1; --surface: #FCFCFB; --ink: #1F2430; --ink2: #5A6170; --rule: #E1E3E0;
+  --tint: #E6EBF2; --hover: #ECEEEC; --accent: #34507F; --on-accent: #FFFFFF;
+  --gold: #6886B9; --wash: #DEE7F4; --resume: #E5ECF6;
+  --hl-heather: #E7DDEB; --hl-sage: #DCE8DC; --hl-rose: #F2DEDC; --hl-slate: #EEE5D2;
+  --float: 0 1px 2px rgba(31,36,48,.06), 0 10px 30px rgba(31,36,48,.08);
+  --lift: 0 1px 2px rgba(31,36,48,.05), 0 4px 14px rgba(31,36,48,.05);
+  --scrim: rgba(31,36,48,.22);
+  --leather: #5B2A33; --leather-2: #262A33;
+  --daf-paper: var(--surface);
+}
+/* Mist */
+.app[data-theme="parchment"] {
+  --page: #E9EDF2; --surface: #F6F8FA; --ink: #1E2633; --ink2: #556073; --rule: #D6DCE4;
+  --tint: #DCE4EF; --hover: #E2E7EE; --accent: #304B79; --on-accent: #FFFFFF;
+  --gold: #6585BA; --wash: #D5E0F0; --resume: #DBE4F1;
+  --hl-heather: #E0D6E6; --hl-sage: #D5E2D6; --hl-rose: #EBD7D6; --hl-slate: #E7DFCD;
+}
+/* Night */
+.app[data-theme="lamplight"] {
+  --page: #12151B; --surface: #1A1F27; --ink: #E4E8EF; --ink2: #9AA4B4; --rule: #2A313C;
+  --tint: #243045; --hover: #1F252E; --accent: #9DB5DE; --on-accent: #12151B;
+  --gold: #7F9CCB; --wash: #24324A; --resume: #1D2636;
+  --hl-heather: #3A3140; --hl-sage: #2D3A30; --hl-rose: #432F30; --hl-slate: #3D3728;
+  --float: 0 1px 2px rgba(0,0,0,.4), 0 14px 36px rgba(0,0,0,.45);
+  --lift: 0 1px 2px rgba(0,0,0,.35);
+  --leather: #4A2229; --leather-2: #1E222A;
+}
+.app[data-theme="lamplight"][data-keeplight="true"] .daf-page {
+  --ink: #1F2430; --ink2: #5A6170; --rule: #E1E3E0; --wash: #DEE7F4; --accent: #34507F; --gold: #6886B9; --hover: #ECEEEC;
+  --daf-paper: #ECEDEA;
+}
+
+/* Theme chips preview the new grounds */
+.theme-chip.vellum { background: #F3F4F1; color: #1F2430; }
+.theme-chip.parchment { background: #E9EDF2; color: #1E2633; }
+.theme-chip.lamplight { background: #12151B; color: #E4E8EF; }
+.theme-chip { border-radius: 14px; }
+
+.app { font-family: var(--ui); letter-spacing: -.003em; }
+.stage-title strong { font-family: var(--display); font-weight: 600; letter-spacing: -.01em; }
+.stage-seg { border-radius: 999px; }
+.stage-seg button { border-radius: 999px; }
+.stage-field select { border-radius: 999px; padding-inline: 14px; }
+
+/* ---- Sidebar: a floating panel on the wool ground ---- */
+.sidebar {
+  margin: 8px 0 10px 10px; border: 1px solid var(--rule); border-radius: 22px;
+  background: var(--surface); overflow: hidden;
+}
+.shell.sb-hidden .sidebar { margin-left: -310px; }
+.device.portrait .shell.sb-hidden .sidebar { margin-left: -290px; }
+.shell.sb-overlay .sidebar { top: 8px; bottom: 10px; left: 10px; margin: 0; box-shadow: var(--float); }
+.wordmark { font-family: var(--display); font-weight: 650; font-size: 20px; letter-spacing: -.015em; }
+.sb-search { border-radius: 999px; background: var(--page); }
+.sb-item { border-radius: 12px; font-size: 16px; }
+.sb-item svg.ico { color: var(--ink2); }
+.sb-item[aria-current="page"] { background: var(--tint); color: var(--accent); }
+.sb-item[aria-current="page"] svg.ico { color: var(--accent); }
+.sb-group-label { font-size: 12px; font-weight: 600; letter-spacing: .02em; }
+.sb-foot { border-top: 0; }
+
+/* ---- Type ---- */
+.large-title { font-family: var(--display); font-weight: 650; font-size: 34px; letter-spacing: -.025em; }
+h2.section { font-family: var(--display); font-weight: 600; font-size: 20px; letter-spacing: -.01em; }
+.dateline .heb { font-family: var(--heb); }
+.navbar { background: transparent; }
+
+/* ---- Controls ---- */
+.btn { border-radius: 999px; font-weight: 600; }
+.btn.secondary { background: var(--tint); border: 0; }
+.btn.secondary:hover { background: var(--wash); }
+.iconbtn { border-radius: 999px; }
+.seg-ctl, .seg-wide { border-radius: 999px; padding: 3px; }
+.seg-ctl button, .seg-wide button { border-radius: 999px; }
+.seg-ctl button[aria-selected="true"], .seg-ctl button[aria-pressed="true"], .seg-wide button[aria-pressed="true"] { background: var(--surface); box-shadow: var(--lift); }
+.chip { border-radius: 999px; }
+.tick { border-color: var(--rule); border-width: 2px; }
+.tick[aria-checked="true"] { background: var(--accent); border-color: var(--accent); }
+textarea, input[type="text"], input[type="search"] { border-radius: 14px; }
+.searchbox input { border-radius: 999px; }
+
+/* ---- Lists become soft grouped panels ---- */
+.list { border-top: 0; background: var(--surface); border: 1px solid var(--rule); border-radius: 18px; overflow: hidden; }
+.list .row { padding-inline: 16px; }
+.list .row:last-child, .list > .row:last-of-type { border-bottom: 0; }
+.date-head { font-size: 13px; font-weight: 600; padding: 22px 6px 8px; }
+.grouped { border-radius: 18px; }
+.popover .list, .sheet .list { border-radius: 14px; }
+
+/* ---- Learn ---- */
+.resume { background: var(--resume); border: 0; border-radius: 24px; padding: 26px 30px 24px; }
+.resume-ref { font-family: var(--display); font-weight: 650; letter-spacing: -.02em; }
+.resume-quote { font-family: var(--text); }
+.progress .bar { height: 6px; border-radius: 999px; background: var(--surface); }
+.progress .bar i { border-radius: 999px; }
+.ribbon path { fill: var(--gold); }
+.cover { border-radius: 4px 8px 8px 4px; }
+.cover::before { border-color: rgba(214,181,101,.45); }
+.book .bt { font-weight: 600; }
+
+/* ---- Reader: floating toolbar, page and study panel ---- */
+.reader { padding: 8px 10px 10px; gap: 10px; background: var(--page); }
+.reader-main { gap: 8px; }
+.rtool {
+  border-radius: 999px; background: var(--surface); border: 1px solid var(--rule);
+  height: 66px; padding-inline: 10px;
+}
+.pane-wrap { border-radius: 22px; }
+.pane + .pane { border-left: 0; margin-left: 10px; }
+.daf-outer { padding: 14px 6px 60px; }
+.daf-page { border: 0; border-radius: 22px; padding: 30px 28px 32px; }
+.daf-head { font-family: var(--heb); }
+.gemara .seg.active { text-decoration-color: var(--gold); }
+.flow { background: var(--surface); border-radius: 22px; margin-top: 14px; }
+.hebflow { background: var(--surface); border-radius: 22px; margin-top: 14px; }
+.tseg { border-radius: 12px; }
+.inspector { border: 1px solid var(--rule); border-radius: 22px; background: var(--surface); overflow: hidden; }
+.insp-tabs { border-bottom: 0; padding: 12px 14px 4px; }
+.tip { border: 0; background: var(--wash); border-radius: 18px; margin: 14px 6px 0; }
+.restore { box-shadow: var(--float); }
+.device.portrait .inspector { border-radius: 24px 24px 0 0; left: 0; right: 0; bottom: 0; }
+
+/* ---- Floating layers ---- */
+.popover { border-radius: 20px; border-color: var(--rule); }
+.sheet { border-radius: 24px; }
+.pop-sec { border-bottom-color: var(--rule); }
+.toast { border-radius: 999px; }
+.offline-card { border-radius: 22px; border: 0; }
+.cal { border-radius: 18px; overflow: hidden; background: var(--surface); }
+.empty .ico-lg, svg.ico.ico-lg { color: var(--accent); }
+.dial .east { fill: var(--gold); }

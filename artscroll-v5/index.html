@@ -1,0 +1,645 @@
+<title>ArtScroll Digital Library Concept</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700&family=Noto+Rashi+Hebrew:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+/* Layout: a scrolling page of true-size iPad frames, each scaled to the column width. */
+:root {
+  --pg: #EFECE7; --pg-ink: #1C1A17; --pg-ink2: #5F5A53; --pg-rule: #DDD8D0;
+  --sys: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
+  --heb: "Frank Ruhl Libre", "Taamey Frank CLM", "Times New Roman", serif;
+  --rashi: "Noto Rashi Hebrew", "Frank Ruhl Libre", serif;
+  --serif: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --pg: #121110; --pg-ink: #E9E4DB; --pg-ink2: #A9A298; --pg-rule: #2C2925; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --pg: #121110; --pg-ink: #E9E4DB; --pg-ink2: #A9A298; --pg-rule: #2C2925; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--pg); color: var(--pg-ink); font-family: var(--sys); margin: 0; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+.page { max-width: 1226px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 40px 56px; }
+.intro h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 700; letter-spacing: -.02em; margin: 0 0 8px; text-wrap: balance; }
+.intro p { color: var(--pg-ink2); font-size: 16px; line-height: 1.5; max-width: 62ch; margin: 0; }
+.sec-title { font-size: clamp(20px, 3vw, 26px); font-weight: 700; letter-spacing: -.015em; margin: 64px 0 4px; text-wrap: balance; }
+.sec-sub { color: var(--pg-ink2); font-size: 15px; line-height: 1.5; margin: 0 0 8px; max-width: 64ch; }
+.shot { margin-top: 32px; }
+.cap { font-size: 15px; line-height: 1.45; margin: 0 0 12px; color: var(--pg-ink); }
+.cap b { font-weight: 600; }
+.fw { position: relative; width: 100%; max-width: 1194px; overflow: hidden; border-radius: calc(20px * var(--s, 1)); box-shadow: 0 1px 2px rgba(0,0,0,.08), 0 10px 30px rgba(0,0,0,.08); }
+.fw.portrait { max-width: 834px; }
+.frame { position: absolute; top: 0; left: 0; width: 1194px; height: 834px; transform-origin: 0 0; transform: scale(var(--s, 1)); }
+.fw.portrait .frame { width: 834px; height: 1194px; }
+.foot { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--pg-rule); color: var(--pg-ink2); font-size: 13px; line-height: 1.55; }
+.foot p { margin: 0 0 6px; max-width: 90ch; }
+
+/* ============ App (inside each frame) ============ */
+.app {
+  --bg: #FBFAF8; --side: #F3F1ED; --surface: #FFFFFF; --ink: #1C1A17; --ink2: #6B665F; --sep: #E7E3DD;
+  --accent: #103247; --on-accent: #FFFFFF; --sel: rgba(16,50,71,.10); --tint: rgba(16,50,71,.08); --fill: rgba(28,26,23,.06);
+  --daf: #FFFFFF; --float: 0 2px 6px rgba(28,26,23,.08), 0 18px 40px rgba(28,26,23,.14); --scrim: rgba(28,26,23,.18);
+  position: absolute; inset: 0; display: flex; background: var(--bg); color: var(--ink); font-family: var(--sys); font-size: 17px; line-height: 1.3; overflow: hidden; color-scheme: light;
+}
+.app[data-theme="sepia"] { --bg: #F3EBDD; --side: #EADFCC; --surface: #F8F1E5; --ink: #33281E; --ink2: #6A5A49; --sep: #DCCFB9; --accent: #103247; --on-accent: #FFFFFF; --sel: rgba(16,50,71,.10); --tint: rgba(16,50,71,.08); --fill: rgba(51,40,30,.07); --daf: #F8F1E5; }
+.app[data-theme="night"] { --bg: #161513; --side: #1E1D1A; --surface: #24221F; --ink: #E9E4DB; --ink2: #A39C92; --sep: #34312C; --accent: #8FB6D6; --on-accent: #161513; --sel: rgba(143,182,214,.16); --tint: rgba(143,182,214,.12); --fill: rgba(233,228,219,.08); --daf: #1E1D1A; --float: 0 2px 6px rgba(0,0,0,.4), 0 18px 40px rgba(0,0,0,.5); --scrim: rgba(0,0,0,.4); color-scheme: dark; }
+.app[data-theme="night"][data-keeplight="true"] .daf-page { --ink: #1C1A17; --ink2: #6B665F; --sep: #E7E3DD; --tint: rgba(16,50,71,.08); --daf: #ECE8E1; color: var(--ink); }
+.app button, .app input { font: inherit; color: inherit; }
+.app :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ico { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.ico.s { width: 18px; height: 18px; }
+.heb { font-family: var(--heb); direction: rtl; unicode-bidi: isolate; }
+
+/* Sidebar */
+.sb { width: 280px; flex: none; background: var(--side); border-right: 1px solid var(--sep); display: flex; flex-direction: column; padding: 14px 10px 10px; }
+.sb-search { display: flex; align-items: center; gap: 8px; height: 40px; margin: 0 6px 10px; padding: 0 10px; border-radius: 10px; background: var(--fill); color: var(--ink2); font-size: 16px; border: 0; width: calc(100% - 12px); text-align: left; cursor: pointer; }
+.sb-list { flex: 1; display: flex; flex-direction: column; gap: 2px; overflow: hidden; }
+.sb a, .sb .sb-btn { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 17px; border: 0; background: transparent; width: 100%; text-align: left; cursor: pointer; }
+.sb a .ico, .sb .sb-btn .ico { color: var(--ink2); }
+.sb a:hover, .sb .sb-btn:hover { background: var(--fill); }
+.sb a[aria-current="page"] { background: var(--sel); color: var(--accent); font-weight: 600; }
+.sb a[aria-current="page"] .ico { color: var(--accent); }
+.sb .sub a { padding-left: 46px; font-size: 16px; min-height: 44px; }
+.sb .chev { margin-left: auto; transition: transform .2s ease-out; }
+.sb .sb-btn[aria-expanded="true"] .chev { transform: rotate(90deg); }
+.sb-foot { border-top: 1px solid var(--sep); padding-top: 6px; display: flex; flex-direction: column; gap: 2px; }
+
+.main { flex: 1; min-width: 0; position: relative; overflow: hidden; }
+.scroll { position: absolute; inset: 0; overflow: hidden; }
+.content { padding: 30px 44px 30px; }
+.ltitle { font-size: 34px; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; margin: 0; }
+.h2 { font-size: 22px; font-weight: 700; letter-spacing: -.01em; margin: 0; }
+.muted { color: var(--ink2); }
+
+/* Buttons and controls */
+.btn { min-height: 44px; padding: 0 20px; border-radius: 12px; border: 0; font-size: 17px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
+.btn.primary { background: var(--accent); color: var(--on-accent); }
+.btn.gray { background: var(--fill); color: var(--accent); }
+.btn.plain { background: transparent; color: var(--accent); padding: 0 8px; font-weight: 500; }
+.icon-btn { width: 44px; height: 44px; border-radius: 10px; border: 0; background: transparent; color: var(--accent); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.icon-btn:hover, .btn.plain:hover { background: var(--fill); }
+.icon-btn[disabled] { color: var(--ink2); opacity: .45; cursor: default; }
+.seg { display: inline-flex; background: var(--fill); border-radius: 10px; padding: 3px; gap: 2px; }
+.seg button { min-height: 38px; min-width: 44px; padding: 0 16px; border: 0; border-radius: 8px; background: transparent; font-size: 15px; font-weight: 500; cursor: pointer; color: var(--ink); }
+.seg button[aria-pressed="true"], .seg button[aria-selected="true"] { background: var(--surface); box-shadow: 0 1px 3px rgba(0,0,0,.12); font-weight: 600; }
+.seg.wide { display: flex; } .seg.wide button { flex: 1; padding: 0 8px; }
+.sw { position: relative; width: 51px; height: 44px; border: 0; background: transparent; cursor: pointer; flex: none; }
+.sw::before { content: ""; position: absolute; left: 0; top: 6.5px; width: 51px; height: 31px; border-radius: 16px; background: var(--fill); box-shadow: inset 0 0 0 1px var(--sep); transition: background-color .2s; }
+.sw::after { content: ""; position: absolute; left: 2px; top: 8.5px; width: 27px; height: 27px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.25); transition: transform .2s ease-out; }
+.sw[aria-checked="true"]::before { background: var(--accent); box-shadow: none; }
+.sw[aria-checked="true"]::after { transform: translateX(20px); }
+
+/* Covers */
+.cover { display: block; height: 100%; width: auto; filter: drop-shadow(0 1px 1px rgba(0,0,0,.10)) drop-shadow(0 8px 14px rgba(0,0,0,.10)); }
+.tile-kitzur { height: 100%; aspect-ratio: 7 / 10; border-radius: 3px; background: var(--side); border: 1px solid var(--sep); display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; font-family: var(--heb); font-size: 21px; line-height: 1.2; color: var(--ink); }
+
+/* Home A */
+.hero { display: flex; gap: 36px; align-items: flex-end; }
+.hero .cv { height: 240px; flex: none; }
+.hero-heb { font-family: var(--heb); font-weight: 500; font-size: 96px; line-height: .95; margin: 0 0 6px; direction: rtl; text-align: left; }
+.hero-en { font-size: 28px; font-weight: 700; letter-spacing: -.015em; margin: 0 0 6px; }
+.hero-meta { font-size: 17px; line-height: 1.45; color: var(--ink2); margin: 0 0 18px; }
+.hero-meta span { display: block; }
+.row-title { display: flex; align-items: baseline; justify-content: space-between; margin: 26px 0 12px; }
+.today { display: flex; gap: 28px; }
+.today .it { display: flex; flex-direction: column; gap: 10px; min-width: 0; background: none; border: 0; padding: 0; text-align: left; cursor: pointer; color: inherit; }
+.today .cvbox { height: 128px; display: flex; align-items: flex-end; }
+.today .k { font-size: 13px; color: var(--ink2); }
+.today .r { font-size: 16px; font-weight: 600; }
+.today .rh { font-family: var(--heb); font-size: 19px; direction: rtl; text-align: left; }
+.planline { display: flex; align-items: center; gap: 14px; margin-top: 18px; padding-top: 10px; border-top: 1px solid var(--sep); font-size: 16px; color: var(--ink2); }
+.shelf { display: flex; gap: 22px; align-items: flex-end; height: 104px; }
+.shelf button { height: 100%; background: none; border: 0; padding: 0; cursor: pointer; display: flex; align-items: flex-end; }
+
+/* Home B */
+.b-top { text-align: right; padding-top: 8px; }
+.b-heb { font-family: var(--heb); font-weight: 400; font-size: 150px; line-height: .9; margin: 0; direction: rtl; }
+.b-en { font-size: 22px; font-weight: 600; margin: 14px 0 4px; }
+.b-meta { color: var(--ink2); font-size: 17px; margin: 0 0 16px; }
+.hl-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--sep); }
+.hl-list li { border-bottom: 1px solid var(--sep); }
+.hl-list button { display: flex; align-items: center; gap: 16px; width: 100%; min-height: 56px; padding: 6px 4px; background: none; border: 0; text-align: left; cursor: pointer; color: inherit; }
+.hl-list .k { width: 170px; flex: none; color: var(--ink2); font-size: 16px; }
+.hl-list .r { font-size: 17px; font-weight: 600; flex: 1; }
+.hl-list .rh { font-family: var(--heb); font-size: 21px; direction: rtl; }
+.b-shelf { display: flex; gap: 18px; align-items: flex-end; height: 92px; margin-top: 18px; }
+
+/* Home C */
+.c-wrap { display: grid; grid-template-columns: 1fr 268px; height: 100%; }
+.c-daf { padding: 24px 22px 0 34px; display: flex; flex-direction: column; min-height: 0; }
+.c-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; gap: 16px; }
+.c-head .t { display: flex; align-items: baseline; gap: 14px; }
+.c-head .t b { font-size: 24px; letter-spacing: -.015em; }
+.c-head .t .heb { font-size: 28px; }
+.c-preview { flex: 1; min-height: 0; overflow: hidden; border: 1px solid var(--sep); border-bottom: 0; border-radius: 12px 12px 0 0; background: var(--daf); cursor: pointer; text-align: left; padding: 0; display: block; width: 100%; color: inherit; }
+.c-side { border-left: 1px solid var(--sep); padding: 24px 20px; display: flex; flex-direction: column; gap: 14px; overflow: hidden; }
+.c-side .mini { display: flex; gap: 12px; align-items: center; min-height: 64px; background: none; border: 0; padding: 0; text-align: left; cursor: pointer; color: inherit; width: 100%; }
+.c-side .mini .cvb { height: 64px; width: 56px; display: flex; align-items: flex-end; justify-content: center; flex: none; }
+.c-side .mini .cvb .cover { max-width: 100%; max-height: 100%; height: auto; width: auto; }
+.c-side .mini .k { font-size: 13px; color: var(--ink2); display: block; }
+.c-side .mini .r { font-size: 15px; font-weight: 600; display: block; }
+.c-side .mini .rh { font-family: var(--heb); font-size: 17px; display: block; direction: rtl; text-align: left; }
+.c-side .tiny-shelf { display: flex; gap: 10px; align-items: flex-end; height: 74px; }
+
+/* Library */
+.lib-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 14px 0 16px; }
+.offline { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; line-height: 1.4; color: var(--ink); background: var(--side); border-radius: 12px; padding: 12px 14px; margin-bottom: 18px; }
+.offline .ico { color: var(--ink2); margin-top: 1px; }
+.grid5 { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 26px 26px; }
+.vol { display: flex; flex-direction: column; min-width: 0; }
+.vol .imgbox { height: 172px; display: flex; align-items: flex-end; justify-content: center; background: none; border: 0; padding: 0; cursor: pointer; width: 100%; }
+.vol .cover { max-width: 100%; height: auto; max-height: 100%; }
+.vol .meta { display: flex; align-items: flex-start; gap: 4px; margin-top: 10px; }
+.vol .names { flex: 1; min-width: 0; }
+.vol .en { font-size: 14px; font-weight: 600; line-height: 1.3; display: block; }
+.vol .he { font-family: var(--heb); font-size: 17px; line-height: 1.3; display: block; direction: rtl; text-align: left; }
+.vol .state { font-size: 13px; color: var(--ink2); display: block; margin-top: 2px; }
+.vol .icon-btn { margin: -10px -10px 0 0; }
+.empty { max-width: 420px; padding: 30px 0; }
+.empty h3 { font-size: 20px; margin: 0 0 6px; }
+.empty p { color: var(--ink2); line-height: 1.45; margin: 0 0 14px; }
+
+/* Reader */
+.reader { position: absolute; inset: 0; display: flex; flex-direction: column; }
+.tb { height: 60px; flex: none; display: flex; align-items: center; padding: 0 10px; border-bottom: 1px solid var(--sep); background: var(--bg); position: relative; z-index: 3; }
+.tb .grp { display: flex; align-items: center; gap: 2px; }
+.tb .center { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; }
+.tb .title { display: flex; flex-direction: column; align-items: center; line-height: 1.1; min-width: 120px; }
+.tb .title b { font-size: 17px; }
+.tb .title .heb { font-size: 16px; color: var(--ink); }
+.tb .back { color: var(--accent); background: none; border: 0; display: inline-flex; align-items: center; gap: 2px; height: 44px; padding: 0 8px 0 4px; border-radius: 10px; font-size: 17px; cursor: pointer; }
+.tb .back:hover { background: var(--fill); }
+.tb .aa { font-size: 18px; font-weight: 600; letter-spacing: -.01em; width: auto; padding: 0 10px; }
+.tb .aa .heb { font-size: 20px; margin-left: 4px; font-weight: 500; }
+.r-body { flex: 1; display: flex; min-height: 0; }
+.r-daf { flex: 1; min-width: 0; overflow: hidden; padding: 22px 24px 0; }
+.daf-page { background: var(--daf); color: var(--ink); border: 1px solid var(--sep); border-bottom: 0; padding: 22px 22px 0; height: 100%; overflow: hidden; }
+.daf-head { display: grid; grid-template-columns: 1fr auto 1fr; direction: rtl; align-items: baseline; margin: 0 6px 12px; font-family: var(--heb); }
+.daf-head .pg { font-size: 22px; font-weight: 700; text-align: right; }
+.daf-head .hd { font-size: 17px; letter-spacing: .02em; }
+.daf-head .dd { text-align: left; }
+.daf-grid { display: grid; grid-template-columns: 1fr 1.45fr 1fr; gap: 0 16px; direction: rtl; }
+.daf-grid.dafonly { grid-template-columns: 1fr 1.6fr 1fr; }
+.gemara { font-family: var(--heb); font-size: calc(17px * var(--ts, 1)); line-height: 1.62; text-align: justify; }
+.gemara .sg { cursor: pointer; border-radius: 2px; padding: 1px 0; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.gemara .sg.on { background: var(--tint); }
+.app[data-hl="false"] .gemara .sg.on, .app[data-hl="false"] .tr.on { background: transparent; }
+.gemara .lead { font-weight: 700; }
+.comm { font-family: var(--rashi); font-size: calc(12.5px * var(--ts, 1)); line-height: 1.6; text-align: justify; }
+.comm .dh { font-weight: 600; }
+.col-label { font-family: var(--heb); font-size: 13px; text-align: center; margin: 0 0 6px; color: var(--ink); }
+.panel { width: 420px; flex: none; border-left: 1px solid var(--sep); background: var(--bg); display: flex; flex-direction: column; min-height: 0; }
+.panel .tabs { padding: 12px 16px 10px; }
+.panel .pb { flex: 1; overflow: hidden; padding: 4px 22px 24px; }
+.dedic { font-family: var(--serif); font-style: italic; font-size: 15px; line-height: 1.5; color: var(--ink2); padding: 6px 0 14px; margin: 0 0 6px; border-bottom: 1px solid var(--sep); }
+.tr { border-radius: 10px; padding: 10px 12px; margin: 0 -12px 6px; cursor: pointer; }
+.tr.on { background: var(--tint); }
+.tr .he { font-family: var(--heb); font-size: calc(22px * var(--ts, 1)); line-height: 1.55; direction: rtl; margin: 0 0 6px; }
+.tr .en { font-family: var(--serif); font-size: calc(19px * var(--ts, 1)); line-height: 1.55; margin: 0; }
+.tr .en b { font-weight: 600; }
+.tr .fn { font-family: var(--serif); font-size: calc(15px * var(--ts, 1)); line-height: 1.5; color: var(--ink2); margin: 6px 0 0; }
+.tr .fn i { font-style: normal; font-family: var(--sys); font-size: 12px; font-weight: 600; color: var(--accent); margin-right: 4px; }
+.app[data-fn="false"] .tr .fn { display: none; }
+.note { font-family: var(--serif); font-size: 17px; line-height: 1.5; margin: 0 0 14px; }
+.note-ref { font-size: 13px; color: var(--ink2); margin: 0 0 4px; }
+.field { width: 100%; min-height: 88px; border-radius: 12px; border: 1px solid var(--sep); background: var(--surface); padding: 12px; font-family: var(--serif); font-size: 17px; resize: none; color: var(--ink); }
+.cm-h { font-size: 13px; font-weight: 600; color: var(--ink2); margin: 10px 0 6px; }
+.cm { font-family: var(--rashi); font-size: 17px; line-height: 1.7; direction: rtl; margin: 0 0 12px; }
+.cm .dh { font-weight: 600; }
+
+/* Portrait reader: sheet and popover */
+.portrait-reader .r-daf { padding: 18px 18px 0; }
+.sheet { position: absolute; left: 0; right: 0; bottom: 0; height: 47%; background: var(--surface); border-radius: 14px 14px 0 0; box-shadow: var(--float); display: flex; flex-direction: column; z-index: 4; }
+.sheet .grab { width: 100%; height: 22px; border: 0; background: transparent; cursor: pointer; position: relative; }
+.sheet .grab::after { content: ""; position: absolute; left: 50%; top: 8px; width: 40px; height: 5px; border-radius: 3px; background: var(--sep); transform: translateX(-50%); }
+.sheet .tabs { padding: 0 18px 10px; }
+.sheet .pb { flex: 1; overflow: hidden; padding: 2px 30px 20px; }
+.pop { position: absolute; top: 60px; right: 12px; width: 340px; background: var(--surface); border-radius: 14px; box-shadow: var(--float); border: 1px solid var(--sep); z-index: 6; padding: 6px 0; }
+.pop::before { content: ""; position: absolute; top: -7px; right: 136px; width: 14px; height: 14px; background: var(--surface); border-left: 1px solid var(--sep); border-top: 1px solid var(--sep); transform: rotate(45deg); }
+.pop .sec { padding: 12px 16px; border-bottom: 1px solid var(--sep); }
+.pop .sec:last-child { border-bottom: 0; }
+.pop .lbl { font-size: 13px; color: var(--ink2); margin: 0 0 10px; display: flex; justify-content: space-between; }
+.swatches { display: flex; gap: 10px; }
+.swatch { flex: 1; min-height: 64px; border-radius: 12px; border: 1px solid var(--sep); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 13px; font-weight: 500; }
+.swatch .aa { font-family: var(--heb); font-size: 22px; line-height: 1; }
+.swatch.light { background: #FBFAF8; color: #1C1A17; }
+.swatch.sepia { background: #F3EBDD; color: #33281E; }
+.swatch.night { background: #161513; color: #E9E4DB; }
+.swatch[aria-pressed="true"] { outline: 2px solid var(--accent); outline-offset: 2px; }
+.slider { display: flex; align-items: center; gap: 10px; }
+.slider span { font-size: 14px; color: var(--ink); width: 18px; text-align: center; }
+.slider span.big { font-size: 22px; }
+.slider input { flex: 1; accent-color: var(--accent); height: 44px; margin: 0; }
+.tg { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; font-size: 16px; }
+
+/* Settings and Zmanim */
+.g-head { font-size: 13px; color: var(--ink2); margin: 24px 16px 8px; }
+.group { background: var(--surface); border-radius: 12px; border: 1px solid var(--sep); }
+.group .rw { display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 4px 16px; border-bottom: 1px solid var(--sep); width: 100%; background: none; border-left: 0; border-right: 0; border-top: 0; text-align: left; font-size: 17px; color: var(--ink); }
+.group .rw:last-child { border-bottom: 0; }
+.group button.rw { cursor: pointer; }
+.group .rw .v { margin-left: auto; color: var(--ink2); display: flex; align-items: center; gap: 4px; }
+.g-foot { font-size: 13px; color: var(--ink2); margin: 8px 16px 0; line-height: 1.45; }
+.cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
+.searchf { display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 12px; border-radius: 12px; background: var(--fill); color: var(--ink2); }
+.searchf input { border: 0; background: transparent; flex: 1; font-size: 17px; outline: none; color: var(--ink); }
+.searchf input::placeholder { color: var(--ink2); }
+.ztime { font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sw::before, .sw::after, .sb .chev { transition: none; }
+}
+</style>
+
+<main class="page">
+  <header class="intro">
+    <h1>ArtScroll Digital Library for iPad</h1>
+    <p>A redesign where the seforim lead and the app stays out of the way. Each screen is drawn at true iPad size and scaled to fit. The frames are live: the sidebar, tabs, the Aa א menu and the line selection all respond.</p>
+  </header>
+
+  <h2 class="sec-title">Home, three layouts</h2>
+  <p class="sec-sub">Same colours and content, different structure. Pick the one that should carry through the app.</p>
+
+  <section class="shot">
+    <p class="cap"><b>A. Reading now</b> (recommended). The open volume's cover leads, with today's learning as a row of covers.</p>
+    <div class="fw" data-w="1194" data-h="834"><div class="frame" data-screen="homeA"></div></div>
+  </section>
+  <section class="shot">
+    <p class="cap"><b>B. Hebrew-led.</b> No large cover: the current daf, set in Hebrew, is the headline.</p>
+    <div class="fw" data-w="1194" data-h="834"><div class="frame" data-screen="homeB"></div></div>
+  </section>
+  <section class="shot">
+    <p class="cap"><b>C. Daf-first.</b> Home is mostly the open page itself; one tap continues.</p>
+    <div class="fw" data-w="1194" data-h="834"><div class="frame" data-screen="homeC"></div></div>
+  </section>
+
+  <h2 class="sec-title">The app, in layout A</h2>
+  <p class="sec-sub">Library, the reader in landscape, portrait and Night, Settings and Zmanim.</p>
+
+  <section class="shot">
+    <p class="cap"><b>Library.</b> Covers in a five-across grid, filtered by collection, with an offline notice written into the page.</p>
+    <div class="fw" data-w="1194" data-h="834"><div class="frame" data-screen="library"></div></div>
+  </section>
+  <section class="shot">
+    <p class="cap"><b>Reader, landscape.</b> The Vilna daf beside the translation; the line being translated is tinted in both. Tap any line of Gemara.</p>
+    <div class="fw" data-w="1194" data-h="834"><div class="frame" data-screen="reader"></div></div>
+  </section>
+  <section class="shot">
+    <p class="cap"><b>Reader, portrait.</b> The translation as a half-height sheet, with the Aa א menu open. Try the theme swatches, the slider and the switches.</p>
+    <div class="fw portrait" data-w="834" data-h="1194"><div class="frame" data-screen="readerP"></div></div>
+  </section>
+  <section class="shot">
+    <p class="cap"><b>Reader, Night.</b> The same page after dark, with the accent lifted so it stays readable.</p>
+    <div class="fw" data-w="1194" data-h="834"><div class="frame" data-screen="reader" data-theme="night"></div></div>
+  </section>
+  <section class="shot">
+    <p class="cap"><b>Settings.</b> Short grouped lists; everything about how the page looks now lives in the Aa א menu.</p>
+    <div class="fw" data-w="1194" data-h="834"><div class="frame" data-screen="settings"></div></div>
+  </section>
+  <section class="shot">
+    <p class="cap"><b>Zmanim.</b> A location chooser in place of the old "LocationUnknown" screen. Pick a city to see the day's times.</p>
+    <div class="fw" data-w="1194" data-h="834"><div class="frame" data-screen="zmanim"></div></div>
+  </section>
+
+  <footer class="foot">
+    <p>Unofficial redesign concept. Covers and text © their owners.</p>
+    <p>Gemara, Rashi and Tosafos for Arachin 2a: Vilna edition text from Sefaria (sefaria.org); the Gemara text is from Wikisource, CC BY-SA. The English elucidation was written for this concept. Cover images supplied by the client from artscroll.com product pages.</p>
+  </footer>
+</main>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-learn" viewBox="0 0 24 24"><path d="M3 5.8c3-1.2 6-1 9 1 3-2 6-2.2 9-1v12.8c-3-1.2-6-1-9 1-3-2-6-2.2-9-1z"/><path d="M12 6.8v12.8"/></symbol>
+  <symbol id="i-library" viewBox="0 0 24 24"><rect x="3.5" y="4" width="4.5" height="16" rx="1"/><rect x="9.5" y="6" width="4.5" height="14" rx="1"/><path d="M15.7 6.3l3.4-.9 3.4 13.4-3.4.9z"/></symbol>
+  <symbol id="i-siddur" viewBox="0 0 24 24"><path d="M6.5 3.5h11.5v14H7a2 2 0 0 0 0 4h11"/><path d="M5 19.5v-14a2 2 0 0 1 1.5-2"/></symbol>
+  <symbol id="i-note" viewBox="0 0 24 24"><path d="M6 3.5h8.5L19 8v12.5H6z"/><path d="M14 3.5V8.5h5M9 12.5h7M9 16h5"/></symbol>
+  <symbol id="i-tools" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.6"/></symbol>
+  <symbol id="i-history" viewBox="0 0 24 24"><path d="M4.2 12a7.8 7.8 0 1 0 2.3-5.5"/><path d="M4 4v4h4"/><path d="M12 8v4.3l3 1.8"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M14.5 5.5L8 12l6.5 6.5"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9.5 5.5L16 12l-6.5 6.5"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6.5h11M9 12h11M9 17.5h11"/><circle cx="4.8" cy="6.5" r=".9" fill="currentColor"/><circle cx="4.8" cy="12" r=".9" fill="currentColor"/><circle cx="4.8" cy="17.5" r=".9" fill="currentColor"/></symbol>
+  <symbol id="i-panel" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M14.5 4.5v15"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v8M8.5 12.5L12 16l3.5-3.5"/></symbol>
+  <symbol id="i-offline" viewBox="0 0 24 24"><path d="M3 9.5a13 13 0 0 1 4.5-2.8M10.5 6a13 13 0 0 1 10.5 3.5"/><path d="M6 13a8.5 8.5 0 0 1 3.5-2M14 11.2A8.5 8.5 0 0 1 18 13"/><circle cx="12" cy="17" r="1" fill="currentColor"/><path d="M4 4l16 16"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.8-6.5-11a6.5 6.5 0 0 1 13 0c0 5.2-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+  <symbol id="i-loc" viewBox="0 0 24 24"><path d="M20 4L4 11l7 2 2 7z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M6.5 12.5l3.5 3.5 7.5-8"/></symbol>
+</defs></svg>
+
+<script>
+const DAF2A = {"g":["מתני׳ הכל מעריכין ונערכין נודרין ונידרין כהנים לוים וישראלים נשים ועבדים","טומטום ואנדרוגינוס נודרין ונידרין ומעריכין אבל לא נערכין שאינו נערך אלא הזכר ודאי ונקבה ודאית","חרש שוטה וקטן נידרין ונערכין אבל לא נודרין ולא מעריכין מפני שאין בהם דעת:","גמ׳ הכל מעריכין לאתויי מאי לאתויי מופלא סמוך לאיש","נערכין לאתויי מאי לאתויי מנוול ומוכה שחין","סד\"א נדר בערכך כתיב כל שישנו בדמים ישנו בערכין וכל שאינו בדמים אינו בערכין","קמ\"ל נפשות כל דהו","נודרין לאתויי מאי נידרין איצטריך ליה","נידרין לאתויי מאי אי לאתויי טומטום ואנדרוגינוס בהדיא קתני להו ואי לאתויי חרש שוטה וקטן בהדיא קתני להו","אי לאתויי פחות מבן חודש בהדיא קתני להו ואי לאתויי עובד כוכבים בהדיא קתני להו לעולם לאתויי פחות מבן חודש ותני והדר מפרש","הכל סומכין לאתויי מאי לאתויי יורש ודלא כרבי יהודה","הכל ממירין לאתויי מאי לאתויי יורש ודלא כרבי יהודה","דתניא יורש סומך יורש מימר ר' יהודה אומר יורש אינו סומך יורש אינו מימר","מאי טעמא דרבי יהודה (ויקרא א, ג) קרבנו ולא קרבן אביו ויליף תחלת הקדש מסוף הקדש מה סוף הקדש יורש אינו סומך אף תחלת הקדש יורש אינו מימר","ורבנן (ויקרא כז, י) המר ימיר לרבות את היורש וילפינן סוף הקדש מתחלת הקדש מה תחלת הקדש יורש מימר אף סוף הקדש יורש סומך","ורבנן האי קרבנו מאי עבדי ליה מיבעי ליה קרבנו ולא קרבן עובד כוכבים קרבנו ולא קרבן חבירו קרבנו לרבות כל בעלי חוברין לסמיכה","ורבי יהודה לרבות כל בעלי חוברין לסמיכה לית ליה ואי נמי אית ליה"],"r":["מתני' הכל מעריכין - ערך כתוב בפרשה. (נדר דמי עלי ושמים אותו כעבד הנמכר בשוק):","מעריכין - אם אמר על אחד ערך פלוני עלי נותן ערך אותו פלוני כפי שניו שהערך ניתן לפי השנים הכתוב בפ' ערכין ואחר שנות הנערכים הולכים:","נערכים - אם אמר ערכי עלי או אם אמר אחר עליו ערך פלוני עלי:","נודרין - דמי פלוני עלי:","נידרין - דמי עלי או אם אמר אחר עליו דמי פלוני עלי:","נשים ועבדים - ומשלמין לאחר זמן כשנתגרשה האשה או נשתחרר העבד:","וטומטום ואנדרוגינוס נודרין ונידרים - שהרי יש להם דמים:","מעריכין - את אחרים אם אמרו ערך פלוני עלי נותנין ערך אותו פלוני:","אבל לא נערכין - אם אמר ערכי עלי או אם אמר אחר עליהם ערך פלוני עלי לא אמר כלום שאין להם ערך שזכר ונקבה אמורין בפרשה:","גמ' מופלא סמוך לאיש - בן י\"ב שנה ויום אחד שהוא סמוך לאיש ואינו איש עד שיביא שתי שערות. ומופלא קרי ליה על שם שבודקין אותו אם יודע להפלות ולפרש לשם מי נדר ולשם מי הקדיש כדקתני בפ' יוצא דופן במסכת נדה (דף מה:):","נערכין לאתויי מאי - כלומר הכל דקאי נמי אנערכין דאכולה מתני' קאי הכל אהנערכין לאתויי מאי:","נדר בערכך כתיב - (נפשות משמע) איתקש ערכין לדמים ומנוול ומוכה שחין אינן בדמים ונודרין את אחרים אבל לא נידרין דאין שוים כלום:","נפשות - משמע כל שהוא נפש: כולהו הנך דמייתי תיובתא תני להו במתניתין בהדיא:","תני והדר מפרש - והוא הדין נמי מצי למנקט חד מהנך אלא חד מתרתי תלת נקט. ל\"א להכי נקט האי משום דפליגי רבנן ור\"מ בהאי פירקא (לקמן ערכין דף ה.) המעריך פחות מבן חדש ר\"מ אומר נותן דמיו אדם יודע שאין ערך לפחות מבן חדש וגמר ואמר לשם דמים וחכ\"א לא אמר כלום ולהכי סתמה ברישא לאשמועי' ממשנה יתירא דאפי' לרבנן היכא דאמר דמיו עלי יש לו דמים ונותן דמיו מפי מורינו:","יורש - אדם שהפריש אביו קרבן ולא הספיק להקריבו עד שמת:","קרבנו - גבי סמיכה כתיבי תלתא קרבנו גבי שלמים בויקרא ודריש ר' יהודה לחד מינייהו קרבנו ולא קרבן אביו:","תחלת הקדש - תמורה שהיא תחלת הקדישה של בהמה זו:","סוף הקדש - סמיכה שהוא סמוך לשחיטה:","כל בעלי חוברין - חמשה שהביאו קרבן אחד בשותפות כולן צריכין לסמוך עליו ואין אחד סומך עליו:","לית ליה - דס\"ל אחד סומך לכולם ולא הוי כסומך על קרבן חבירו הואיל והוא שייך ביה:"],"t":["מתני' הכל מעריכין - בנזיר (דף ב.) ובנדרים (דף ב.) הזכיר כינויים שלא להזכיר שם שמים לבטלה כדאיתא התם ובכאן לא חשש להזכיר שלא היו מזכירין שם שמים על הערכין ערך כתוב בפרשה נדרים דמי עלי ושמין אותו כעבד הנמכר בשוק:","מעריכין - אם אמר על אחד בשוק ערך פלוני עלי (או אם אמר ערך אותו פלוני עלי) נותן לפי השנים הכתובים בפרשת שקלים ולפי שנותיו הולכים:","נערכין - אם אמר ערכי עלי או אם אמר אחר [עליו] ערך פלוני עלי:","נשים ועבדים - משלמין לאחר זמן כשנתגרשה האשה או נשתחרר העבד כן פ\"ה אי נמי כגון שנתנו להם ע\"מ שאין לרב או לבעל רשות בהם ואפילו אין להם נותנין עליהם מיד כדתניא בתוספתא נשים ועבדים נודרים ונידרים אם יש להם בזמן הזה גובין מהם ואם לאו [כותבין] עליהם וגובין לאחר זמן ועבד אע\"ג דגבי מצות יש לו דין אשה לפי ערך זכר הוא נערך דלא אישתמיט תנא דלימא אם היה נערך כאשה:","טומטום ואנדרוגינוס נודרין ונידרין - שהרי יש להם דמים ומעריכין את אחרים אם אמרו ערך פלוני עלי נותן ערך אותו פלוני אבל לא נערכין אם אמר אחד עליהם ערך פלוני עלי לא אמר כלום שזכר ונקבה אמורים בפרשה. ל\"ה:","חרש שוטה וקטן - משמע דאית ליה דמים לחרש והא דאמר פרק החובל (ב\"ק פה:) חרשו נותן לו דמי כולו בחרש שאינו יכול להתרפאות אי נמי פירש ר\"ת דחרש בידי שמים אית ליה דמים:","מופלא סמוך לאיש - בן י\"ב שנה ויום אחד שסמוך לאיש ואינו איש עד י\"ג ויום אחד ומופלא קרי ליה על שם שבודקין אותו אם יודע להפלות ולפרש לשם מי נדר לשם מי הקדיש כדקתני פרק יוצא דופן (נדה מה:):","נערכין לאתויי מאי - כלומר הכל דקאי נמי אנערכין דאכולה מתניתין קאי הכל (לאתויי נערכין) לה\"ק:","לאתויי מנוול ומוכה שחין - משמע דקאי נמי אעבדים דמתני' ויש להקשות דהא מיבעיא לן בפרק השולח (גיטין מב:) עבד שמכרו רבו לקנס מהו אלמא אית ליה דמים וי\"ל דהכא בטריפה איירי וא\"ת ההורגו יתחייב הואיל ואיתרבי בנפשות אלמא איקרי נפש דמהאי טעמא מרבינן להורג בן יום אחד פרק יוצא דופן (נדה מד:) ואף על גב דשמא נפל הוא וי\"ל דהתם בתורת כהנים מוקמינן ליה בשכלו לו חדשיו וכן מוקמינן התם לר' שמעון ב\"ג דאמר כל שלא שהה:","נדר בערכך נפשות - משמע דאיתקיש ערכין לדמים מנוול ומוכה שחין אינו לדמים ונודרין את אחרים אבל לא נידרין דאין שוה כלום:","כל שישנו בדמים נערכין כו' - לאו דווקא דהא איכא דיקלא וארעא אלא כל אדם שישנו בדמים קאמר:","קרבנו - גבי סמיכה כתיבי תלתא קרבנו בויקרא ודריש רבי יהודה לחדא מינייהו קרבנו ולא קרבן אביו לשון הקונטרס ואגב חורפיה לא עיין דהתם ליכא אלא תרי ושמא על ראשו דכתיב התם חשיב ליה כמו קרבנו א\"נ משאר קרבנו דריש:","תחלת הקדש - תמורה שהיא תחלת הקדישה של בהמה זו סוף הקדש סמיכה שהוא סמוך לשחיטה ל\"ה והאי דקרי ליה תמורה סוף הקדש בפרק הזהב (ב\"מ נד:) היינו לגבי קרבנו ראשון וא\"ת לילף נמי שחיטה מסמיכה ולא ישחוט יורש הא ליתא דאפילו שלוחו לא ממעט לשחיטה:","[קרבנו ולא קרבן חבירו - וא\"ת כיון דאמרינן ס\"פ שתי מדות (מנחות צג:) וסמך ידו ולא יד שלוחו כ\"ש לא יד חבירו וא\"כ קרבנו ל\"ל וי\"ל] אי לאו קרבנו אמינא דידו למעוטי חבירו אתא אבל שלוחו סומך וא\"ת לילף מהכא בכל התורה דאין שלוחו של אדם כמותו ואמאי יליף לה בקדושין פ\"ב (דף מא:) דהוי כמותו וי\"ל משום דסמיכה ויבמה ועגלה ערופה שלשה כתובין הבאין כאחד דכתיב ביבמה (דברים כה) וקראו לו הן ולא שלוחן וכן בעגלה ערופה ומדדו ולא שלוחם וא\"ת לילף מינייהו דבכל דוכתא הוי שלוחו כמותו מדאיצטריך למעוטינהו וי\"ל דאי לאו הני קראי דקדושין דאשמועינן דשלוחו כמותו הוה מוקמינן להני תלתא קראי דסמיכה ויבמה ועגלה ערופה לדרשא אחריתי:","כל בעלי חוברין - חמשה שהביאו קרבן בשותפות כולן צריכין לסמוך עליו ואין אחד סומך על ידי כולן:","לית ליה - דסבירא ליה אחד סומך לכולן ולא הוי כסומך על קרבן חבירו הואיל והוא שייך ביה לשון הקונטרס. והכי משמע פרק שתי מדות (מנחות צד.) ומה תנופה שנתרבתה בשוחטין נתמעטה בחוברין סמיכה שלא נתרבתה בשוחטין אינו דין שנתמעט בחוברין ת\"ל קרבנו לרבות כולן אלמא למאן דאמר דלא דריש קרבנו מתנופה יליף ליה ותנן התם אחד מניף לכולם:"]};
+(() => {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const ico = (n, c = '') => `<svg class="ico ${c}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const C = n => `assets/covers/${n}.png`;
+
+// ---------- content ----------
+const TODAY = [
+  { k: 'Daf Yomi', r: 'Arachin 4', rh: 'ערכין ד׳', img: 'arachin' },
+  { k: 'Yerushalmi', r: 'Kesubos 37', rh: 'כתובות ל״ז', img: 'yerushalmi-en-set' },
+  { k: 'Mishnah Yomis', r: 'Negaim 3:3–4', rh: 'נגעים ג:ג–ד', img: 'mishnah-taharos' },
+  { k: 'Kitzur Yomi', r: 'Siman 151', rh: 'סימן קנ״א', img: null }
+];
+const SHELF = ['berachos', 'chumash-stone', 'mishnah-berachos', 'siddur-shiras-baila', 'mishnah-elucidated-nezikin', 'tehillim-interlinear', 'chumash-he', 'mishnah-shabbos', 'siddur-yitzchak-yair', 'ein-yaakov'];
+const LIB = {
+  bavli: [
+    ['arachin', 'Arachin', 'ערכין', true, 'Schottenstein Edition'], ['berachos', 'Berachos', 'ברכות', true, 'Hebrew, travel size'],
+    ['talmud-en-set', 'Talmud Bavli', 'תלמוד בבלי', false, 'Full-size set'], ['talmud-he-set', 'Hebrew Talmud', 'תלמוד בבלי', false, 'Full-size set'],
+    ['talmud-en-travel-set', 'Talmud Bavli', 'תלמוד בבלי', false, 'Travel set'], ['talmud-he-travel-set', 'Hebrew Talmud', 'תלמוד בבלי', false, 'Travel set'],
+    ['ein-yaakov-set', 'Ein Yaakov', 'עין יעקב', false, 'Full set']
+  ],
+  yerushalmi: [['yerushalmi-en-set', 'Talmud Yerushalmi', 'תלמוד ירושלמי', true, 'English set'], ['yerushalmi-he-set', 'Hebrew Yerushalmi', 'תלמוד ירושלמי', false, 'Full set']],
+  mishnah: [
+    ['mishnah-taharos', 'Taharos', 'משניות טהרות', true, 'Ryzman Hebrew Mishnah'], ['mishnah-berachos', 'Berachos', 'משניות ברכות', true, 'Ryzman Hebrew Mishnah'],
+    ['mishnah-shabbos', 'Shabbos', 'משניות שבת', false, 'Ryzman Hebrew Mishnah'], ['mishnah-elucidated-nezikin', 'Nezikin', 'סדר נזיקין', false, 'Mishnah Elucidated'],
+    ['mishnah-elucidated-zeraim', 'Zeraim', 'סדר זרעים', false, 'Mishnah Elucidated, pocket'], ['yad-avraham-mishnah', 'Mishnah', 'משניות', false, 'Yad Avraham'],
+    ['mishnah-ryzman-set', 'Hebrew Mishnah', 'משניות', false, 'Full set'], ['mishnah-pocket-set', 'Hebrew Mishnah', 'משניות', false, 'Pocket set']
+  ],
+  chumash: [['chumash-stone', 'The Chumash', 'חמשה חומשי תורה', true, 'Stone Edition'], ['chumash-he', 'Hebrew Chumash', 'חמשה חומשי תורה', false, 'Schottenstein'], ['chumash-he-set', 'Hebrew Chumash', 'חמשה חומשי תורה', false, 'Five-volume set']],
+  kitzur: []
+};
+const TABS = [['bavli', 'Talmud Bavli'], ['yerushalmi', 'Yerushalmi'], ['mishnah', 'Mishnah'], ['chumash', 'Chumash'], ['kitzur', 'Kitzur']];
+
+// English elucidation, written for this concept. Bold = literal translation only.
+const EN = [
+  { en: '<b>All may pledge a valuation</b> of another person <b>and may be the subject of a valuation</b> pledged by others. <b>All may vow</b> to give a person’s market worth <b>and may have their own worth vowed: kohanim, Levites and Israelites, women and slaves.</b> A valuation is the fixed sum the Torah sets by age and sex; a person’s worth is what they would fetch if sold.', fn: 'The fixed sums are listed in Leviticus 27:1–8.' },
+  { en: '<b>A tumtum and an androgynous person,</b> whose sex cannot be determined, <b>may vow, may be vowed and may pledge a valuation, but may not be the subject of a valuation, for only one who is definitely male or definitely female is valued.</b> The Torah gives its sums for men and for women only, so there is no fixed sum for them, though they still have a market worth.' },
+  { en: '<b>A deaf-mute, a person lacking sound mind and a minor may be vowed and valued</b> by others, <b>but may not vow or pledge a valuation</b> themselves, <b>because they lack legal understanding.</b> Their own words carry no legal force.' },
+  { en: '<b>Gemara.</b> The Mishnah said <b>“all may pledge a valuation.”</b> <b>What does “all” come to include? It includes a boy close to adulthood,</b> in the year before he comes of age, whose answers show that he understands what he is pledging. His pledge stands.', fn: 'Rashi places this stage at twelve years and a day, following Niddah 45b.' },
+  { en: '<b>“And may be the subject of a valuation”: what does this include? It includes someone disfigured or covered with boils,</b> whom no one would buy.' },
+  { en: '<b>You might have thought</b> that <b>since the verse says “a vow by your valuation,”</b> valuation follows market worth: <b>whoever has a worth has a valuation, and whoever has none has no valuation.</b>', fn: 'The verse is Leviticus 27:2.' },
+  { en: '<b>So the Mishnah teaches</b> otherwise, from the word <b>“persons,”</b> which includes <b>anyone at all.</b> The fixed sums depend on age and sex alone, never on health or appearance.' },
+  { en: '<b>“May vow”: what does it include?</b> Nothing new. <b>It was needed</b> only as the pair to <b>“may be vowed,”</b> the clause that does add a case.' }
+];
+const NOTES = [{ ref: 'Your note on line 3', text: 'The Mishnah ends on understanding: lacking it blocks making a vow, not being the subject of one. Compare the boy close to adulthood in the Gemara.' }];
+
+// commentary anchoring by opening words
+const norm = s => s.replace(/[׳״"'().,:;\[\]\-–—]/g, ' ').replace(/\s+/g, ' ').trim();
+const anchors = (() => {
+  const g = DAF2A.g.map(norm);
+  const map = list => { let last = 0; return list.map(c => { const dh = norm(c.split(' - ')[0]).split(' ').slice(0, 2).join(' '); for (let i = last; i < g.length; i++) if (dh && g[i].includes(dh)) { last = i; return i; } return last; }); };
+  return { r: map(DAF2A.r), t: map(DAF2A.t) };
+})();
+
+// ---------- frame state ----------
+const STATE = new WeakMap();
+function st(f) {
+  if (!STATE.has(f)) STATE.set(f, { screen: f.dataset.screen, home: f.dataset.screen.startsWith('home') ? f.dataset.screen : 'homeA', theme: f.dataset.theme || 'light', seg: 0, tab: 'translation', lib: 'bavli', tools: f.dataset.screen === 'zmanim', ts: 1, layout: 'side', fn: true, hl: true, keepLight: false, pop: f.dataset.screen === 'readerP', panel: true, city: null, queued: [] });
+  return STATE.get(f);
+}
+
+// ---------- shared pieces ----------
+function sidebar(s) {
+  const cur = s.screen.startsWith('home') ? 'learn' : s.screen;
+  const a = (id, label, icon) => `<a href="#" data-nav="${id}" ${cur === id ? 'aria-current="page"' : ''}>${icon ? ico(icon) : ''}<span>${label}</span></a>`;
+  const tools = [['zmanim', 'Zmanim'], ['luach', 'Luach'], ['mizrach', 'Mizrach'], ['misheberach', 'Misheberach'], ['verses', 'Verses for names'], ['mirror', 'Tefillin mirror']];
+  return `<nav class="sb" aria-label="Sections">
+    <button class="sb-search" data-act="noop">${ico('search', 's')}<span>Search</span></button>
+    <div class="sb-list">
+      ${a('learn', 'Learn', 'learn')}${a('library', 'Library', 'library')}${a('siddur', 'Siddur', 'siddur')}${a('notes', 'My notes', 'note')}
+      <button class="sb-btn" data-act="tools" aria-expanded="${s.tools}">${ico('tools')}<span>Tools</span>${ico('right', 's chev')}</button>
+      ${s.tools ? `<div class="sub">${tools.map(([id, l]) => a(id, l)).join('')}</div>` : ''}
+    </div>
+    <div class="sb-foot">${a('history', 'History', 'history')}${a('settings', 'Settings', 'settings')}</div>
+  </nav>`;
+}
+const img = (n, cls = 'cover', alt = '') => `<img class="${cls}" src="${C(n)}" alt="${esc(alt)}" loading="lazy" decoding="async">`;
+const todayCover = (t, h) => t.img ? `<div class="cvbox" style="height:${h}px">${img(t.img, 'cover', t.r)}</div>` : `<div class="cvbox" style="height:${h}px"><div class="tile-kitzur" aria-label="Kitzur Shulchan Aruch">קיצור שולחן ערוך</div></div>`;
+const planLine = () => `<div class="planline"><span>Set a daily plan</span><button class="btn gray" data-act="noop">Choose a plan</button></div>`;
+
+// ---------- screens ----------
+const S = {};
+S.homeA = s => `${sidebar(s)}<div class="main"><div class="scroll"><div class="content">
+  <div class="hero">
+    <div class="cv">${img('arachin', 'cover', 'Arachin, Schottenstein Edition')}</div>
+    <div>
+      <p class="hero-heb" lang="he">ערכין</p>
+      <p class="hero-en">Arachin</p>
+      <p class="hero-meta"><span>Daf 2a, chapter 1</span><span>Opened two hours ago</span></p>
+      <button class="btn primary" data-act="open-reader">Continue</button>
+    </div>
+  </div>
+  <div class="row-title"><h2 class="h2">Today</h2></div>
+  <div class="today">${TODAY.map(t => `<button class="it" data-act="${t.r.startsWith('Arachin') ? 'open-reader' : 'noop'}">${todayCover(t, 112)}<span><span class="k">${t.k}</span><br><span class="r">${t.r}</span><br><span class="rh" lang="he">${t.rh}</span></span></button>`).join('')}</div>
+  ${planLine()}
+  <div class="row-title"><h2 class="h2">Your seforim</h2><button class="btn plain" data-nav="library">See all</button></div>
+  <div class="shelf">${SHELF.slice(0, 8).map(n => `<button data-nav="library" aria-label="Open in Library">${img(n)}</button>`).join('')}</div>
+</div></div></div>`;
+
+S.homeB = s => `${sidebar(s)}<div class="main"><div class="scroll"><div class="content">
+  <div class="b-top">
+    <p class="b-heb" lang="he">ערכין ב.</p>
+    <p class="b-en">Arachin 2a, chapter 1</p>
+    <p class="b-meta">Opened two hours ago</p>
+    <button class="btn primary" data-act="open-reader">Continue</button>
+  </div>
+  <div class="row-title"><h2 class="h2">Today</h2></div>
+  <ul class="hl-list">${TODAY.map(t => `<li><button data-act="${t.r.startsWith('Arachin') ? 'open-reader' : 'noop'}"><span class="k">${t.k}</span><span class="r">${t.r}</span><span class="rh" lang="he">${t.rh}</span></button></li>`).join('')}</ul>
+  ${planLine()}
+  <div class="b-shelf">${SHELF.slice(0, 9).map(n => `<button data-nav="library" aria-label="Open in Library" style="height:100%;background:none;border:0;padding:0;display:flex;align-items:flex-end;cursor:pointer">${img(n)}</button>`).join('')}</div>
+</div></div></div>`;
+
+function dafHTML(s, opts = {}) {
+  const segs = DAF2A.g.map((t, i) => { const w = t.split(' '); const n = /^(מתני|גמ|הכל)/.test(t) ? 2 : 0; return `<span class="sg ${i === s.seg ? 'on' : ''}" data-seg="${i}" tabindex="0" role="button" aria-label="Line ${i + 1}">${n ? `<span class="lead">${w.slice(0, n).join(' ')}</span> ${w.slice(n).join(' ')}` : t}</span> `; }).join('');
+  const comm = list => list.map(c => { const [dh, ...rest] = c.split(' - '); return rest.length ? `<span class="dh">${dh}</span> ${rest.join(' - ')} ` : c + ' '; }).join('');
+  return `<div class="daf-page" lang="he">
+    <div class="daf-head"><span class="pg">ב.</span><span class="hd">הכל מעריכין פרק ראשון ערכין</span><span class="dd"></span></div>
+    <div class="daf-grid">
+      <div><p class="col-label">רש״י</p><div class="comm">${comm(DAF2A.r)}</div></div>
+      <div><p class="col-label">גמרא</p><div class="gemara">${segs}</div></div>
+      <div><p class="col-label">תוספות</p><div class="comm">${comm(DAF2A.t)}</div></div>
+    </div></div>`;
+}
+
+S.homeC = s => `${sidebar(s)}<div class="main"><div class="c-wrap">
+  <div class="c-daf">
+    <div class="c-head"><div class="t"><b>Arachin 2a</b><span class="heb" lang="he">ערכין ב.</span><span class="muted" style="font-size:15px">Opened two hours ago</span></div><button class="btn primary" data-act="open-reader">Continue</button></div>
+    <button class="c-preview" data-act="open-reader" aria-label="Continue Arachin 2a">${dafHTML({ seg: 3 })}</button>
+  </div>
+  <aside class="c-side">
+    <h2 class="h2" style="font-size:20px">Today</h2>
+    ${TODAY.map(t => `<button class="mini" data-act="${t.r.startsWith('Arachin') ? 'open-reader' : 'noop'}"><span class="cvb">${t.img ? img(t.img, 'cover') : '<span class="tile-kitzur" style="font-size:12px;padding:4px">קיצור</span>'}</span><span><span class="k">${t.k}</span><span class="r">${t.r}</span><span class="rh" lang="he">${t.rh}</span></span></button>`).join('')}
+    <div style="border-top:1px solid var(--sep);padding-top:12px;font-size:15px;color:var(--ink2);display:flex;flex-direction:column;gap:8px;align-items:flex-start">Set a daily plan<button class="btn gray" data-act="noop">Choose a plan</button></div>
+    <div class="tiny-shelf">${SHELF.slice(0, 4).map(n => `<button data-nav="library" aria-label="Open in Library" style="height:100%;background:none;border:0;padding:0;display:flex;align-items:flex-end;cursor:pointer">${img(n)}</button>`).join('')}</div>
+  </aside>
+</div></div>`;
+
+S.library = s => {
+  const items = LIB[s.lib];
+  const grid = items.length ? `<div class="grid5">${items.map(([n, en, he, dl, desc]) => {
+    const q = s.queued.includes(n);
+    return `<div class="vol"><button class="imgbox" data-act="${n === 'arachin' ? 'open-reader' : 'noop'}" aria-label="${esc(en + ', ' + desc)}">${img(n, 'cover', en)}</button>
+      <div class="meta"><span class="names"><span class="en">${en}</span><span class="he" lang="he">${he}</span><span class="state">${q ? 'Starts when you reconnect' : desc}</span></span>
+      ${dl ? '' : q ? '' : `<button class="icon-btn" data-act="dl" data-n="${n}" aria-label="Download ${esc(en + ', ' + desc)}">${ico('download')}</button>`}</div></div>`;
+  }).join('')}</div>` : `<div class="empty"><h3>No Kitzur volumes on this iPad</h3><p>Kitzur Shulchan Aruch volumes you own appear here after you download them from the Store.</p><button class="btn gray" data-act="noop">Open the Store</button></div>`;
+  return `${sidebar(s)}<div class="main"><div class="scroll"><div class="content">
+    <h1 class="ltitle">Library</h1>
+    <div class="lib-head"><div class="seg" role="tablist">${TABS.map(([id, l]) => `<button role="tab" aria-selected="${s.lib === id}" data-act="lib" data-t="${id}">${l}</button>`).join('')}</div></div>
+    <p class="offline">${ico('offline', 's')}<span>You're offline. Downloaded volumes open as usual; new downloads start when you reconnect.</span></p>
+    ${grid}
+  </div></div></div>`;
+};
+
+function panelBody(s) {
+  if (s.tab === 'translation') {
+    return `${s.seg <= 2 || true ? `<p class="dedic">This volume is dedicated by the Levine family in memory of their parents.</p>` : ''}` +
+      EN.map((e, i) => `<div class="tr ${i === s.seg ? 'on' : ''}" data-seg="${i}"><p class="he" lang="he">${DAF2A.g[i]}</p><p class="en">${e.en}</p>${e.fn ? `<p class="fn"><i>${EN.slice(0, i + 1).filter(x => x.fn).length}</i>${e.fn}</p>` : ''}</div>`).join('');
+  }
+  if (s.tab === 'notes') {
+    return NOTES.map(n => `<p class="note-ref">${n.ref}</p><p class="note">${n.text}</p>`).join('') + `<label class="note-ref" for="nf-${s.uid}">Add a note on line ${s.seg + 1}</label><textarea class="field" id="nf-${s.uid}" placeholder="Write a note…"></textarea>`;
+  }
+  const rs = DAF2A.r.filter((_, j) => anchors.r[j] === s.seg), ts = DAF2A.t.filter((_, j) => anchors.t[j] === s.seg);
+  const cm = c => { const [dh, ...rest] = c.split(' - '); return `<p class="cm" lang="he">${rest.length ? `<span class="dh">${dh}</span> – ${rest.join(' - ')}` : c}</p>`; };
+  return `<p class="cm-h">Rashi on line ${s.seg + 1}</p>${rs.length ? rs.map(cm).join('') : '<p class="muted" style="font-size:15px">No Rashi on this line.</p>'}<p class="cm-h">Tosafos on line ${s.seg + 1}</p>${ts.length ? ts.map(cm).join('') : '<p class="muted" style="font-size:15px">No Tosafos on this line.</p>'}`;
+}
+const tabsHTML = s => `<div class="seg wide" role="tablist">${[['translation', 'Translation'], ['notes', 'Notes'], ['commentary', 'Commentary']].map(([id, l]) => `<button role="tab" aria-selected="${s.tab === id}" data-act="tab" data-t="${id}">${l}</button>`).join('')}</div>`;
+const toolbar = s => `<div class="tb" role="toolbar" aria-label="Reader">
+  <div class="grp"><button class="back" data-nav="library">${ico('left')}Library</button><button class="icon-btn" data-act="noop" aria-label="Contents">${ico('list')}</button></div>
+  <div class="center"><button class="icon-btn" disabled aria-label="Previous daf">${ico('left', 's')}</button><div class="title"><b>Arachin 2a</b><span class="heb" lang="he">ערכין ב.</span></div><button class="icon-btn" data-act="noop" aria-label="Next daf, 2b">${ico('right', 's')}</button></div>
+  <div class="grp" style="margin-left:auto"><button class="icon-btn aa" data-act="pop" aria-label="Display: theme, size and layout" aria-expanded="${s.pop}">Aa<span class="heb">א</span></button><button class="icon-btn" data-act="noop" aria-label="Search">${ico('search')}</button><button class="icon-btn" data-act="panel" aria-label="${s.panel ? 'Hide' : 'Show'} translation panel" aria-pressed="${s.panel}">${ico('panel')}</button></div>
+</div>`;
+
+S.reader = s => `<div class="reader">${toolbar(s)}
+  <div class="r-body">
+    ${s.layout !== 'translation' ? `<div class="r-daf">${dafHTML(s)}</div>` : ''}
+    ${(s.panel && s.layout !== 'daf') || s.layout === 'translation' ? `<aside class="panel" style="${s.layout === 'translation' ? 'width:auto;flex:1;border-left:0' : ''}"><div class="tabs">${tabsHTML(s)}</div><div class="pb" style="${s.layout === 'translation' ? 'max-width:720px;margin:0 auto;width:100%' : ''}">${panelBody(s)}</div></aside>` : ''}
+  </div>${s.pop ? popHTML(s, 'land') : ''}</div>`;
+
+function popHTML(s, where) {
+  const pos = where === 'land' ? 'top:62px;right:58px' : '';
+  return `<div class="pop" role="dialog" aria-label="Display" style="${pos}">
+    <div class="sec"><p class="lbl">Theme</p><div class="swatches">${[['light', 'Light'], ['sepia', 'Sepia'], ['night', 'Night']].map(([id, l]) => `<button class="swatch ${id}" data-act="theme" data-t="${id}" aria-pressed="${s.theme === id}"><span class="aa">א</span>${l}</button>`).join('')}</div></div>
+    <div class="sec"><p class="lbl"><span>Text size</span><span>${Math.round(s.ts * 100)}%</span></p><div class="slider"><span>A</span><input type="range" min="0.85" max="1.3" step="0.05" value="${s.ts}" data-act="ts" aria-label="Text size"><span class="big">A</span></div></div>
+    <div class="sec"><p class="lbl">Layout</p><div class="seg wide" role="group" aria-label="Layout">${[['daf', 'Daf'], ['translation', 'Translation'], ['side', 'Side by side']].map(([id, l]) => `<button data-act="layout" data-l="${id}" aria-pressed="${s.layout === id}">${l}</button>`).join('')}</div></div>
+    <div class="sec">
+      <div class="tg"><span id="l1-${s.uid}">Footnotes under each line</span><button class="sw" role="switch" aria-checked="${s.fn}" aria-labelledby="l1-${s.uid}" data-act="sw" data-k="fn"></button></div>
+      <div class="tg"><span id="l2-${s.uid}">Highlight the line being translated</span><button class="sw" role="switch" aria-checked="${s.hl}" aria-labelledby="l2-${s.uid}" data-act="sw" data-k="hl"></button></div>
+      <div class="tg"><span id="l3-${s.uid}">Keep the daf light at night</span><button class="sw" role="switch" aria-checked="${s.keepLight}" aria-labelledby="l3-${s.uid}" data-act="sw" data-k="keepLight"></button></div>
+    </div></div>`;
+}
+
+S.readerP = s => `<div class="reader portrait-reader">${toolbar(s)}
+  <div class="r-body">${s.layout !== 'translation' ? `<div class="r-daf">${dafHTML(s)}</div>` : `<div class="r-daf" style="padding:0"><div class="pb" style="padding:20px 40px;max-width:720px;margin:0 auto">${panelBody(s)}</div></div>`}</div>
+  ${s.panel && s.layout !== 'translation' ? `<div class="sheet" style="${s.layout === 'daf' ? 'height:22%' : ''}"><button class="grab" data-act="noop" aria-label="Resize translation sheet"></button><div class="tabs">${tabsHTML(s)}</div><div class="pb">${panelBody(s)}</div></div>` : ''}
+  ${s.pop ? popHTML(s, 'port') : ''}</div>`;
+
+S.settings = s => {
+  const rw = (l, v) => `<button class="rw" data-act="noop"><span>${l}</span><span class="v">${v}${ico('right', 's')}</span></button>`;
+  const sw = (l, on, k) => `<div class="rw"><span id="${k}-${s.uid}">${l}</span><span class="v"><button class="sw" role="switch" aria-checked="${on}" aria-labelledby="${k}-${s.uid}" data-act="toggle-only"></button></span></div>`;
+  return `${sidebar(s)}<div class="main"><div class="scroll"><div class="content" style="max-width:860px">
+    <h1 class="ltitle">Settings</h1>
+    <p class="muted" style="margin:10px 0 0;font-size:15px;line-height:1.45">Theme, text size, layout and footnotes now live in the Aa א menu inside every book.</p>
+    <div class="cols2">
+      <div>
+        <p class="g-head">Account and sync</p><div class="group">${rw('Account', 'Signed in')}${sw('Sync notes and history', true, 'sy')}</div>
+        <p class="g-head">Downloads and storage</p><div class="group">${rw('On this iPad', '3 volumes, 1.4 GB')}${sw('Download over cellular', false, 'cl')}</div>
+        <p class="g-head">Advanced</p><div class="group">${rw('Keep history for', '30 days')}${rw('Language', 'Same as iPad')}</div>
+      </div>
+      <div>
+        <p class="g-head">Siddur</p><div class="group">${rw('Nusach', 'Ashkenaz')}${rw('Edition', 'Wasserman')}</div>
+        <p class="g-head">Learning plans</p><div class="group">${rw('Reminder time', '8:30 PM')}${sw('Remind me each day', true, 'rm')}</div>
+        <p class="g-foot">A reminder comes only on days your plan has learning left.</p>
+      </div>
+    </div>
+  </div></div></div>`;
+};
+
+// sun times (NOAA approximation) for Zmanim
+function sunUT(d, lat, lon, zen, rise) {
+  const rad = Math.PI / 180, N = Math.floor((d - Date.UTC(d.getUTCFullYear(), 0, 0)) / 864e5), lh = lon / 15;
+  const t = N + ((rise ? 6 : 18) - lh) / 24, M = 0.9856 * t - 3.289;
+  let L = (M + 1.916 * Math.sin(M * rad) + 0.02 * Math.sin(2 * M * rad) + 282.634) % 360; L = (L + 360) % 360;
+  let RA = (Math.atan(0.91764 * Math.tan(L * rad)) / rad + 360) % 360; RA = (RA + Math.floor(L / 90) * 90 - Math.floor(RA / 90) * 90) / 15;
+  const sd = 0.39782 * Math.sin(L * rad), cd = Math.cos(Math.asin(sd));
+  const ch = (Math.cos(zen * rad) - sd * Math.sin(lat * rad)) / (cd * Math.cos(lat * rad)); if (ch > 1 || ch < -1) return null;
+  const H = (rise ? 360 - Math.acos(ch) / rad : Math.acos(ch) / rad) / 15;
+  let UT = ((H + RA - 0.06571 * t - 6.622 - lh) % 24 + 24) % 24; const ls = UT + lh; if (ls < 0) UT += 24; else if (ls >= 24) UT -= 24;
+  return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()) + UT * 36e5);
+}
+const CITIES = [['Brooklyn', 'New York', 40.6501, -73.9496, 'America/New_York'], ['Lakewood', 'New Jersey', 40.0821, -74.2097, 'America/New_York'], ['Monsey', 'New York', 41.1112, -74.0685, 'America/New_York'], ['Jerusalem', 'Israel', 31.7683, 35.2137, 'Asia/Jerusalem'], ['Bnei Brak', 'Israel', 32.0807, 34.8338, 'Asia/Jerusalem'], ['London', 'United Kingdom', 51.5072, -0.1276, 'Europe/London']];
+S.zmanim = s => {
+  let body;
+  if (s.city == null) {
+    body = `<p class="muted" style="font-size:17px;line-height:1.45;margin:10px 0 18px;max-width:56ch">Zmanim depend on where you are. Use your location once, or choose a city. Your location stays on this iPad.</p>
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:22px"><button class="btn primary" data-act="city" data-i="1">${ico('loc', 's')}Use my location</button></div>
+      <label class="searchf" style="max-width:520px">${ico('search', 's')}<input type="search" placeholder="Search for a city…" aria-label="Search for a city" autocomplete="off"></label>
+      <p class="g-head" style="margin-left:4px">Common cities</p>
+      <div class="group" style="max-width:520px">${CITIES.map((c, i) => `<button class="rw" data-act="city" data-i="${i}"><span>${c[0]}</span><span class="v">${c[1]}${ico('right', 's')}</span></button>`).join('')}</div>`;
+  } else {
+    const c = CITIES[s.city], d = new Date(Date.UTC(2026, 10, 22)), z = (zen, r) => sunUT(d, c[2], c[3], zen, r);
+    const netz = z(90.833, true), shk = z(90.833, false), sz = (shk - netz) / 12, add = h => new Date(+netz + h * sz);
+    const f = x => x ? new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: c[4] }).format(x) : '–';
+    const rows = [['Dawn', z(106.1, true)], ['Earliest tallis and tefillin', z(101.5, true)], ['Sunrise', netz], ['Latest Shema (Gra)', add(3)], ['Latest Shacharis (Gra)', add(4)], ['Midday', add(6)], ['Earliest Mincha', add(6.5)], ['Plag HaMincha', add(10.75)], ['Sunset', shk], ['Nightfall', z(98.5, false)]];
+    body = `<div style="display:flex;align-items:center;gap:12px;margin:8px 0 14px"><p style="margin:0;font-size:17px"><b>${c[0]}</b>, ${c[1]}. Sunday, November 22</p><button class="btn plain" data-act="city" data-i="">Change</button></div>
+      <div class="group" style="max-width:560px">${rows.map(([l, t]) => `<div class="rw"><span>${l}</span><span class="v ztime" style="color:var(--ink)">${f(t)}</span></div>`).join('')}</div>`;
+  }
+  return `${sidebar(s)}<div class="main"><div class="scroll"><div class="content"><h1 class="ltitle">Zmanim</h1>${body}</div></div></div>`;
+};
+const OTHER = { siddur: 'Siddur', notes: 'My notes', luach: 'Luach', mizrach: 'Mizrach', misheberach: 'Misheberach', verses: 'Verses for names', mirror: 'Tefillin mirror', history: 'History' };
+Object.keys(OTHER).forEach(k => { S[k] = s => `${sidebar(s)}<div class="main"><div class="content"><h1 class="ltitle">${OTHER[k]}</h1><p class="muted" style="font-size:17px;margin-top:10px">This screen isn't part of the concept.</p></div></div>`; });
+
+// ---------- render & events ----------
+let uid = 0;
+function render(f) {
+  const s = st(f); if (!s.uid) s.uid = ++uid;
+  const scr = s.screen === 'learn' ? s.home : s.screen;
+  f.innerHTML = `<div class="app" data-theme="${s.theme}" data-fn="${s.fn}" data-hl="${s.hl}" data-keeplight="${s.keepLight}" style="--ts:${s.ts}">${(S[scr] || S.homeA)(s)}</div>`;
+  showActive(f, s);
+}
+function showActive(f, s) {
+  const tr = $(`.pb .tr[data-seg="${s.seg}"]`, f); if (!tr) return;
+  const pb = tr.closest('.pb'); pb.scrollTop = Math.max(0, tr.offsetTop - pb.offsetTop - 24);
+}
+function setSeg(f, i) {
+  const s = st(f); s.seg = i;
+  $$('[data-seg]', f).forEach(el => el.classList.toggle('on', +el.dataset.seg === i));
+  const pb = $('.pb', f); if (pb && s.tab !== 'translation') pb.innerHTML = panelBody(s);
+  showActive(f, s);
+}
+document.addEventListener('click', e => {
+  const f = e.target.closest('.frame'); if (!f) return;
+  const s = st(f);
+  const nav = e.target.closest('[data-nav]');
+  if (nav) { e.preventDefault(); const to = nav.dataset.nav; s.screen = to === 'learn' ? 'learn' : to; s.pop = false; if (['zmanim', 'luach', 'mizrach', 'misheberach', 'verses', 'mirror'].includes(to)) s.tools = true; render(f); return; }
+  const seg = e.target.closest('[data-seg]');
+  const t = e.target.closest('[data-act]');
+  if (seg && !t && f.dataset.screen !== 'homeC') { setSeg(f, +seg.dataset.seg); return; }
+  if (!t) { if (s.pop && !e.target.closest('.pop')) { s.pop = false; render(f); } return; }
+  switch (t.dataset.act) {
+    case 'tools': s.tools = !s.tools; render(f); break;
+    case 'open-reader': s.screen = f.dataset.screen === 'readerP' ? 'readerP' : 'reader'; s.pop = false; render(f); break;
+    case 'lib': s.lib = t.dataset.t; render(f); break;
+    case 'dl': s.queued.push(t.dataset.n); render(f); break;
+    case 'tab': s.tab = t.dataset.t; render(f); break;
+    case 'pop': s.pop = !s.pop; render(f); break;
+    case 'panel': s.panel = !s.panel; render(f); break;
+    case 'theme': s.theme = t.dataset.t; render(f); break;
+    case 'layout': s.layout = t.dataset.l; render(f); break;
+    case 'sw': s[t.dataset.k] = !s[t.dataset.k]; render(f); break;
+    case 'toggle-only': t.setAttribute('aria-checked', t.getAttribute('aria-checked') !== 'true'); break;
+    case 'city': s.city = t.dataset.i === '' ? null : +t.dataset.i; render(f); break;
+  }
+});
+document.addEventListener('input', e => {
+  if (e.target.dataset.act !== 'ts') return;
+  const f = e.target.closest('.frame'), s = st(f); s.ts = +e.target.value;
+  $('.app', f).style.setProperty('--ts', s.ts);
+  const l = $('.pop .lbl span:last-child', f); if (l) l.textContent = Math.round(s.ts * 100) + '%';
+});
+document.addEventListener('keydown', e => {
+  const seg = e.target.closest && e.target.closest('.gemara [data-seg]');
+  if (seg && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); setSeg(seg.closest('.frame'), +seg.dataset.seg); }
+  if (e.key === 'Escape') $$('.frame').forEach(f => { const s = st(f); if (s.pop) { s.pop = false; render(f); } });
+});
+
+function fit() {
+  $$('.fw').forEach(w => { const W = +w.dataset.w, H = +w.dataset.h, sc = Math.min(1, w.clientWidth / W); w.style.setProperty('--s', sc); w.style.height = (H * sc) + 'px'; });
+}
+$$('.frame').forEach(render);
+fit();
+if (window.ResizeObserver) new ResizeObserver(fit).observe(document.querySelector('.page')); else window.addEventListener('resize', fit);
+})();
+</script>

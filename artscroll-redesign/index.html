@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#E7DFD0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#100E0C" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
 <title>ArtScroll Redesign Concept</title>
 <meta name="description" content="Unofficial iPad redesign concept for the ArtScroll Digital Library: sidebar, quiet reader, trailing inspector, warm themes.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,6 +14,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<a class="skip" href="#app">Skip to the prototype</a>
 
 <header class="stage-bar" aria-label="Prototype controls">
   <div class="stage-title">
@@ -50,12 +54,12 @@
 
 <main class="stage" id="stage">
   <div class="device" id="device">
-    <div class="app" id="app" data-theme="vellum">
+    <div class="app" id="app" data-theme="vellum" tabindex="-1">
       <div class="statusbar" aria-hidden="true"><span>8:45 PM&nbsp;&nbsp;Sat Nov 21</span><span class="sb-right"><span class="wifi-off">Offline</span> 47%<i class="batt"><b></b></i></span></div>
       <div class="shell" id="shell">
         <nav class="sidebar" id="sidebar" aria-label="Sections"></nav>
         <div class="scrim" id="scrim"></div>
-        <section class="main" id="main" aria-live="polite"></section>
+        <section class="main" id="main" aria-label="Content"></section>
       </div>
       <div id="layer"></div>
       <div class="toast" id="toast" role="status" aria-live="polite"></div>

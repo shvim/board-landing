@@ -45,19 +45,20 @@
   const SIZES = [0.88, 0.94, 1, 1.08, 1.17, 1.28];
   const saved = store.get();
   const S = Object.assign({
-    screen: 'learn', libFilter: 'bavli', expanded: { library: true, tools: true },
+    screen: 'learn', libFilter: 'bavli', expanded: { library: false, tools: false }, tipSeen: false, commAll: false,
     theme: 'vellum', size: 2, layout: 'daf', showComm: true, wash: true, fn: true, keepLight: false,
     daf: '3a', seg: 0, insp: true, tab: 'translation', focus: false,
     place: { daf: '3a', seg: 0 },
-    ribbons: ['3a'], bookmarks: [], userNotes: {}, hl: { '3a:1': 'sage', '3a:12': 'rose', '2a:0': 'ochre' },
+    ribbons: ['3a'], bookmarks: [], userNotes: {}, hl: { '3a:1': 'sage', '3a:12': 'rose', '2a:0': 'heather' },
     edition: null, city: null, done: {}, plans: [], queued: [],
     misheberach: [{ name: 'יוסף', rel: 'בן', mother: 'שרה' }],
     stuffTab: 'notes', stuffTag: 'All', histMode: 'date',
     settings: { cellular: false, reminder: true, links: true, updates: true, beta: false, fnLoc: 'Below the line', keep: '30 days' }
   }, saved);
+  Object.keys(S.hl).forEach(k => { if (S.hl[k] === 'ochre') S.hl[k] = 'heather'; });
   S.orient = 'landscape'; S.sbBrowse = true; S.sbReader = false; S.focus = false; S.loading = false;
   const persist = () => {
-    const keep = ['theme', 'size', 'layout', 'showComm', 'wash', 'fn', 'keepLight', 'ribbons', 'bookmarks', 'userNotes', 'hl', 'edition', 'city', 'done', 'plans', 'misheberach', 'settings', 'place'];
+    const keep = ['tipSeen', 'expanded', 'theme', 'size', 'layout', 'showComm', 'wash', 'fn', 'keepLight', 'ribbons', 'bookmarks', 'userNotes', 'hl', 'edition', 'city', 'done', 'plans', 'misheberach', 'settings', 'place'];
     const o = {}; keep.forEach(k => { o[k] = S[k]; }); store.set(o);
   };
 
@@ -79,9 +80,16 @@
   }
 
   let toastT;
-  function toast(msg) {
-    toastEl.textContent = msg; toastEl.classList.add('show');
-    clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('show'), 2600);
+  function toast(msg, undo) {
+    toastEl.innerHTML = '';
+    const sp = document.createElement('span'); sp.textContent = msg; toastEl.appendChild(sp);
+    if (undo) {
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = 'Undo';
+      b.addEventListener('click', ev => { ev.stopPropagation(); undo(); toastEl.classList.remove('show'); });
+      toastEl.appendChild(b);
+    }
+    toastEl.classList.add('show');
+    clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('show'), undo ? 6000 : 2600);
   }
 
   // ---------- data ----------
@@ -168,34 +176,41 @@
       <button class="iconbtn" data-act="sb-toggle" aria-label="Hide sidebar" title="Hide sidebar">${ico('sidebar')}</button></div>
       <button class="sb-search" data-act="search">${ico('search', 'sm')}<span>Search, or go to a daf</span></button>
       <div class="sb-scroll">`;
-    NAV.forEach(n => {
+    const kidOn = n => n.kids && n.kids.some(([id]) => isCurrent(id));
+    NAV.forEach((n, ni) => {
       const exp = !!S.expanded[n.id];
-      h += `<button class="sb-item" data-nav="${n.id}" ${n.kids ? `aria-expanded="${exp}"` : ''} ${(!n.kids && isCurrent(n.id)) || (n.id === 'library' && S.screen === 'library' && !exp) ? 'aria-current="page"' : ''}>
-        ${ico(n.icon)}<span>${n.label}</span>${n.kids ? `<svg class="ico sm disclose" aria-hidden="true"><use href="#i-right"/></svg>` : ''}</button>`;
+      h += `<a class="sb-item" href="?screen=${n.id}" data-nav="${n.id}" ${n.kids ? `aria-expanded="${exp}"` : ''} ${(!n.kids && isCurrent(n.id)) || (n.kids && !exp && (kidOn(n) || isCurrent(n.id))) ? 'aria-current="page"' : ''}>
+        ${ico(n.icon)}<span>${n.label}</span>${n.kids ? `<svg class="ico sm disclose" aria-hidden="true"><use href="#i-right"/></svg>` : ''}</a>`;
       if (n.kids && exp) {
         h += `<div class="sb-sub">` + n.kids.map(([id, l]) =>
-          `<button class="sb-item" data-nav="${id}" ${isCurrent(id) ? 'aria-current="page"' : ''}>${l}</button>`).join('') + `</div>`;
+          `<a class="sb-item" href="?screen=${id}" data-nav="${id}" ${isCurrent(id) ? 'aria-current="page"' : ''}>${l}</a>`).join('') + `</div>`;
+      }
+      if (ni === 0) {
+        h += `<div class="sb-group-label">Pinned</div>
+      <button class="sb-item sb-pin" data-act="open-daf" data-daf="${S.place.daf}" data-seg="${S.place.seg}" ${S.screen === 'reader' ? 'aria-current="page"' : ''}>${ico('ribbon')}<span>Arachin</span><span class="heb">ערכין</span></button>
+      <button class="sb-item sb-pin" data-act="kitzur">${ico('ribbon')}<span>Kitzur, Vol. 1</span><span class="heb">קיצור</span></button>
+      <div class="sb-group-label">Sections</div>`;
       }
     });
-    h += `<div class="sb-group-label">Pinned</div>
-      <button class="sb-item sb-pin" data-act="open-daf" data-daf="${S.place.daf}" ${S.screen === 'reader' ? 'aria-current="page"' : ''}>${ico('ribbon')}<span>Arachin</span><span class="heb">ערכין</span></button>
-      <button class="sb-item sb-pin" data-act="kitzur">${ico('ribbon')}<span>Kitzur, Vol. 1</span><span class="heb">קיצור</span></button>
-      </div>
+    h += `</div>
       <div class="sb-foot">
-        <button class="sb-item" data-nav="history" ${isCurrent('history') ? 'aria-current="page"' : ''}>${ico('history')}<span>History</span></button>
-        <button class="sb-item" data-nav="settings" ${isCurrent('settings') ? 'aria-current="page"' : ''}>${ico('settings')}<span>Settings</span></button>
+        <a class="sb-item" href="?screen=history" data-nav="history" ${isCurrent('history') ? 'aria-current="page"' : ''}>${ico('history')}<span>History</span></a>
+        <a class="sb-item" href="?screen=settings" data-nav="settings" ${isCurrent('settings') ? 'aria-current="page"' : ''}>${ico('settings')}<span>Settings</span></a>
       </div>`;
     sidebar.innerHTML = h;
   }
 
+  const overlayMode = () => S.screen === 'reader' || S.screen === 'mirror' || S.orient === 'portrait';
   function applyShell() {
-    const reading = S.screen === 'reader' || S.screen === 'mirror';
-    shell.classList.toggle('sb-overlay', reading);
-    shell.classList.toggle('sb-hidden', reading ? !S.sbReader : !S.sbBrowse);
+    const ov = overlayMode();
+    const hidden = ov ? !S.sbReader : !S.sbBrowse;
+    shell.classList.toggle('sb-overlay', ov);
+    shell.classList.toggle('sb-hidden', hidden);
+    sidebar.inert = hidden;
   }
 
   function navbar(trailing = '', title = '') {
-    const showToggle = !S.sbBrowse;
+    const showToggle = overlayMode() || !S.sbBrowse;
     return `<div class="navbar">
       ${showToggle ? `<button class="iconbtn" data-act="sb-toggle" aria-label="Show sidebar" title="Show sidebar">${ico('sidebar')}</button>` : ''}
       ${title ? `<div class="nav-title">${title}</div>` : ''}
@@ -208,7 +223,7 @@
     const libKids = ['bavli', 'yerushalmi', 'mishnah', 'chumash', 'kitzur'];
     if (libKids.includes(id)) { S.libFilter = id; id = 'library'; }
     S.screen = id;
-    if (id !== 'reader') S.sbReader = false;
+    S.sbReader = false;
     Object.assign(S, opts);
     render();
     const sc = $('.scroll', main); if (sc) sc.scrollTop = 0;
@@ -216,6 +231,7 @@
 
   function render() {
     app.dataset.theme = S.theme;
+    app.dataset.screen = S.screen;
     app.dataset.wash = S.wash;
     app.dataset.fn = S.fn;
     app.dataset.keeplight = S.keepLight;
@@ -226,6 +242,13 @@
     main.innerHTML = fn();
     after[S.screen] && after[S.screen]();
     persist();
+    try {
+      const q = new URLSearchParams();
+      q.set('screen', S.screen === 'library' ? S.libFilter : S.screen);
+      if (S.screen === 'reader') { q.set('daf', S.daf); q.set('layout', S.layout); }
+      if (S.orient === 'portrait') q.set('orient', 'portrait');
+      history.replaceState(null, '', '?' + q.toString());
+    } catch (e) { /* file URLs in some browsers */ }
   }
 
   // ---------- screens ----------
@@ -248,14 +271,14 @@
         ${ribbonSvg()}
         <div>
           <div class="resume-ref"><span>Arachin ${p.daf}</span><span class="heb">ערכין ${dafHeb(p.daf)}</span></div>
-          <div class="resume-sub">Chapter One, Hakol Ma’arichin. You stopped at line ${p.seg + 1}.</div>
+          <div class="resume-sub">Chapter One, Hakol Ma’arichin. You stopped at passage ${p.seg + 1} of ${DAF[p.daf].g.length}.</div>
         </div>
         <div></div>
         <p class="resume-quote"><span class="heb">${lead}</span> &nbsp;${esc(snippet.length > 170 ? snippet.slice(0, 168).replace(/\s\S*$/, '') + '…' : snippet)}</p>
         <div class="resume-foot">
           <button class="btn primary" data-act="resume">Resume Arachin ${p.daf}</button>
           <div class="progress"><span>Daf ${dafNum(p.daf)} of 34 in Arachin</span><div class="bar"><i style="width:${Math.max(4, pct * 100).toFixed(1)}%"></i></div></div>
-          <div class="earlier">Earlier tonight <button class="link" data-act="open-daf" data-daf="3b">3b</button><button class="link" data-act="open-daf" data-daf="4a">4a</button></div>
+          <div class="earlier">Also opened tonight <button class="link" data-act="open-daf" data-daf="3b">3b</button><button class="link" data-act="open-daf" data-daf="4a">4a</button></div>
         </div>
       </article>
 
@@ -263,20 +286,20 @@
         <section>
           <div class="section-row"><h2 class="section">Today</h2><span class="muted" style="font-size:15px">${doneCount} of ${TODAY.length} done</span></div>
           <div class="list">${TODAY.map(x => `
-            <div class="row ${S.done[x.id] ? 'done' : ''}" data-act="today" data-id="${x.id}" role="button" tabindex="0">
-              <button class="tick" role="checkbox" aria-checked="${!!S.done[x.id]}" aria-label="Mark ${x.k} done" data-act="tick" data-id="${x.id}">${ico('check')}</button>
-              <div class="stack"><span class="t">${x.t}</span><span class="s">${x.k}</span></div>
-              <span class="end"><span class="heb">${x.h}</span>${ico('right', 'sm chev')}</span>
+            <div class="row today-row ${S.done[x.id] ? 'done' : ''}">
+              <button class="tick" role="checkbox" aria-checked="${!!S.done[x.id]}" aria-label="${x.k} done" data-act="tick" data-id="${x.id}">${ico('check')}</button>
+              <button type="button" class="row-main" data-act="today" data-id="${x.id}"><span class="stack"><span class="t">${x.t}</span><span class="s">${x.k}</span></span>
+              <span class="end"><span class="heb">${x.h}</span>${ico('right', 'sm chev')}</span></button>
             </div>`).join('')}</div>
         </section>
         <section>
           <h2 class="section">Learning plans</h2>
           ${S.plans.length ? `<div class="list">${S.plans.map(id => {
             const tpl = PLAN_TPL.find(x => x.id === id);
-            return `<div class="row static"><div class="stack"><span class="t">${tpl.t}</span><span class="s">Today: ${tpl.today}</span></div><span class="end">Day 1</span></div>`;
+            return `<div class="row static"><span class="stack"><span class="t">${tpl.t}</span><span class="s">Today: ${tpl.today}</span></span><span class="end">Day 1</span></div>`;
           }).join('')}</div>` : `<p class="plan-intro">A plan sets a steady pace and puts each day’s portion here. Start from one of these, or build your own.</p>`}
           <div class="list" style="${S.plans.length ? 'border-top:0' : ''}">${PLAN_TPL.filter(x => !S.plans.includes(x.id)).map(x => `
-            <div class="row static plan-row"><div class="stack"><span class="t">${x.t}</span><span class="s">${x.s}</span></div>
+            <div class="row static plan-row"><span class="stack"><span class="t">${x.t}</span><span class="s">${x.s}</span></span>
             <span class="end"><button class="btn secondary" data-act="plan" data-id="${x.id}">Start</button></span></div>`).join('')}</div>
           <button class="btn quiet" style="margin-top:6px" data-act="custom-plan">${ico('plus', 'sm')} Build your own plan</button>
         </section>
@@ -285,8 +308,8 @@
       <div class="section-row"><h2 class="section">Recently downloaded</h2><button class="link" data-nav="bavli">Library</button></div>
       <div class="shelf">${SHELF.map((b, i) => `
         <button class="book" data-act="shelf" data-i="${i}">
-          <div class="cover ${b.cls}"><span class="ct">${b.t}</span><span class="ch">${b.h}</span><span class="cv">${b.v}</span></div>
-          <div class="bt">${b.t}</div><div class="bs">${b.v}</div>
+          <span class="cover ${b.cls}"><span class="ct">${b.t}</span><span class="ch">${b.h}</span><span class="cv">${b.v}</span></span>
+          <span class="bt">${b.t}</span><span class="bs">${b.v}</span>
         </button>`).join('')}</div>
     </div></div>`;
   };
@@ -303,11 +326,11 @@
     const row = ([n, h], cls = '') => {
       const dl = DOWNLOADED[n];
       const q = S.queued.includes(n);
-      return `<div class="row lib-row ${dl ? '' : 'static'}" ${dl ? `data-act="lib-open" data-name="${esc(n)}" role="button" tabindex="0"` : ''}>
-        <div class="cover ${cls}"></div>
-        <div class="stack"><span class="t">${n}</span><span class="s">${dl ? `On this iPad, ${dl}` : q ? 'Waiting for a connection to download' : 'In your account'}</span></div>
+      return `<${dl ? 'button type="button"' : 'div'} class="row lib-row ${dl ? '' : 'static'}" ${dl ? `data-act="lib-open" data-name="${esc(n)}"` : ''}>
+        <span class="cover ${cls}"></span>
+        <span class="stack"><span class="t">${n}</span>${dl ? `<span class="s">On this iPad, ${dl}</span>` : q ? '<span class="s">Downloads when you reconnect</span>' : ''}</span>
         <span class="end"><span class="heb">${h}</span>
-        ${dl ? ico('right', 'sm chev') : q ? `<button class="btn quiet dl-btn" data-act="unqueue" data-name="${esc(n)}">Cancel</button>` : `<button class="btn secondary dl-btn" data-act="download" data-name="${esc(n)}">${ico('download', 'sm')} Download</button>`}</span></div>`;
+        ${dl ? ico('right', 'sm chev') : q ? `<button class="btn quiet dl-btn" data-act="unqueue" data-name="${esc(n)}">Cancel</button>` : `<button class="iconbtn" data-act="download" data-name="${esc(n)}" aria-label="Download ${esc(n)}" title="Download">${ico('download')}</button>`}</span></${dl ? 'button' : 'div'}>`;
     };
     let body = '';
     if (f === 'bavli') body = BAVLI.map(([seder, list]) => `<div class="date-head">Seder ${seder}</div><div class="list">${list.map(m => row(m)).join('')}</div>`).join('');
@@ -317,7 +340,7 @@
       <h1 class="large-title">Library</h1>
       <div class="seg-wide" role="group" aria-label="Collection">${chips.map(([id, l]) => `<button data-nav="${id}" aria-pressed="${f === id}">${l}</button>`).join('')}</div>
       ${offlineNote}${body}
-      <p class="footer-note">Volumes you own download once and open without a connection.</p>
+      <p class="footer-note">Every volume you own is listed. Tap the download arrow to keep one on this iPad; downloaded volumes open without a connection.</p>
     </div></div>`;
   };
 
@@ -328,7 +351,7 @@
     <div class="offline-card">
       ${ico('offline', 'ico-lg')}
       <div>
-        <h3 style="font-family:var(--display);font-weight:500;font-size:22px;margin:0 0 8px">You’re offline</h3>
+        <h2 style="font-family:var(--display);font-weight:500;font-size:22px;margin:0 0 8px">You’re offline</h2>
         <p class="muted" style="margin:0 0 18px;line-height:1.5">Your downloaded volumes still open. The Store will load when this iPad reconnects to the internet.</p>
         <div class="empty actions" style="padding:0;display:flex;gap:10px;flex-wrap:wrap">
           <button class="btn primary" data-act="retry">Try again</button>
@@ -348,13 +371,13 @@
         <p class="muted" style="margin:4px 0 20px;font-size:16px;line-height:1.5">Which siddur do you daven from? We’ll open it every time. You can switch from the title inside the siddur.</p>
         <div class="list">${EDITIONS.map(e => `
           <div class="row radio-row" role="radio" tabindex="0" aria-checked="${S._pick === e.id}" data-act="pick-ed" data-id="${e.id}">
-            <span class="radio"></span><div class="stack"><span class="t">${e.t}</span><span class="s">${e.s}</span></div></div>`).join('')}</div>
+            <span class="radio"></span><span class="stack"><span class="t">${e.t}</span><span class="s">${e.s}</span></span></div>`).join('')}</div>
         <div style="margin-top:22px"><button class="btn primary" data-act="set-ed">Open siddur</button></div>
       </div></div>`;
     }
     const ed = EDITIONS.find(e => e.id === S.edition);
     const sec = (title, items) => `<div class="date-head">${title}</div><div class="list">${items.map(([t, h, now]) => `
-      <div class="row" data-act="tefillah" role="button" tabindex="0"><div class="stack"><span class="t">${t}</span>${now ? `<span class="now-tag">Now</span>` : ''}</div><span class="end"><span class="heb">${h}</span>${ico('right', 'sm chev')}</span></div>`).join('')}</div>`;
+      <button type="button" class="row" data-act="tefillah"><span class="stack"><span class="t">${t}</span>${now ? `<span class="now-tag">Now</span>` : ''}</span><span class="end"><span class="heb">${h}</span>${ico('right', 'sm chev')}</span></button>`).join('')}</div>`;
     return navbar(`<button class="edition-btn" data-act="edition-menu" aria-haspopup="true">${ed.t}${ico('down', 'sm')}</button>`) + `<div class="scroll"><div class="content" style="max-width:760px">
       <h1 class="large-title">Siddur</h1>
       <div class="dateline"><span>It’s after nightfall: Maariv for Sunday</span></div>
@@ -375,32 +398,32 @@
       const tags = ['All', ...new Set(all.map(n => n.tag))];
       const list = all.filter(n => (S.stuffTag === 'All' || n.tag === S.stuffTag) && (!q || n.text.toLowerCase().includes(q)));
       body = `<div class="chips" role="group" aria-label="Filter by tag">${tags.map(t => `<button class="chip" data-act="stuff-tag" data-t="${t}" aria-pressed="${S.stuffTag === t}">${t}</button>`).join('')}</div>
-        <div class="list">${list.map(n => `<div class="row" ${n.daf ? `data-act="open-daf" data-daf="${n.daf}" data-seg="${n.seg}"` : 'data-act="kitzur"'} role="button" tabindex="0">
-          ${ico('note')}<div class="stack"><span class="t">${n.daf ? `Arachin ${n.daf}, line ${n.seg + 1}` : n.ref}</span><span class="item-quote">${esc(n.text)}</span></div><span class="end">${n.when}</span></div>`).join('') || emptyInline('No notes match.')}</div>`;
+        <div class="list">${list.map(n => `<button type="button" class="row" ${n.daf ? `data-act="open-daf" data-daf="${n.daf}" data-seg="${n.seg}"` : 'data-act="kitzur"'}>
+          ${ico('note')}<span class="stack"><span class="t">${n.daf ? `Arachin ${n.daf}, passage ${n.seg + 1}` : n.ref}</span><span class="item-quote">${esc(n.text)}</span></span><span class="end">${n.when}</span></button>`).join('') || emptyInline('No notes match.')}</div>`;
     } else if (S.stuffTab === 'highlights') {
       const list = Object.entries(S.hl).map(([k, c]) => { const [daf, seg] = k.split(':'); return { daf, seg: +seg, c }; });
       body = list.length ? `<div class="list">${list.map(h => {
         const tr = TRANS[h.daf] ? strip(TRANS[h.daf][h.seg]).slice(0, 120) + '…' : DAF[h.daf].g[h.seg].split(' ').slice(0, 9).join(' ') + '…';
-        return `<div class="row" data-act="open-daf" data-daf="${h.daf}" data-seg="${h.seg}" role="button" tabindex="0"><span class="hl-dot" style="background:var(--hl-${h.c})"></span>
-        <div class="stack"><span class="t">Arachin ${h.daf}, line ${h.seg + 1}</span><span class="item-quote ${TRANS[h.daf] ? '' : 'heb'}" style="${TRANS[h.daf] ? '' : 'text-align:left'}">${esc(tr)}</span></div>${ico('right', 'sm chev')}</div>`;
-      }).join('')}</div>` : emptyBlock('highlight', 'No highlights yet', 'Tap a line in any daf, then choose a colour in the inspector’s Notes tab.');
+        return `<button type="button" class="row" data-act="open-daf" data-daf="${h.daf}" data-seg="${h.seg}"><span class="hl-dot" style="background:var(--hl-${h.c})"></span>
+        <span class="stack"><span class="t">Arachin ${h.daf}, passage ${h.seg + 1}</span><span class="item-quote ${TRANS[h.daf] ? '' : 'heb'}" style="${TRANS[h.daf] ? '' : 'text-align:left'}">${esc(tr)}</span></span>${ico('right', 'sm chev')}</button>`;
+      }).join('')}</div>` : emptyBlock('highlight', 'No highlights yet', 'Tap a passage in any daf, then choose a colour in the study panel’s Notes tab.');
     } else if (S.stuffTab === 'bookmarks') {
-      body = S.bookmarks.length ? `<div class="list">${S.bookmarks.map(k => { const [daf, seg] = k.split(':'); return `<div class="row" data-act="open-daf" data-daf="${daf}" data-seg="${seg}" role="button" tabindex="0">${ico('bookmark')}<div class="stack"><span class="t">Arachin ${daf}, line ${+seg + 1}</span></div>${ico('right', 'sm chev')}</div>`; }).join('')}</div>`
-        : emptyBlock('bookmark', 'No bookmarks yet', 'Bookmark a single line from the inspector’s Notes tab. Use a ribbon to keep your place in a whole volume.', `<button class="btn secondary" data-act="open-daf" data-daf="3a">Open Arachin 3a</button>`);
+      body = S.bookmarks.length ? `<div class="list">${S.bookmarks.map(k => { const [daf, seg] = k.split(':'); return `<button type="button" class="row" data-act="open-daf" data-daf="${daf}" data-seg="${seg}">${ico('bookmark')}<span class="stack"><span class="t">Arachin ${daf}, passage ${+seg + 1}</span></span>${ico('right', 'sm chev')}</button>`; }).join('')}</div>`
+        : emptyBlock('bookmark', 'No bookmarks yet', 'Bookmark a passage from the study panel’s Notes tab. Use the ribbon to keep your place in a whole volume.', `<button class="btn secondary" data-act="open-daf" data-daf="3a">Open Arachin 3a</button>`);
     } else {
-      body = `<div class="list">${S.ribbons.map(d => `<div class="row" data-act="open-daf" data-daf="${d}" role="button" tabindex="0">${ribbonSvg('ribbon')}<div class="stack"><span class="t">Arachin ${d}</span><span class="s">Chapter One</span></div><span class="end"><span class="heb">ערכין ${dafHeb(d)}</span>${ico('right', 'sm chev')}</span></div>`).join('')}
-        <div class="row" data-act="kitzur" role="button" tabindex="0">${ribbonSvg('ribbon')}<div class="stack"><span class="t">Kitzur Shulchan Aruch, Vol. 1</span><span class="s">Siman 2</span></div><span class="end"><span class="heb">סימן ב</span>${ico('right', 'sm chev')}</span></div></div>`;
+      body = `<div class="list">${S.ribbons.map(d => `<button type="button" class="row" data-act="open-daf" data-daf="${d}">${ribbonSvg('ribbon')}<span class="stack"><span class="t">Arachin ${d}</span><span class="s">Chapter One</span></span><span class="end"><span class="heb">ערכין ${dafHeb(d)}</span>${ico('right', 'sm chev')}</span></button>`).join('')}
+        <button type="button" class="row" data-act="kitzur">${ribbonSvg('ribbon')}<span class="stack"><span class="t">Kitzur Shulchan Aruch, Vol. 1</span><span class="s">Siman 2</span></span><span class="end"><span class="heb">סימן ב</span>${ico('right', 'sm chev')}</span></button></div>`;
     }
     return navbar() + `<div class="scroll"><div class="content" style="max-width:820px">
       <h1 class="large-title">My Stuff</h1>
       <div class="seg-wide" role="group" aria-label="Kind">${tabs.map(([id, l]) => `<button data-act="stuff-tab" data-t="${id}" aria-pressed="${S.stuffTab === id}">${l}</button>`).join('')}</div>
-      ${S.stuffTab === 'notes' ? `<div class="searchbox">${ico('search', 'sm')}<input type="search" id="stuff-q" placeholder="Search your notes" value="${esc(S.stuffQ || '')}" aria-label="Search your notes"></div>` : ''}
+      ${S.stuffTab === 'notes' ? `<div class="searchbox">${ico('search', 'sm')}<input type="search" id="stuff-q" name="stuff-q" autocomplete="off" placeholder="Search your notes…" value="${esc(S.stuffQ || '')}" aria-label="Search your notes"></div>` : ''}
       ${body}
       <p class="footer-note">Saved on this iPad. Sign in from Settings to sync to your other devices.</p>
     </div></div>`;
   };
   const emptyInline = t => `<p class="muted" style="padding:18px 4px">${t}</p>`;
-  const emptyBlock = (icon, h, p, act = '') => `<div class="empty">${ico(icon, 'ico-lg')}<h3>${h}</h3><p>${p}</p><div class="actions">${act}</div></div>`;
+  const emptyBlock = (icon, h, p, act = '') => `<div class="empty">${ico(icon, 'ico-lg')}<h2>${h}</h2><p>${p}</p><div class="actions">${act}</div></div>`;
 
   // History
   SCREENS.history = () => {
@@ -423,14 +446,14 @@
       <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
         <div class="seg-wide" role="group" aria-label="Group by"><button data-act="hist-mode" data-m="date" aria-pressed="${S.histMode === 'date'}">By date</button><button data-act="hist-mode" data-m="vol" aria-pressed="${S.histMode === 'vol'}">By volume</button></div>
       </div>
-      <div class="searchbox">${ico('search', 'sm')}<input type="search" id="hist-q" placeholder="Search history" value="${esc(S.histQ || '')}" aria-label="Search history"></div>
+      <div class="searchbox">${ico('search', 'sm')}<input type="search" id="hist-q" name="hist-q" autocomplete="off" placeholder="Search history…" value="${esc(S.histQ || '')}" aria-label="Search history"></div>
       ${body || emptyInline('Nothing in your history matches.')}
       <p class="footer-note">History syncs on its own when you’re online and signed in. Kept for ${S.settings.keep}; change that in Settings.</p>
     </div></div>`;
   };
-  const histRow = it => `<div class="row" ${it.daf ? `data-act="open-daf" data-daf="${it.daf}"` : 'data-act="kitzur"'} role="button" tabindex="0">
-    <div class="stack"><span class="t">${it.title}</span>${it.sub ? `<span class="s">${it.sub}</span>` : ''}</div>
-    <span class="end"><span class="heb">${it.heb}</span><span style="min-width:64px;text-align:right">${it.t}</span>${ico('right', 'sm chev')}</span></div>`;
+  const histRow = it => `<button type="button" class="row" ${it.daf ? `data-act="open-daf" data-daf="${it.daf}"` : 'data-act="kitzur"'}>
+    <span class="stack"><span class="t">${it.title}</span>${it.sub ? `<span class="s">${it.sub}</span>` : ''}</span>
+    <span class="end"><span class="heb">${it.heb}</span><span style="min-width:64px;text-align:right">${it.t}</span>${ico('right', 'sm chev')}</span></button>`;
 
   // Settings
   SCREENS.settings = () => {
@@ -444,9 +467,12 @@
       <p class="g-foot">Signing in syncs notes, highlights, ribbons, plans and history between your devices. Everything works without it.</p>
 
       <div class="g-head">Reading</div>
-      <div class="grouped">${ch('Theme, text size, layout and commentary', 'In the Aa / א menu', 'open-display')}
+      <div class="grouped">
+        <div class="g-row"><span>Text size</span><span class="val sizer" style="gap:8px"><button data-act="size" data-d="-1" aria-label="Smaller text" style="font-size:15px">A</button><span style="min-width:48px;text-align:center;font-variant-numeric:tabular-nums">${Math.round(SIZES[S.size] * 100)}%</span><button data-act="size" data-d="1" aria-label="Larger text" style="font-size:22px">A</button></span></div>
+        <div class="g-row"><span>Theme</span><span class="val seg-ctl" style="flex:none;min-width:300px">${[['vellum', 'Vellum'], ['parchment', 'Parchment'], ['lamplight', 'Lamplight']].map(([id, l]) => `<button data-act="theme" data-t="${id}" aria-pressed="${S.theme === id}">${l}</button>`).join('')}</span></div>
+        ${ch('Layout and commentary', 'Aa / א in any book', 'open-display')}
         ${ch('Footnotes open', S.settings.fnLoc, 'cycle', 'fnLoc')}${sw('links', 'Links to other sefarim', 'Tap a reference to open it')}</div>
-      <p class="g-foot">Display options live inside the book, where you can see the result. Open any daf and tap Aa / א.</p>
+      <p class="g-foot">The same controls are in the Aa / א menu inside every book, where you can see the result as you change it.</p>
 
       <div class="g-head">Siddur</div>
       <div class="grouped">${ch('Edition', ed, 'nav-siddur')}</div>
@@ -518,11 +544,11 @@
       return navbar() + `<div class="scroll"><div class="content" style="max-width:720px">
         <h1 class="large-title">Zmanim</h1>
         <div class="empty" style="padding:18px 0 10px;max-width:560px">${ico('pin', 'ico-lg')}
-          <h3>Zmanim depend on where you are</h3>
+          <h2>Zmanim depend on where you are</h2>
           <p>Allow location once, or choose a city below. Only Zmanim and Mizrach use your location, and it stays on this iPad.</p>
           <div class="actions"><button class="btn primary" data-act="use-loc">Use my location</button></div></div>
         <div class="date-head">Or choose a city</div>
-        <div class="list">${CITIES.map(c => `<div class="row" data-act="city" data-id="${c.id}" role="button" tabindex="0"><div class="stack"><span class="t">${c.n}</span></div>${ico('right', 'sm chev')}</div>`).join('')}</div>
+        <div class="list">${CITIES.map(c => `<button type="button" class="row" data-act="city" data-id="${c.id}"><span class="stack"><span class="t">${c.n}</span></span>${ico('right', 'sm chev')}</button>`).join('')}</div>
       </div></div>`;
     }
     const city = CITIES.find(c => c.id === S.city);
@@ -531,7 +557,7 @@
       <h1 class="large-title">Zmanim</h1>
       <div class="dateline"><span>${city.n}${S.cityFromLoc ? ' (your location)' : ''}</span><span>Sunday, November 22</span><span class="heb">${hebDate(new Date(Date.UTC(2026, 10, 22))).heb}</span></div>
       <p class="muted" style="margin:-8px 0 16px;font-size:15px">It’s after nightfall, so these are tomorrow’s times.</p>
-      <div class="list">${rows.map(([a, b, t]) => `<div class="row static z-row"><div class="stack"><span class="t">${a}</span>${b ? `<span class="s">${b}</span>` : ''}</div><span class="end">${t}</span></div>`).join('')}</div>
+      <div class="list">${rows.map(([a, b, t]) => `<div class="row static z-row"><span class="stack"><span class="t">${a}</span>${b ? `<span class="s">${b}</span>` : ''}</span><span class="end">${t}</span></div>`).join('')}</div>
       <p class="footer-note">Dawn at 16.1° below the horizon, earliest tallis at 11.5°, nightfall at 8.5°. Magen Avraham counts the day from 72 minutes before sunrise to 72 minutes after sunset. Check with your rav for the customs of your community.</p>
     </div></div>`;
   };
@@ -567,8 +593,8 @@
       <div class="cal" role="grid" aria-label="Kislev 5787">${cells}</div>
       <div class="date-head">Coming up</div>
       <div class="list">
-        <div class="row static"><div class="stack"><span class="t">Chanukah begins</span><span class="s">First candle on the night of ${longF(c24.d)}</span></div><span class="end"><span class="heb">כ״ה כסלו</span></span></div>
-        <div class="row static"><div class="stack"><span class="t">Rosh Chodesh Teves</span><span class="s">During Chanukah</span></div><span class="end"><span class="heb">ראש חודש טבת</span></span></div>
+        <div class="row static"><span class="stack"><span class="t">Chanukah begins</span><span class="s">First candle on the night of ${longF(c24.d)}</span></span><span class="end"><span class="heb">כ״ה כסלו</span></span></div>
+        <div class="row static"><span class="stack"><span class="t">Rosh Chodesh Teves</span><span class="s">During Chanukah</span></span><span class="end"><span class="heb">ראש חודש טבת</span></span></div>
       </div>
     </div></div>`;
   };
@@ -612,19 +638,19 @@
   SCREENS.misheberach = () => navbar() + `<div class="scroll"><div class="content" style="max-width:720px">
     <h1 class="large-title">Misheberach</h1>
     <p class="muted" style="margin:4px 0 20px;font-size:16px;line-height:1.5">Names you’re davening for. They appear in the Misheberach for the sick, in the siddur.</p>
-    <div class="list">${S.misheberach.map((m, i) => `<div class="row static"><div class="stack"><span class="t heb" style="text-align:left;font-size:21px">${esc(m.name)} ${esc(m.rel)} ${esc(m.mother)}</span></div>
+    <div class="list">${S.misheberach.map((m, i) => `<div class="row static"><span class="stack"><span class="t heb" style="text-align:left;font-size:21px">${esc(m.name)} ${esc(m.rel)} ${esc(m.mother)}</span></span>
       <span class="end"><button class="iconbtn" data-act="mb-del" data-i="${i}" aria-label="Remove ${esc(m.name)}">${ico('trash')}</button></span></div>`).join('') || emptyInline('No names yet.')}</div>
     <div class="date-head">Add a name</div>
     <div style="display:grid;grid-template-columns:1fr 110px 1fr;gap:10px;direction:rtl">
-      <input type="text" id="mb-name" dir="rtl" placeholder="שם" aria-label="Name, in Hebrew" style="font-family:var(--heb);font-size:19px">
+      <input type="text" id="mb-name" name="mb-name" autocomplete="off" spellcheck="false" dir="rtl" placeholder="שם" aria-label="Name, in Hebrew" style="font-family:var(--heb);font-size:19px">
       <select id="mb-rel" aria-label="Son or daughter of" style="font:inherit;font-family:var(--heb);font-size:19px;border:1px solid var(--rule);border-radius:8px;background:var(--page);color:var(--ink);padding:0 8px;min-height:44px"><option>בן</option><option>בת</option></select>
-      <input type="text" id="mb-mother" dir="rtl" placeholder="שם האם" aria-label="Mother's name, in Hebrew" style="font-family:var(--heb);font-size:19px">
+      <input type="text" id="mb-mother" name="mb-mother" autocomplete="off" spellcheck="false" dir="rtl" placeholder="שם האם" aria-label="Mother's name, in Hebrew" style="font-family:var(--heb);font-size:19px">
     </div>
     <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn primary" data-act="mb-add">Add name</button></div>
     <div class="offline-card" style="margin-top:34px;padding:18px 20px">
       ${ico('person')}
-      <div><div style="font-weight:600;margin-bottom:4px">Share this list with family</div>
-      <p class="muted" style="margin:0 0 12px;line-height:1.45;font-size:15px">Works without an account. Sign in only if you want the list on your other devices or shared with others.</p>
+      <div><h2 style="font-size:17px;font-weight:600;margin:0 0 4px">Keep this list on your other devices</h2>
+      <p class="muted" style="margin:0 0 12px;line-height:1.45;font-size:15px">The list works on this iPad without an account. Sign in to sync it to your other devices or share it with family.</p>
       <button class="btn secondary" data-act="signin">Sign in</button></div>
     </div>
   </div></div>`;
@@ -633,7 +659,7 @@
   SCREENS.verses = () => navbar() + `<div class="scroll"><div class="content" style="max-width:720px">
     <h1 class="large-title">Verses for Names</h1>
     <p class="muted" style="margin:4px 0 18px;font-size:16px;line-height:1.5">Many say a verse at the end of Shemoneh Esrei that begins with the first letter of their name and ends with its last letter.</p>
-    <input type="text" id="vn" dir="rtl" placeholder="הקלד שם" aria-label="Name, in Hebrew" style="font-family:var(--heb);font-size:22px;max-width:360px">
+    <input type="text" id="vn" name="vn" autocomplete="off" spellcheck="false" dir="rtl" placeholder="הקלד שם" aria-label="Name, in Hebrew" style="font-family:var(--heb);font-size:22px;max-width:360px">
     <div id="vn-out">${emptyBlock('quote', 'Type a name in Hebrew', 'Matching verses appear here, with the sefer and perek.')}</div>
   </div></div>`;
 
@@ -693,13 +719,13 @@
           <div class="group" style="margin-left:auto">
             <button class="iconbtn" data-act="display" aria-label="Display: theme, size, layout" title="Display"><span class="aa">Aa<i>א</i></span></button>
             <button class="iconbtn" data-act="search" aria-label="Search" title="Search">${ico('search')}</button>
-            <button class="iconbtn" data-act="insp" aria-pressed="${S.insp}" aria-label="${S.insp ? 'Hide' : 'Show'} inspector" title="Translation, notes, commentary">${ico('inspector')}</button>
+            <button class="iconbtn" data-act="insp" aria-pressed="${S.insp}" aria-label="${S.insp ? 'Hide' : 'Show'} study panel" title="Translation, notes and commentary">${ico('inspector')}</button>
           </div>
         </div>
         <button class="restore" data-act="restore">Arachin ${d}. Tap to show controls</button>
         <div class="pane-wrap" id="panes"></div>
       </div>
-      <aside class="inspector ${S.inspFull ? 'full' : ''}" id="insp" aria-label="Inspector">
+      <aside class="inspector ${S.inspFull ? 'full' : ''}" id="insp" aria-label="Study panel">
         <button class="grabber" data-act="grab" aria-label="Resize sheet"></button>
         <div class="insp-tabs"><div class="seg-ctl" role="tablist">${[['translation', 'Translation'], ['notes', 'Notes'], ['commentary', 'Commentary']].map(([id, l]) =>
           `<button role="tab" aria-selected="${S.tab === id}" data-act="tab" data-t="${id}">${l}</button>`).join('')}</div>
@@ -717,7 +743,7 @@
       const leadN = /^(הכל|מתני|גמ)/.test(s) ? 2 : 0;
       const txt = leadN ? `<span class="lead">${words.slice(0, leadN).join(' ')}</span> ${words.slice(leadN).join(' ')}` : s;
       const hl = S.hl[`${d}:${i}`];
-      return `<span class="seg ${i === S.seg ? 'active' : ''} ${hl ? 'hl-' + hl : ''}" data-seg="${i}">${txt}</span> `;
+      return `<span class="seg ${i === S.seg ? 'active' : ''} ${hl ? 'hl-' + hl : ''}" data-seg="${i}" tabindex="0" role="button" aria-label="Passage ${i + 1}">${txt}</span> `;
     }).join('');
     const comm = (list, key) => list.map((c, j) => {
       const [dh, ...rest] = c.split(' - ');
@@ -730,23 +756,34 @@
       : dafSide(d) === 'a' ? rashiCol + `<div class="daf-col"><h4>גמרא</h4><div class="gemara">${segs}</div></div>` + tosCol
         : tosCol + `<div class="daf-col"><h4>גמרא</h4><div class="gemara">${segs}</div></div>` + rashiCol;
     const rib = S.ribbons.includes(d);
-    return `<div class="daf-outer"><div class="daf-page">
+    return `${tipHTML()}<div class="daf-outer"><div class="daf-page">
       <button class="daf-ribbon" data-act="ribbon" aria-pressed="${rib}" aria-label="${rib ? 'Remove ribbon from' : 'Place ribbon at'} Arachin ${d}" title="Ribbon">${ribbonSvg()}</button>
       <div class="daf-head"><span class="pg">${dafHeb(d)}</span><span class="hd">הכל מעריכין פרק ראשון ערכין</span><span class="vol"></span></div>
       <div class="daf-grid ${S.showComm ? '' : 'no-comm'}">${cols}</div>
-      <div class="daf-foot"><span>Arachin ${d}</span><span>Tap a line for its translation. Tap the page to hide the controls.</span></div>
+      ${dafEnd(d)}
     </div></div>`;
   }
+  function tipHTML() {
+    if (S.tipSeen) return '';
+    return `<div class="tip" role="note"><span><b>Tap any passage</b> to see its translation, notes and Rashi and Tosafos. Tap the margin to hide the controls; tap again or press Esc to bring them back.</span><button class="btn secondary" data-act="tip-ok">Got it</button></div>`;
+  }
+  function dafEnd(d) {
+    const i = ORDER.indexOf(d), next = ORDER[i + 1];
+    const today = dafNum(d) === 4;
+    return `<div class="daf-end"><span><strong>End of Arachin ${d}</strong>${today ? (S.done.daf ? 'Today’s Daf Yomi is marked done.' : 'This is today’s Daf Yomi.') : ''}</span>
+      <span style="display:flex;gap:10px;flex-wrap:wrap">${today && !S.done.daf ? `<button class="btn primary" data-act="finish-daf">Mark Daf Yomi done</button>` : ''}
+      ${next ? `<button class="btn ${today && !S.done.daf ? 'secondary' : 'primary'}" data-act="turn" data-daf="${next}">Continue to ${next}</button>` : ''}</span></div>`;
+  }
   function skeleton() {
-    let l = ''; for (let i = 0; i < 22; i++) l += `<div class="line ${i % 6 === 5 ? 'short' : ''}"></div>`;
-    return `<div class="daf-outer"><div class="daf-page skel" aria-busy="true"><div class="daf-grid"><div>${l.slice(0, l.length / 2)}</div><div>${l}</div><div>${l.slice(0, l.length / 2)}</div></div>
+    const lines = n => { let l = ''; for (let i = 0; i < n; i++) l += `<div class="line ${i % 6 === 5 ? 'short' : ''}"></div>`; return l; };
+    return `<div class="daf-outer"><div class="daf-page skel" aria-busy="true"><div class="daf-grid"><div>${lines(14)}</div><div>${lines(22)}</div><div>${lines(14)}</div></div>
       <p class="skel-note">Opening Arachin ${S.daf}</p></div></div>`;
   }
   function flowEN(d) {
     const tr = TRANS[d];
     if (!tr) return `<div class="missing"><p style="font-family:var(--display);font-size:22px;color:var(--ink);margin:0 0 8px">Arachin ${d}</p>This prototype includes the English for Arachin 3a only. In the app, every daf in a downloaded volume has its translation here.</div>`;
     return `<div class="flow"><div class="flow-head"><span>Hakol Ma’arichin, Chapter One</span><span>Arachin ${d}</span></div>
-      ${tr.map((s, i) => { const hl = S.hl[`${d}:${i}`]; return `<p class="tseg ${i === S.seg ? 'active' : ''}" data-seg="${i}" style="${hl && i !== S.seg ? `background:var(--hl-${hl})` : ''}"><span class="heb">${DAF[d].g[i].split(' ').slice(0, 3).join(' ')}</span> &mdash; ${s}</p>`; }).join('')}</div>`;
+      ${tr.map((s, i) => { const hl = S.hl[`${d}:${i}`]; return `<p class="tseg ${i === S.seg ? 'active' : ''}" data-seg="${i}" tabindex="0" style="${hl && i !== S.seg ? `background:var(--hl-${hl})` : ''}"><span class="heb lead" lang="he">${DAF[d].g[i].split(' ').slice(0, 4).join(' ')}</span>${s}</p>`; }).join('')}${dafEnd(d)}</div>`;
   }
   function flowHE(d) {
     return `<div class="hebflow" lang="he">${DAF[d].g.map((s, i) => `<p class="${i === S.seg ? 'active' : ''}" data-seg="${i}">${s}</p>`).join('')}</div>`;
@@ -760,7 +797,7 @@
     else if (S.layout === 'translation') p.innerHTML = `<div class="pane" id="pane-a">${flowEN(d)}</div>`;
     else if (S.layout === 'hebrew') p.innerHTML = `<div class="pane" id="pane-a">${flowHE(d)}</div>`;
     else p.innerHTML = `<div class="pane" id="pane-a" style="flex:1.1">${dafPage(d)}</div><div class="pane" id="pane-b">${flowEN(d)}</div>`;
-    if (S.layout === 'side') $$('.daf-page', p).forEach(x => { x.style.setProperty('--t', '.86'); x.style.padding = '20px 16px'; });
+    if (S.layout === 'side') $$('.daf-page', p).forEach(x => { x.style.setProperty('--t', 'calc(var(--tscale, 1) * .9)'); x.style.padding = '20px 16px'; });
     renderInspector();
     requestAnimationFrame(() => scrollToActive(false));
   }
@@ -768,36 +805,44 @@
   function renderInspector() {
     const b = $('#insp-body'); if (!b) return;
     const d = S.daf, i = S.seg, g = DAF[d].g;
-    const ref = `<div class="insp-ref"><span>Arachin ${d}, line ${i + 1} of ${g.length}</span>
-      <span><button class="iconbtn" style="min-width:36px;height:36px" data-act="seg-step" data-dir="-1" aria-label="Previous line" ${i === 0 ? 'disabled' : ''}>${ico('left', 'sm')}</button><button class="iconbtn" style="min-width:36px;height:36px" data-act="seg-step" data-dir="1" aria-label="Next line" ${i === g.length - 1 ? 'disabled' : ''}>${ico('right', 'sm')}</button></span></div>`;
+    const ref = `<div class="insp-ref"><span>Arachin ${d}, passage ${i + 1} of ${g.length}</span>
+      <span><button class="iconbtn" data-act="seg-step" data-dir="-1" aria-label="Previous passage" ${i === 0 ? 'disabled' : ''}>${ico('left', 'sm')}</button><button class="iconbtn" data-act="seg-step" data-dir="1" aria-label="Next passage" ${i === g.length - 1 ? 'disabled' : ''}>${ico('right', 'sm')}</button></span></div>`;
     if (S.loading) { b.innerHTML = `<div class="skel"><div class="line"></div><div class="line"></div><div class="line short"></div></div>`; return; }
     if (S.tab === 'translation') {
       const tr = TRANS[d];
       b.innerHTML = ref + `<p class="insp-heb" lang="he">${g[i]}</p>` +
-        (tr ? `<p class="insp-en">${tr[i]}</p>${tr[i + 1] ? `<div class="insp-next"><div class="cm-label">Next line</div><p class="tseg" data-seg="${i + 1}" style="margin:0">${tr[i + 1]}</p></div>` : ''}`
+        (tr ? `<p class="insp-en">${tr[i]}</p>${tr[i + 1] ? `<div class="insp-next"><div class="cm-label">Next passage</div><p class="tseg" data-seg="${i + 1}" style="margin:0">${tr[i + 1]}</p></div>` : ''}`
           : `<p class="muted" style="line-height:1.5">This prototype includes the English for Arachin 3a only. <button class="link" data-act="open-daf" data-daf="3a" style="min-height:0;padding:0">Open 3a</button></p>`);
     } else if (S.tab === 'notes') {
       const k = `${d}:${i}`, cur = S.hl[k] || '';
       const note = NOTES[d] && NOTES[d][i];
       const bm = S.bookmarks.includes(k);
-      b.innerHTML = ref + `<div class="cm-label">Highlight this line</div>
+      b.innerHTML = ref + `<div class="cm-label">Highlight this passage</div>
         <div class="swatches" role="group" aria-label="Highlight colour">
           <button class="swatch none" data-act="hl" data-c="" aria-pressed="${!cur}" aria-label="No highlight">${ico('close', 'sm')}</button>
-          ${['ochre', 'sage', 'rose', 'slate'].map(c => `<button class="swatch" style="background:var(--hl-${c})" data-act="hl" data-c="${c}" aria-pressed="${cur === c}" aria-label="${c}"></button>`).join('')}
+          ${['heather', 'sage', 'rose', 'slate'].map(c => `<button class="swatch" style="background:var(--hl-${c})" data-act="hl" data-c="${c}" aria-pressed="${cur === c}" aria-label="${c[0].toUpperCase() + c.slice(1)} highlight" title="${c[0].toUpperCase() + c.slice(1)}"></button>`).join('')}
           <button class="btn quiet" style="margin-left:auto" data-act="bookmark" aria-pressed="${bm}">${ico('bookmark', 'sm')} ${bm ? 'Bookmarked' : 'Bookmark'}</button>
         </div>
-        <div class="cm-label">Notes on this line</div>
-        ${note ? `<p class="fn"><span class="n">${Object.keys(NOTES[d]).indexOf(String(i)) + 1}</span>${note}</p>` : `<p class="muted" style="font-size:15px;line-height:1.5;margin:0 0 8px">No printed notes on this line.${NOTES[d] ? ' Lines with notes have a small number in the translation.' : ''}</p>`}
+        <div class="cm-label">Notes on this passage</div>
+        ${note ? `<p class="fn"><span class="n">${Object.keys(NOTES[d]).indexOf(String(i)) + 1}</span>${note}</p>` : `<p class="muted" style="font-size:15px;line-height:1.5;margin:0 0 8px">No printed notes on this passage.${NOTES[d] ? ' Passages with notes have a small number in the English.' : ''}</p>`}
         <div class="mynote"><label for="mynote">Your note</label>
-          <textarea id="mynote" placeholder="Write a note on this line">${esc(S.userNotes[k] || '')}</textarea>
-          <div style="display:flex;justify-content:flex-end;margin-top:8px"><button class="btn primary" data-act="save-note" style="min-height:38px">Save note</button></div></div>`;
+          <textarea id="mynote" name="note" placeholder="Write a note on this passage…">${esc(S.userNotes[k] || '')}</textarea>
+          <div class="saved-state" id="saved-state" aria-live="polite">${S.userNotes[k] ? 'Saved to My Stuff' : 'Notes save as you type.'}</div></div>`;
     } else {
       const an = anchors(d);
       const rs = DAF[d].r.map((c, j) => [c, an.r[j]]).filter(x => x[1] === i);
       const ts = DAF[d].t.map((c, j) => [c, an.t[j]]).filter(x => x[1] === i);
       const cm = c => { const [dh, ...rest] = c.split(' - '); return `<p class="cm" lang="he">${rest.length ? `<span class="dh">${dh}</span> – ${rest.join(' - ')}` : dh}</p>`; };
-      b.innerHTML = ref + `<div class="cm-label">Rashi</div>${rs.length ? rs.map(x => cm(x[0])).join('') : `<p class="muted" style="font-size:15px">Rashi has nothing on this line.</p>`}
-        <div class="cm-label">Tosafos</div>${ts.length ? ts.map(x => cm(x[0])).join('') : `<p class="muted" style="font-size:15px">Tosafos has nothing on this line.</p>`}`;
+      if (S.commAll) {
+        const all = (list, key) => list.map((c, j) => `<div class="cm-label">Passage ${an[key][j] + 1}</div>${cm(c)}`).join('');
+        b.innerHTML = `<div class="insp-ref"><span>All Rashi and Tosafos on Arachin ${d}</span><button class="btn quiet" data-act="comm-all">This passage</button></div>
+          <h3 class="cm-label" style="font-size:15px;color:var(--ink)">Rashi</h3>${all(DAF[d].r, 'r')}<h3 class="cm-label" style="font-size:15px;color:var(--ink)">Tosafos</h3>${all(DAF[d].t, 't')}`;
+        return;
+      }
+      const none = who => `<p class="muted" style="font-size:15px;line-height:1.5">No ${who} is matched to this passage. Matching is by the opening words, so check the full column.</p>`;
+      b.innerHTML = ref + `<div class="cm-label">Rashi</div>${rs.length ? rs.map(x => cm(x[0])).join('') : none('Rashi')}
+        <div class="cm-label">Tosafos</div>${ts.length ? ts.map(x => cm(x[0])).join('') : none('Tosafos')}
+        <button class="btn secondary" style="margin-top:8px" data-act="comm-all">Show all Rashi and Tosafos on this daf</button>`;
     }
   }
 
@@ -809,10 +854,11 @@
     $$('#panes [data-seg]').forEach(el => el.classList.toggle('active', +el.dataset.seg === i));
     $$('#panes .c').forEach(el => el.classList.toggle('linked', an[el.dataset.k][+el.dataset.j] === i));
     if (opts.tab) S.tab = opts.tab;
-    if (S.orient === 'portrait' && !S.insp) { S.insp = true; $('#reader').classList.remove('no-insp'); $$('#reader [data-act="insp"]').forEach(x => x.setAttribute('aria-pressed', 'true')); }
+    let opened = false;
+    if (S.orient === 'portrait' && !S.insp) { opened = true; S.insp = true; $('#reader').classList.remove('no-insp'); $$('#reader [data-act="insp"]').forEach(x => x.setAttribute('aria-pressed', 'true')); }
     $$('#insp [data-act="tab"]').forEach(x => x.setAttribute('aria-selected', x.dataset.t === S.tab));
     renderInspector();
-    scrollToActive(true, opts.from);
+    scrollToActive(true, opened ? null : opts.from);
     persist();
   }
   function scrollToActive(smooth, fromPane) {
@@ -821,7 +867,8 @@
       const el = $(`[data-seg="${S.seg}"].active, .tseg.active, .hebflow p.active`, p) || $(`[data-seg="${S.seg}"]`, p);
       if (!el) return;
       const pr = p.getBoundingClientRect(), er = el.getBoundingClientRect();
-      if (er.top < pr.top + 60 || er.bottom > pr.bottom - 60) {
+      const visBottom = S.orient === 'portrait' && S.insp ? pr.top + pr.height * 0.5 : pr.bottom;
+      if (er.top < pr.top + 60 || er.bottom > visBottom - 40) {
         const top = p.scrollTop + (er.top - pr.top) / SCALE - p.clientHeight / 3;
         p.scrollTo({ top, behavior: smooth && !reduceMotion() ? 'smooth' : 'auto' });
       }
@@ -829,7 +876,18 @@
   }
 
   // ---------- popovers ----------
-  function closeLayer() { layer.innerHTML = ''; }
+  let lastFocus = null;
+  function closeLayer() {
+    if (!layer.innerHTML) return;
+    layer.innerHTML = '';
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+    lastFocus = null;
+  }
+  function focusDialog() {
+    const d = $('[role="dialog"]', layer); if (!d) return;
+    const f = $('[aria-current="true"], [aria-pressed="true"], input, button:not([data-act="close-layer"]), [tabindex="0"]', d) || d;
+    f.focus({ preventScroll: false });
+  }
   function anchorPos(el, w) {
     const ar = app.getBoundingClientRect(), r = el.getBoundingClientRect();
     let left = (r.right - ar.left) / SCALE - w;
@@ -839,18 +897,26 @@
   }
   function popover(el, html, w = 360, cls = '') {
     const p = anchorPos(el, w);
-    layer.innerHTML = `<div class="pop-scrim" data-act="close-layer"></div><div class="popover ${cls}" role="dialog" style="left:${p.left}px;top:${p.top}px;width:${w}px">${html}</div>`;
+    lastFocus = el;
+    layer.innerHTML = `<div class="pop-scrim" data-act="close-layer"></div><div class="popover ${cls}" role="dialog" aria-modal="true" tabindex="-1" style="left:${p.left}px;top:${p.top}px;width:${w}px">${html}</div>`;
+    focusDialog();
   }
   function sheet(title, html, w = 560) {
-    layer.innerHTML = `<div class="pop-scrim dim" data-act="close-layer"></div><div class="sheet" role="dialog" aria-label="${title}" style="width:${w}px">
+    lastFocus = document.activeElement;
+    layer.innerHTML = `<div class="pop-scrim dim" data-act="close-layer"></div><div class="sheet" role="dialog" aria-modal="true" tabindex="-1" aria-label="${title}" style="width:${w}px">
       <div class="sheet-head"><h3>${title}</h3><button class="iconbtn" data-act="close-layer" aria-label="Close">${ico('close')}</button></div>
       <div class="sheet-body">${html}</div></div>`;
+    focusDialog();
   }
 
+  function refreshDisplay() {
+    const pop = $('.popover', layer);
+    if (pop) { pop.innerHTML = displayHTML(); focusDialog(); } else render();
+  }
   function displayHTML() {
     const t = S.theme;
     return `<div class="pop-sec"><div class="pop-label">Theme</div><div class="themes">
-      ${[['vellum', 'Vellum'], ['parchment', 'Parchment'], ['lamplight', 'Lamplight']].map(([id, l]) => `<button class="theme-chip ${id}" data-act="theme" data-t="${id}" aria-pressed="${t === id}"><span class="aa">Aa א</span>${l}</button>`).join('')}</div></div>
+      ${[['vellum', 'Vellum'], ['parchment', 'Parchment'], ['lamplight', 'Lamplight']].map(([id, l]) => `<button class="theme-chip ${id}" data-act="theme" data-t="${id}" aria-pressed="${t === id}">${l}</button>`).join('')}</div></div>
       <div class="pop-sec"><div class="pop-label"><span>Text size</span><span>${Math.round(SIZES[S.size] * 100)}%</span></div><div class="sizer">
         <button data-act="size" data-d="-1" aria-label="Smaller text" style="font-size:15px">A</button>
         <div class="dots">${SIZES.map((_, i) => `<i class="${i <= S.size ? 'on' : ''}"></i>`).join('')}</div>
@@ -859,7 +925,7 @@
         ${[['daf', 'Daf'], ['translation', 'English'], ['side', 'Side by side'], ['hebrew', 'Hebrew']].map(([id, l]) => `<button data-act="layout" data-l="${id}" aria-pressed="${S.layout === id}">${l}</button>`).join('')}</div></div>
       <div class="pop-sec">
         ${tog('showComm', 'Rashi and Tosafos on the daf')}
-        ${tog('wash', 'Shade the line being translated', 'Follows you across the daf, English and inspector')}
+        ${tog('wash', 'Shade the passage you’re on', 'Follows you across the daf, the English and the study panel')}
         ${tog('fn', 'Footnote numbers in the English')}
         ${S.theme === 'lamplight' ? tog('keepLight', 'Keep the daf light', 'For learning from the page at night') : ''}
       </div>
@@ -888,9 +954,9 @@
       const list = rows(a, b, end, ci > 0);
       h += `<div class="toc-ch"><span>${en}</span><span class="heb">${he}</span></div><div class="list">` + list.map(d => {
         const cur = d === S.daf, has = !!DAF[d], rib = S.ribbons.includes(d);
-        return `<div class="row toc-row" ${cur ? 'aria-current="true"' : ''} data-act="toc-go" data-daf="${d}" role="button" tabindex="0">
-          <div class="stack"><span class="t">${d}</span></div>
-          <span class="end">${rib ? ribbonSvg() : ''}${cur ? '<span class="curmark">Reading</span>' : ''}${has ? '' : '<span style="font-size:13px">not in prototype</span>'}<span class="heb">${dafHeb(d)}</span></span></div>`;
+        return `<button type="button" class="row toc-row" ${cur ? 'aria-current="true"' : ''} data-act="toc-go" data-daf="${d}">
+          <span class="stack"><span class="t">${d}</span></span>
+          <span class="end">${rib ? ribbonSvg() : ''}${cur ? '<span class="curmark">Reading</span>' : ''}${has ? '' : '<span style="font-size:13px">not in prototype</span>'}<span class="heb">${dafHeb(d)}</span></span></button>`;
       }).join('') + `</div>`;
     });
     h += `<div class="toc-ch"><span>Chapters Four to Nine</span><span class="heb">השג יד – המוכר שדהו</span></div>`;
@@ -898,7 +964,7 @@
   }
 
   function searchHTML(q = '') {
-    return `<div class="searchbox" style="margin-top:0">${ico('search', 'sm')}<input type="search" id="sq" value="${esc(q)}" placeholder="Try “Arachin 4a”, “Megillah” or “נשים”" aria-label="Search"></div><div id="sres">${searchResults(q)}</div>`;
+    return `<div class="searchbox" style="margin-top:0">${ico('search', 'sm')}<input type="search" id="sq" name="q" autocomplete="off" value="${esc(q)}" placeholder="Try “Arachin 4a”, “Megillah” or “נשים”…" aria-label="Search"></div><div id="sres">${searchResults(q)}</div>`;
   }
   function searchResults(q) {
     q = q.trim();
@@ -907,10 +973,10 @@
     const m = q.match(/^(arachin|arakhin|erchin|ערכין)\s*(\d{1,2})\s*([ab.:])?/i);
     if (m) {
       const n = +m[2]; const s = m[3] && /[b:]/i.test(m[3]) ? 'b' : 'a';
-      out.push(`<div class="row" data-act="search-go" data-daf="${n}${s}" role="button" tabindex="0">${ico('learn')}<div class="stack"><span class="t">Go to Arachin ${n}${s}</span><span class="s">${DAF[`${n}${s}`] ? 'Opens in the reader' : 'Not in this prototype'}</span></div>${ico('right', 'sm chev')}</div>`);
+      out.push(`<button type="button" class="row" data-act="search-go" data-daf="${n}${s}">${ico('learn')}<span class="stack"><span class="t">Go to Arachin ${n}${s}</span><span class="s">${DAF[`${n}${s}`] ? 'Opens in the reader' : 'Not in this prototype'}</span></span>${ico('right', 'sm chev')}</button>`);
     } else {
       const ms = q.match(/^([a-z' ]+?)\s+(\d{1,3})\s*([ab])?$/i);
-      if (ms) out.push(`<div class="row static">${ico('download')}<div class="stack"><span class="t">${esc(ms[1].replace(/\b\w/g, c => c.toUpperCase()))} ${ms[2]}${ms[3] || ''}</span><span class="s">That volume isn’t on this iPad. Download it from the Library when you’re online.</span></div></div>`);
+      if (ms) out.push(`<div class="row static">${ico('download')}<span class="stack"><span class="t">${esc(ms[1].replace(/\b\w/g, c => c.toUpperCase()))} ${ms[2]}${ms[3] || ''}</span><span class="s">That volume isn’t on this iPad. Download it from the Library when you’re online.</span></span></div>`);
     }
     const ql = q.toLowerCase(), qn = norm(q);
     ORDER.forEach(d => {
@@ -922,7 +988,7 @@
           const at = en.toLowerCase().indexOf(ql); const a = Math.max(0, at - 50);
           hit = `${a ? '…' : ''}${esc(en.slice(a, at))}<mark style="background:var(--wash);color:inherit">${esc(en.slice(at, at + q.length))}</mark>${esc(en.slice(at + q.length, at + q.length + 70))}…`;
         }
-        if (hit && out.length < 14) out.push(`<div class="row" data-act="search-go" data-daf="${d}" data-seg="${i}" role="button" tabindex="0"><div class="stack"><span class="t">Arachin ${d}, line ${i + 1}</span><span class="item-quote">${hit}</span></div>${ico('right', 'sm chev')}</div>`);
+        if (hit && out.length < 14) out.push(`<button type="button" class="row" data-act="search-go" data-daf="${d}" data-seg="${i}"><span class="stack"><span class="t">Arachin ${d}, passage ${i + 1}</span><span class="item-quote">${hit}</span></span>${ico('right', 'sm chev')}</button>`);
       });
     });
     return out.length ? `<div class="list">${out.join('')}</div>` : `<p class="muted" style="font-size:15px">No matches in the volumes on this iPad.</p>`;
@@ -948,12 +1014,15 @@
     if (!t) return;
 
     if (t.dataset.nav) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+      e.preventDefault();
       const id = t.dataset.nav;
       const n = NAV.find(x => x.id === id);
       if (n && n.kids) {
-        S.expanded[id] = !S.expanded[id];
-        if (id === 'library') { go('library'); return; }
-        renderSidebar(); return;
+        const open = !S.expanded[id];
+        S.expanded[id] = open;
+        if (open) { if (S.screen === 'mirror') stopCam(); go(id === 'library' ? 'library' : 'zmanim'); } else renderSidebar();
+        return;
       }
       if (S.screen === 'mirror') stopCam();
       go(id);
@@ -988,7 +1057,7 @@
       case 'pick-ed': S._pick = t.dataset.id; render(); break;
       case 'set-ed': S.edition = S._pick; render(); toast('Saved. The siddur will open in this edition.'); break;
       case 'edition-menu':
-        popover(t, `<div class="pop-sec"><div class="pop-label">Edition</div><div class="list" style="border-top:0">${EDITIONS.map(ed => `<div class="row radio-row" role="radio" tabindex="0" aria-checked="${S.edition === ed.id}" data-act="switch-ed" data-id="${ed.id}"><span class="radio"></span><div class="stack"><span class="t" style="font-size:16px">${ed.t}</span></div></div>`).join('')}</div></div>`, 340);
+        popover(t, `<div class="pop-sec"><div class="pop-label">Edition</div><div class="list" style="border-top:0">${EDITIONS.map(ed => `<div class="row radio-row" role="radio" tabindex="0" aria-checked="${S.edition === ed.id}" data-act="switch-ed" data-id="${ed.id}"><span class="radio"></span><span class="stack"><span class="t" style="font-size:16px">${ed.t}</span></span></div>`).join('')}</div></div>`, 340);
         break;
       case 'switch-ed': S.edition = t.dataset.id; closeLayer(); render(); break;
       case 'tefillah': toast('Tefillos open in the same reader, with the time-of-day insertions already chosen.'); break;
@@ -1018,19 +1087,28 @@
         if (!n || !m) { toast('Add the name and the mother’s name, in Hebrew.'); return; }
         S.misheberach.push({ name: n, rel: $('#mb-rel').value, mother: m }); render(); break;
       }
-      case 'mb-del': S.misheberach.splice(+t.dataset.i, 1); render(); break;
+      case 'mb-del': {
+        const i = +t.dataset.i; const [gone] = S.misheberach.splice(i, 1); render();
+        toast(`Removed ${gone.name} ${gone.rel} ${gone.mother}`, () => { S.misheberach.splice(i, 0, gone); render(); });
+        break;
+      }
       case 'cam': S._cam = true; render(); break;
       case 'mirror-guides': S._guides = S._guides === false; render(); break;
       case 'mirror-close': stopCam(); go('learn'); break;
 
       // reader
       case 'turn': if (t.dataset.daf) openReader(t.dataset.daf, 0, { keepInsp: true }); break;
-      case 'toc': sheet('Arachin', tocHTML(), 520); setTimeout(() => { const c = $('.sheet [aria-current="true"]'); c && c.scrollIntoView({ block: 'center' }); }, 20); break;
+      case 'toc': {
+        const anchor = $('[data-act="toc"][aria-label="Contents"]') || t;
+        popover(anchor, `<div class="pop-head"><h3>Arachin</h3><button class="iconbtn" data-act="close-layer" aria-label="Close contents">${ico('close')}</button></div><div class="pop-sec">${tocHTML()}</div>`, 400);
+        const c = $('.popover [aria-current="true"]', layer); if (c) c.scrollIntoView({ block: 'center' });
+        break;
+      }
       case 'toc-go': closeLayer(); if (DAF[t.dataset.daf]) openReader(t.dataset.daf, 0, { keepInsp: true }); else toast(`Arachin ${t.dataset.daf} isn’t part of this prototype.`); break;
       case 'display': popover(t, displayHTML(), 360); break;
-      case 'theme': S.theme = t.dataset.t; app.dataset.theme = S.theme; persist(); layer.querySelector('.popover').innerHTML = displayHTML(); break;
-      case 'size': S.size = Math.max(0, Math.min(SIZES.length - 1, S.size + +t.dataset.d)); app.style.setProperty('--tscale', SIZES[S.size]); persist(); layer.querySelector('.popover').innerHTML = displayHTML(); break;
-      case 'layout': S.layout = t.dataset.l; if (S.layout === 'side' && S.tab === 'translation') S.tab = 'notes'; persist(); renderReaderPanes(); $$('#insp [data-act="tab"]').forEach(x => x.setAttribute('aria-selected', x.dataset.t === S.tab)); layer.querySelector('.popover').innerHTML = displayHTML(); break;
+      case 'theme': S.theme = t.dataset.t; app.dataset.theme = S.theme; persist(); refreshDisplay(); break;
+      case 'size': S.size = Math.max(0, Math.min(SIZES.length - 1, S.size + +t.dataset.d)); app.style.setProperty('--tscale', SIZES[S.size]); persist(); refreshDisplay(); break;
+      case 'layout': S.layout = t.dataset.l; persist(); renderReaderPanes(); $$('#insp [data-act="tab"]').forEach(x => x.setAttribute('aria-selected', x.dataset.t === S.tab)); layer.querySelector('.popover').innerHTML = displayHTML(); break;
       case 'pref': S[t.dataset.k] = !S[t.dataset.k]; app.dataset.wash = S.wash; app.dataset.fn = S.fn; app.dataset.keeplight = S.keepLight; persist(); if (t.dataset.k === 'showComm') renderReaderPanes(); t.setAttribute('aria-checked', S[t.dataset.k]); break;
       case 'insp': S.insp = !S.insp; $('#reader').classList.toggle('no-insp', !S.insp); $$('#reader [data-act="insp"]').forEach(x => x.setAttribute('aria-pressed', S.insp)); break;
       case 'grab': S.inspFull = !S.inspFull; $('#insp').classList.toggle('full', S.inspFull); break;
@@ -1038,35 +1116,67 @@
       case 'seg-step': setSeg(S.seg + +t.dataset.dir); break;
       case 'restore': S.focus = false; $('#reader').classList.remove('focus'); break;
       case 'ribbon': {
-        const d = S.daf;
-        if (S.ribbons.includes(d)) { S.ribbons = S.ribbons.filter(x => x !== d); toast(`Ribbon removed from Arachin ${d}`); }
-        else { S.ribbons = [d]; toast(`Ribbon moved to Arachin ${d}`); }
-        t.setAttribute('aria-pressed', S.ribbons.includes(d)); persist(); break;
+        const d = S.daf, prev = S.ribbons.slice();
+        const sync = () => { const rb = $('.daf-ribbon'); if (rb) rb.setAttribute('aria-pressed', S.ribbons.includes(S.daf)); persist(); };
+        if (S.ribbons.includes(d)) { S.ribbons = S.ribbons.filter(x => x !== d); toast(`Ribbon removed from Arachin ${d}`, () => { S.ribbons = prev; sync(); }); }
+        else { S.ribbons = [d]; toast(prev.length ? `Ribbon moved from ${prev[0]} to ${d}` : `Ribbon placed at Arachin ${d}`, () => { S.ribbons = prev; sync(); }); }
+        sync(); break;
       }
       case 'hl': { const k = `${S.daf}:${S.seg}`; if (t.dataset.c) S.hl[k] = t.dataset.c; else delete S.hl[k]; persist(); renderReaderPanes(); break; }
       case 'bookmark': { const k = `${S.daf}:${S.seg}`; S.bookmarks = S.bookmarks.includes(k) ? S.bookmarks.filter(x => x !== k) : S.bookmarks.concat(k); persist(); renderInspector(); toast(S.bookmarks.includes(k) ? 'Bookmarked. Find it in My Stuff.' : 'Bookmark removed'); break; }
+      case 'tip-ok': S.tipSeen = true; persist(); $$('.tip').forEach(x => x.remove()); break;
+      case 'comm-all': S.commAll = !S.commAll; renderInspector(); break;
+      case 'finish-daf': {
+        S.done.daf = true; persist(); renderReaderPanes();
+        toast('Daf Yomi marked done. Tomorrow: Arachin 5.', () => { S.done.daf = false; persist(); renderReaderPanes(); });
+        break;
+      }
       case 'save-note': { const k = `${S.daf}:${S.seg}`; const v = $('#mynote').value.trim(); if (v) S.userNotes[k] = v; else delete S.userNotes[k]; persist(); toast(v ? 'Note saved to My Stuff' : 'Note removed'); break; }
     }
   });
 
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeLayer(); if (S.screen === 'reader' && S.sbReader) { S.sbReader = false; applyShell(); } }
-    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('[role="button"],[role="radio"]')) { e.preventDefault(); e.target.click(); }
+    if (e.key === 'Escape') {
+      if (layer.innerHTML) { closeLayer(); return; }
+      if (S.sbReader) { S.sbReader = false; applyShell(); return; }
+      if (S.screen === 'reader' && S.focus) { S.focus = false; $('#reader').classList.remove('focus'); }
+    }
+    if (e.key === 'Tab' && layer.innerHTML) {
+      const d = $('[role="dialog"]', layer); const f = $$('button, input, select, textarea, [tabindex="0"]', d).filter(x => !x.disabled);
+      if (f.length) {
+        const first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && (document.activeElement === first || !d.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && (document.activeElement === last || !d.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+      }
+    }
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('[role="button"]:not(button),[role="radio"],.tseg')) { e.preventDefault(); e.target.click(); }
     if (S.screen === 'reader' && !layer.innerHTML && !e.target.matches('input,textarea')) {
       if (e.key === 'ArrowDown') { e.preventDefault(); setSeg(S.seg + 1); }
       if (e.key === 'ArrowUp') { e.preventDefault(); setSeg(S.seg - 1); }
+      const i = ORDER.indexOf(S.daf);
+      if (e.key === 'ArrowLeft' && ORDER[i + 1]) openReader(ORDER[i + 1], 0, { keepInsp: true });
+      if (e.key === 'ArrowRight' && ORDER[i - 1]) openReader(ORDER[i - 1], 0, { keepInsp: true });
+      const tabs = { 1: 'translation', 2: 'notes', 3: 'commentary' };
+      if (tabs[e.key] && !e.metaKey && !e.ctrlKey) { S.tab = tabs[e.key]; S.insp = true; $('#reader').classList.remove('no-insp'); $$('#insp [data-act="tab"]').forEach(x => x.setAttribute('aria-selected', x.dataset.t === S.tab)); renderInspector(); }
     }
   });
   scrim.addEventListener('click', () => { S.sbReader = false; applyShell(); });
   sidebar.addEventListener('click', e => { if (S.screen === 'reader' && e.target.closest('[data-act="open-daf"]')) { S.sbReader = false; } });
 
+  let noteT;
   document.addEventListener('input', e => {
+    if (e.target.id === 'mynote') {
+      const k = `${S.daf}:${S.seg}`, v = e.target.value.trim();
+      const st = $('#saved-state'); if (st) st.textContent = 'Saving…';
+      clearTimeout(noteT);
+      noteT = setTimeout(() => { if (v) S.userNotes[k] = v; else delete S.userNotes[k]; persist(); const s2 = $('#saved-state'); if (s2) s2.textContent = v ? 'Saved to My Stuff' : 'Note removed'; }, 500);
+    }
     if (e.target.id === 'sq') $('#sres').innerHTML = searchResults(e.target.value);
     if (e.target.id === 'stuff-q') { S.stuffQ = e.target.value; const pos = e.target.selectionStart; render(); const i = $('#stuff-q'); i.focus(); i.setSelectionRange(pos, pos); }
     if (e.target.id === 'hist-q') { S.histQ = e.target.value; const pos = e.target.selectionStart; render(); const i = $('#hist-q'); i.focus(); i.setSelectionRange(pos, pos); }
     if (e.target.id === 'vn') {
       const v = e.target.value.trim();
-      $('#vn-out').innerHTML = v ? `<div class="list" style="margin-top:18px"><div class="row static"><div class="stack"><span class="t">Verses for <span class="heb" style="font-size:20px">${esc(v)}</span></span><span class="s">Begin with ${esc(v[0])} and end with ${esc(v[v.length - 1])}. The app searches the full Tanach here; this prototype shows the layout only.</span></div></div></div>` : emptyBlock('quote', 'Type a name in Hebrew', 'Matching verses appear here, with the sefer and perek.');
+      $('#vn-out').innerHTML = v ? `<div class="list" style="margin-top:18px"><div class="row static"><span class="stack"><span class="t">Verses for <span class="heb" style="font-size:20px">${esc(v)}</span></span><span class="s">Begin with ${esc(v[0])} and end with ${esc(v[v.length - 1])}. The app searches the full Tanach here; this prototype shows the layout only.</span></span></div></div>` : emptyBlock('quote', 'Type a name in Hebrew', 'Matching verses appear here, with the sefer and perek.');
     }
   });
 

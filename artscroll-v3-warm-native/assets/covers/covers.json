@@ -1,0 +1,52 @@
+[
+ {
+  "file": "assets/covers/berachos-1.jpg",
+  "title": "Berachos",
+  "volume": "Volume 1"
+ },
+ {
+  "file": "assets/covers/shabbos-1.jpg",
+  "title": "Shabbos",
+  "volume": "Volume 1"
+ },
+ {
+  "file": "assets/covers/kesubos-1.jpg",
+  "title": "Kesubos",
+  "volume": "Volume 1"
+ },
+ {
+  "file": "assets/covers/chullin-1.jpg",
+  "title": "Chullin",
+  "volume": "Volume 1"
+ },
+ {
+  "file": "assets/covers/bechoros-1.jpg",
+  "title": "Bechoros",
+  "volume": "Volume 1"
+ },
+ {
+  "file": "assets/covers/arachin.jpg",
+  "title": "Arachin",
+  "volume": ""
+ },
+ {
+  "file": "assets/covers/temurah.jpg",
+  "title": "Temurah",
+  "volume": ""
+ },
+ {
+  "file": "assets/covers/kereisos.jpg",
+  "title": "Kereisos",
+  "volume": ""
+ },
+ {
+  "file": "assets/covers/menachos-1.jpg",
+  "title": "Menachos",
+  "volume": "Volume 1"
+ },
+ {
+  "file": "assets/covers/zevachim-1.jpg",
+  "title": "Zevachim",
+  "volume": "Volume 1"
+ }
+]

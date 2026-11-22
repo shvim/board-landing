@@ -242,7 +242,7 @@
     main.innerHTML = fn();
     after[S.screen] && after[S.screen]();
     persist();
-    try {
+    if (window.self === window.top) try {
       const q = new URLSearchParams();
       q.set('screen', S.screen === 'library' ? S.libFilter : S.screen);
       if (S.screen === 'reader') { q.set('daf', S.daf); q.set('layout', S.layout); }

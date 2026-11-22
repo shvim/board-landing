@@ -12,10 +12,10 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --stage-bg: #100E0C; --stage-ink: #E6DCCB; --stage-ink2: #A89A88; --stage-rule: #3A332C;
+    --stage-bg: #100E0C; --stage-ink: #E6DCCB; --stage-ink2: #A89A88; --stage-rule: #3A332C; color-scheme: dark;
   }
 }
-:root[data-theme="dark"] { --stage-bg: #100E0C; --stage-ink: #E6DCCB; --stage-ink2: #A89A88; --stage-rule: #3A332C; }
+:root[data-theme="dark"] { --stage-bg: #100E0C; --stage-ink: #E6DCCB; --stage-ink2: #A89A88; --stage-rule: #3A332C; color-scheme: dark; }
 
 .app {
   --page: #F7F2E8; --surface: #FBF8F1; --ink: #2A211C; --ink2: #6B5E54; --rule: #E2D8C8;
@@ -600,3 +600,4 @@ a.sb-item { text-decoration: none; }
 }
 .tip .btn { min-height: 40px; flex: none; }
 .g-row .seg-ctl button { font-size: 14px; }
+.credits { max-width: 1240px; margin: 0 auto; padding: 0 16px 28px; font-size: 13px; line-height: 1.5; color: var(--stage-ink2); }

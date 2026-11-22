@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Library</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/CSS_PENDING">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700&amp;family=Libre+Caslon+Display&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#161412}a:hover{color:#36312D}
+</style>
+</helmet>
+<div class="ipad land">
+<div class="app">
+<nav class="sb" aria-label="Sidebar">
+<p class="sb-title">ArtScroll</p>
+<ul class="sb-list">
+<li><a class="sb-item" href="Main.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5c-1.8-1.4-4.6-2-8-2v13c3.4 0 6.2.6 8 2 1.8-1.4 4.6-2 8-2v-13c-3.4 0-6.2.6-8 2zM12 6.5v13"></path></svg>Learn</a></li>
+<li><a class="sb-item" href="Library.dc.html" aria-current="page"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h3.2v15H5zM10.4 4.5h3.2v15h-3.2zM15.6 5.6l3-.8 3.4 14.2-3 .8z"></path></svg>Library</a></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5H18v14H7a2 2 0 0 0-2 2V5a1.5 1.5 0 0 1 1.5-1.5zM5 19.5a2 2 0 0 0 2 1h11v-3M9.5 8h5"></path></svg>Siddur</button></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h9l3.5 3.5v13.5H6zM15 3.5V7h3.5M9 11.5h6.5M9 15h6.5"></path></svg>My notes</button></li>
+<li><button class="sb-item" type="button" aria-expanded="{{toolsOpen}}" aria-controls="tools-lib" onClick="{{toggleTools}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4.5h6v6h-6zM13.5 4.5h6v6h-6zM4.5 13.5h6v6h-6zM13.5 13.5h6v6h-6z"></path></svg>Tools<svg class="i chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<ul class="sb-list sb-sub" id="tools-lib" hidden="{{toolsHidden}}">
+<li><button class="sb-item" type="button">Zmanim</button></li>
+<li><button class="sb-item" type="button">Luach</button></li>
+<li><button class="sb-item" type="button">Mizrach</button></li>
+<li><button class="sb-item" type="button">Misheberach</button></li>
+<li><button class="sb-item" type="button">Verses for names</button></li>
+<li><button class="sb-item" type="button">Tefillin mirror</button></li>
+</ul>
+</li>
+</ul>
+<ul class="sb-list sb-foot">
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5v3.5H8M12 8v4.2l2.8 1.8"></path></svg>History</button></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"></path></svg>Settings</button></li>
+</ul>
+</nav>
+
+<main class="pane">
+<div class="page">
+<header class="lib-head">
+<h1 class="d1">Library</h1>
+<div class="head-tools">
+<button class="tool-btn" type="button" aria-haspopup="menu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 4.5v15M4.5 16.5l3 3 3-3M16.5 19.5v-15M13.5 7.5l3-3 3 3"></path></svg>Recent</button>
+<button class="tool-btn" type="button" aria-label="Search the library"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"></circle><path d="M15.5 15.5l4.5 4.5"></path></svg></button>
+</div>
+</header>
+
+<div class="corpus" role="group" aria-label="Collection">
+<button type="button" aria-pressed="{{cBavli}}" onClick="{{toBavli}}">Talmud Bavli</button>
+<button type="button" aria-pressed="{{cYeru}}" onClick="{{toYeru}}">Yerushalmi</button>
+<button type="button" aria-pressed="{{cMish}}" onClick="{{toMish}}">Mishnah</button>
+<button type="button" aria-pressed="{{cChum}}" onClick="{{toChum}}">Chumash</button>
+<button type="button" aria-pressed="{{cKitz}}" onClick="{{toKitz}}">Kitzur</button>
+</div>
+
+<div class="chips" role="group" aria-label="Seder">
+<button class="chip" type="button" aria-pressed="{{sAll}}" onClick="{{toAll}}">All sedarim</button>
+<button class="chip" type="button" aria-pressed="{{sZer}}" onClick="{{toZer}}">Zeraim</button>
+<button class="chip" type="button" aria-pressed="{{sMoed}}" onClick="{{toMoed}}">Moed</button>
+<button class="chip" type="button" aria-pressed="{{sNash}}" onClick="{{toNash}}">Nashim</button>
+<button class="chip" type="button" aria-pressed="{{sNez}}" onClick="{{toNez}}">Nezikin</button>
+<button class="chip" type="button" aria-pressed="{{sKod}}" onClick="{{toKod}}">Kodashim</button>
+<button class="chip" type="button" aria-pressed="{{sTah}}" onClick="{{toTah}}">Taharos</button>
+</div>
+
+<p class="notice" role="status"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 3.5l17 17M8.6 15.6a5 5 0 0 1 6.8 0M5.2 12.1a10 10 0 0 1 4.3-2.4M14.3 9.7a10 10 0 0 1 4.5 2.4M2 8.7a15 15 0 0 1 4.8-3M10.5 4.6A15 15 0 0 1 22 8.7M12 19.2h.01"></path></svg>You’re offline. Downloaded volumes open as usual; new downloads start when you reconnect.</p>
+
+<section class="shelf" aria-labelledby="sh-zer" hidden="{{hideZer}}">
+<div class="shelf-head"><h2 class="he" id="sh-zer" lang="he">סדר זרעים</h2><p class="meta">Seder Zeraim, 1 volume</p></div>
+<div class="shelf-grid">
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Berachos, volume 1"><img class="cover" src="{{covers.berachos}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Berachos</span><span class="he cap-he" lang="he">ברכות</span></span><span class="cap-sub">Volume 1</span><span class="status"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.3 12.3l2.6 2.6 4.9-5.4"></path></svg>On this iPad</span></figcaption></figure>
+</div>
+</section>
+
+<section class="shelf" aria-labelledby="sh-moed" hidden="{{hideMoed}}">
+<div class="shelf-head"><h2 class="he" id="sh-moed" lang="he">סדר מועד</h2><p class="meta">Seder Moed, 1 volume</p></div>
+<div class="shelf-grid">
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Shabbos, volume 1"><img class="cover" src="{{covers.shabbos}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Shabbos</span><span class="he cap-he" lang="he">שבת</span></span><span class="cap-sub">Volume 1</span><span class="status" hidden="{{qShabbos}}"><button class="status-btn" type="button" onClick="{{dlShabbos}}"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v10.5M7.5 10.5l4.5 4.5 4.5-4.5M5.5 19.5h13"></path></svg>Download</button></span><span class="status" hidden="{{nqShabbos}}"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>Waiting for connection</span></figcaption></figure>
+</div>
+</section>
+
+<section class="shelf" aria-labelledby="sh-nash" hidden="{{hideNash}}">
+<div class="shelf-head"><h2 class="he" id="sh-nash" lang="he">סדר נשים</h2><p class="meta">Seder Nashim, 1 volume</p></div>
+<div class="shelf-grid">
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Kesubos, volume 1"><img class="cover" src="{{covers.kesubos}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Kesubos</span><span class="he cap-he" lang="he">כתובות</span></span><span class="cap-sub">Volume 1</span><span class="status"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.3 12.3l2.6 2.6 4.9-5.4"></path></svg>On this iPad</span></figcaption></figure>
+</div>
+</section>
+
+<section class="shelf" aria-labelledby="sh-kod" hidden="{{hideKod}}">
+<div class="shelf-head"><h2 class="he" id="sh-kod" lang="he">סדר קדשים</h2><p class="meta">Seder Kodashim, 7 volumes</p></div>
+<div class="shelf-grid">
+<figure class="vol"><a class="vol-open" href="Reader.dc.html" aria-label="Open Arachin, at 2a"><img class="cover" src="{{covers.arachin}}" alt=""><span class="gold-rule" aria-hidden="true"></span></a><figcaption class="cap"><span class="cap-line"><span class="cap-en">Arachin</span><span class="he cap-he" lang="he">ערכין</span></span><span class="cap-sub">Single volume. Reading <span class="he" lang="he">ב.</span> 2a</span><span class="status"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.3 12.3l2.6 2.6 4.9-5.4"></path></svg>On this iPad</span></figcaption></figure>
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Zevachim, volume 1"><img class="cover" src="{{covers.zevachim}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Zevachim</span><span class="he cap-he" lang="he">זבחים</span></span><span class="cap-sub">Volume 1</span><span class="status"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.3 12.3l2.6 2.6 4.9-5.4"></path></svg>On this iPad</span></figcaption></figure>
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Menachos, volume 1"><img class="cover" src="{{covers.menachos}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Menachos</span><span class="he cap-he" lang="he">מנחות</span></span><span class="cap-sub">Volume 1</span><span class="status"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.3 12.3l2.6 2.6 4.9-5.4"></path></svg>On this iPad</span></figcaption></figure>
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Chullin, volume 1"><img class="cover" src="{{covers.chullin}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Chullin</span><span class="he cap-he" lang="he">חולין</span></span><span class="cap-sub">Volume 1</span><span class="status"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>Waiting for connection</span></figcaption></figure>
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Bechoros, volume 1"><img class="cover" src="{{covers.bechoros}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Bechoros</span><span class="he cap-he" lang="he">בכורות</span></span><span class="cap-sub">Volume 1</span><span class="status" hidden="{{qBechoros}}"><button class="status-btn" type="button" onClick="{{dlBechoros}}"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v10.5M7.5 10.5l4.5 4.5 4.5-4.5M5.5 19.5h13"></path></svg>Download</button></span><span class="status" hidden="{{nqBechoros}}"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>Waiting for connection</span></figcaption></figure>
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Temurah"><img class="cover" src="{{covers.temurah}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Temurah</span><span class="he cap-he" lang="he">תמורה</span></span><span class="cap-sub">Single volume</span><span class="status" hidden="{{qTemurah}}"><button class="status-btn" type="button" onClick="{{dlTemurah}}"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v10.5M7.5 10.5l4.5 4.5 4.5-4.5M5.5 19.5h13"></path></svg>Download</button></span><span class="status" hidden="{{nqTemurah}}"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>Waiting for connection</span></figcaption></figure>
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Kereisos"><img class="cover" src="{{covers.kereisos}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Kereisos</span><span class="he cap-he" lang="he">כריתות</span></span><span class="cap-sub">Single volume</span><span class="status" hidden="{{qKereisos}}"><button class="status-btn" type="button" onClick="{{dlKereisos}}"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v10.5M7.5 10.5l4.5 4.5 4.5-4.5M5.5 19.5h13"></path></svg>Download</button></span><span class="status" hidden="{{nqKereisos}}"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>Waiting for connection</span></figcaption></figure>
+</div>
+</section>
+
+<section class="empty" hidden="{{emptyHidden}}" aria-live="polite">
+<h2 class="d2">{{emptyTitle}}</h2>
+<p class="meta">Volumes you add appear here, sorted by when you last opened them.</p>
+<button class="btn btn-quiet" type="button" onClick="{{showAll}}">Show all Talmud Bavli volumes</button>
+</section>
+</div>
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1194,"height":834}}'>
+const COVERS = {"berachos":"/_blob/18cbf37ccc3a7227916825819942cf8d","shabbos":"/_blob/45d0f9b9b032cf82a81429f0b9b90e09","kesubos":"/_blob/10efb610a00685c1802d49b45deb9978","chullin":"/_blob/8fd8fdd2c421a39cc3fc053d08c2d1e3","bechoros":"/_blob/de4cd5d9b5bdd9f76d2ded72fa8952ae","arachin":"/_blob/6dadc65a17d2ea933792714abf1da996","temurah":"/_blob/e44ea678cf49eb0f09b126081d2951ed","kereisos":"/_blob/c43e6d90686b627c58427c3bdb63122f","menachos":"/_blob/b0dbba21a9a69a9d15059e2e3a73cf06","zevachim":"/_blob/d6d8c4ba10f13b1d7d889b106a9ba452"};
+const SEDARIM = { zeraim: 'Zeraim', moed: 'Moed', nashim: 'Nashim', nezikin: 'Nezikin', kodashim: 'Kodashim', taharos: 'Taharos' };
+const CORPORA = { bavli: 'Talmud Bavli', yerushalmi: 'Yerushalmi', mishnah: 'Mishnah', chumash: 'Chumash', kitzur: 'Kitzur Shulchan Aruch' };
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { toolsOpen: true, seder: 'kodashim', corpus: 'bavli', q: {} };
+  }
+  renderVals() {
+    const s = this.state;
+    const bavli = s.corpus === 'bavli';
+    const show = (k) => bavli && (s.seder === 'all' || s.seder === k);
+    const seder = (k) => () => this.setState({ seder: k, corpus: 'bavli' });
+    const corpus = (k) => () => this.setState({ corpus: k });
+    const dl = (k) => () => this.setState({ q: Object.assign({}, s.q, { [k]: true }) });
+    const anyShown = bavli && ['all', 'zeraim', 'moed', 'nashim', 'kodashim'].indexOf(s.seder) !== -1;
+    return {
+      covers: COVERS,
+      toolsOpen: s.toolsOpen,
+      toolsHidden: !s.toolsOpen,
+      toggleTools: () => this.setState({ toolsOpen: !s.toolsOpen }),
+      cBavli: s.corpus === 'bavli', cYeru: s.corpus === 'yerushalmi', cMish: s.corpus === 'mishnah', cChum: s.corpus === 'chumash', cKitz: s.corpus === 'kitzur',
+      toBavli: corpus('bavli'), toYeru: corpus('yerushalmi'), toMish: corpus('mishnah'), toChum: corpus('chumash'), toKitz: corpus('kitzur'),
+      sAll: s.seder === 'all', sZer: s.seder === 'zeraim', sMoed: s.seder === 'moed', sNash: s.seder === 'nashim', sNez: s.seder === 'nezikin', sKod: s.seder === 'kodashim', sTah: s.seder === 'taharos',
+      toAll: seder('all'), toZer: seder('zeraim'), toMoed: seder('moed'), toNash: seder('nashim'), toNez: seder('nezikin'), toKod: seder('kodashim'), toTah: seder('taharos'),
+      hideZer: !show('zeraim'), hideMoed: !show('moed'), hideNash: !show('nashim'), hideKod: !show('kodashim'),
+      emptyHidden: anyShown,
+      emptyTitle: bavli ? 'No volumes from Seder ' + (SEDARIM[s.seder] || '') + ' yet' : 'No ' + CORPORA[s.corpus] + ' volumes yet',
+      showAll: () => this.setState({ corpus: 'bavli', seder: 'all' }),
+      qShabbos: !!s.q.shabbos, nqShabbos: !s.q.shabbos, dlShabbos: dl('shabbos'),
+      qBechoros: !!s.q.bechoros, nqBechoros: !s.q.bechoros, dlBechoros: dl('bechoros'),
+      qTemurah: !!s.q.temurah, nqTemurah: !s.q.temurah, dlTemurah: dl('temurah'),
+      qKereisos: !!s.q.kereisos, nqKereisos: !s.q.kereisos, dlKereisos: dl('kereisos')
+    };
+  }
+}
+</script>
+</body>
+</html>

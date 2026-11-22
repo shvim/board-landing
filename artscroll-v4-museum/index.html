@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ArtScroll v4 — Museum Edition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="css/museum.css">
+<style>
+  :root { --page: #ECEBE8; --page-ink: #161412; --page-ink-2: #5F5A55; color-scheme: light; }
+  html, body { margin: 0; background: var(--page); color: var(--page-ink); }
+  body { font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", system-ui, sans-serif; padding-block: 40px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .intro { max-width: 1194px; margin: 0 auto 36px; }
+  .intro h1 { font: 400 40px/1.1 "Libre Caslon Display", Georgia, serif; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .intro p { margin: 0; color: var(--page-ink-2); max-width: 68ch; }
+  .intro p + p { margin-top: 6px; font-size: 13px; }
+  .frame { max-width: 1194px; margin: 0 auto 56px; }
+  .frame-label { font: 600 14px/1.3 -apple-system, BlinkMacSystemFont, "Helvetica Neue", system-ui, sans-serif; margin: 0 0 12px; }
+  .frame-label span { font-weight: 400; color: var(--page-ink-2); margin-left: 8px; font-variant-numeric: tabular-nums; }
+  .scaler { position: relative; overflow: hidden; border-radius: 18px; box-shadow: 0 1px 2px rgba(22,20,18,.10), 0 20px 50px -24px rgba(22,20,18,.35); }
+  .ab { transform-origin: 0 0; position: absolute; top: 0; left: 0; }
+  a:focus-visible { outline: 2px solid var(--page-ink); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<header class="intro">
+  <h1>ArtScroll v4 — Museum Edition</h1>
+  <p>Design prototype. Five iPad screens with working controls: try the sidebar’s Tools, the Library filters, the reader’s panel tabs, and the “Aa א” display menu (theme, text size, layout and switches).</p>
+  <p>Gemara text of Arachin 2a: Vilna edition, via Wikisource and Sefaria, CC BY-SA. English elucidation written for this prototype. The dedication is fictional. Covers are labelled placeholders.</p>
+</header>
+
+<section class="frame" id="Main" aria-labelledby="lbl-Main">
+  <h2 class="frame-label" id="lbl-Main">Home (Learn), landscape <span>1194 × 834</span></h2>
+  <div class="scaler" data-w="1194" data-h="834">
+    <div class="ab" id="ab-Main" style="width:1194px;height:834px">
+
+<div class="ipad land">
+<div class="app">
+<nav class="sb" aria-label="Sidebar">
+<p class="sb-title">ArtScroll</p>
+<ul class="sb-list">
+<li><a class="sb-item" href="#Main" aria-current="page"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5c-1.8-1.4-4.6-2-8-2v13c3.4 0 6.2.6 8 2 1.8-1.4 4.6-2 8-2v-13c-3.4 0-6.2.6-8 2zM12 6.5v13"></path></svg>Learn</a></li>
+<li><a class="sb-item" href="#Library"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h3.2v15H5zM10.4 4.5h3.2v15h-3.2zM15.6 5.6l3-.8 3.4 14.2-3 .8z"></path></svg>Library</a></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5H18v14H7a2 2 0 0 0-2 2V5a1.5 1.5 0 0 1 1.5-1.5zM5 19.5a2 2 0 0 0 2 1h11v-3M9.5 8h5"></path></svg>Siddur</button></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h9l3.5 3.5v13.5H6zM15 3.5V7h3.5M9 11.5h6.5M9 15h6.5"></path></svg>My notes</button></li>
+<li><button class="sb-item" type="button" data-dc-aria-expanded="{{toolsOpen}}" aria-controls="tools-home" data-on="Click:toggleTools"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4.5h6v6h-6zM13.5 4.5h6v6h-6zM4.5 13.5h6v6h-6zM13.5 13.5h6v6h-6z"></path></svg>Tools<svg class="i chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<ul class="sb-list sb-sub" id="tools-home" data-dc-hidden="{{toolsHidden}}">
+<li><button class="sb-item" type="button">Zmanim</button></li>
+<li><button class="sb-item" type="button">Luach</button></li>
+<li><button class="sb-item" type="button">Mizrach</button></li>
+<li><button class="sb-item" type="button">Misheberach</button></li>
+<li><button class="sb-item" type="button">Verses for names</button></li>
+<li><button class="sb-item" type="button">Tefillin mirror</button></li>
+</ul>
+</li>
+</ul>
+<ul class="sb-list sb-foot">
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5v3.5H8M12 8v4.2l2.8 1.8"></path></svg>History</button></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"></path></svg>Settings</button></li>
+</ul>
+</nav>
+
+<main class="pane">
+<div class="page g12">
+<header class="home-head">
+<div>
+<h1 class="title-pair"><span class="d1">Arachin 2a</span><span class="he" lang="he">ערכין ב.</span></h1>
+<p class="meta">Chapter 1, <span class="he" lang="he">הכל מעריכין</span>. Opened two hours ago.</p>
+</div>
+<div class="home-actions">
+<a class="link" href="#Contents">Contents</a>
+<a class="btn btn-primary" href="#Reader">Resume Arachin 2a</a>
+</div>
+</header>
+
+<div class="home-body g12">
+<section class="resume" aria-label="Current volume">
+<a class="vol" href="#Reader" style="text-decoration: none; color: inherit">
+<img class="cover" data-dc-src="{{covers.arachin}}" alt="Arachin, cover">
+<span class="gold-rule" aria-hidden="true"></span>
+<span class="cap">
+<span class="cap-line"><span class="cap-en">Arachin</span><span class="he cap-he" lang="he">ערכין</span></span>
+<span class="cap-sub">Reading <span class="he" lang="he">ב.</span> 2a</span>
+</span>
+</a>
+</section>
+
+<section class="today" aria-labelledby="today-h">
+<div class="sec-head"><h2 class="d2" id="today-h">Today’s learning</h2><p class="meta">1 of 4 learned</p></div>
+<ul class="rows">
+<li><a class="row-link" href="#Reader"><span><span class="row-kind">Daf Yomi</span><span class="row-ref">Arachin 4</span></span><span class="he row-he" lang="he">ערכין ד</span></a></li>
+<li><button class="row-link" type="button"><span><span class="row-kind">Yerushalmi</span><span class="row-ref">Kesubos 37</span></span><span class="he row-he" lang="he">ירושלמי כתובות לז</span></button></li>
+<li><button class="row-link" type="button"><span><span class="row-kind">Mishnah Yomis</span><span class="row-ref">Negaim 3:3–4</span></span><span class="he row-he" lang="he">נגעים ג:ג–ד</span></button></li>
+<li class="row-done"><button class="row-link" type="button"><span><span class="row-kind">Kitzur Yomi<svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Learned</span><span class="row-ref">Siman 151</span></span><span class="he row-he" lang="he">קיצור שו״ע קנא</span></button></li>
+</ul>
+</section>
+
+<section class="plans" aria-labelledby="plans-h">
+<div class="sec-head"><h2 class="d2" id="plans-h">Learning plans</h2></div>
+<p class="meta">No plan yet. Pick one and its daily portion appears in Today’s learning.</p>
+<div class="plan-list">
+<button class="plan-btn" type="button" data-dc-aria-pressed="{{planDaf}}" data-on="Click:pickDaf"><span class="plan-txt"><span class="plan-name">Daf Yomi</span><span class="plan-desc">A daf a day with the world. Today: Arachin 4.</span></span><span class="plan-mark"><svg class="i i-sm ico-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5.5v13M5.5 12h13"></path></svg><svg class="i i-sm ico-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span></button>
+<button class="plan-btn" type="button" data-dc-aria-pressed="{{planMy}}" data-on="Click:pickMy"><span class="plan-txt"><span class="plan-name">Mishnah Yomis</span><span class="plan-desc">Two mishnayos a day. Today: Negaim 3:3–4.</span></span><span class="plan-mark"><svg class="i i-sm ico-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5.5v13M5.5 12h13"></path></svg><svg class="i i-sm ico-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span></button>
+<button class="plan-btn" type="button" data-dc-aria-pressed="{{planFin}}" data-on="Click:pickFin"><span class="plan-txt"><span class="plan-name">Finish Arachin</span><span class="plan-desc">Choose a pace from 2a to the end.</span></span><span class="plan-mark"><svg class="i i-sm ico-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5.5v13M5.5 12h13"></path></svg><svg class="i i-sm ico-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span></button>
+</div>
+</section>
+
+<section class="recent" aria-labelledby="recent-h">
+<div class="sec-head"><h2 class="d2" id="recent-h">Recently opened</h2><a class="link meta" href="#Library">Library</a></div>
+<div class="recent-row">
+<a class="vol" href="#Library"><img class="cover" data-dc-src="{{covers.zevachim}}" alt=""><span class="cap"><span class="cap-line"><span class="cap-en">Zevachim</span><span class="he cap-he" lang="he">זבחים</span></span><span class="cap-sub">Volume 1</span></span></a>
+<a class="vol" href="#Library"><img class="cover" data-dc-src="{{covers.menachos}}" alt=""><span class="cap"><span class="cap-line"><span class="cap-en">Menachos</span><span class="he cap-he" lang="he">מנחות</span></span><span class="cap-sub">Volume 1</span></span></a>
+<a class="vol" href="#Library"><img class="cover" data-dc-src="{{covers.chullin}}" alt=""><span class="cap"><span class="cap-line"><span class="cap-en">Chullin</span><span class="he cap-he" lang="he">חולין</span></span><span class="cap-sub">Volume 1</span></span></a>
+<a class="vol" href="#Library"><img class="cover" data-dc-src="{{covers.bechoros}}" alt=""><span class="cap"><span class="cap-line"><span class="cap-en">Bechoros</span><span class="he cap-he" lang="he">בכורות</span></span><span class="cap-sub">Volume 1</span></span></a>
+<a class="vol" href="#Library"><img class="cover" data-dc-src="{{covers.kesubos}}" alt=""><span class="cap"><span class="cap-line"><span class="cap-en">Kesubos</span><span class="he cap-he" lang="he">כתובות</span></span><span class="cap-sub">Volume 1</span></span></a>
+<a class="vol" href="#Library"><img class="cover" data-dc-src="{{covers.berachos}}" alt=""><span class="cap"><span class="cap-line"><span class="cap-en">Berachos</span><span class="he cap-he" lang="he">ברכות</span></span><span class="cap-sub">Volume 1</span></span></a>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+</div>
+</div>
+  </div>
+</section>
+
+<section class="frame" id="Library" aria-labelledby="lbl-Library">
+  <h2 class="frame-label" id="lbl-Library">Library, landscape <span>1194 × 834</span></h2>
+  <div class="scaler" data-w="1194" data-h="834">
+    <div class="ab" id="ab-Library" style="width:1194px;height:834px">
+
+<div class="ipad land">
+<div class="app">
+<nav class="sb" aria-label="Sidebar">
+<p class="sb-title">ArtScroll</p>
+<ul class="sb-list">
+<li><a class="sb-item" href="#Main"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5c-1.8-1.4-4.6-2-8-2v13c3.4 0 6.2.6 8 2 1.8-1.4 4.6-2 8-2v-13c-3.4 0-6.2.6-8 2zM12 6.5v13"></path></svg>Learn</a></li>
+<li><a class="sb-item" href="#Library" aria-current="page"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h3.2v15H5zM10.4 4.5h3.2v15h-3.2zM15.6 5.6l3-.8 3.4 14.2-3 .8z"></path></svg>Library</a></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5H18v14H7a2 2 0 0 0-2 2V5a1.5 1.5 0 0 1 1.5-1.5zM5 19.5a2 2 0 0 0 2 1h11v-3M9.5 8h5"></path></svg>Siddur</button></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h9l3.5 3.5v13.5H6zM15 3.5V7h3.5M9 11.5h6.5M9 15h6.5"></path></svg>My notes</button></li>
+<li><button class="sb-item" type="button" data-dc-aria-expanded="{{toolsOpen}}" aria-controls="tools-lib" data-on="Click:toggleTools"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4.5h6v6h-6zM13.5 4.5h6v6h-6zM4.5 13.5h6v6h-6zM13.5 13.5h6v6h-6z"></path></svg>Tools<svg class="i chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<ul class="sb-list sb-sub" id="tools-lib" data-dc-hidden="{{toolsHidden}}">
+<li><button class="sb-item" type="button">Zmanim</button></li>
+<li><button class="sb-item" type="button">Luach</button></li>
+<li><button class="sb-item" type="button">Mizrach</button></li>
+<li><button class="sb-item" type="button">Misheberach</button></li>
+<li><button class="sb-item" type="button">Verses for names</button></li>
+<li><button class="sb-item" type="button">Tefillin mirror</button></li>
+</ul>
+</li>
+</ul>
+<ul class="sb-list sb-foot">
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5v3.5H8M12 8v4.2l2.8 1.8"></path></svg>History</button></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"></path></svg>Settings</button></li>
+</ul>
+</nav>
+
+<main class="pane">
+<div class="page">
+<header class="lib-head">
+<h1 class="d1">Library</h1>
+<div class="head-tools">
+<button class="tool-btn" type="button" aria-haspopup="menu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 4.5v15M4.5 16.5l3 3 3-3M16.5 19.5v-15M13.5 7.5l3-3 3 3"></path></svg>Recent</button>
+<button class="tool-btn" type="button" aria-label="Search the library"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"></circle><path d="M15.5 15.5l4.5 4.5"></path></svg></button>
+</div>
+</header>
+
+<div class="corpus" role="group" aria-label="Collection">
+<button type="button" data-dc-aria-pressed="{{cBavli}}" data-on="Click:toBavli">Talmud Bavli</button>
+<button type="button" data-dc-aria-pressed="{{cYeru}}" data-on="Click:toYeru">Yerushalmi</button>
+<button type="button" data-dc-aria-pressed="{{cMish}}" data-on="Click:toMish">Mishnah</button>
+<button type="button" data-dc-aria-pressed="{{cChum}}" data-on="Click:toChum">Chumash</button>
+<button type="button" data-dc-aria-pressed="{{cKitz}}" data-on="Click:toKitz">Kitzur</button>
+</div>
+
+<div class="chips" role="group" aria-label="Seder">
+<button class="chip" type="button" data-dc-aria-pressed="{{sAll}}" data-on="Click:toAll">All sedarim</button>
+<button class="chip" type="button" data-dc-aria-pressed="{{sZer}}" data-on="Click:toZer">Zeraim</button>
+<button class="chip" type="button" data-dc-aria-pressed="{{sMoed}}" data-on="Click:toMoed">Moed</button>
+<button class="chip" type="button" data-dc-aria-pressed="{{sNash}}" data-on="Click:toNash">Nashim</button>
+<button class="chip" type="button" data-dc-aria-pressed="{{sNez}}" data-on="Click:toNez">Nezikin</button>
+<button class="chip" type="button" data-dc-aria-pressed="{{sKod}}" data-on="Click:toKod">Kodashim</button>
+<button class="chip" type="button" data-dc-aria-pressed="{{sTah}}" data-on="Click:toTah">Taharos</button>
+</div>
+
+<p class="notice" role="status"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 3.5l17 17M8.6 15.6a5 5 0 0 1 6.8 0M5.2 12.1a10 10 0 0 1 4.3-2.4M14.3 9.7a10 10 0 0 1 4.5 2.4M2 8.7a15 15 0 0 1 4.8-3M10.5 4.6A15 15 0 0 1 22 8.7M12 19.2h.01"></path></svg>You’re offline. Downloaded volumes open as usual; new downloads start when you reconnect.</p>
+
+<section class="shelf" aria-labelledby="sh-zer" data-dc-hidden="{{hideZer}}">
+<div class="shelf-head"><h2 class="he" id="sh-zer" lang="he">סדר זרעים</h2><p class="meta">Seder Zeraim, 1 volume</p></div>
+<div class="shelf-grid">
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Berachos, volume 1"><img class="cover" data-dc-src="{{covers.berachos}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Berachos</span><span class="he cap-he" lang="he">ברכות</span></span><span class="cap-sub">Volume 1</span><span class="status"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.3 12.3l2.6 2.6 4.9-5.4"></path></svg>On this iPad</span></figcaption></figure>
+</div>
+</section>
+
+<section class="shelf" aria-labelledby="sh-moed" data-dc-hidden="{{hideMoed}}">
+<div class="shelf-head"><h2 class="he" id="sh-moed" lang="he">סדר מועד</h2><p class="meta">Seder Moed, 1 volume</p></div>
+<div class="shelf-grid">
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Shabbos, volume 1"><img class="cover" data-dc-src="{{covers.shabbos}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Shabbos</span><span class="he cap-he" lang="he">שבת</span></span><span class="cap-sub">Volume 1</span><span class="status" data-dc-hidden="{{qShabbos}}"><button class="status-btn" type="button" data-on="Click:dlShabbos"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v10.5M7.5 10.5l4.5 4.5 4.5-4.5M5.5 19.5h13"></path></svg>Download</button></span><span class="status" data-dc-hidden="{{nqShabbos}}"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>Waiting for connection</span></figcaption></figure>
+</div>
+</section>
+
+<section class="shelf" aria-labelledby="sh-nash" data-dc-hidden="{{hideNash}}">
+<div class="shelf-head"><h2 class="he" id="sh-nash" lang="he">סדר נשים</h2><p class="meta">Seder Nashim, 1 volume</p></div>
+<div class="shelf-grid">
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Kesubos, volume 1"><img class="cover" data-dc-src="{{covers.kesubos}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Kesubos</span><span class="he cap-he" lang="he">כתובות</span></span><span class="cap-sub">Volume 1</span><span class="status"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.3 12.3l2.6 2.6 4.9-5.4"></path></svg>On this iPad</span></figcaption></figure>
+</div>
+</section>
+
+<section class="shelf" aria-labelledby="sh-kod" data-dc-hidden="{{hideKod}}">
+<div class="shelf-head"><h2 class="he" id="sh-kod" lang="he">סדר קדשים</h2><p class="meta">Seder Kodashim, 7 volumes</p></div>
+<div class="shelf-grid">
+<figure class="vol"><a class="vol-open" href="#Reader" aria-label="Open Arachin, at 2a"><img class="cover" data-dc-src="{{covers.arachin}}" alt=""><span class="gold-rule" aria-hidden="true"></span></a><figcaption class="cap"><span class="cap-line"><span class="cap-en">Arachin</span><span class="he cap-he" lang="he">ערכין</span></span><span class="cap-sub">Single volume. Reading <span class="he" lang="he">ב.</span> 2a</span><span class="status"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.3 12.3l2.6 2.6 4.9-5.4"></path></svg>On this iPad</span></figcaption></figure>
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Zevachim, volume 1"><img class="cover" data-dc-src="{{covers.zevachim}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Zevachim</span><span class="he cap-he" lang="he">זבחים</span></span><span class="cap-sub">Volume 1</span><span class="status"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.3 12.3l2.6 2.6 4.9-5.4"></path></svg>On this iPad</span></figcaption></figure>
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Menachos, volume 1"><img class="cover" data-dc-src="{{covers.menachos}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Menachos</span><span class="he cap-he" lang="he">מנחות</span></span><span class="cap-sub">Volume 1</span><span class="status"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.3 12.3l2.6 2.6 4.9-5.4"></path></svg>On this iPad</span></figcaption></figure>
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Chullin, volume 1"><img class="cover" data-dc-src="{{covers.chullin}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Chullin</span><span class="he cap-he" lang="he">חולין</span></span><span class="cap-sub">Volume 1</span><span class="status"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>Waiting for connection</span></figcaption></figure>
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Bechoros, volume 1"><img class="cover" data-dc-src="{{covers.bechoros}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Bechoros</span><span class="he cap-he" lang="he">בכורות</span></span><span class="cap-sub">Volume 1</span><span class="status" data-dc-hidden="{{qBechoros}}"><button class="status-btn" type="button" data-on="Click:dlBechoros"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v10.5M7.5 10.5l4.5 4.5 4.5-4.5M5.5 19.5h13"></path></svg>Download</button></span><span class="status" data-dc-hidden="{{nqBechoros}}"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>Waiting for connection</span></figcaption></figure>
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Temurah"><img class="cover" data-dc-src="{{covers.temurah}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Temurah</span><span class="he cap-he" lang="he">תמורה</span></span><span class="cap-sub">Single volume</span><span class="status" data-dc-hidden="{{qTemurah}}"><button class="status-btn" type="button" data-on="Click:dlTemurah"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v10.5M7.5 10.5l4.5 4.5 4.5-4.5M5.5 19.5h13"></path></svg>Download</button></span><span class="status" data-dc-hidden="{{nqTemurah}}"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>Waiting for connection</span></figcaption></figure>
+<figure class="vol"><button class="vol-open" type="button" aria-label="Open Kereisos"><img class="cover" data-dc-src="{{covers.kereisos}}" alt=""></button><figcaption class="cap"><span class="cap-line"><span class="cap-en">Kereisos</span><span class="he cap-he" lang="he">כריתות</span></span><span class="cap-sub">Single volume</span><span class="status" data-dc-hidden="{{qKereisos}}"><button class="status-btn" type="button" data-on="Click:dlKereisos"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v10.5M7.5 10.5l4.5 4.5 4.5-4.5M5.5 19.5h13"></path></svg>Download</button></span><span class="status" data-dc-hidden="{{nqKereisos}}"><svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>Waiting for connection</span></figcaption></figure>
+</div>
+</section>
+
+<section class="empty" data-dc-hidden="{{emptyHidden}}" aria-live="polite">
+<h2 class="d2">{{emptyTitle}}</h2>
+<p class="meta">Volumes you add appear here, sorted by when you last opened them.</p>
+<button class="btn btn-quiet" type="button" data-on="Click:showAll">Show all Talmud Bavli volumes</button>
+</section>
+</div>
+</main>
+</div>
+</div>
+</div>
+  </div>
+</section>
+
+<section class="frame" id="Contents" aria-labelledby="lbl-Contents">
+  <h2 class="frame-label" id="lbl-Contents">Contents with chapter opener, landscape <span>1194 × 834</span></h2>
+  <div class="scaler" data-w="1194" data-h="834">
+    <div class="ab" id="ab-Contents" style="width:1194px;height:834px">
+
+<div class="ipad land">
+<div class="app">
+<nav class="sb" aria-label="Sidebar">
+<p class="sb-title">ArtScroll</p>
+<ul class="sb-list">
+<li><a class="sb-item" href="#Main"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5c-1.8-1.4-4.6-2-8-2v13c3.4 0 6.2.6 8 2 1.8-1.4 4.6-2 8-2v-13c-3.4 0-6.2.6-8 2zM12 6.5v13"></path></svg>Learn</a></li>
+<li><a class="sb-item" href="#Library" aria-current="page"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h3.2v15H5zM10.4 4.5h3.2v15h-3.2zM15.6 5.6l3-.8 3.4 14.2-3 .8z"></path></svg>Library</a></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5H18v14H7a2 2 0 0 0-2 2V5a1.5 1.5 0 0 1 1.5-1.5zM5 19.5a2 2 0 0 0 2 1h11v-3M9.5 8h5"></path></svg>Siddur</button></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h9l3.5 3.5v13.5H6zM15 3.5V7h3.5M9 11.5h6.5M9 15h6.5"></path></svg>My notes</button></li>
+<li><button class="sb-item" type="button" data-dc-aria-expanded="{{toolsOpen}}" aria-controls="tools-ct" data-on="Click:toggleTools"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4.5h6v6h-6zM13.5 4.5h6v6h-6zM4.5 13.5h6v6h-6zM13.5 13.5h6v6h-6z"></path></svg>Tools<svg class="i chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<ul class="sb-list sb-sub" id="tools-ct" data-dc-hidden="{{toolsHidden}}">
+<li><button class="sb-item" type="button">Zmanim</button></li>
+<li><button class="sb-item" type="button">Luach</button></li>
+<li><button class="sb-item" type="button">Mizrach</button></li>
+<li><button class="sb-item" type="button">Misheberach</button></li>
+<li><button class="sb-item" type="button">Verses for names</button></li>
+<li><button class="sb-item" type="button">Tefillin mirror</button></li>
+</ul>
+</li>
+</ul>
+<ul class="sb-list sb-foot">
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5v3.5H8M12 8v4.2l2.8 1.8"></path></svg>History</button></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"></path></svg>Settings</button></li>
+</ul>
+</nav>
+
+<div class="reader-main">
+<header class="toolbar">
+<div class="tb-lead">
+<a class="tool-btn tb-back" href="#Reader"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"></path></svg>Arachin 2a</a>
+</div>
+<div class="tb-center">
+<h1 class="tb-title"><span class="en">Contents</span></h1>
+</div>
+<div class="tb-trail">
+<button class="tool-btn" type="button" aria-label="Search in Arachin"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"></circle><path d="M15.5 15.5l4.5 4.5"></path></svg></button>
+</div>
+</header>
+<main class="pane">
+<div class="page" style="padding-top: 0">
+<header class="ct-open">
+<span class="gold-rule" aria-hidden="true"></span>
+<h2 class="ct-he he" lang="he">פרק ראשון — הכל מעריכין</h2>
+<p class="ct-en">Chapter One, Hakol Ma’arichin</p>
+<p class="ct-meta">Arachin opens here, on <span class="he" lang="he">ב.</span> 2a</p>
+<span class="gold-rule" aria-hidden="true"></span>
+</header>
+
+<ol class="pk-list" aria-label="Chapters of Arachin">
+<li>
+<a class="pk" href="#Reader" aria-current="true"><span class="pk-num">1</span><span class="pk-en">Hakol Ma’arichin</span><span class="he pk-he" lang="he"><span class="pk-ord">פרק ראשון</span> הכל מעריכין</span></a>
+<div class="dapim" role="group" aria-label="Dapim in chapter 1">
+<a class="daf-btn" href="#Reader" aria-current="page"><span class="he" lang="he">ב.</span><span class="en">2a</span><span class="cur" aria-hidden="true"></span></a>
+<a class="daf-btn" href="#Reader"><span class="he" lang="he">ב:</span><span class="en">2b</span><span class="cur-none" aria-hidden="true"></span></a>
+<a class="daf-btn" href="#Reader"><span class="he" lang="he">ג.</span><span class="en">3a</span><span class="cur-none" aria-hidden="true"></span></a>
+<a class="daf-btn" href="#Reader"><span class="he" lang="he">ג:</span><span class="en">3b</span><span class="cur-none" aria-hidden="true"></span></a>
+<a class="daf-btn" href="#Reader"><span class="he" lang="he">ד.</span><span class="en">4a</span><span class="cur-none" aria-hidden="true"></span></a>
+<a class="daf-btn" href="#Reader"><span class="he" lang="he">ד:</span><span class="en">4b</span><span class="cur-none" aria-hidden="true"></span></a>
+<a class="daf-btn" href="#Reader"><span class="he" lang="he">ה.</span><span class="en">5a</span><span class="cur-none" aria-hidden="true"></span></a>
+<a class="daf-btn" href="#Reader"><span class="he" lang="he">ה:</span><span class="en">5b</span><span class="cur-none" aria-hidden="true"></span></a>
+<a class="daf-btn" href="#Reader"><span class="he" lang="he">ו.</span><span class="en">6a</span><span class="cur-none" aria-hidden="true"></span></a>
+<a class="daf-btn" href="#Reader"><span class="he" lang="he">ו:</span><span class="en">6b</span><span class="cur-none" aria-hidden="true"></span></a>
+<a class="daf-btn" href="#Reader"><span class="he" lang="he">ז.</span><span class="en">7a</span><span class="cur-none" aria-hidden="true"></span></a>
+</div>
+</li>
+<li><button class="pk" type="button"><span class="pk-num">2</span><span class="pk-en">Ein Ne’erachin</span><span class="he pk-he" lang="he"><span class="pk-ord">פרק שני</span> אין נערכין</span></button></li>
+<li><button class="pk" type="button"><span class="pk-num">3</span><span class="pk-en">Yesh BaArachin</span><span class="he pk-he" lang="he"><span class="pk-ord">פרק שלישי</span> יש בערכין</span></button></li>
+<li><button class="pk" type="button"><span class="pk-num">4</span><span class="pk-en">HaSeg Yad</span><span class="he pk-he" lang="he"><span class="pk-ord">פרק רביעי</span> השג יד</span></button></li>
+<li><button class="pk" type="button"><span class="pk-num">5</span><span class="pk-en">HaOmer Mishkali</span><span class="he pk-he" lang="he"><span class="pk-ord">פרק חמישי</span> האומר משקלי</span></button></li>
+<li><button class="pk" type="button"><span class="pk-num">6</span><span class="pk-en">Shum HaYesomim</span><span class="he pk-he" lang="he"><span class="pk-ord">פרק שישי</span> שום היתומים</span></button></li>
+<li><button class="pk" type="button"><span class="pk-num">7</span><span class="pk-en">HaMakdish Sadehu</span><span class="he pk-he" lang="he"><span class="pk-ord">פרק שביעי</span> המקדיש שדהו</span></button></li>
+<li><button class="pk" type="button"><span class="pk-num">8</span><span class="pk-en">HaMacharim</span><span class="he pk-he" lang="he"><span class="pk-ord">פרק שמיני</span> המחרים</span></button></li>
+<li><button class="pk" type="button"><span class="pk-num">9</span><span class="pk-en">HaMocher Sadehu</span><span class="he pk-he" lang="he"><span class="pk-ord">פרק תשיעי</span> המוכר שדהו</span></button></li>
+</ol>
+</div>
+</main>
+</div>
+</div>
+</div>
+</div>
+  </div>
+</section>
+
+<section class="frame" id="Reader" aria-labelledby="lbl-Reader">
+  <h2 class="frame-label" id="lbl-Reader">Reader, landscape <span>1194 × 834</span></h2>
+  <div class="scaler" data-w="1194" data-h="834">
+    <div class="ab" id="ab-Reader" style="width:1194px;height:834px">
+
+<div data-dc-class="{{rootCls}}">
+<div class="app">
+<nav class="sb" aria-label="Sidebar">
+<p class="sb-title">ArtScroll</p>
+<ul class="sb-list">
+<li><a class="sb-item" href="#Main"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5c-1.8-1.4-4.6-2-8-2v13c3.4 0 6.2.6 8 2 1.8-1.4 4.6-2 8-2v-13c-3.4 0-6.2.6-8 2zM12 6.5v13"></path></svg>Learn</a></li>
+<li><a class="sb-item" href="#Library" aria-current="page"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h3.2v15H5zM10.4 4.5h3.2v15h-3.2zM15.6 5.6l3-.8 3.4 14.2-3 .8z"></path></svg>Library</a></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5H18v14H7a2 2 0 0 0-2 2V5a1.5 1.5 0 0 1 1.5-1.5zM5 19.5a2 2 0 0 0 2 1h11v-3M9.5 8h5"></path></svg>Siddur</button></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h9l3.5 3.5v13.5H6zM15 3.5V7h3.5M9 11.5h6.5M9 15h6.5"></path></svg>My notes</button></li>
+<li><button class="sb-item" type="button" data-dc-aria-expanded="{{toolsOpen}}" aria-controls="tools-rd" data-on="Click:toggleTools"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4.5h6v6h-6zM13.5 4.5h6v6h-6zM4.5 13.5h6v6h-6zM13.5 13.5h6v6h-6z"></path></svg>Tools<svg class="i chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<ul class="sb-list sb-sub" id="tools-rd" data-dc-hidden="{{toolsHidden}}">
+<li><button class="sb-item" type="button">Zmanim</button></li>
+<li><button class="sb-item" type="button">Luach</button></li>
+<li><button class="sb-item" type="button">Mizrach</button></li>
+<li><button class="sb-item" type="button">Misheberach</button></li>
+<li><button class="sb-item" type="button">Verses for names</button></li>
+<li><button class="sb-item" type="button">Tefillin mirror</button></li>
+</ul>
+</li>
+</ul>
+<ul class="sb-list sb-foot">
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5v3.5H8M12 8v4.2l2.8 1.8"></path></svg>History</button></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"></path></svg>Settings</button></li>
+</ul>
+</nav>
+
+<div class="reader-main">
+<header class="toolbar">
+<div class="tb-lead">
+<a class="tool-btn tb-back" href="#Library"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"></path></svg>Library</a>
+<a class="tool-btn" href="#Contents" aria-label="Contents"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5h11M9 12h11M9 17.5h11M4.5 6.5h.01M4.5 12h.01M4.5 17.5h.01"></path></svg></a>
+</div>
+<div class="tb-center">
+<button class="tool-btn" type="button" aria-label="Previous daf" aria-disabled="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"></path></svg></button>
+<h1 class="tb-title"><span class="en">Arachin 2a</span><span class="he" lang="he">ערכין ב.</span></h1>
+<button class="tool-btn" type="button" aria-label="Next daf, 2b"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5"></path></svg></button>
+</div>
+<div class="tb-trail">
+<button class="tool-btn aa" type="button" aria-haspopup="dialog" data-dc-aria-expanded="{{pop}}" aria-controls="display-l" data-on="Click:togglePop"><span class="a1">Aa</span><span class="a2 he" lang="he">א</span></button>
+<button class="tool-btn" type="button" aria-label="Search in Arachin"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"></circle><path d="M15.5 15.5l4.5 4.5"></path></svg></button>
+<button class="tool-btn" type="button" aria-label="Translation panel" data-dc-aria-pressed="{{panelOn}}" data-on="Click:togglePanel"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5h17v14h-17zM14.5 5v14"></path></svg></button>
+</div>
+</header>
+
+<div class="reader-body">
+<div class="daf-area">
+<article class="daf" aria-label="Arachin 2a, Vilna page">
+<div class="daf-head" lang="he"><span>פרק ראשון</span><span class="c">ערכין</span><span class="l">ב.</span></div>
+<div class="daf-cols">
+<div class="comm" aria-label="Rashi, drawn as stand-in lines"><span class="comm-label" lang="he">רש״י</span><sc-for list="{{rashi}}" as="l" hint-placeholder-count="80"><i data-dc-class="{{l.c}}"></i></sc-for></div>
+<div>
+<p class="gm" lang="he" dir="rtl"><span class="big"><span class="seg is-hl">מתני׳ הכל</span></span><span class="seg is-hl">מעריכין ונערכין נודרין ונידרין כהנים לוים וישראלים נשים ועבדים</span> <span class="seg">טומטום ואנדרוגינוס נודרין ונידרין ומעריכין אבל לא נערכין שאינו נערך אלא הזכר ודאי ונקבה ודאית</span> <span class="seg">חרש שוטה וקטן נידרין ונערכין אבל לא נודרין ולא מעריכין מפני שאין בהם דעת:</span> <span class="seg"><span class="lbl">גמ׳</span> הכל מעריכין לאתויי מאי לאתויי מופלא סמוך לאיש</span> <span class="seg">נערכין לאתויי מאי לאתויי מנוול ומוכה שחין</span> <span class="seg">סד״א נדר בערכך כתיב כל שישנו בדמים ישנו בערכין וכל שאינו בדמים אינו בערכין</span> <span class="seg">קמ״ל נפשות כל דהו</span> <span class="seg">נודרין לאתויי מאי נידרין איצטריך ליה</span> <span class="seg">נידרין לאתויי מאי אי לאתויי טומטום ואנדרוגינוס בהדיא קתני להו ואי לאתויי חרש שוטה וקטן בהדיא קתני להו</span> <span class="seg">אי לאתויי פחות מבן חודש בהדיא קתני להו ואי לאתויי עובד כוכבים בהדיא קתני להו לעולם לאתויי פחות מבן חודש ותני והדר מפרש</span> <span class="seg">הכל סומכין לאתויי מאי לאתויי יורש ודלא כרבי יהודה</span></p>
+</div>
+<div class="comm" aria-label="Tosafos, drawn as stand-in lines"><span class="comm-label" lang="he">תוספות</span><sc-for list="{{tos}}" as="l" hint-placeholder-count="80"><i data-dc-class="{{l.c}}"></i></sc-for></div>
+</div>
+</article>
+</div>
+
+<aside class="tp" aria-label="Translation panel">
+<div class="tp-top">
+<div class="segctl" role="tablist" aria-label="Panel">
+<button type="button" role="tab" data-dc-aria-selected="{{tabTr}}" aria-controls="tr-l" data-on="Click:showTr">Translation</button>
+<button type="button" role="tab" data-dc-aria-selected="{{tabNotes}}" aria-controls="notes-l" data-on="Click:showNotes">Notes</button>
+<button type="button" role="tab" data-dc-aria-selected="{{tabComm}}" aria-controls="comm-l" data-on="Click:showComm">Commentary</button>
+</div>
+</div>
+<div class="tp-scroll" data-dc-style="font-size: {{fs}}px">
+<div id="tr-l" role="tabpanel" data-dc-hidden="{{hideTr}}">
+<div class="dedic">
+<p class="he" lang="he">לעילוי נשמת ר׳ אברהם בן יוסף הלוי ז״ל</p>
+<p class="en">Dedicated by his children and grandchildren to the memory of Avraham Stern, who learned Seder Kodashim every winter for fifty years.</p>
+</div>
+<header class="opener">
+<span class="gold-rule" aria-hidden="true"></span>
+<h2 class="he" lang="he">פרק ראשון — הכל מעריכין</h2>
+<p class="en">Chapter One, Hakol Ma’arichin</p>
+<span class="gold-rule" aria-hidden="true"></span>
+</header>
+<div class="tr-seg is-hl">
+<p class="tr-he he" lang="he">מתני׳ הכל מעריכין ונערכין נודרין ונידרין כהנים לוים וישראלים נשים ועבדים</p>
+<p class="tr-en"><b>Mishnah. All may pledge a valuation and may be the subject of a valuation;<sup>1</sup> all may vow another’s worth and may be the subject of such a vow: Kohanim, Leviim and Yisraelim, women and slaves.</b> A valuation is the fixed sum the Torah sets for a person by age and sex, pledged to the Temple treasury. A vow of worth pledges what the person would fetch if sold. Every one of these may make either vow, and may be its subject.</p>
+<p class="tr-fn"><sup>1</sup>The valuations are set out in Leviticus 27:1–8, from five shekels for a boy under five to fifty for a man between twenty and sixty.</p>
+</div>
+<div class="tr-seg">
+<p class="tr-he he" lang="he">טומטום ואנדרוגינוס נודרין ונידרין ומעריכין אבל לא נערכין שאינו נערך אלא הזכר ודאי ונקבה ודאית</p>
+<p class="tr-en"><b>A tumtum and an androgynos<sup>2</sup> may vow worth, may be the subject of a vow of worth, and may pledge a valuation, but they are not the subject of a valuation, for only one who is definitely male or definitely female is valued.</b> The Torah gives one scale for a man and another for a woman, so a person who is neither definitely one nor the other has no sum to be valued at. A vow of worth depends only on market price, so it still applies.</p>
+<p class="tr-fn"><sup>2</sup>A tumtum is a person whose sex cannot be determined. An androgynos has the features of both sexes.</p>
+</div>
+<div class="tr-seg">
+<p class="tr-he he" lang="he">חרש שוטה וקטן נידרין ונערכין אבל לא נודרין ולא מעריכין מפני שאין בהם דעת:</p>
+<p class="tr-en"><b>A deaf-mute, a person who is not mentally competent, and a minor may be the subject of a vow of worth or a valuation, but they may not vow worth or pledge a valuation, because they lack legal understanding.</b> Someone else may pledge their value, since a competent adult is making the vow. A vow of their own does not bind.</p>
+</div>
+<div class="tr-seg">
+<p class="tr-he he" lang="he">גמ׳ הכל מעריכין לאתויי מאי לאתויי מופלא סמוך לאיש</p>
+<p class="tr-en"><b>Gemara. “All may pledge a valuation.” What does “all” come to include? It includes a boy close to adulthood whose understanding has been confirmed.</b><sup>3</sup> In the year before he comes of age, a boy who shows he understands what a vow means may pledge a valuation, though he is not yet an adult.</p>
+<p class="tr-fn"><sup>3</sup>Mufla samuch l’ish: a boy in his thirteenth year whose vows take effect once it is clear he knew to Whom he vowed.</p>
+</div>
+<div class="tr-seg">
+<p class="tr-he he" lang="he">נערכין לאתויי מאי לאתויי מנוול ומוכה שחין</p>
+<p class="tr-en"><b>“And may be the subject of a valuation.” What does this come to include? It includes a person who is disfigured or covered in boils.</b> Such a person would fetch little on the market, yet he is still valued at the full sum the Torah fixes.</p>
+</div>
+<div class="tr-seg">
+<p class="tr-he he" lang="he">סד״א נדר בערכך כתיב כל שישנו בדמים ישנו בערכין וכל שאינו בדמים אינו בערכין</p>
+<p class="tr-en"><b>For you might have said: since the verse says “a vow by your valuation,” whoever has a market worth has a valuation, and whoever has no market worth has no valuation.</b> The verse seems to tie the two vows together, so one could think that a person worth nothing at sale cannot be valued either.</p>
+</div>
+<div class="tr-seg">
+<p class="tr-he he" lang="he">קמ״ל נפשות כל דהו</p>
+<p class="tr-en"><b>The Mishnah therefore teaches that “persons” includes anyone at all.</b> The Torah speaks of the valuation of “persons” with no condition attached, so the fixed sum applies whatever the person would fetch.</p>
+</div>
+</div>
+<div class="tp-empty" id="notes-l" role="tabpanel" data-dc-hidden="{{hideNotes}}">
+<h2 class="d2">No notes on 2a</h2>
+<p>Select words on the daf, then choose Add note. A note stays with the line you wrote it on.</p>
+<div><button class="btn btn-quiet" type="button">Add a note</button></div>
+</div>
+<ul class="comm-list" id="comm-l" role="tabpanel" data-dc-hidden="{{hideComm}}">
+<li><button class="comm-row" type="button"><span><span class="en">Rashi</span><span class="sub">Inner column of the daf</span></span><span class="he" lang="he">רש״י</span></button></li>
+<li><button class="comm-row" type="button"><span><span class="en">Tosafos</span><span class="sub">Outer column of the daf</span></span><span class="he" lang="he">תוספות</span></button></li>
+<li><button class="comm-row" type="button"><span><span class="en">Rabbeinu Gershom</span><span class="sub">At the back of the volume</span></span><span class="he" lang="he">רבינו גרשום</span></button></li>
+<li><button class="comm-row" type="button"><span><span class="en">Shitah Mekubetzes</span><span class="sub">At the back of the volume</span></span><span class="he" lang="he">שיטה מקובצת</span></button></li>
+</ul>
+</div>
+</aside>
+</div>
+
+<button class="scrim" type="button" tabindex="-1" aria-label="Close display menu" data-dc-hidden="{{popHidden}}" data-on="Click:closePop"></button>
+<div class="pop" id="display-l" role="dialog" aria-label="Display" data-dc-hidden="{{popHidden}}">
+<div class="pop-sec">
+<p class="pop-lbl">Theme</p>
+<div class="themes">
+<button class="theme-btn" type="button" data-dc-aria-pressed="{{thLight}}" data-on="Click:toLight"><span class="swatch sw-light" aria-hidden="true">Aa</span>Light</button>
+<button class="theme-btn" type="button" data-dc-aria-pressed="{{thSepia}}" data-on="Click:toSepia"><span class="swatch sw-sepia" aria-hidden="true">Aa</span>Sepia</button>
+<button class="theme-btn" type="button" data-dc-aria-pressed="{{thNight}}" data-on="Click:toNight"><span class="swatch sw-night" aria-hidden="true">Aa</span>Night</button>
+</div>
+</div>
+<div class="pop-sec">
+<p class="pop-lbl"><label for="size-l">Text size</label><output for="size-l">{{fs}} pt</output></p>
+<div class="size-row"><span class="s" aria-hidden="true">A</span><input class="range" id="size-l" type="range" min="14" max="26" step="1" data-dc-value="{{fs}}" data-on="Change:onFs"><span class="l" aria-hidden="true">A</span></div>
+</div>
+<div class="pop-sec">
+<p class="pop-lbl" id="layout-l">Layout</p>
+<div class="segctl" role="group" aria-labelledby="layout-l">
+<button type="button" data-dc-aria-pressed="{{layDaf}}" data-on="Click:toDaf">Daf</button>
+<button type="button" data-dc-aria-pressed="{{layTr}}" data-on="Click:toTr">Translation</button>
+<button type="button" data-dc-aria-pressed="{{laySide}}" data-on="Click:toSide">Side by side</button>
+</div>
+</div>
+<div class="pop-sec">
+<div class="sw-row"><span class="lab" id="sw-fn-l">Footnotes under each line</span><button class="switch" type="button" role="switch" data-dc-aria-checked="{{fn}}" aria-labelledby="sw-fn-l" data-on="Click:flipFn"><span class="track"></span><span class="thumb"></span></button></div>
+<div class="sw-row"><span class="lab" id="sw-hl-l">Highlight the line being translated</span><button class="switch" type="button" role="switch" data-dc-aria-checked="{{hl}}" aria-labelledby="sw-hl-l" data-on="Click:flipHl"><span class="track"></span><span class="thumb"></span></button></div>
+<div class="sw-row"><span class="lab" id="sw-kl-l">Keep the daf light at night</span><button class="switch" type="button" role="switch" data-dc-aria-checked="{{keep}}" aria-labelledby="sw-kl-l" data-on="Click:flipKeep"><span class="track"></span><span class="thumb"></span></button></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+  </div>
+</section>
+
+<section class="frame" id="ReaderPortrait" aria-labelledby="lbl-ReaderPortrait">
+  <h2 class="frame-label" id="lbl-ReaderPortrait">Reader, portrait, display menu open <span>834 × 1194</span></h2>
+  <div class="scaler" data-w="834" data-h="1194">
+    <div class="ab" id="ab-ReaderPortrait" style="width:834px;height:1194px">
+
+<div data-dc-class="{{rootCls}}">
+<div class="reader-main">
+<header class="toolbar">
+<div class="tb-lead">
+<a class="tool-btn tb-back" href="#Library"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"></path></svg>Library</a>
+<a class="tool-btn" href="#Contents" aria-label="Contents"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5h11M9 12h11M9 17.5h11M4.5 6.5h.01M4.5 12h.01M4.5 17.5h.01"></path></svg></a>
+</div>
+<div class="tb-center">
+<button class="tool-btn" type="button" aria-label="Previous daf" aria-disabled="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"></path></svg></button>
+<h1 class="tb-title"><span class="en">Arachin 2a</span><span class="he" lang="he">ערכין ב.</span></h1>
+<button class="tool-btn" type="button" aria-label="Next daf, 2b"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5"></path></svg></button>
+</div>
+<div class="tb-trail">
+<button class="tool-btn aa" type="button" aria-haspopup="dialog" data-dc-aria-expanded="{{pop}}" aria-controls="display-p" data-on="Click:togglePop"><span class="a1">Aa</span><span class="a2 he" lang="he">א</span></button>
+<button class="tool-btn" type="button" aria-label="Search in Arachin"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"></circle><path d="M15.5 15.5l4.5 4.5"></path></svg></button>
+<button class="tool-btn" type="button" aria-label="Translation sheet" data-dc-aria-pressed="{{panelOn}}" data-on="Click:togglePanel"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5h17v14h-17zM3.5 13.5h17"></path></svg></button>
+</div>
+</header>
+
+<div class="reader-body">
+<div class="daf-area">
+<article class="daf" aria-label="Arachin 2a, Vilna page">
+<div class="daf-head" lang="he"><span>פרק ראשון</span><span class="c">ערכין</span><span class="l">ב.</span></div>
+<div class="daf-cols">
+<div class="comm" aria-label="Rashi, drawn as stand-in lines"><span class="comm-label" lang="he">רש״י</span><sc-for list="{{rashi}}" as="l" hint-placeholder-count="160"><i data-dc-class="{{l.c}}"></i></sc-for></div>
+<div>
+<p class="gm" lang="he" dir="rtl"><span class="big"><span class="seg is-hl">מתני׳ הכל</span></span><span class="seg is-hl">מעריכין ונערכין נודרין ונידרין כהנים לוים וישראלים נשים ועבדים</span> <span class="seg">טומטום ואנדרוגינוס נודרין ונידרין ומעריכין אבל לא נערכין שאינו נערך אלא הזכר ודאי ונקבה ודאית</span> <span class="seg">חרש שוטה וקטן נידרין ונערכין אבל לא נודרין ולא מעריכין מפני שאין בהם דעת:</span> <span class="seg"><span class="lbl">גמ׳</span> הכל מעריכין לאתויי מאי לאתויי מופלא סמוך לאיש</span> <span class="seg">נערכין לאתויי מאי לאתויי מנוול ומוכה שחין</span> <span class="seg">סד״א נדר בערכך כתיב כל שישנו בדמים ישנו בערכין וכל שאינו בדמים אינו בערכין</span> <span class="seg">קמ״ל נפשות כל דהו</span> <span class="seg">נודרין לאתויי מאי נידרין איצטריך ליה</span> <span class="seg">נידרין לאתויי מאי אי לאתויי טומטום ואנדרוגינוס בהדיא קתני להו ואי לאתויי חרש שוטה וקטן בהדיא קתני להו</span> <span class="seg">אי לאתויי פחות מבן חודש בהדיא קתני להו ואי לאתויי עובד כוכבים בהדיא קתני להו לעולם לאתויי פחות מבן חודש ותני והדר מפרש</span> <span class="seg">הכל סומכין לאתויי מאי לאתויי יורש ודלא כרבי יהודה</span> <span class="seg">הכל ממירין לאתויי מאי לאתויי יורש ודלא כרבי יהודה</span> <span class="seg">דתניא יורש סומך יורש מימר ר׳ יהודה אומר יורש אינו סומך יורש אינו מימר</span> <span class="seg">מאי טעמא דרבי יהודה (ויקרא א, ג) קרבנו ולא קרבן אביו ויליף תחלת הקדש מסוף הקדש מה סוף הקדש יורש אינו סומך אף תחלת הקדש יורש אינו מימר</span></p>
+</div>
+<div class="comm" aria-label="Tosafos, drawn as stand-in lines"><span class="comm-label" lang="he">תוספות</span><sc-for list="{{tos}}" as="l" hint-placeholder-count="160"><i data-dc-class="{{l.c}}"></i></sc-for></div>
+</div>
+</article>
+</div>
+</div>
+
+<section class="sheet" aria-label="Translation">
+<span class="grab" aria-hidden="true"></span>
+<div class="tp-top">
+<p class="sheet-ref"><span class="en">Arachin 2a</span><span class="he" lang="he">ערכין ב.</span></p>
+<div class="segctl" role="tablist" aria-label="Sheet">
+<button type="button" role="tab" data-dc-aria-selected="{{tabTr}}" aria-controls="tr-p" data-on="Click:showTr">Translation</button>
+<button type="button" role="tab" data-dc-aria-selected="{{tabNotes}}" aria-controls="notes-p" data-on="Click:showNotes">Notes</button>
+<button type="button" role="tab" data-dc-aria-selected="{{tabComm}}" aria-controls="comm-p" data-on="Click:showComm">Commentary</button>
+</div>
+</div>
+<div class="tp-scroll" data-dc-style="font-size: {{fs}}px">
+<div id="tr-p" role="tabpanel" data-dc-hidden="{{hideTr}}">
+<div class="dedic">
+<p class="he" lang="he">לעילוי נשמת ר׳ אברהם בן יוסף הלוי ז״ל</p>
+<p class="en">Dedicated by his children and grandchildren to the memory of Avraham Stern, who learned Seder Kodashim every winter for fifty years.</p>
+</div>
+<header class="opener">
+<span class="gold-rule" aria-hidden="true"></span>
+<h2 class="he" lang="he">פרק ראשון — הכל מעריכין</h2>
+<p class="en">Chapter One, Hakol Ma’arichin</p>
+<span class="gold-rule" aria-hidden="true"></span>
+</header>
+<div class="tr-seg is-hl">
+<p class="tr-he he" lang="he">מתני׳ הכל מעריכין ונערכין נודרין ונידרין כהנים לוים וישראלים נשים ועבדים</p>
+<p class="tr-en"><b>Mishnah. All may pledge a valuation and may be the subject of a valuation;<sup>1</sup> all may vow another’s worth and may be the subject of such a vow: Kohanim, Leviim and Yisraelim, women and slaves.</b> A valuation is the fixed sum the Torah sets for a person by age and sex, pledged to the Temple treasury. A vow of worth pledges what the person would fetch if sold. Every one of these may make either vow, and may be its subject.</p>
+<p class="tr-fn"><sup>1</sup>The valuations are set out in Leviticus 27:1–8, from five shekels for a boy under five to fifty for a man between twenty and sixty.</p>
+</div>
+<div class="tr-seg">
+<p class="tr-he he" lang="he">טומטום ואנדרוגינוס נודרין ונידרין ומעריכין אבל לא נערכין שאינו נערך אלא הזכר ודאי ונקבה ודאית</p>
+<p class="tr-en"><b>A tumtum and an androgynos<sup>2</sup> may vow worth, may be the subject of a vow of worth, and may pledge a valuation, but they are not the subject of a valuation, for only one who is definitely male or definitely female is valued.</b> The Torah gives one scale for a man and another for a woman, so a person who is neither definitely one nor the other has no sum to be valued at. A vow of worth depends only on market price, so it still applies.</p>
+<p class="tr-fn"><sup>2</sup>A tumtum is a person whose sex cannot be determined. An androgynos has the features of both sexes.</p>
+</div>
+<div class="tr-seg">
+<p class="tr-he he" lang="he">חרש שוטה וקטן נידרין ונערכין אבל לא נודרין ולא מעריכין מפני שאין בהם דעת:</p>
+<p class="tr-en"><b>A deaf-mute, a person who is not mentally competent, and a minor may be the subject of a vow of worth or a valuation, but they may not vow worth or pledge a valuation, because they lack legal understanding.</b> Someone else may pledge their value, since a competent adult is making the vow. A vow of their own does not bind.</p>
+</div>
+<div class="tr-seg">
+<p class="tr-he he" lang="he">גמ׳ הכל מעריכין לאתויי מאי לאתויי מופלא סמוך לאיש</p>
+<p class="tr-en"><b>Gemara. “All may pledge a valuation.” What does “all” come to include? It includes a boy close to adulthood whose understanding has been confirmed.</b><sup>3</sup> In the year before he comes of age, a boy who shows he understands what a vow means may pledge a valuation, though he is not yet an adult.</p>
+<p class="tr-fn"><sup>3</sup>Mufla samuch l’ish: a boy in his thirteenth year whose vows take effect once it is clear he knew to Whom he vowed.</p>
+</div>
+<div class="tr-seg">
+<p class="tr-he he" lang="he">נערכין לאתויי מאי לאתויי מנוול ומוכה שחין</p>
+<p class="tr-en"><b>“And may be the subject of a valuation.” What does this come to include? It includes a person who is disfigured or covered in boils.</b> Such a person would fetch little on the market, yet he is still valued at the full sum the Torah fixes.</p>
+</div>
+<div class="tr-seg">
+<p class="tr-he he" lang="he">סד״א נדר בערכך כתיב כל שישנו בדמים ישנו בערכין וכל שאינו בדמים אינו בערכין</p>
+<p class="tr-en"><b>For you might have said: since the verse says “a vow by your valuation,” whoever has a market worth has a valuation, and whoever has no market worth has no valuation.</b> The verse seems to tie the two vows together, so one could think that a person worth nothing at sale cannot be valued either.</p>
+</div>
+<div class="tr-seg">
+<p class="tr-he he" lang="he">קמ״ל נפשות כל דהו</p>
+<p class="tr-en"><b>The Mishnah therefore teaches that “persons” includes anyone at all.</b> The Torah speaks of the valuation of “persons” with no condition attached, so the fixed sum applies whatever the person would fetch.</p>
+</div>
+</div>
+<div class="tp-empty" id="notes-p" role="tabpanel" data-dc-hidden="{{hideNotes}}">
+<h2 class="d2">No notes on 2a</h2>
+<p>Select words on the daf, then choose Add note. A note stays with the line you wrote it on.</p>
+<div><button class="btn btn-quiet" type="button">Add a note</button></div>
+</div>
+<ul class="comm-list" id="comm-p" role="tabpanel" data-dc-hidden="{{hideComm}}">
+<li><button class="comm-row" type="button"><span><span class="en">Rashi</span><span class="sub">Inner column of the daf</span></span><span class="he" lang="he">רש״י</span></button></li>
+<li><button class="comm-row" type="button"><span><span class="en">Tosafos</span><span class="sub">Outer column of the daf</span></span><span class="he" lang="he">תוספות</span></button></li>
+<li><button class="comm-row" type="button"><span><span class="en">Rabbeinu Gershom</span><span class="sub">At the back of the volume</span></span><span class="he" lang="he">רבינו גרשום</span></button></li>
+<li><button class="comm-row" type="button"><span><span class="en">Shitah Mekubetzes</span><span class="sub">At the back of the volume</span></span><span class="he" lang="he">שיטה מקובצת</span></button></li>
+</ul>
+</div>
+</section>
+
+<button class="scrim" type="button" tabindex="-1" aria-label="Close display menu" data-dc-hidden="{{popHidden}}" data-on="Click:closePop"></button>
+<div class="pop" id="display-p" role="dialog" aria-label="Display" data-dc-hidden="{{popHidden}}">
+<div class="pop-sec">
+<p class="pop-lbl">Theme</p>
+<div class="themes">
+<button class="theme-btn" type="button" data-dc-aria-pressed="{{thLight}}" data-on="Click:toLight"><span class="swatch sw-light" aria-hidden="true">Aa</span>Light</button>
+<button class="theme-btn" type="button" data-dc-aria-pressed="{{thSepia}}" data-on="Click:toSepia"><span class="swatch sw-sepia" aria-hidden="true">Aa</span>Sepia</button>
+<button class="theme-btn" type="button" data-dc-aria-pressed="{{thNight}}" data-on="Click:toNight"><span class="swatch sw-night" aria-hidden="true">Aa</span>Night</button>
+</div>
+</div>
+<div class="pop-sec">
+<p class="pop-lbl"><label for="size-p">Text size</label><output for="size-p">{{fs}} pt</output></p>
+<div class="size-row"><span class="s" aria-hidden="true">A</span><input class="range" id="size-p" type="range" min="14" max="26" step="1" data-dc-value="{{fs}}" data-on="Change:onFs"><span class="l" aria-hidden="true">A</span></div>
+</div>
+<div class="pop-sec">
+<p class="pop-lbl" id="layout-p">Layout</p>
+<div class="segctl" role="group" aria-labelledby="layout-p">
+<button type="button" data-dc-aria-pressed="{{layDaf}}" data-on="Click:toDaf">Daf</button>
+<button type="button" data-dc-aria-pressed="{{layTr}}" data-on="Click:toTr">Translation</button>
+<button type="button" data-dc-aria-pressed="{{laySide}}" data-on="Click:toSide">Side by side</button>
+</div>
+</div>
+<div class="pop-sec">
+<div class="sw-row"><span class="lab" id="sw-fn-p">Footnotes under each line</span><button class="switch" type="button" role="switch" data-dc-aria-checked="{{fn}}" aria-labelledby="sw-fn-p" data-on="Click:flipFn"><span class="track"></span><span class="thumb"></span></button></div>
+<div class="sw-row"><span class="lab" id="sw-hl-p">Highlight the line being translated</span><button class="switch" type="button" role="switch" data-dc-aria-checked="{{hl}}" aria-labelledby="sw-hl-p" data-on="Click:flipHl"><span class="track"></span><span class="thumb"></span></button></div>
+<div class="sw-row"><span class="lab" id="sw-kl-p">Keep the daf light at night</span><button class="switch" type="button" role="switch" data-dc-aria-checked="{{keep}}" aria-labelledby="sw-kl-p" data-on="Click:flipKeep"><span class="track"></span><span class="thumb"></span></button></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+  </div>
+</section>
+<script src="js/covers.js"></script>
+<script src="js/dc-shim.js"></script>
+<script src="js/boards.js"></script>
+<script>
+(function () {
+  function fit() {
+    document.querySelectorAll('.scaler').forEach(function (s) {
+      var w = +s.dataset.w, h = +s.dataset.h;
+      var avail = s.parentNode.clientWidth;
+      var k = Math.min(1, avail / w);
+      s.style.width = (w * k) + 'px';
+      s.style.height = (h * k) + 'px';
+      s.firstElementChild.style.transform = 'scale(' + k + ')';
+    });
+  }
+  window.addEventListener('resize', fit);
+  fit();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Learn</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/CSS_PENDING">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700&amp;family=Libre+Caslon+Display&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#161412}a:hover{color:#36312D}
+</style>
+</helmet>
+<div class="ipad land">
+<div class="app">
+<nav class="sb" aria-label="Sidebar">
+<p class="sb-title">ArtScroll</p>
+<ul class="sb-list">
+<li><a class="sb-item" href="Main.dc.html" aria-current="page"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5c-1.8-1.4-4.6-2-8-2v13c3.4 0 6.2.6 8 2 1.8-1.4 4.6-2 8-2v-13c-3.4 0-6.2.6-8 2zM12 6.5v13"></path></svg>Learn</a></li>
+<li><a class="sb-item" href="Library.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h3.2v15H5zM10.4 4.5h3.2v15h-3.2zM15.6 5.6l3-.8 3.4 14.2-3 .8z"></path></svg>Library</a></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5H18v14H7a2 2 0 0 0-2 2V5a1.5 1.5 0 0 1 1.5-1.5zM5 19.5a2 2 0 0 0 2 1h11v-3M9.5 8h5"></path></svg>Siddur</button></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h9l3.5 3.5v13.5H6zM15 3.5V7h3.5M9 11.5h6.5M9 15h6.5"></path></svg>My notes</button></li>
+<li><button class="sb-item" type="button" aria-expanded="{{toolsOpen}}" aria-controls="tools-home" onClick="{{toggleTools}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4.5h6v6h-6zM13.5 4.5h6v6h-6zM4.5 13.5h6v6h-6zM13.5 13.5h6v6h-6z"></path></svg>Tools<svg class="i chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<ul class="sb-list sb-sub" id="tools-home" hidden="{{toolsHidden}}">
+<li><button class="sb-item" type="button">Zmanim</button></li>
+<li><button class="sb-item" type="button">Luach</button></li>
+<li><button class="sb-item" type="button">Mizrach</button></li>
+<li><button class="sb-item" type="button">Misheberach</button></li>
+<li><button class="sb-item" type="button">Verses for names</button></li>
+<li><button class="sb-item" type="button">Tefillin mirror</button></li>
+</ul>
+</li>
+</ul>
+<ul class="sb-list sb-foot">
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5v3.5H8M12 8v4.2l2.8 1.8"></path></svg>History</button></li>
+<li><button class="sb-item" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"></path></svg>Settings</button></li>
+</ul>
+</nav>
+
+<main class="pane">
+<div class="page g12">
+<header class="home-head">
+<div>
+<h1 class="title-pair"><span class="d1">Arachin 2a</span><span class="he" lang="he">ערכין ב.</span></h1>
+<p class="meta">Chapter 1, <span class="he" lang="he">הכל מעריכין</span>. Opened two hours ago.</p>
+</div>
+<div class="home-actions">
+<a class="link" href="Contents.dc.html">Contents</a>
+<a class="btn btn-primary" href="Reader.dc.html">Resume Arachin 2a</a>
+</div>
+</header>
+
+<div class="home-body g12">
+<section class="resume" aria-label="Current volume">
+<a class="vol" href="Reader.dc.html" style="text-decoration: none; color: inherit">
+<img class="cover" src="{{covers.arachin}}" alt="Arachin, cover">
+<span class="gold-rule" aria-hidden="true"></span>
+<span class="cap">
+<span class="cap-line"><span class="cap-en">Arachin</span><span class="he cap-he" lang="he">ערכין</span></span>
+<span class="cap-sub">Reading <span class="he" lang="he">ב.</span> 2a</span>
+</span>
+</a>
+</section>
+
+<section class="today" aria-labelledby="today-h">
+<div class="sec-head"><h2 class="d2" id="today-h">Today’s learning</h2><p class="meta">1 of 4 learned</p></div>
+<ul class="rows">
+<li><a class="row-link" href="Reader.dc.html"><span><span class="row-kind">Daf Yomi</span><span class="row-ref">Arachin 4</span></span><span class="he row-he" lang="he">ערכין ד</span></a></li>
+<li><button class="row-link" type="button"><span><span class="row-kind">Yerushalmi</span><span class="row-ref">Kesubos 37</span></span><span class="he row-he" lang="he">ירושלמי כתובות לז</span></button></li>
+<li><button class="row-link" type="button"><span><span class="row-kind">Mishnah Yomis</span><span class="row-ref">Negaim 3:3–4</span></span><span class="he row-he" lang="he">נגעים ג:ג–ד</span></button></li>
+<li class="row-done"><button class="row-link" type="button"><span><span class="row-kind">Kitzur Yomi<svg class="i i-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Learned</span><span class="row-ref">Siman 151</span></span><span class="he row-he" lang="he">קיצור שו״ע קנא</span></button></li>
+</ul>
+</section>
+
+<section class="plans" aria-labelledby="plans-h">
+<div class="sec-head"><h2 class="d2" id="plans-h">Learning plans</h2></div>
+<p class="meta">No plan yet. Pick one and its daily portion appears in Today’s learning.</p>
+<div class="plan-list">
+<button class="plan-btn" type="button" aria-pressed="{{planDaf}}" onClick="{{pickDaf}}"><span class="plan-txt"><span class="plan-name">Daf Yomi</span><span class="plan-desc">A daf a day with the world. Today: Arachin 4.</span></span><span class="plan-mark"><svg class="i i-sm ico-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5.5v13M5.5 12h13"></path></svg><svg class="i i-sm ico-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span></button>
+<button class="plan-btn" type="button" aria-pressed="{{planMy}}" onClick="{{pickMy}}"><span class="plan-txt"><span class="plan-name">Mishnah Yomis</span><span class="plan-desc">Two mishnayos a day. Today: Negaim 3:3–4.</span></span><span class="plan-mark"><svg class="i i-sm ico-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5.5v13M5.5 12h13"></path></svg><svg class="i i-sm ico-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span></button>
+<button class="plan-btn" type="button" aria-pressed="{{planFin}}" onClick="{{pickFin}}"><span class="plan-txt"><span class="plan-name">Finish Arachin</span><span class="plan-desc">Choose a pace from 2a to the end.</span></span><span class="plan-mark"><svg class="i i-sm ico-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5.5v13M5.5 12h13"></path></svg><svg class="i i-sm ico-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span></button>
+</div>
+</section>
+
+<section class="recent" aria-labelledby="recent-h">
+<div class="sec-head"><h2 class="d2" id="recent-h">Recently opened</h2><a class="link meta" href="Library.dc.html">Library</a></div>
+<div class="recent-row">
+<a class="vol" href="Library.dc.html"><img class="cover" src="{{covers.zevachim}}" alt=""><span class="cap"><span class="cap-line"><span class="cap-en">Zevachim</span><span class="he cap-he" lang="he">זבחים</span></span><span class="cap-sub">Volume 1</span></span></a>
+<a class="vol" href="Library.dc.html"><img class="cover" src="{{covers.menachos}}" alt=""><span class="cap"><span class="cap-line"><span class="cap-en">Menachos</span><span class="he cap-he" lang="he">מנחות</span></span><span class="cap-sub">Volume 1</span></span></a>
+<a class="vol" href="Library.dc.html"><img class="cover" src="{{covers.chullin}}" alt=""><span class="cap"><span class="cap-line"><span class="cap-en">Chullin</span><span class="he cap-he" lang="he">חולין</span></span><span class="cap-sub">Volume 1</span></span></a>
+<a class="vol" href="Library.dc.html"><img class="cover" src="{{covers.bechoros}}" alt=""><span class="cap"><span class="cap-line"><span class="cap-en">Bechoros</span><span class="he cap-he" lang="he">בכורות</span></span><span class="cap-sub">Volume 1</span></span></a>
+<a class="vol" href="Library.dc.html"><img class="cover" src="{{covers.kesubos}}" alt=""><span class="cap"><span class="cap-line"><span class="cap-en">Kesubos</span><span class="he cap-he" lang="he">כתובות</span></span><span class="cap-sub">Volume 1</span></span></a>
+<a class="vol" href="Library.dc.html"><img class="cover" src="{{covers.berachos}}" alt=""><span class="cap"><span class="cap-line"><span class="cap-en">Berachos</span><span class="he cap-he" lang="he">ברכות</span></span><span class="cap-sub">Volume 1</span></span></a>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1194,"height":834}}'>
+const COVERS = {"berachos":"/_blob/18cbf37ccc3a7227916825819942cf8d","shabbos":"/_blob/45d0f9b9b032cf82a81429f0b9b90e09","kesubos":"/_blob/10efb610a00685c1802d49b45deb9978","chullin":"/_blob/8fd8fdd2c421a39cc3fc053d08c2d1e3","bechoros":"/_blob/de4cd5d9b5bdd9f76d2ded72fa8952ae","arachin":"/_blob/6dadc65a17d2ea933792714abf1da996","temurah":"/_blob/e44ea678cf49eb0f09b126081d2951ed","kereisos":"/_blob/c43e6d90686b627c58427c3bdb63122f","menachos":"/_blob/b0dbba21a9a69a9d15059e2e3a73cf06","zevachim":"/_blob/d6d8c4ba10f13b1d7d889b106a9ba452"};
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { toolsOpen: true, plan: null };
+  }
+  renderVals() {
+    const s = this.state;
+    const pick = (p) => () => this.setState({ plan: s.plan === p ? null : p });
+    return {
+      covers: COVERS,
+      toolsOpen: s.toolsOpen,
+      toolsHidden: !s.toolsOpen,
+      toggleTools: () => this.setState({ toolsOpen: !s.toolsOpen }),
+      planDaf: s.plan === 'daf',
+      planMy: s.plan === 'my',
+      planFin: s.plan === 'fin',
+      pickDaf: pick('daf'),
+      pickMy: pick('my'),
+      pickFin: pick('fin')
+    };
+  }
+}
+</script>
+</body>
+</html>

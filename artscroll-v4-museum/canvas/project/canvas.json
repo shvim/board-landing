@@ -1,0 +1,20 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-11-22T16:30:00Z"},
+  "title": "ArtScroll v4 — Museum Edition",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {"x": 0, "y": 0, "w": 1194, "h": 834, "title": "Home (Learn), landscape", "is_interactive": true},
+    "Library.dc.html": {"x": 1274, "y": 0, "w": 1194, "h": 834, "title": "Library, landscape", "is_interactive": true},
+    "Contents.dc.html": {"x": 2548, "y": 0, "w": 1194, "h": 834, "title": "Contents with chapter opener, landscape", "is_interactive": true},
+    "Reader.dc.html": {"x": 0, "y": 954, "w": 1194, "h": 834, "title": "Reader, landscape", "is_interactive": true},
+    "ReaderPortrait.dc.html": {"x": 1274, "y": 954, "w": 834, "h": 1194, "title": "Reader, portrait, display menu open", "is_interactive": true}
+  },
+  "order": ["Main.dc.html", "Library.dc.html", "Contents.dc.html", "Reader.dc.html", "ReaderPortrait.dc.html"],
+  "notes": {
+    "heading": {"x": 0, "y": -300, "text": "ArtScroll v4 — Museum Edition", "kind": "title1", "maxW": 3742},
+    "about": {"x": 2188, "y": 954, "w": 440, "size": "m", "fill": "gray", "text": "Design prototype, not the shipping app. Every screen works: sidebar Tools, Library filters and downloads, reader panel tabs and toggle, and the “Aa א” menu (theme, text size, layout, switches).\n\nGemara text of Arachin 2a: Vilna edition, via Wikisource and Sefaria, CC BY-SA. Rashi and Tosafos are drawn as stand-in lines. English elucidation written for this prototype. The dedication is fictional. Covers are labelled placeholders."}
+  },
+  "designSystems": []
+}

@@ -201,7 +201,7 @@
   display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
   padding-bottom: 28px; border-bottom: 1px solid var(--hair);
 }
-.title-pair { display: flex; align-items: baseline; gap: 22px; }
+.title-pair { display: flex; align-items: baseline; gap: 22px; font: 400 64px/1 var(--display); }
 .title-pair .he { font-size: 56px; font-weight: 300; line-height: 1; }
 .home-head .meta { margin-top: 14px; }
 .home-actions { display: flex; align-items: center; gap: 20px; padding-bottom: 4px; }
@@ -320,7 +320,7 @@
 .tb-center { display: flex; align-items: center; gap: 2px; }
 .tb-trail { display: flex; align-items: center; gap: 2px; justify-self: end; }
 .tb-back { padding: 0 10px 0 4px; font-size: 16px; font-weight: 400; }
-.tb-title { display: flex; align-items: baseline; gap: 10px; padding: 0 8px; white-space: nowrap; }
+.tb-title { display: flex; align-items: baseline; gap: 10px; padding: 0 8px; white-space: nowrap; font: 400 18px/1 var(--serif); }
 .tb-title .en { font: 400 18px/1 var(--serif); }
 .tb-title .he { font-size: 21px; line-height: 1; }
 .aa { font-weight: 400; gap: 4px; padding: 0 12px; }
@@ -547,3 +547,4 @@
 .reader-main > .pane { flex: 1; height: auto; min-height: 0; }
 .pk-ord { margin-left: 12px; }
 .scrim { position: absolute; inset: 0; z-index: 25; padding: 0; border: 0; background: transparent; cursor: default; }
+.lay-tr .tp-top .segctl { max-width: 440px; margin: 0 auto; }

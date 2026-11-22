@@ -1,0 +1,19 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-11-22T16:32:32Z"},
+  "title": "ArtScroll v3 — Warm Native",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {"x": 0, "y": 0, "w": 1194, "h": 834, "title": "Home", "is_interactive": true, "radius": 18},
+    "Library.dc.html": {"x": 1274, "y": 0, "w": 1194, "h": 834, "title": "Library (Tools expanded in the sidebar)", "is_interactive": true, "radius": 18},
+    "Reader.dc.html": {"x": 0, "y": 954, "w": 1194, "h": 834, "title": "Reader, landscape", "is_interactive": true, "radius": 18},
+    "ReaderPortrait.dc.html": {"x": 1274, "y": 954, "w": 834, "h": 1194, "title": "Reader, portrait, Aa א menu open", "is_interactive": true, "radius": 18}
+  },
+  "order": ["Main.dc.html", "Library.dc.html", "Reader.dc.html", "ReaderPortrait.dc.html"],
+  "notes": {
+    "title": {"x": 0, "y": -300, "text": "ArtScroll v3 — Warm Native", "kind": "title1", "maxW": 2468},
+    "credits": {"x": 2188, "y": 954, "w": 340, "size": "s", "fill": "gray", "text": "Design prototype.\n\nCovers are labelled placeholders. Replace the cover files to use the real ArtScroll covers.\n\nGemara text: Vilna edition of Arachin 2a, from Wikisource via Sefaria, CC BY-SA. English elucidation, notes and dedication were written for this prototype."}
+  },
+  "designSystems": []
+}

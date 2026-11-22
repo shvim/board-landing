@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reader, portrait, display options</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/25b1abe4f9c45242e5e4e1f5eac79fea">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&amp;family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,700;1,7..72,400&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="{{root}}">
+<div class="reader">
+<header class="toolbar">
+<div class="tb-group">
+<a class="back" href="Library.dc.html"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 5.5-6.5 6.5 6.5 6.5"></path></svg>Library</a>
+<button type="button" class="icon-btn" aria-label="Contents"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5h11M9 12h11M9 17.5h11"></path><circle cx="4.8" cy="6.5" r=".7"></circle><circle cx="4.8" cy="12" r=".7"></circle><circle cx="4.8" cy="17.5" r=".7"></circle></svg></button>
+</div>
+<div class="tb-group">
+<button type="button" class="icon-btn" aria-label="Previous daf" disabled><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 5.5-6.5 6.5 6.5 6.5"></path></svg></button>
+<h1 class="tb-title"><strong>Arachin 2a</strong><span class="he" lang="he" dir="rtl">ערכין ב׳ ע״א</span></h1>
+<button type="button" class="icon-btn" aria-label="Next daf, Arachin 2b"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"></path></svg></button>
+</div>
+<div class="tb-group tb-trail">
+<button type="button" class="aa-btn" aria-haspopup="dialog" aria-expanded="{{pop}}" onClick="{{togglePop}}">Aa<span class="he" lang="he">א</span><span class="vh"> Display options</span></button>
+<button type="button" class="icon-btn" aria-label="Search"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"></circle><path d="m15 15 5 5"></path></svg></button>
+<button type="button" class="icon-btn" aria-label="Translation sheet" aria-pressed="{{panelOn}}" onClick="{{togglePanel}}"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"></rect><path d="M3.5 13.5h17"></path></svg></button>
+</div>
+</header>
+
+<div class="r-body">
+<div class="daf-wrap">
+<article class="daf-page" aria-label="Daf, Vilna layout">
+<div class="daf-head" lang="he" dir="rtl"><span>פרק ראשון</span><span>הכל מעריכין</span><span>ערכין ב.</span></div>
+<div class="daf-cols" dir="rtl">
+<div aria-hidden="true">
+<span class="col-label">רש״י</span>
+<div class="lines"><sc-for list="{{rashi}}" as="l" hint-placeholder-count="90"><span class="{{l.c}}"><sc-for list="{{l.ws}}" as="w" hint-placeholder-count="4"><i class="{{w.c}}"></i></sc-for></span></sc-for></div>
+</div>
+<p class="gem" lang="he"><span class="dseg {{s0}}"><b class="mark">מתני׳</b> <span class="gem-open">הכל</span> מעריכין ונערכין נודרין ונידרין כהנים לוים וישראלים נשים ועבדים</span> <span class="dseg {{s1}}">טומטום ואנדרוגינוס נודרין ונידרין ומעריכין אבל לא נערכין שאינו נערך אלא הזכר ודאי ונקבה ודאית</span> <span class="dseg {{s2}}">חרש שוטה וקטן נידרין ונערכין אבל לא נודרין ולא מעריכין מפני שאין בהם דעת:</span> <span class="dseg {{s3}}"><b class="mark">גמ׳</b> הכל מעריכין לאתויי מאי לאתויי מופלא סמוך לאיש</span> <span class="dseg {{s4}}">נערכין לאתויי מאי לאתויי מנוול ומוכה שחין</span> <span class="dseg {{s5}}">סד״א נדר בערכך כתיב כל שישנו בדמים ישנו בערכין וכל שאינו בדמים אינו בערכין</span> <span class="dseg {{s6}}">קמ״ל נפשות כל דהו</span> <span class="dseg {{s7}}">נודרין לאתויי מאי נידרין איצטריך ליה</span> <span class="dseg">נידרין לאתויי מאי אי לאתויי טומטום ואנדרוגינוס בהדיא קתני להו ואי לאתויי חרש שוטה וקטן בהדיא קתני להו</span> <span class="dseg">אי לאתויי פחות מבן חודש בהדיא קתני להו ואי לאתויי עובד כוכבים בהדיא קתני להו לעולם לאתויי פחות מבן חודש ותני והדר מפרש</span> <span class="dseg">הכל סומכין לאתויי מאי לאתויי יורש ודלא כרבי יהודה</span> <span class="dseg">הכל ממירין לאתויי מאי לאתויי יורש ודלא כרבי יהודה</span> <span class="dseg">דתניא יורש סומך יורש מימר ר׳ יהודה אומר יורש אינו סומך יורש אינו מימר</span> <span class="dseg">מאי טעמא דרבי יהודה (ויקרא א, ג) קרבנו ולא קרבן אביו ויליף תחלת הקדש מסוף הקדש מה סוף הקדש יורש אינו סומך אף תחלת הקדש יורש אינו מימר</span> <span class="dseg">ורבנן (ויקרא כז, י) המר ימיר לרבות את היורש וילפינן סוף הקדש מתחלת הקדש מה תחלת הקדש יורש מימר אף סוף הקדש יורש סומך</span> <span class="dseg">ורבנן האי קרבנו מאי עבדי ליה מיבעי ליה קרבנו ולא קרבן עובד כוכבים קרבנו ולא קרבן חבירו קרבנו לרבות כל בעלי חוברין לסמיכה</span> <span class="dseg">ורבי יהודה לרבות כל בעלי חוברין לסמיכה לית ליה ואי נמי אית ליה</span></p>
+<div aria-hidden="true">
+<span class="col-label">תוספות</span>
+<div class="lines"><sc-for list="{{tosafos}}" as="l" hint-placeholder-count="90"><span class="{{l.c}}"><sc-for list="{{l.ws}}" as="w" hint-placeholder-count="4"><i class="{{w.c}}"></i></sc-for></span></sc-for></div>
+</div>
+</div>
+</article>
+</div>
+
+<section class="{{sheetClass}}" aria-label="Translation">
+<button type="button" class="grabber" aria-label="{{grabLabel}}" onClick="{{toggleTall}}"><span></span></button>
+<div class="panel-head">
+<div class="seg" role="tablist" aria-label="Sheet">
+<button type="button" role="tab" aria-selected="{{tabT}}" onClick="{{showT}}"><span>Translation</span></button>
+<button type="button" role="tab" aria-selected="{{tabN}}" onClick="{{showN}}"><span>Notes</span></button>
+<button type="button" role="tab" aria-selected="{{tabC}}" onClick="{{showC}}"><span>Commentary</span></button>
+</div>
+</div>
+<div class="panel-scroll">
+<div class="panel-inner">
+<sc-if value="{{tabT}}" hint-placeholder-val="{{ true }}">
+<div role="tabpanel" aria-label="Translation">
+<p class="dedication"><span class="he" lang="he" dir="rtl">לעילוי נשמת ר׳ אברהם יצחק ב״ר שמואל ורבקה בת מנחם</span>This volume is dedicated by the Halpern family in loving memory of their parents.</p>
+<div class="ch-head"><h2>Chapter One</h2><span class="he" lang="he" dir="rtl">פרק ראשון · הכל מעריכין</span></div>
+
+<div class="tl {{s0}}">
+<button type="button" class="tl-he" lang="he" dir="rtl" aria-pressed="{{a0}}" onClick="{{p0}}">מתני׳ הכל מעריכין ונערכין נודרין ונידרין כהנים לוים וישראלים נשים ועבדים</button>
+<p class="tl-en"><b>Everyone may pledge a valuation, and everyone may be valued; everyone may vow another’s worth, and everyone’s worth may be vowed.</b> A valuation is the fixed sum the Torah sets by age and sex alone. A vow of worth is paid at whatever the person would fetch if sold as a servant.<sup>1</sup> <b>This holds for Kohanim, Levites and Yisraelim, for women and for slaves.</b></p>
+<p class="fn"><span class="fn-n">1</span>The fixed sums are listed in Leviticus 27:3–7. For a man between twenty and sixty, for example, the sum is fifty shekels.</p>
+</div>
+
+<div class="tl {{s1}}">
+<button type="button" class="tl-he" lang="he" dir="rtl" aria-pressed="{{a1}}" onClick="{{p1}}">טומטום ואנדרוגינוס נודרין ונידרין ומעריכין אבל לא נערכין שאינו נערך אלא הזכר ודאי ונקבה ודאית</button>
+<p class="tl-en"><b>A tumtum and an androgynous</b>, a person whose sex cannot be determined and a person with features of both, <b>may vow another’s worth, may have their own worth vowed, and may pledge a valuation. But they may not be valued, for only one who is definitely male or definitely female is valued.</b> The Torah gives one scale for men and another for women, and neither scale applies to them.</p>
+</div>
+
+<div class="tl {{s2}}">
+<button type="button" class="tl-he" lang="he" dir="rtl" aria-pressed="{{a2}}" onClick="{{p2}}">חרש שוטה וקטן נידרין ונערכין אבל לא נודרין ולא מעריכין מפני שאין בהם דעת:</button>
+<p class="tl-en"><b>A deaf-mute, a person who is mentally incompetent, and a minor may have their worth vowed and may be valued, but they may not vow or pledge a valuation, because they lack understanding.</b> A binding pledge needs a person who grasps what he commits to. Someone else may still pledge on their account, since the debt falls on the one who speaks.</p>
+</div>
+
+<div class="tl {{s3}}">
+<button type="button" class="tl-he" lang="he" dir="rtl" aria-pressed="{{a3}}" onClick="{{p3}}">גמ׳ הכל מעריכין לאתויי מאי לאתויי מופלא סמוך לאיש</button>
+<p class="tl-en"><b>Gemara.</b> The Mishnah opened, <b>“Everyone may pledge a valuation.” What does “everyone” add</b>, beyond the groups it goes on to list? <b>It adds a child close to adulthood:</b> a boy in the year before he comes of age, whose vow stands once it is clear he understood in Whose Name he vowed.<sup>2</sup></p>
+<p class="fn"><span class="fn-n">2</span>The age, and how such a child’s understanding is tested, are taught in the Mishnah in Niddah 45b.</p>
+</div>
+
+<div class="tl {{s4}}">
+<button type="button" class="tl-he" lang="he" dir="rtl" aria-pressed="{{a4}}" onClick="{{p4}}">נערכין לאתויי מאי לאתויי מנוול ומוכה שחין</button>
+<p class="tl-en"><b>“And everyone may be valued.” What does “everyone” add here? It adds a person who is disfigured or covered with boils.</b> Offered for sale, such a person would bring almost nothing.</p>
+</div>
+
+<div class="tl {{s5}}">
+<button type="button" class="tl-he" lang="he" dir="rtl" aria-pressed="{{a5}}" onClick="{{p5}}">סד״א נדר בערכך כתיב כל שישנו בדמים ישנו בערכין וכל שאינו בדמים אינו בערכין</button>
+<p class="tl-en"><b>You might have thought</b> otherwise, <b>since it is written, “a vow by your valuation,”</b><sup>3</sup> joining the two. That would suggest <b>whoever has a market value can be valued, and whoever has no market value cannot be valued.</b></p>
+<p class="fn"><span class="fn-n">3</span>Leviticus 27:2.</p>
+</div>
+
+<div class="tl {{s6}}">
+<button type="button" class="tl-he" lang="he" dir="rtl" aria-pressed="{{a6}}" onClick="{{p6}}">קמ״ל נפשות כל דהו</button>
+<p class="tl-en"><b>The Mishnah teaches us</b> that this is not so. The verse speaks of <b>“souls,” meaning any person at all</b>, whatever he would fetch.</p>
+</div>
+
+<div class="tl {{s7}}">
+<button type="button" class="tl-he" lang="he" dir="rtl" aria-pressed="{{a7}}" onClick="{{p7}}">נודרין לאתויי מאי נידרין איצטריך ליה</button>
+<p class="tl-en"><b>“Everyone may vow another’s worth.” What does “everyone” add here?</b> Nothing of its own. <b>The Mishnah needed the word for the clause that follows,</b> “and everyone’s worth may be vowed.”</p>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{tabN}}" hint-placeholder-val="{{ false }}">
+<div role="tabpanel" aria-label="Notes" class="notes-list">
+<div class="group note-card">
+<p class="note-ref"><span>Arachin 2a, today</span><span class="he" lang="he" dir="rtl">לאתויי מופלא סמוך לאיש</span></p>
+<p class="note-body">Compare Niddah 45b: how a child’s understanding of his vow is tested in the year before he comes of age.</p>
+</div>
+<div><button type="button" class="btn-tinted"><svg class="ic sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>New note</button></div>
+</div>
+</sc-if>
+
+<sc-if value="{{tabC}}" hint-placeholder-val="{{ false }}">
+<div role="tabpanel" aria-label="Commentary">
+<div class="group cm-block">
+<p class="cm-on">On the line <span class="he" lang="he" dir="rtl">מתני׳ הכל מעריכין</span></p>
+<p class="cm-name">Rashi, in brief</p>
+<p class="cm-text">A valuation is the sum written in the Torah’s passage. One who says “the valuation of this person is on me” gives the sum set for that person’s age. A vow of worth is assessed as if the person were a servant sold in the market.</p>
+</div>
+<ul class="group cm-list">
+<li class="row"><button type="button" class="row-link"><span class="row-text"><span class="row-title">Rashi</span></span><span class="he" lang="he" dir="rtl">רש״י</span><svg class="ic sm chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6 6 6-6 6"></path></svg></button></li>
+<li class="row"><button type="button" class="row-link"><span class="row-text"><span class="row-title">Tosafos</span></span><span class="he" lang="he" dir="rtl">תוספות</span><svg class="ic sm chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6 6 6-6 6"></path></svg></button></li>
+<li class="row"><button type="button" class="row-link"><span class="row-text"><span class="row-title">Rabbeinu Gershom</span></span><span class="he" lang="he" dir="rtl">רבינו גרשום</span><svg class="ic sm chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6 6 6-6 6"></path></svg></button></li>
+<li class="row"><button type="button" class="row-link"><span class="row-text"><span class="row-title">Shitah Mekubetzes</span></span><span class="he" lang="he" dir="rtl">שיטה מקובצת</span><svg class="ic sm chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6 6 6-6 6"></path></svg></button></li>
+</ul>
+</div>
+</sc-if>
+</div>
+</div>
+</section>
+
+<button type="button" class="pop-dismiss" tabindex="-1" aria-label="Close display options" onClick="{{closePop}}"></button>
+</div>
+
+<div class="popover" role="dialog" aria-label="Display options">
+<div class="pop-sec">
+<p class="pop-label" id="lbl-theme-p">Theme</p>
+<div class="seg" role="group" aria-labelledby="lbl-theme-p">
+<button type="button" aria-pressed="{{thLight}}" onClick="{{setLight}}"><span>Light</span></button>
+<button type="button" aria-pressed="{{thSepia}}" onClick="{{setSepia}}"><span>Sepia</span></button>
+<button type="button" aria-pressed="{{thNight}}" onClick="{{setNight}}"><span>Night</span></button>
+</div>
+</div>
+<div class="pop-sec">
+<label class="pop-label" for="size-p">Text size</label>
+<div class="size-row"><span class="a-sm" aria-hidden="true">A</span><input id="size-p" class="range" type="range" min="1" max="5" step="1" value="{{size}}" aria-valuetext="{{sizeText}}" onChange="{{onSize}}"><span class="a-lg" aria-hidden="true">A</span></div>
+</div>
+<div class="pop-sec">
+<p class="pop-label" id="lbl-layout-p">Layout</p>
+<div class="seg" role="group" aria-labelledby="lbl-layout-p">
+<button type="button" aria-pressed="{{lyDaf}}" onClick="{{setDaf}}"><span>Daf</span></button>
+<button type="button" aria-pressed="{{lyTr}}" onClick="{{setTr}}"><span>Translation</span></button>
+<button type="button" aria-pressed="{{lySide}}" onClick="{{setSide}}"><span>Side by side</span></button>
+</div>
+</div>
+<div class="sw-list">
+<button type="button" class="sw-row" role="switch" aria-checked="{{fn}}" onClick="{{toggleFn}}"><span>Footnotes under each line</span><span class="switch" aria-hidden="true"></span></button>
+<button type="button" class="sw-row" role="switch" aria-checked="{{hl}}" onClick="{{toggleHl}}"><span>Highlight the line being translated</span><span class="switch" aria-hidden="true"></span></button>
+<button type="button" class="sw-row" role="switch" aria-checked="{{lightDaf}}" onClick="{{toggleLightDaf}}"><span>Keep the daf light at night</span><span class="switch" aria-hidden="true"></span></button>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":834,"height":1194}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      theme: 'sepia', size: 3, layout: 'side', tab: 't', sel: 0,
+      fn: true, hl: true, lightDaf: false, pop: true, tall: false
+    };
+    this.rashi = this.makeLines(7, 110);
+    this.tosafos = this.makeLines(19, 110);
+  }
+  // Rashi and Tosafos are drawn as fine text lines (a stand-in, not real text).
+  makeLines(seed, count) {
+    let x = seed;
+    const rnd = () => { x = (x * 9301 + 49297) % 233280; return x / 233280; };
+    const out = [];
+    for (let i = 0; i < count; i++) {
+      const n = 3 + Math.floor(rnd() * 4);
+      const ws = [];
+      for (let j = 0; j < n; j++) {
+        const lead = j === 0 && (i % 9 === 0 || i % 9 === 5);
+        ws.push({ c: 'w g' + (1 + Math.floor(rnd() * 5)) + (lead ? ' dh' : '') });
+      }
+      out.push({ c: i % 9 === 4 || i % 9 === 8 ? 'ln end' : 'ln', ws });
+    }
+    return out;
+  }
+  renderVals() {
+    const s = this.state;
+    const root = ['ipad', 'port', 't-' + s.theme, 'fs-' + s.size, 'lay-' + s.layout];
+    if (s.fn) root.push('show-fn');
+    if (s.hl) root.push('show-hl');
+    if (s.lightDaf) root.push('light-daf');
+    if (s.pop) root.push('pop-open');
+    const set = (patch) => () => this.setState(patch);
+    const v = {
+      root: root.join(' '),
+      sheetClass: s.tall ? 'sheet tall' : 'sheet',
+      grabLabel: s.tall ? 'Shrink translation sheet' : 'Expand translation sheet',
+      toggleTall: set({ tall: !s.tall }),
+      rashi: this.rashi, tosafos: this.tosafos,
+      pop: s.pop, togglePop: set({ pop: !s.pop }), closePop: set({ pop: false }),
+      panelOn: s.layout !== 'daf', togglePanel: set({ layout: s.layout === 'daf' ? 'side' : 'daf' }),
+      tabT: s.tab === 't', tabN: s.tab === 'n', tabC: s.tab === 'c',
+      showT: set({ tab: 't' }), showN: set({ tab: 'n' }), showC: set({ tab: 'c' }),
+      thLight: s.theme === 'light', thSepia: s.theme === 'sepia', thNight: s.theme === 'night',
+      setLight: set({ theme: 'light' }), setSepia: set({ theme: 'sepia' }), setNight: set({ theme: 'night' }),
+      size: s.size,
+      sizeText: ['Smallest', 'Small', 'Default', 'Large', 'Largest'][s.size - 1],
+      onSize: (e) => this.setState({ size: Number(e.target.value) }),
+      lyDaf: s.layout === 'daf', lyTr: s.layout === 'translation', lySide: s.layout === 'side',
+      setDaf: set({ layout: 'daf' }), setTr: set({ layout: 'translation' }), setSide: set({ layout: 'side' }),
+      fn: s.fn, hl: s.hl, lightDaf: s.lightDaf,
+      toggleFn: set({ fn: !s.fn }), toggleHl: set({ hl: !s.hl }), toggleLightDaf: set({ lightDaf: !s.lightDaf })
+    };
+    for (let i = 0; i < 8; i++) {
+      v['s' + i] = s.sel === i ? 'cur' : '';
+      v['a' + i] = s.sel === i;
+      v['p' + i] = set({ sel: i });
+    }
+    return v;
+  }
+}
+</script>
+</body>
+</html>

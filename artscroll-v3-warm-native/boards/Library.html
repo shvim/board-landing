@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Library</title>
+<link rel="stylesheet" href="../css/app.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&amp;family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,700;1,7..72,400&amp;display=swap">
+<style>body{margin:0}</style>
+<script src="../js/covers.js"></script>
+<script src="../js/dc-shim.js"></script>
+</head>
+<body>
+<div id="dc-root"></div>
+<template id="dc-template">
+
+<div class="ipad land t-light">
+<div class="split">
+<nav class="sidebar" aria-label="ArtScroll">
+<p class="sb-title">ArtScroll</p>
+<ul class="sb-list">
+<li><a class="sb-item" href="Main.html"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5Z"></path><path d="M12 6.5v13"></path></svg>Learn</a></li>
+<li><a class="sb-item" href="Library.html" aria-current="page"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="4.5" height="16" rx="1"></rect><rect x="9.5" y="4" width="4.5" height="16" rx="1"></rect><path d="m15.6 6.1 3.3-.9 2.9 13.6-3.3.9z"></path></svg>Library</a></li>
+<li><button type="button" class="sb-item"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 4.5h11a2 2 0 0 1 2 2V20h-11a2 2 0 0 1-2-2z"></path><path d="M5.5 18a2 2 0 0 1 2-2h11"></path></svg>Siddur</button></li>
+<li><button type="button" class="sb-item"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 13v5.5a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 4 18.5v-12A1.5 1.5 0 0 1 5.5 5H11"></path><path d="m17.5 3.5 3 3L12 15l-4 1 1-4z"></path></svg>My notes</button></li>
+<li>
+<button type="button" class="sb-item" aria-expanded="{{toolsOpen}}" onClick="{{toggleTools}}"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.6"></rect><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.6"></rect><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.6"></rect><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.6"></rect></svg>Tools<svg class="ic sm sb-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6 6 6-6 6"></path></svg></button>
+<sc-if value="{{toolsOpen}}" hint-placeholder-val="{{ true }}">
+<ul class="sb-sub">
+<li><button type="button" class="sb-item"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>Zmanim</button></li>
+<li><button type="button" class="sb-item"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14.5" rx="2"></rect><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"></path></svg>Luach</button></li>
+<li><button type="button" class="sb-item"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="m15.5 8.5-2 5-5 2 2-5z"></path></svg>Mizrach</button></li>
+<li><button type="button" class="sb-item"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20c.8-3.8 3.6-6 7-6s6.2 2.2 7 6"></path></svg>Misheberach</button></li>
+<li><button type="button" class="sb-item"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5h14M5 11h14M5 15.5h9"></path></svg>Verses for names</button></li>
+<li><button type="button" class="sb-item"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"></rect><circle cx="12" cy="10" r="3"></circle><path d="M7 19c1-2.5 2.8-3.7 5-3.7s4 1.2 5 3.7"></path></svg>Tefillin mirror</button></li>
+</ul>
+</sc-if>
+</li>
+</ul>
+<ul class="sb-list sb-foot">
+<li><button type="button" class="sb-item"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6"></path><path d="M3.5 4v4h4"></path><path d="M12 8v4.5l3 2"></path></svg>History</button></li>
+<li><button type="button" class="sb-item"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><circle cx="12" cy="12" r="6.5"></circle><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"></path></svg>Settings</button></li>
+</ul>
+</nav>
+
+<main class="content">
+<div class="navbar">
+<button type="button" class="icon-btn" aria-label="Search the library"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"></circle><path d="m15 15 5 5"></path></svg></button>
+</div>
+<h1 class="large-title">Library</h1>
+
+<p class="notice"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9a14 14 0 0 1 4-2.6M10.4 5.6A14 14 0 0 1 21.5 9M5.5 12.5a9 9 0 0 1 3.2-2M15 10.7a9 9 0 0 1 3.5 1.8M8.8 15.8a4.5 4.5 0 0 1 6.4 0"></path><path d="M3.5 3.5l17 17"></path><circle cx="12" cy="19" r=".6"></circle></svg><span>You’re offline. Downloaded volumes open as usual; new downloads start when you reconnect.</span></p>
+
+<div class="filters">
+<div class="seg lib" role="group" aria-label="Collection">
+<button type="button" aria-pressed="{{kBavli}}" onClick="{{setBavli}}"><span>Talmud Bavli</span></button>
+<button type="button" aria-pressed="{{kYer}}" onClick="{{setYer}}"><span>Yerushalmi</span></button>
+<button type="button" aria-pressed="{{kMish}}" onClick="{{setMish}}"><span>Mishnah</span></button>
+<button type="button" aria-pressed="{{kChumash}}" onClick="{{setChumash}}"><span>Chumash</span></button>
+<button type="button" aria-pressed="{{kKitzur}}" onClick="{{setKitzur}}"><span>Kitzur</span></button>
+</div>
+<sc-if value="{{showSedarim}}" hint-placeholder-val="{{ true }}">
+<div class="chips" role="group" aria-label="Seder">
+<sc-for list="{{sedarim}}" as="sd" hint-placeholder-count="7">
+<button type="button" class="chip" aria-pressed="{{sd.on}}" onClick="{{sd.pick}}"><span>{{sd.name}}</span></button>
+</sc-for>
+</div>
+</sc-if>
+</div>
+
+<sc-if value="{{hasBooks}}" hint-placeholder-val="{{ true }}">
+<ul class="shelf" aria-label="Volumes">
+<sc-for list="{{books}}" as="b" hint-placeholder-count="10">
+<li class="book">
+<a class="book-link" href="{{b.href}}"><img class="cover" src="{{b.src}}" alt="{{b.alt}}"></a>
+<div class="book-cap">
+<span class="book-text"><span class="book-title">{{b.title}}</span><span class="book-meta">{{b.meta}}</span></span>
+<sc-if value="{{b.isDown}}" hint-placeholder-val="{{ true }}"><span class="dl" role="img" aria-label="Downloaded"><svg class="ic sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="m8.3 12.2 2.5 2.5 5-5"></path></svg></span></sc-if>
+<sc-if value="{{b.isCloud}}" hint-placeholder-val="{{ false }}"><button type="button" class="dl get" aria-label="{{b.dlLabel}}" onClick="{{b.get}}"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 17.5H7a4 4 0 0 1-.5-8A5.5 5.5 0 0 1 17 8.3a4.5 4.5 0 0 1 .5 9.2"></path><path d="M12 11.5v8m-3-3 3 3 3-3"></path></svg></button></sc-if>
+<sc-if value="{{b.isWait}}" hint-placeholder-val="{{ false }}"><span class="dl" role="img" aria-label="Waiting for connection"><svg class="ic sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg></span></sc-if>
+</div>
+</li>
+</sc-for>
+</ul>
+</sc-if>
+<sc-if value="{{isEmpty}}" hint-placeholder-val="{{ false }}">
+<div class="empty">
+<p class="empty-title">{{emptyTitle}}</p>
+<p>Volumes you own appear here. Add them from the ArtScroll store once you’re back online.</p>
+</div>
+</sc-if>
+</main>
+</div>
+</div>
+</template>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { toolsOpen: true, kind: 'bavli', seder: 'all', queued: {} };
+  }
+  renderVals() {
+    // Cover map: replace these files to swap in the real ArtScroll covers.
+    const covers = window.COVERS;
+    const s = this.state;
+    const volumes = [
+      { k: 'berachos', title: 'Berachos', vol: 'Vol. 1', seder: 'zeraim', meta: 'Finished', st: 'down' },
+      { k: 'shabbos', title: 'Shabbos', vol: 'Vol. 1', seder: 'moed', meta: '38%', st: 'down' },
+      { k: 'kesubos', title: 'Kesubos', vol: 'Vol. 1', seder: 'nashim', meta: '12%', st: 'cloud' },
+      { k: 'zevachim', title: 'Zevachim', vol: 'Vol. 1', seder: 'kodashim', meta: 'New', st: 'cloud' },
+      { k: 'menachos', title: 'Menachos', vol: 'Vol. 1', seder: 'kodashim', meta: '71%', st: 'down' },
+      { k: 'chullin', title: 'Chullin', vol: 'Vol. 1', seder: 'kodashim', meta: '5%', st: 'down' },
+      { k: 'bechoros', title: 'Bechoros', vol: 'Vol. 1', seder: 'kodashim', meta: 'Finished', st: 'cloud' },
+      { k: 'arachin', title: 'Arachin', vol: '', seder: 'kodashim', meta: '1%', st: 'down' },
+      { k: 'temurah', title: 'Temurah', vol: '', seder: 'kodashim', meta: 'Queued', st: 'wait' },
+      { k: 'kereisos', title: 'Kereisos', vol: '', seder: 'kodashim', meta: 'New', st: 'cloud' }
+    ];
+    const sederNames = [['all', 'All'], ['zeraim', 'Zeraim'], ['moed', 'Moed'], ['nashim', 'Nashim'], ['nezikin', 'Nezikin'], ['kodashim', 'Kodashim'], ['taharos', 'Taharos']];
+    const kindNames = { bavli: 'Talmud Bavli', yer: 'Yerushalmi', mish: 'Mishnah', chumash: 'Chumash', kitzur: 'Kitzur' };
+    const books = s.kind !== 'bavli' ? [] : volumes
+      .filter((v) => s.seder === 'all' || v.seder === s.seder)
+      .map((v) => {
+        const st = s.queued[v.k] ? 'wait' : v.st;
+        return {
+          title: v.title,
+          alt: v.title + (v.vol ? ', ' + v.vol : ''),
+          src: covers[v.k],
+          href: v.k === 'arachin' ? 'Reader.html' : 'Library.html',
+          meta: (v.vol ? v.vol + ' · ' : '') + (s.queued[v.k] ? 'Queued' : v.meta),
+          isDown: st === 'down', isCloud: st === 'cloud', isWait: st === 'wait',
+          dlLabel: 'Download ' + v.title + (v.vol ? ', ' + v.vol : ''),
+          get: () => this.setState({ queued: Object.assign({}, s.queued, { [v.k]: true }) })
+        };
+      });
+    const kind = (k) => () => this.setState({ kind: k, seder: 'all' });
+    const sederLabel = (sederNames.find((x) => x[0] === s.seder) || ['', ''])[1];
+    return {
+      toolsOpen: s.toolsOpen,
+      toggleTools: () => this.setState({ toolsOpen: !s.toolsOpen }),
+      kBavli: s.kind === 'bavli', kYer: s.kind === 'yer', kMish: s.kind === 'mish', kChumash: s.kind === 'chumash', kKitzur: s.kind === 'kitzur',
+      setBavli: kind('bavli'), setYer: kind('yer'), setMish: kind('mish'), setChumash: kind('chumash'), setKitzur: kind('kitzur'),
+      showSedarim: s.kind === 'bavli' || s.kind === 'yer' || s.kind === 'mish',
+      sedarim: sederNames.map((x) => ({ name: x[1], on: s.seder === x[0], pick: () => this.setState({ seder: x[0] }) })),
+      books,
+      hasBooks: books.length > 0,
+      isEmpty: books.length === 0,
+      emptyTitle: s.kind === 'bavli' ? 'No volumes from Seder ' + sederLabel + ' yet' : 'No ' + kindNames[s.kind] + ' volumes yet'
+    };
+  }
+}
+
+DC_BOOT(Component);
+</script>
+</body>
+</html>

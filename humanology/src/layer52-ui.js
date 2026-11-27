@@ -8,7 +8,7 @@ const isCard52 = h => !!(h && h.c52);
 
 /* ---------- per-person eligibility, kept on this device ---------- */
 function E52() { if (!st.e52) st.e52 = { elig: {}, clear: {}, blocked: [], aud: [], dismissed: [], sel: {}, rem: {} }; return st.e52; }
-const restricted52 = c => c.eligibility_rule !== "read_studied_population" || c.blocked_if.length > 0;
+let restricted52 = c => c.eligibility_rule !== "read_studied_population" || c.blocked_if.length > 0;
 function blockedFor52(c) { const b = E52().blocked; return c.blocked_if.filter(k => b.includes(k)); }
 function canAdd52(c) {
   if (!c) return true; if (blockedFor52(c).length) return false;
@@ -215,7 +215,7 @@ SCREENS.evidence = () => ({ cls: "s-list", html: `${backBtn()}<div class="top"><
   ${EV_LABELS.map(l => `<div class="gline"><span class="evp ${EV_CLS[l]}">${l}</span><p class="fine">${esc(EV_TEXT52[l])}</p></div>`).join("")}
   <div class="card2"><p><b>Sources are labeled by role.</b> Direct evidence tested the routine for that result. Broader context comes from related studies. Mixed or null results are shown too.</p></div>
   <div class="card2"><p><b>Effort is separate.</b> It describes how demanding a routine feels, not how well it works. Routines without an editorial rating say &ldquo;Not rated&rdquo;.</p></div>
-  <p class="fine">Catalog release ${esc(C52.release)}: 56 routines, 75 scoped results, 146 publications. A targeted review of the supplied evidence, not medical advice.</p></div>` });
+  <p class="fine">Catalog release ${esc(C52.release)}: ${C52.raw.cards.length} routines, ${C52.raw.benefits.length} scoped results, ${C52.raw.research_sources.length} publications. A targeted review of the supplied evidence, not medical advice.</p></div>` });
 
 /* ---------- Explore: every routine, search, goal filters, generous vertical cards ---------- */
 const XGOALS52 = [["", "All"], ["heart", "Heart health"], ["sleep", "Sleep"], ["mood", "Mood"], ["energy", "Energy"], ["movement", "Strength"], ["metabolic", "Nutrition"], ["digestion", "Digestion"], ["memory", "Memory"], ["_general", "Everyday care"]];

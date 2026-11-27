@@ -31,8 +31,9 @@ const ok = (name, cond, detail = '') => { results.push(`${cond ? 'PASS' : 'FAIL'
       unique: u(r.cards, 'card_id') && u(r.benefits, 'benefit_id') && u(r.variants, 'variant_id') && u(r.research_sources, 'source_id'), bad, habits: HM.CAT.habits.length,
       https: r.research_sources.every(s => s.url.startsWith('https://')) };
   });
-  ok('56 unique cards and titles', cat.cards === 56 && cat.titles === 56 && cat.habits === 56, `${cat.cards} cards, ${cat.titles} titles, ${cat.habits} in HM.CAT`);
-  ok('75 benefits, 9 schedule variants, 146 publications, unique IDs', cat.benefits === 75 && cat.variants === 9 && cat.sources === 146 && cat.unique);
+  const X = REV ? { c: 64, b: 82, s: 155 } : { c: 56, b: 75, s: 146 };
+  ok(`${X.c} unique cards and titles`, cat.cards === X.c && cat.titles === X.c && cat.habits === X.c, `${cat.cards} cards, ${cat.titles} titles, ${cat.habits} in HM.CAT`);
+  ok(`${X.b} benefits, 9 schedule variants, ${X.s} publications, unique IDs`, cat.benefits === X.b && cat.variants === 9 && cat.sources === X.s && cat.unique);
   ok('every benefit, variant, note and source reference resolves', cat.bad.length === 0, cat.bad.slice(0, 5).join(', '));
   ok('every publication link is https', cat.https);
 
@@ -40,7 +41,7 @@ const ok = (name, cond, detail = '') => { results.push(`${cond ? 'PASS' : 'FAIL'
   await fresh('new'); await ev(() => { st.profile.onboarded = true; tab('explore'); });
   const ex = await ev(() => ({ n: document.querySelectorAll('.x52 h3, .x52r:not(.xpers52) h3').length, t: new Set([...document.querySelectorAll('.x52 h3, .x52r:not(.xpers52) h3')].map(x => x.textContent)).size,
     prev: document.querySelectorAll('.prev52').length, plusOnPrev: document.querySelectorAll('.prev52 .plus51').length }));
-  ok('Explore All lists all 56 titles', ex.n === 56 && ex.t === 56, `${ex.t} distinct`);
+  ok(`Explore All lists all ${X.c} titles`, ex.n === X.c && ex.t === X.c, `${ex.t} distinct`);
   if (REV) {
     const rv = await ev(() => { const cards = [...document.querySelectorAll('.x52r:not(.xpers52)')]; return { tags: cards.map(c => c.querySelectorAll('.tg52 li').length), noStatement: cards.every(c => !c.querySelector('.xline, .xfor52, .evb')),
       moodFromWalk: cards.filter(c => /walk/i.test(c.querySelector('h3').textContent) && [...c.querySelectorAll('.tg52 li')].some(li => li.textContent === 'Mood')).map(c => c.querySelector('h3').textContent) }; });
@@ -48,10 +49,11 @@ const ok = (name, cond, detail = '') => { results.push(`${cond ? 'PASS' : 'FAIL'
     const mw = await ev(() => recommend52(C52.raw, recOpts52({ goals: ['mood'] })).filter(r => /walk/.test(r.card.card_id)).map(r => [SHORT52[r.card.card_id], r.benefits.concat(r.variants.flatMap(v => v.benefits)).filter(b => b.goals.includes('mood')).length]));
     ok('"Mood" appears on a walking card only with a published mood result for the shown schedule', rv.moodFromWalk.every(t => mw.some(([t2, n]) => n > 0 && t2 === t)), rv.moodFromWalk.join(', ') || 'none shown');
   }
-  ok('restricted routines show neutral previews without an add button', ex.prev === 34 && ex.plusOnPrev === 0, `${ex.prev} previews`);
+  if (REV) ok('no generic “check if it fits” previews remain in Explore', ex.prev === 0 && !(await ev(() => /fits you/i.test($('#vp').innerText))));
+  else ok('restricted routines show neutral previews without an add button', ex.prev === 34 && ex.plusOnPrev === 0, `${ex.prev} previews`);
   await click('[data-act=xgoal][data-g=_general]');
   const gen = await ev(() => document.querySelectorAll('.x52, .x52r').length);
-  ok('untargeted routines are discoverable under Everyday care', gen === 12, `${gen}`);
+  ok('untargeted routines are discoverable under Everyday care', gen === (REV ? 14 : 12), `${gen}`);
   const drink = await ev(() => { st.ui.explore.goals = []; st.ui.explore.q = 'sugary'; re(); const c = [...document.querySelectorAll('.x52, .x52r')].find(x => /sugary drink|soda for water/i.test(x.textContent)); return { trk: !!c?.querySelector('.trk52') || /Drink tracking/.test(c?.textContent || ''), chip: !!c?.querySelector('.evb') }; });
   ok('drink swap preview shows action and drink tracking, no benefit', drink.trk && !drink.chip);
   await ev(() => { st.ui.explore.q = ''; re(); });
@@ -66,6 +68,21 @@ const ok = (name, cond, detail = '') => { results.push(`${cond ? 'PASS' : 'FAIL'
   ok('Explore keeps filter and scroll after opening a habit', ret.g === 'sleep' && ret.on === 'sleep' && Math.abs(ret.top - 600) < 30, JSON.stringify(ret));
 
   /* ---------- eligibility, exclusions, clearance ---------- */
+  if (REV) {
+    await ev(() => go('habit', { id: 'salt-swap' })); await p.waitForTimeout(150);
+    ok('a card with a real exclusion shows Add habit, not a generic check', (await ev(() => $('#vp .dock').textContent)).includes('Add habit'));
+    await ev(() => A['quick-add']({ dataset: { id: 'salt-swap' } })); await p.waitForTimeout(200);
+    ok('Add asks the specific question first and adds nothing yet', await ev(() => /kidney disease/.test($('.st52')?.innerText || '') && !st.plan.some(x => x.hid === 'salt-swap')));
+    await click('.st52 [data-act=st52-ans][data-v=yes]');
+    const blk = await ev(() => ({ can: canAdd52(C52.card['salt-swap']), rec: recommend52(C52.raw, recOpts52({ goals: ['heart'] })).some(r => r.card.card_id === 'salt-swap'), plan: st.plan.some(x => x.hid === 'salt-swap') }));
+    await ev(() => closeSheet(true));
+    const dock = await ev(() => $('#vp .dock').textContent);
+    ok('a Yes keeps the card out of adding and recommendations', !blk.can && !blk.rec && !blk.plan && dock.includes('Not suggested'), dock);
+    await ev(() => { E52().q52 = {}; E52().blocked = []; E52().clear = {}; persist(); });
+    const hg = await ev(() => { const r = []; r.push(canAdd52(C52.card.handgrip)); E52().q52.handgrip = 'no'; r.push(canAdd52(C52.card.handgrip)); E52().clear.handgrip = true; r.push(canAdd52(C52.card.handgrip) && recommend52(C52.raw, recOpts52({ goals: ['heart'] })).some(x => x.card.card_id === 'handgrip')); return r; });
+    ok('handgrip keeps its question and professional guidance before matching', !hg[0] && !hg[1] && hg[2], JSON.stringify(hg));
+    await ev(() => { E52().q52 = {}; E52().clear = {}; persist(); });
+  } else {
   await ev(() => go('habit', { id: 'salt-swap' })); await p.waitForTimeout(150);
   ok('restricted card asks to check fit before adding', /Check (that this|it) fits you/.test(await ev(() => $('#vp .dock').textContent)));
   await ev(() => A['quick-add']({ dataset: { id: 'salt-swap' } })); await p.waitForTimeout(150);
@@ -78,9 +95,10 @@ const ok = (name, cond, detail = '') => { results.push(`${cond ? 'PASS' : 'FAIL'
   await ev(() => { E52().clear.handgrip = true; });
   const hg2 = await ev(() => canAdd52(C52.card.handgrip) && recommend52(C52.raw, recOpts52({ goals: ['heart'] })).some(r => r.card.card_id === 'handgrip'));
   ok('clinician-clearance card needs both confirmation and clearance', !hg1 && hg2);
+  }
 
   if (REV) {
-    const d = await ev(() => { go('habit', { id: 'salt-swap' }); const r = $('details.rs52r'); return { closed: r && !r.open, safetyBeforeResearch: $('.safe52').compareDocumentPosition(r) & 4, sources: r.querySelectorAll('a[href^="https"]').length, summary: r.querySelector('summary').textContent.trim() }; });
+    const d = await ev(() => { go('habit', { id: 'stairs' }); const r = $('details.rs52r'); return { closed: r && !r.open, safetyBeforeResearch: $('.nt52, .safe52').compareDocumentPosition(r) & 4, sources: r.querySelectorAll('a[href^="https"]').length, summary: r.querySelector('summary').textContent.trim() }; });
     ok('habit page opens with research folded and safety visible before it', d.closed && d.safetyBeforeResearch && d.sources > 0, d.summary);
     await ev(() => { $('details.rs52r').open = true; $('details.rs52r').dispatchEvent(new Event('toggle')); E52().aud.push('type_2_diabetes'); go('habit', { id: 'walk-after-meals' }); });
     await p.waitForTimeout(100); await ev(() => { $('details.rs52r').open = true; $('details.rs52r').dispatchEvent(new Event('toggle')); });

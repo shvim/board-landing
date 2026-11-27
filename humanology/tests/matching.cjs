@@ -27,7 +27,7 @@ const out = []; let failed = 0; const ok = (n, c, d = '') => { out.push(`${c ? '
   await onboard(p, ['heart'], { heart: 'bp' }, '20+', 'more');
   let s = await setInfo(p);
   ok('Heart → Blood pressure → More effort: brisk walking first', s.ids[0] === 'brisk-walking', s.ids.join(', '));
-  ok('only cards with a published blood-pressure result appear (no oats, no filler)', s.ids.length >= 1 && !s.ids.includes('oats') && s.cards.every(c => c.bens.every(id => ['brisk-walking-1', 'brisk-walking-2', 'salt-swap-1', 'dash-1', 'dash-2', 'walking-breaks-1', 'handgrip-1'].includes(id))), JSON.stringify(s.cards.map(c => [c.id, c.bens])));
+  ok('only cards with a published blood-pressure result appear (no oats, no filler)', s.ids.length >= 1 && !s.ids.includes('oats') && s.cards.every(c => c.bens.every(id => ["brisk-walking-1", "brisk-walking-2", "salt-swap-1", "dash-1", "dash-2", "walking-breaks-1", "handgrip-1", "slow-breathing-1"].includes(id))), JSON.stringify(s.cards.map(c => [c.id, c.bens])));
   ok('card shows the blood-pressure outcome, time and one evidence label', /Blood pressure/.test(s.card) && /30\s*min/.test(s.card) && /Strong evidence/.test(s.card) && !/Fitness/.test(s.card), s.card.replace(/\s+/g, ' ').slice(0, 120));
   ok('the evidence label is bound to the outcome for assistive tech', await p.evaluate(() => /Strong evidence for blood pressure/.test($('.dcard.cur .mt52')?.getAttribute('aria-label') || '')));
   await p.screenshot({ path: `${SHOTS}/bp-result-390.png` });
@@ -83,15 +83,15 @@ const out = []; let failed = 0; const ok = (n, c, d = '') => { out.push(`${c ? '
   await p.close();
 
   /* 5. two goals with different refinements: one match is enough; name only the matched goal(s) */
-  p = await page(); await p.evaluate(() => { E52().elig.kiwi = true; persist(); }); await onboard(p, ['heart', 'digestion'], { heart: 'bp', digestion: 'regularity' }, '20+', null); s = await setInfo(p);
-  const goalsOk = s.cards.every(c => c.goals.every(g => ['heart', 'digestion'].includes(g)) && c.bens.every(id => (c.goals.includes('heart') && ['brisk-walking-1', 'brisk-walking-2', 'salt-swap-1', 'dash-1', 'dash-2', 'walking-breaks-1', 'handgrip-1'].includes(id)) || (c.goals.includes('digestion') && ['kiwi-1', 'psyllium-2', 'prunes-1'].includes(id))));
+  p = await page(); await p.evaluate(() => { E52().q52 = { kiwi: 'no' }; persist(); }); await onboard(p, ['heart', 'digestion'], { heart: 'bp', digestion: 'regularity' }, '20+', null); s = await setInfo(p);
+  const goalsOk = s.cards.every(c => c.goals.every(g => ['heart', 'digestion'].includes(g)) && c.bens.every(id => (c.goals.includes('heart') && ["brisk-walking-1", "brisk-walking-2", "salt-swap-1", "dash-1", "dash-2", "walking-breaks-1", "handgrip-1", "slow-breathing-1"].includes(id)) || (c.goals.includes('digestion') && ["kiwi-1", "psyllium-2", "prunes-1", "abdominal-massage-1"].includes(id))));
   ok('two goals: each card names only the goal it matches', goalsOk && s.cards.some(c => c.goals.includes('digestion')) && s.cards.some(c => c.goals.includes('heart')), JSON.stringify(s.cards.map(c => [c.id, c.goals])));
   ok('no duplicate cards', new Set(s.ids).size === s.ids.length);
   await p.close();
 
   /* 6. seated, then More effort: the explicit movement answer replaces seated */
   p = await page(); await onboard(p, ['heart'], { heart: 'bp' }, '20+', 'seated'); s = await setInfo(p);
-  ok('seated: only seated-compatible matches', s.cards.every(c => ['handgrip', 'oats', 'almonds'].includes(c.id) || false) || s.ids.length === 0, s.ids.join(', ') || 'none');
+  ok('seated: only seated-compatible matches', s.cards.every(c => ['handgrip', 'oats', 'almonds', 'slow-breathing'].includes(c.id)) || s.ids.length === 0, s.ids.join(', ') || 'none');
   await p.evaluate(() => { A['ans-edit']({ dataset: { s: 'effort' } }); }); await p.waitForTimeout(300); await click(p, '[data-act=eff5-pick][data-v=more]'); s = await setInfo(p);
   ok('changing to More effort re-evaluates', s.ids[0] === 'brisk-walking', s.ids.join(', '));
   await p.evaluate(() => { F.onb.pick[F.onb.set[0].h.id] = 'add'; startPlan(F.onb); });
@@ -100,10 +100,10 @@ const out = []; let failed = 0; const ok = (n, c, d = '') => { out.push(`${c ? '
 
   /* 7. exclusions and clearance flow through the same gate */
   p = await page(); const ex = await p.evaluate(() => { const prof = { goals: ['heart'], refines: { heart: 'bp' }, effort: null, ability: null, time: null };
-    const a = match52(prof).map(x => x.id); E52().elig['salt-swap'] = true; const b2 = match52(prof).map(x => x.id); E52().blocked.push('kidney_disease'); const c = match52(prof).map(x => x.id);
-    E52().elig.handgrip = true; const d = match52({ ...prof, effort: 'more' }).map(x => x.id); E52().clear.handgrip = true; const e = match52({ ...prof, effort: 'more' }).map(x => x.id); return { a, b2, c, d, e }; });
-  ok('restricted card needs confirmation; an exclusion removes it', !ex.a.includes('salt-swap') && ex.b2.includes('salt-swap') && !ex.c.includes('salt-swap'), JSON.stringify(ex));
-  ok('clinician-clearance card needs clearance before matching', !ex.d.includes('handgrip') && ex.e.includes('handgrip'));
+    const a = match52(prof).map(x => x.id); E52().q52 = { 'salt-swap': 'no' }; const b2 = match52(prof).map(x => x.id); E52().blocked.push('kidney_disease'); const c = match52(prof).map(x => x.id);
+    E52().q52.handgrip = 'no'; const d = match52({ ...prof, effort: 'more' }).map(x => x.id); E52().clear.handgrip = true; const e = match52({ ...prof, effort: 'more' }).map(x => x.id); return { a, b2, c, d, e }; });
+  ok('a card with a real exclusion needs its question answered; an exclusion removes it', !ex.a.includes('salt-swap') && ex.b2.includes('salt-swap') && !ex.c.includes('salt-swap'), JSON.stringify(ex));
+  ok('handgrip needs its question and professional guidance before matching', !ex.d.includes('handgrip') && ex.e.includes('handgrip'));
   await p.close();
 
   /* 8. migrated 5.1 profile */
@@ -120,7 +120,7 @@ const out = []; let failed = 0; const ok = (n, c, d = '') => { out.push(`${c ? '
     const r = q => card(q)?.querySelector('.mt52')?.textContent.replace(/\s+/g, ' ').trim() || '';
     return { brisk: r('Take a brisk walk'), salt: r('Swap to potassium salt'), drink: r('Swap soda for water'), dash: r('Eat DASH-style meals'), effort: document.querySelectorAll('.x52r .eff').length, n: document.querySelectorAll('.x52r .mt52').length }; });
   ok('Explore row: "30 min · Strong evidence" for brisk walking', /30\s*min\s*·\s*Strong evidence/.test(xr.brisk), xr.brisk);
-  ok('no evidence cue on an unconfirmed preview or the research-only drink swap', !/evidence/i.test(xr.salt) && !/evidence/i.test(xr.drink), JSON.stringify([xr.salt, xr.drink]));
+  ok('no evidence cue on the research-only drink swap; salt swap shows its own result', !/evidence|research|study/i.test(xr.drink) && /Strong evidence/.test(xr.salt), JSON.stringify([xr.salt, xr.drink]));
   ok('effort stays off browse cards', xr.effort === 0);
   await p.evaluate(() => { const c = [...document.querySelectorAll('.xcard')].find(c => c.querySelector('h3')?.textContent === 'Take a brisk walk'); c.scrollIntoView({ block: 'start' }); $('#vp .scroll').scrollTop -= 8; }); await p.waitForTimeout(200);
   await p.screenshot({ path: `${SHOTS}/explore-row-390.png` });

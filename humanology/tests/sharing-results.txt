@@ -1,8 +1,8 @@
-PASS  opened habit: peach Share habit is visible on first phone view — {"top":492.54815673828125,"bottom":536.5481567382812,"h":44,"vh":844,"peach":"rgb(248, 217, 198)"}
+PASS  opened habit: peach Share habit is visible on first phone view — {"top":488.18878173828125,"bottom":532.1887817382812,"h":44,"vh":844,"peach":"rgb(248, 217, 198)"}
 PASS  no redundant sharing entry lower on the page
 PASS  science is folded under "What does the research say?"
 PASS  no copy telling you to get tested
-PASS  audience pill and eligibility gate before adding
+PASS  apples is ordinary: no audience pill, plain Add habit
 PASS  Share opens a sheet labeled with the habit — Eat two apples
 PASS  Share this habit sends the apples title and description through the share menu — {"title":"Eat two apples","text":"Eat two apples\nSlightly lower LDL in one trial in adults with mildly elevated cholesterol.\nA habit from Humanology."}
 PASS  Invite opens the private challenge flow for the same habit, labeled as simulated — Do this with someone Invite a friend, partner or family member to a private challenge for Eat two apples. Lunch walkers 
@@ -15,7 +15,7 @@ PASS  invite from the list carries the same habit into an existing circle
 PASS  a canceled share returns to the same card — {"sheet":false,"r":"today","focus":"walk-after-meals","act":"share52","toast":"Not shared."}
 PASS  no share menu: copies the habit and confirms
 PASS  copy blocked: shows the text selected to copy by hand
-PASS  long title at 320px: Share on its own line and reachable — {"own":true,"vis":true,"ow":true,"h":44.000030517578125}
+PASS  long title at 320px: Share on its own line and reachable — {"own":true,"vis":true,"ow":true,"h":44}
 PASS  All my habits at 320px: no overflow
 PASS  long title at 390px: Share on its own line and reachable — {"own":true,"vis":true,"ow":true,"h":44}
 PASS  All my habits at 390px: no overflow
@@ -27,11 +27,11 @@ PASS  apples: completion alone saves no reading — {"pts":75,"ldl":0}
 PASS  apples has a sage LDL cholesterol panel with Add a reading
 PASS  an impossible value is refused with a clear message
 PASS  saving an LDL result adds no points and changes no habit — {"pts":75,"status":"done"}
-PASS  apples panel shows the value and date — LDL CHOLESTEROL 131 mg/dL Nov 12 Add a reading All ldl cholesterol entries Optio
+PASS  apples panel shows the value and date — LDL cholesterol 131 mg/dL Nov 12 Add a reading All ldl cholesterol entries
 PASS  the same reading is visible from oats
 PASS  Today → Your health shows the LDL value and date once — LDL cholesterol Nov 12 131 mg/dL
 PASS  reading survives reload
-PASS  editing keeps one entry and preserves the chosen unit — {"id":"r005q","value":3.4,"unit":"mmol/L","date":"2026-11-12","ts":"2026-11-24T05:00","edited":"2026-11-24"}
+PASS  editing keeps one entry and preserves the chosen unit — {"id":"r005q","value":3.4,"unit":"mmol/L","date":"2026-11-12","ts":"2026-11-24T07:00","edited":"2026-11-24"}
 PASS  brisk walking has a blood pressure tracker
 PASS  blood pressure saves both numbers and shows them
 PASS  mood habit offers Nora's five faces — m1,m2,m3,m4,m5

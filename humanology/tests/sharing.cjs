@@ -25,12 +25,12 @@ const stub = (share, clip) => `(() => { window.__calls = []; window.__clip = [];
   /* ---------- 1. sharing from the opened habit: apples ---------- */
   let p = await open({ scale: 2 });
   await p.evaluate(() => go('habit', { id: 'apples' })); await p.waitForTimeout(250);
-  const top = await p.evaluate(() => { const r = $('.ttl52 .shb52').getBoundingClientRect(); return { top: r.top, bottom: r.bottom, h: r.height, vh: innerHeight, peach: getComputedStyle($('.ttl52 .shb52')).backgroundColor }; });
+  const top = await p.evaluate(() => { const r = $('.ttl52 .shb52').getBoundingClientRect();  return { top: r.top, bottom: r.bottom, h: r.height, vh: innerHeight, peach: getComputedStyle($('.ttl52 .shb52')).backgroundColor }; });
   ok('opened habit: peach Share habit is visible on first phone view', top.bottom < top.vh - 90 && top.h >= 43.5, JSON.stringify(top));
   ok('no redundant sharing entry lower on the page', await p.evaluate(() => !$('[data-act="together"]') && !$('.together5')));
   ok('science is folded under "What does the research say?"', await p.evaluate(() => { const d = $('details.rs52r'); return d && !d.open && /What does the research say/.test(d.querySelector('summary').textContent); }));
   ok('no copy telling you to get tested', await p.evaluate(() => !/lipid panel|get tested|retest|lab test|overdue/i.test($('#vp').innerText)));
-  ok('audience pill and eligibility gate before adding', await p.evaluate(() => $('.aud52')?.textContent === 'For mildly raised cholesterol' && /Check it fits you/.test($('#vp .dock').textContent)));
+  ok('apples is ordinary: no audience pill, plain Add habit', await p.evaluate(() => !$('.aud52') && $('#vp .dock').textContent.trim() === 'Add habit' && !/fits you/i.test($('#vp').innerText)));
   await p.screenshot({ path: `${SHOTS}/apple-habit-390.png` });
   await p.setViewportSize({ width: 390, height: 2300 }); await p.screenshot({ path: `${SHOTS}/apple-habit-390-full.png` }); await p.setViewportSize({ width: 390, height: 844 });
   await click(p, '.ttl52 .shb52');
@@ -87,7 +87,7 @@ const stub = (share, clip) => `(() => { window.__calls = []; window.__clip = [];
   /* ---------- 4. long title and layout at 320 / 390 and larger text ---------- */
   for (const [w, t] of [[320, 'default'], [390, 'default'], [320, 'larger'], [390, 'larger']]) {
     p = await open({ w, text: t, scale: 2 });
-    await p.evaluate(() => { E52().elig['neck-strength'] = true; E52().clear['neck-strength'] = true; go('habit', { id: 'neck-strength' }); }); await p.waitForTimeout(200);
+    await p.evaluate(() => { E52().clear['neck-strength'] = true; go('habit', { id: 'neck-strength' }); }); await p.waitForTimeout(200);
     const g = await p.evaluate(() => { const h = $('.ttl52 h2').getBoundingClientRect(), s = $('.ttl52 .shb52').getBoundingClientRect(); return { own: s.top >= h.bottom, vis: s.bottom < innerHeight, ow: document.documentElement.scrollWidth <= innerWidth, h: s.height }; });
     ok(`long title at ${w}px${t === 'larger' ? ', larger text' : ''}: Share on its own line and reachable`, g.own && g.h >= 43.5 && g.ow && (t === 'larger' || g.vis), JSON.stringify(g));
     await p.screenshot({ path: `${SHOTS}/long-title-${w}${t === 'larger' ? '-large' : ''}.png` });
@@ -100,7 +100,6 @@ const stub = (share, clip) => `(() => { window.__calls = []; window.__clip = [];
   /* ---------- 5. trackers: apples completion, then an earlier LDL result; visible from oats; on Today once ---------- */
   p = await open({ scale: 2 });
   await p.evaluate(() => go('habit', { id: 'apples' })); await p.waitForTimeout(200);
-  await click(p, '#vp .dock [data-act=fit52]'); await p.check('input[data-fit52=ok]'); await click(p, '[data-act=fit52-save]');
   await click(p, '#vp .dock [data-act=quick-add]'); await p.evaluate(() => closeSheet(true));
   const pts0 = await p.evaluate(() => pts51());
   const oid = await p.evaluate(() => HM.occOn(st, st.today).find(o => o.hid === 'apples' && o.status === 'due')?.oid);
@@ -119,7 +118,7 @@ const stub = (share, clip) => `(() => { window.__calls = []; window.__clip = [];
   const s1 = await p.evaluate(() => ({ pts: pts51(), status: HM.occOn(st, st.today).find(o => o.hid === 'apples').status, panel: $('.trk52p').innerText }));
   ok('saving an LDL result adds no points and changes no habit', s1.pts === pts0 + 1 && s1.status === 'done', JSON.stringify({ pts: s1.pts, status: s1.status }));
   ok('apples panel shows the value and date', /131\s*mg\/dL/.test(s1.panel) && /Nov/.test(s1.panel), s1.panel.replace(/\s+/g, ' ').slice(0, 80));
-  await p.evaluate(() => { E52().elig.oats = true; go('habit', { id: 'oats' }); }); await p.waitForTimeout(200);
+  await p.evaluate(() => { go('habit', { id: 'oats' }); }); await p.waitForTimeout(200);
   ok('the same reading is visible from oats', await p.evaluate(() => /131\s*mg\/dL/.test($('.trk52p').innerText)));
   await p.evaluate(() => tab('today')); await p.waitForTimeout(200);
   const today = await p.evaluate(() => [...document.querySelectorAll('.hl51 .hr51')].filter(r => /LDL cholesterol/.test(r.textContent)).map(r => r.innerText.replace(/\s+/g, ' ')));

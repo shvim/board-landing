@@ -1,0 +1,54 @@
+PASS  a new user meets a question or guidance only where the rules require it — 16: acupuncture-migraine, almonds, cold-shower, cystitis, flight-stockings, handgrip, jumps, kiwi, neck-strength, pelvic-floor, psyllium, salt-swap, sleep-extension, stairs, standing-stockings, water-premeal
+PASS  ordinary habits named in the brief add without a check
+PASS  ordinary Add: apples goes straight into the plan with no question
+PASS  newly ungated habits are recommended when they match (Sleep → Falling asleep) — bath, bedtime-list, bedtime-phone
+PASS  dashboard suggestions include formerly gated ordinary habits — cyclic-sighing, mindfulness, optimism, screen-cap, social-break, three-good-things, volunteer, walking-breaks
+PASS  Explore + on stairs asks the vigorous-exercise question
+PASS  a Yes blocks stairs on quick-add, schedule change, onboarding and dashboard — {"can":false,"plan":false,"quick":false,"variant":false,"dock":"Not suggested for you · Change answer","onb":["brisk-walking","resistance-sarcopenia"],"dash":["brisk-walking","fall-hazards","resistance-sarcopenia","tai-chi"]}
+PASS  changing the answer to No makes stairs addable again
+PASS  handgrip states why guidance is needed (30% of maximum with a force gauge) — Needs professional guidance. The studied routine sets the grip at about 30% of your maximu
+PASS  handgrip Add asks its exclusion question before guidance
+PASS  then asks for professional guidance
+PASS  with both answered, handgrip is added
+PASS  the diabetes-only schedule stays locked and is never used without the condition — {"locked":true,"sel":"walk-after-meals-1","plan":"walk-after-meals-1"}
+PASS  Heart → Blood pressure → More effort still leads with brisk walking — brisk-walking, walking-breaks
+PASS  returning user: a plan paused only by the old check resumes; one with a real question stays paused; history kept — {"m":"active","k":"paused","logs":2}
+PASS  apples at 320px: painting leads, Share under title, research closed, action reachable — {"heroH":359.9999694824219,"w":320,"shareBelow":true,"shareH":44,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  cyclic-sighing at 320px: painting leads, Share under title, research closed, action reachable — {"heroH":360,"w":320,"shareBelow":true,"shareH":44,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  standing-stockings at 320px: painting leads, Share under title, research closed, action reachable — {"heroH":360.0000305175781,"w":320,"shareBelow":true,"shareH":44,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  handgrip at 320px: painting leads, Share under title, research closed, action reachable — {"heroH":360,"w":320,"shareBelow":true,"shareH":44,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  neck-strength at 320px: painting leads, Share under title, research closed, action reachable — {"heroH":360,"w":320,"shareBelow":true,"shareH":44,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  apples at 375px: painting leads, Share under title, research closed, action reachable — {"heroH":404.9999694824219,"w":375,"shareBelow":true,"shareH":44.000030517578125,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  cyclic-sighing at 375px: painting leads, Share under title, research closed, action reachable — {"heroH":405,"w":375,"shareBelow":true,"shareH":44,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  standing-stockings at 375px: painting leads, Share under title, research closed, action reachable — {"heroH":405,"w":375,"shareBelow":true,"shareH":43.999969482421875,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  handgrip at 375px: painting leads, Share under title, research closed, action reachable — {"heroH":405,"w":375,"shareBelow":true,"shareH":43.999969482421875,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  neck-strength at 375px: painting leads, Share under title, research closed, action reachable — {"heroH":404.9999694824219,"w":375,"shareBelow":true,"shareH":44.000030517578125,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  apples at 390px: painting leads, Share under title, research closed, action reachable — {"heroH":421.1875,"w":390,"shareBelow":true,"shareH":44,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  cyclic-sighing at 390px: painting leads, Share under title, research closed, action reachable — {"heroH":421.1875305175781,"w":390,"shareBelow":true,"shareH":43.99993896484375,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  standing-stockings at 390px: painting leads, Share under title, research closed, action reachable — {"heroH":421.1875305175781,"w":390,"shareBelow":true,"shareH":44,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  handgrip at 390px: painting leads, Share under title, research closed, action reachable — {"heroH":421.1875,"w":390,"shareBelow":true,"shareH":44.000030517578125,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  neck-strength at 390px: painting leads, Share under title, research closed, action reachable — {"heroH":421.1874694824219,"w":390,"shareBelow":true,"shareH":44,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  apples at 320px larger text: painting leads, Share under title, research closed, action reachable — {"heroH":439.1875305175781,"w":320,"shareBelow":true,"shareH":53.671875,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  cyclic-sighing at 320px larger text: painting leads, Share under title, research closed, action reachable — {"heroH":439.1875,"w":320,"shareBelow":true,"shareH":53.671875,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  standing-stockings at 320px larger text: painting leads, Share under title, research closed, action reachable — {"heroH":439.1875,"w":320,"shareBelow":true,"shareH":53.671875,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  handgrip at 320px larger text: painting leads, Share under title, research closed, action reachable — {"heroH":439.1875,"w":320,"shareBelow":true,"shareH":53.671875,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  neck-strength at 320px larger text: painting leads, Share under title, research closed, action reachable — {"heroH":439.1875,"w":320,"shareBelow":true,"shareH":53.671875,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  apples at 390px larger text: painting leads, Share under title, research closed, action reachable — {"heroH":513.859375,"w":390,"shareBelow":true,"shareH":53.671875,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  cyclic-sighing at 390px larger text: painting leads, Share under title, research closed, action reachable — {"heroH":513.859375,"w":390,"shareBelow":true,"shareH":53.671875,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  standing-stockings at 390px larger text: painting leads, Share under title, research closed, action reachable — {"heroH":513.859375,"w":390,"shareBelow":true,"shareH":53.671875,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  handgrip at 390px larger text: painting leads, Share under title, research closed, action reachable — {"heroH":513.8594360351562,"w":390,"shareBelow":true,"shareH":53.671875,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  neck-strength at 390px larger text: painting leads, Share under title, research closed, action reachable — {"heroH":513.8594360351562,"w":390,"shareBelow":true,"shareH":53.671875,"dockVis":true,"closed":true,"ow":true,"generic":false,"warnBox":false,"order":true}
+PASS  research opens with the short summary, then who was studied, then linked studies — {"first":"rsum52","studied":true,"links":3,"related":true}
+PASS  related or conflicting papers are labeled as context, not direct support
+PASS  “Check if it fits” is gone from every habit page and Explore
+PASS  evidence wording says what we know about that outcome — {"cs":"One study","sw":"One small study","sb":"Early research","ac":"Research supported","anec":false}
+PASS  searching “breathing” finds cyclic sighing — Practice slow breathing, Try cyclic sighing, Hum on the out-breath
+PASS  searching “breathwork” finds cyclic sighing — Practice slow breathing, Try cyclic sighing, Hum on the out-breath
+PASS  Explore shows a “Something different to try” shelf — Try cyclic sighing, Walk to brainstorm, Write tomorrow’s list, Draw it to remember, Hum on the out-breath, Walk the stairs for energy, Sleep under a weighted blanket, Practice slow breathing, Try acupuncture for migraine, Raise your feet on the toilet, Picture your best future, End with cold water
+PASS  early-research habits stay browsable with an honest cue — 21
+PASS  all eight new cards render with a tracker and linked sources — [["slow-breathing",1],["humming",1],["acupuncture-migraine",1],["weighted-blanket",1],["stair-walk-energy",1],["drawing-memory",1],["toilet-footstool",1],["abdominal-massage",2]]
+PASS  humming carries no health-benefit tag
+PASS  acupuncture is practitioner-led, with no home-needling instructions — Needs professional guidance. Acupuncture is given by a licensed practitioner; bo
+PASS  no console errors
+
+52 passed, 0 failed

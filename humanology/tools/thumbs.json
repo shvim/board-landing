@@ -367,5 +367,53 @@
    0.26,
    0.28
   ]
+ },
+ "slow-breathing": {
+  "src": "long-exhale",
+  "c": [
+   0.5,
+   0.5,
+   0.66
+  ]
+ },
+ "humming": {
+  "src": "humming",
+  "c": [
+   0.5,
+   0.44,
+   0.56
+  ]
+ },
+ "weighted-blanket": {
+  "src": "weighted-blanket",
+  "c": [
+   0.5,
+   0.5,
+   0.62
+  ]
+ },
+ "drawing-memory": {
+  "src": "sketch",
+  "c": [
+   0.6,
+   0.55,
+   0.42
+  ]
+ },
+ "toilet-footstool": {
+  "src": "footstool",
+  "c": [
+   0.5,
+   0.55,
+   0.62
+  ]
+ },
+ "abdominal-massage": {
+  "src": "belly-massage",
+  "c": [
+   0.5,
+   0.56,
+   0.62
+  ]
  }
 }

@@ -1,18 +1,18 @@
-PASS  56 unique cards and titles — 56 cards, 56 titles, 56 in HM.CAT
-PASS  75 benefits, 9 schedule variants, 146 publications, unique IDs
+PASS  64 unique cards and titles — 64 cards, 64 titles, 64 in HM.CAT
+PASS  82 benefits, 9 schedule variants, 155 publications, unique IDs
 PASS  every benefit, variant, note and source reference resolves
 PASS  every publication link is https
-PASS  Explore All lists all 56 titles — 56 distinct
+PASS  Explore All lists all 64 titles — 64 distinct
 PASS  Explore cards: short title, at most two topic tags, no evidence statement — tags 1–2
 PASS  "Mood" appears on a walking card only with a published mood result for the shown schedule — Walk breaks from sitting
-PASS  restricted routines show neutral previews without an add button — 34 previews
-PASS  untargeted routines are discoverable under Everyday care — 12
+PASS  no generic “check if it fits” previews remain in Explore
+PASS  untargeted routines are discoverable under Everyday care — 14
 PASS  drink swap preview shows action and drink tracking, no benefit
 PASS  Explore keeps filter and scroll after opening a habit — {"g":"sleep","top":600,"on":"sleep"}
-PASS  restricted card asks to check fit before adding
-PASS  add attempt opens the fit check, not the plan
-PASS  an exclusion keeps the card out of adding and recommendations
-PASS  clinician-clearance card needs both confirmation and clearance
+PASS  a card with a real exclusion shows Add habit, not a generic check
+PASS  Add asks the specific question first and adds nothing yet
+PASS  a Yes keeps the card out of adding and recommendations — Not suggested for you · Change answer
+PASS  handgrip keeps its question and professional guidance before matching — [false,false,true]
 PASS  habit page opens with research folded and safety visible before it — What does the research say?
 PASS  research disclosure stays open after changing schedule
 PASS  audience-only schedule is locked until the condition is confirmed
@@ -65,7 +65,7 @@ PASS  reward demo distinguishes sample categories
 PASS  points history marks example points
 PASS  health history names metric, unit, date range and comparison — Resting heart rate · bpmOct 25 – Nov 23, compared with Sep 25 – Oct 24.Average 61 bpm, compared with 62 bpm in the previ
 PASS  every screen renders without an exception
-PASS  every referenced painting file exists — 94 files
+PASS  every referenced painting file exists — 105 files
 PASS  no failed requests for local assets
 PASS  no console errors or exceptions
 

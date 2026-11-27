@@ -11,7 +11,7 @@ const C52 = (() => {
   raw.variants.forEach(v => vari[v.variant_id] = v);
   raw.research_sources.forEach(s => src[s.source_id] = s);
   const variantsOf = id => raw.variants.filter(v => v.card_id === id);
-  return { raw, card, ben, vari, src, variantsOf, release: "2026-11-26.4" };
+  return { raw, card, ben, vari, src, variantsOf, release: raw.catalog_version };
 })();
 const ART52 = JSON.parse(document.getElementById("art52").textContent);
 const LEGACY51 = JSON.parse(document.getElementById("legacy51").textContent);

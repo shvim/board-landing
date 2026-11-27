@@ -18,7 +18,8 @@ lines[lib_i] = ('<script type="application/json" id="catalog52">' + js_json(cata
   + '<script type="application/json" id="legacy51">' + js_json(legacy) + '</script>\n'
   + '<script type="application/json" id="art52">' + js_json(art) + '</script>'
   + ('\n<script type="application/json" id="refine52">' + js_json(json.load(open('matching/refinements.json'))) + '</script>'
-     + '\n<script type="application/json" id="activity52">' + js_json(json.load(open('matching/activity.json'))) + '</script>' if REVISED else ''))
+     + '\n<script type="application/json" id="activity52">' + js_json(json.load(open('matching/activity.json'))) + '</script>'
+     + '\n<script type="application/json" id="policy52">' + js_json(json.load(open('matching/policy.json'))) + '</script>' if REVISED else ''))
 src = '\n'.join(lines)
 
 # 2. sample data and ID-keyed tables in the 5.1 code move to the new card IDs (exact or sample-only renames)
@@ -36,7 +37,7 @@ src = src.replace('applyArt(); applyV4(); applyV5();', 'applyArt(); applyV4(); a
 assert 'buildCat52()' in src and 'apply52();' in src
 
 # 4. the 5.2 layer goes in just before boot
-layer = '\n'.join(open(f'src/{f}', encoding='utf-8').read() for f in ['layer52-data.js', 'layer52-ui.js'] + (['layer52r-data.js', 'layer52r-ui.js', 'layer52m-ui.js', 'layer52s-ui.js'] if REVISED else []))
+layer = '\n'.join(open(f'src/{f}', encoding='utf-8').read() for f in ['layer52-data.js', 'layer52-ui.js'] + (['layer52r-data.js', 'layer52r-ui.js', 'layer52m-ui.js', 'layer52s-ui.js', 'layer52f-ui.js'] if REVISED else []))
 if REVISED:
     # the supplied exact-outcome matcher, embedded verbatim (export keyword dropped), and its two data files
     msrc = open('matching/match.mjs', encoding='utf-8').read().replace('export function refinedMatches', 'function refinedMatches', 1)

@@ -1,10 +1,10 @@
 glucose (2): walk-after-meals, meal-order
-bp (5): brisk-walking, salt-swap, dash, walking-breaks, handgrip
-done (16): stairs, sunscreen, resistance-sarcopenia, cold-shower, walk-for-ideas, toothbrush, jumps, retrieval, flight-stockings, fall-hazards, handwash, eat-slowly, smell-training, cystitis, pelvic-floor, tai-chi
+bp (6): brisk-walking, salt-swap, dash, walking-breaks, handgrip, slow-breathing
+done (17): stairs, sunscreen, resistance-sarcopenia, cold-shower, walk-for-ideas, toothbrush, jumps, retrieval, flight-stockings, fall-hazards, handwash, eat-slowly, smell-training, cystitis, pelvic-floor, tai-chi, drawing-memory
 ldl (6): almonds, beans, whole-grains, apples, psyllium, oats
-sleepq (7): caffeine, bath, relax-muscles, bedtime-list, bedtime-phone, music, sleep-extension
+sleepq (8): caffeine, bath, relax-muscles, bedtime-list, bedtime-phone, music, sleep-extension, weighted-blanket
 mood (5): cyclic-sighing, social-break, screen-cap, optimism, three-good-things
-regularity (2): kiwi, prunes
+regularity (4): kiwi, prunes, toilet-footstool, abdominal-massage
 gums (1): water-flosser
 swelling (1): standing-stockings
 eyes (1): blink
@@ -15,5 +15,7 @@ weight (1): water-premeal
 drinks (1): drink-swap
 stress (1): mindfulness
 reflux (1): left-side
-energy (2): one-brisk-walk, nap
+energy (3): one-brisk-walk, nap, stair-walk-energy
 neckpain (1): neck-strength
+calm (1): humming
+migraine (1): acupuncture-migraine

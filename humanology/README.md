@@ -216,3 +216,29 @@ Layer: `src/layer52s-ui.js` and `src/layer52s.css`. Starts from the matching bui
   - The latest real entry and its date appear in Today → Your health after the first save. Saving never completes a habit or adds points. There are no testing prompts, retest timers or overdue states.
 - **Tests:** `node tests/sharing.cjs` gives 42/42 ([results](tests/sharing-results.txt)). Matching 39/39 and e2e 70/70 still pass, along with parity and verify.
 - **Screenshots:** in `screenshots/sharing/`.
+
+## Revision 4: start rules, a designed habit page, discovery (catalog 2026-11-27.1)
+
+Layer: `src/layer52f-ui.js`, plus styles appended to `src/layer52s.css`. Start rules are in `matching/policy.json`, generated with the audit by `tools/policy_r4.py`. The catalog extension comes from `tools/catalog_r4.py`.
+
+- **Start rules** ([full 56-row audit](AUDIT-START-RULES.md)):
+  - Before Add, 34 of the 56 original habits interrupted a new user. Now 15 do, each with one specific question (13) or a stated professional-guidance reason (4); two have both. Ordinary habits like apples, the bedtime list and the phone-away habit go straight to "Add habit".
+  - There are 16 short audience pills, and 22 plain precautions, each shown once and never as a gate.
+  - Who was studied now appears only under "What does the research say?".
+  - The generic "Check if it fits" copy and the keyword-to-warning rule are gone.
+  - The recommendation inputs now give the catalog selector exactly the habits the rules allow. Ungated habits become matchable; a "Yes" to a question blocks the habit on every route to Add.
+  - Plans paused only by the old generic check resume on load. History is kept.
+- **Opened habit page:** a large painting, the short title, then Share on its own line. Below that: one quiet line (outcome · time · evidence) and an audience pill where useful, then "How to try it" written once (variants still switch the action, time, results, tracker and sources together).
+  - Any precaution appears once before the action, followed by one sage tracker and a compact history with Follow along for active habits.
+  - The lavender research panel is closed on entry. It opens to a short summary, who was studied, each result with its own sources, then related and conflicting studies labeled as context.
+  - One primary action: Add habit, Done for today or Edit schedule.
+- **Evidence wording per outcome:** Strong evidence, Research supported, One study or One small study (a single primary trial), or Early research. Nothing is called Anecdotal, and humming carries no health tag. Internal grades and source links are unchanged.
+- **Discovery:**
+  - A "Something different to try" shelf heads Explore.
+  - Search now uses everyday aliases, so "breathing" and "breathwork" find cyclic sighing and slow breathing.
+  - Eight new cards; see [EXPANSION-R4.md](EXPANSION-R4.md). Catalog, seed and counts are now 64 cards, 82 results and 155 publications.
+- **Tests:**
+  - New for this revision: `node tests/r4.cjs` gives 52/52 ([results](tests/r4-results.txt)).
+  - Updated for the new rules: e2e 70/70, matching 39/39, sharing 42/42.
+  - Also passing: catalog parity, matcher parity, `matching/verify.mjs` and `catalog/verify.mjs`.
+- **Screenshots:** in `screenshots/r4/`. `compare/` has before/after of the four reference pages; `after/` has 320, 375, 390 px and larger text, the shelf, the safety question, the Yes state, the breathwork search and the new cards.

@@ -194,3 +194,28 @@ The thumbnails for the 33 cards with a passing hero are crops of the existing pa
     - Groceries: a paper grocery bag with an apple and leafy greens.
   - Each object is centered within an 80% circle for a 56 px tile.
 - **O3 · Goal tiles.** The eight tiles use stand-in habit paintings until the approved tiles (section 1) are located. If those are lost, the approved designs should be re-briefed by the owner rather than recreated from this list.
+
+## 5 · New cards in release 2026-11-27.1
+
+Six of the eight new cards use existing paintings that depict the habit:
+
+| Card | Painting |
+|---|---|
+| slow breathing | hm-long-exhale |
+| humming | hm-humming |
+| weighted blanket | hm-weighted-blanket |
+| drawing to remember | hm-sketch |
+| toilet footstool | hm-footstool |
+| belly massage | hm-belly-massage |
+
+Two cards show the quiet placeholder until art arrives:
+
+### N1 · `hm-acupuncture.png`
+- **Slot:** `acupuncture-migraine`.
+- **Why:** no painting shows a practitioner-led session.
+- **Attach:** Current-cast/Priya Main Reference, `hm-bp-cuff.png` (calm clinical setting).
+- **Prompt:** Painted editorial illustration of Priya (fair skin, chin-length black bob, sage sweater) lying back calmly on a padded treatment couch, eyes closed, while a practitioner in a plain sage top with no badge text stands beside her, one hand resting lightly near her forearm. Needle detail is barely suggested: no close-up needles, no blood. Three-quarter view of the couch and both figures. Transparent background, 1536×1536 PNG, warm matte painted style, muted palette, no lettering or interface. Priya's relaxed face and the practitioner's hand stay inside the central half for a 48 px circle.
+
+### N2 · stairs
+- **Slot:** `stair-walk-energy`.
+- **Request:** shares A1 `hm-stairs.png`. One stair-climbing painting serves both stair cards; the "easy pace" and "energy" framing is in live text.

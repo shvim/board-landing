@@ -9,23 +9,23 @@ PASS  dashboard suggestions come from the same exact-outcome matcher — walking
 PASS  onboarding and dashboard agree for the same answers — walking-breaks
 PASS  Not for me hides the card and never adds the habit — {"inPlan":false,"shown":false,"dismissed":true}
 PASS  dismissed stays dismissed after reload
-PASS  Heart → Cholesterol includes oats — oats, whole-grains
+PASS  Heart → Cholesterol includes oats — apples, beans, oats
 PASS  unknown duration is shown as not stated, not as fitting
 PASS  short time budget: over-budget matches are kept but flagged — [["brisk-walking",30,true],["walking-breaks",80,true]]
 PASS  over-budget flag is visible on the card
 PASS  a short budget picks a schedule that fits when one exists — {"id":"walk-after-meals","goals":["metabolic"],"vid":"walk-after-meals-1","mins":12,"over":true,"bens":["walk-after-meals-1"]}
 PASS  Sleep → Regularity shows an honest empty result — No exact match yet
-PASS  Broaden the goal shows general sleep matches — bath, caffeine, music
-PASS  two goals: each card names only the goal it matches — [["brisk-walking",["heart"]],["kiwi",["digestion"]],["dash",["heart"]]]
+PASS  Broaden the goal shows general sleep matches — bath, bedtime-list, bedtime-phone
+PASS  two goals: each card names only the goal it matches — [["brisk-walking",["heart"]],["abdominal-massage",["digestion"]],["dash",["heart"]]]
 PASS  no duplicate cards
-PASS  seated: only seated-compatible matches — none
+PASS  seated: only seated-compatible matches — slow-breathing
 PASS  changing to More effort re-evaluates — brisk-walking, walking-breaks
 PASS  saved profile drops the stale seated answer
-PASS  restricted card needs confirmation; an exclusion removes it — {"a":["brisk-walking","dash","walking-breaks"],"b2":["brisk-walking","dash","salt-swap","walking-breaks"],"c":["brisk-walking","dash","walking-breaks"],"d":["brisk-walking","walking-breaks"],"e":["brisk-walking","handgrip","walking-breaks"]}
-PASS  clinician-clearance card needs clearance before matching
+PASS  a card with a real exclusion needs its question answered; an exclusion removes it — {"a":["brisk-walking","dash","slow-breathing","walking-breaks"],"b2":["brisk-walking","dash","salt-swap","slow-breathing","walking-breaks"],"c":["brisk-walking","dash","slow-breathing","walking-breaks"],"d":["brisk-walking","walking-breaks"],"e":["brisk-walking","handgrip","walking-breaks"]}
+PASS  handgrip needs its question and professional guidance before matching
 PASS  migrated 5.1 profile uses its saved goal and refinement — {"goals":["metabolic"],"refines":{"metabolic":"sugar"},"effort":null,"ability":null,"time":"5-10"} [["meal-order",["metabolic"]]]
 PASS  Explore row: "30 min · Strong evidence" for brisk walking — 30 min·Strong evidence
-PASS  no evidence cue on an unconfirmed preview or the research-only drink swap — ["","No extra time"]
+PASS  no evidence cue on the research-only drink swap; salt swap shows its own result — ["Strong evidence","No extra time"]
 PASS  effort stays off browse cards
 PASS  dashboard controls at 320px: 44 px targets, ≥12 px apart, Add leading — 44h gap 57; 44h gap 57
 PASS  no horizontal overflow at 320px

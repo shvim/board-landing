@@ -6,7 +6,8 @@
     "dash-1",
     "dash-2",
     "walking-breaks-1",
-    "handgrip-1"
+    "handgrip-1",
+    "slow-breathing-1"
   ],
   "heart.chol": [
     "almonds-1",
@@ -32,7 +33,8 @@
     "relax-muscles-1",
     "bedtime-phone-2",
     "screen-cap-2",
-    "music-1"
+    "music-1",
+    "weighted-blanket-1"
   ],
   "mood.stress": [
     "mindfulness-1",
@@ -51,11 +53,13 @@
     "volunteer-1"
   ],
   "energy.alert": [
-    "nap-1"
+    "nap-1",
+    "stair-walk-energy-1"
   ],
   "energy.fatigue": [
     "walking-breaks-3",
-    "one-brisk-walk-1"
+    "one-brisk-walk-1",
+    "stair-walk-energy-1"
   ],
   "energy.breaks": [
     "walking-breaks-3"
@@ -82,18 +86,21 @@
   "digestion.regularity": [
     "kiwi-1",
     "psyllium-2",
-    "prunes-1"
+    "prunes-1",
+    "abdominal-massage-1"
   ],
   "digestion.reflux": [
     "left-side-1"
   ],
   "memory.recall": [
-    "retrieval-1"
+    "retrieval-1",
+    "drawing-memory-1"
   ],
   "memory.retain": [
     "retrieval-1"
   ],
   "memory.strategies": [
-    "retrieval-1"
+    "retrieval-1",
+    "drawing-memory-1"
   ]
 }

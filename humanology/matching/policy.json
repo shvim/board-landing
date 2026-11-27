@@ -1,0 +1,263 @@
+{
+ "walk-after-meals": {
+  "precaution": "If you take medicine that can cause low blood sugar, keep to your usual exercise precautions."
+ },
+ "brisk-walking": {
+  "precaution": "Start at a pace you can manage. If you have unstable heart symptoms or have been told to limit brisk exercise, ask a clinician first."
+ },
+ "stairs": {
+  "question": {
+   "ask": "Have you been told to avoid vigorous exercise?",
+   "keys": [
+    "vigorous_exercise_restriction"
+   ],
+   "yes": "Then skip fast stair climbing for now. A brisk walk may suit you better; ask your clinician what level is right."
+  },
+  "precaution": "Use a safe staircase with a rail. Stop if you feel dizzy or have chest pain."
+ },
+ "almonds": {
+  "question": {
+   "ask": "Are you allergic to tree nuts?",
+   "keys": [
+    "tree_nut_allergy"
+   ],
+   "yes": "Then don’t add almonds. Choose another snack."
+  }
+ },
+ "sunscreen": {},
+ "caffeine": {},
+ "resistance-sarcopenia": {
+  "intended": "For age-related muscle loss",
+  "precaution": "If you’re frail or unsteady, plan the exercises with a clinician or physiotherapist first."
+ },
+ "bath": {
+  "precaution": "Keep the water comfortably warm, not hot, and take care getting out if you get dizzy."
+ },
+ "relax-muscles": {},
+ "cyclic-sighing": {
+  "precaution": "Breathe gently. Stop if you feel light-headed."
+ },
+ "cold-shower": {
+  "question": {
+   "ask": "Do you have heart disease, uncontrolled blood pressure, an irregular heartbeat, or a condition made worse by cold?",
+   "keys": [
+    "cold_sensitive_condition"
+   ],
+   "yes": "Then ask your clinician before trying cold water."
+  }
+ },
+ "meal-order": {
+  "precaution": "If you take diabetes medicine, keep to your prescribed plan."
+ },
+ "bedtime-list": {},
+ "kiwi": {
+  "intended": "For constipation",
+  "question": {
+   "ask": "Are you allergic to kiwifruit?",
+   "keys": [
+    "kiwifruit_allergy"
+   ],
+   "yes": "Then don’t try this. Prunes are another option."
+  },
+  "precaution": "See a doctor about new or lasting bowel changes."
+ },
+ "beans": {},
+ "salt-swap": {
+  "question": {
+   "ask": "Do you have kidney disease, take a medicine that raises potassium (such as an ACE inhibitor, ARB or potassium-sparing diuretic), or have you been told to limit potassium?",
+   "keys": [
+    "kidney_disease",
+    "potassium_raising_medication",
+    "potassium_restriction"
+   ],
+   "yes": "Then don’t switch salts. Extra potassium can be dangerous for you; ask your clinician or pharmacist."
+  }
+ },
+ "whole-grains": {
+  "precaution": "Add fiber gradually if it upsets your stomach."
+ },
+ "walk-for-ideas": {},
+ "water-flosser": {
+  "intended": "For bleeding gums"
+ },
+ "social-break": {},
+ "toothbrush": {},
+ "screen-cap": {
+  "precaution": "Keep access to the calls and messages you need."
+ },
+ "standing-stockings": {
+  "intended": "For standing shifts",
+  "question": {
+   "ask": "Do you have circulation problems in your legs, or a skin condition on your legs?",
+   "keys": [
+    "compression_contraindicated"
+   ],
+   "yes": "Then ask a clinician before using compression stockings."
+  },
+  "precaution": "Get stockings fitted to your size."
+ },
+ "optimism": {},
+ "bedtime-phone": {},
+ "blink": {
+  "intended": "For dry eyes",
+  "precaution": "See an eye-care professional for lasting symptoms, eye pain or changes in vision."
+ },
+ "apples": {},
+ "work-breaks": {},
+ "hummus": {
+  "precaution": "Check the ingredients if you have food allergies."
+ },
+ "volunteer": {},
+ "jumps": {
+  "question": {
+   "ask": "Are you pregnant, or do you have osteoporosis, a past fracture, joint or back problems, or been told to avoid impact exercise?",
+   "keys": [
+    "impact_exercise_restriction"
+   ],
+   "yes": "Then ask a clinician before doing jumps."
+  },
+  "review": "Confirm that the question alone is sufficient for healthy adults outside the studied group of young women."
+ },
+ "psyllium": {
+  "question": {
+   "ask": "Do you have trouble swallowing, a possible bowel blockage, or have you been told to limit fluids?",
+   "keys": [
+    "swallowing_difficulty",
+    "bowel_obstruction",
+    "fluid_restriction"
+   ],
+   "yes": "Then don’t start psyllium without your clinician’s advice."
+  },
+  "precaution": "Mix each dose into a full glass of water and never swallow the powder dry. Ask a pharmacist how to space it from your medicines."
+ },
+ "retrieval": {},
+ "flight-stockings": {
+  "intended": "For long flights",
+  "question": {
+   "ask": "Do you have circulation problems in your legs, or a skin condition on your legs?",
+   "keys": [
+    "compression_contraindicated"
+   ],
+   "yes": "Then ask a clinician before using compression stockings."
+  },
+  "precaution": "Get stockings fitted before you travel."
+ },
+ "fall-hazards": {
+  "intended": "For older adults at risk of falls"
+ },
+ "handwash": {},
+ "water-premeal": {
+  "intended": "With a weight-loss plan",
+  "question": {
+   "ask": "Has a clinician told you to limit how much you drink?",
+   "keys": [
+    "fluid_restriction"
+   ],
+   "yes": "Then don’t add this water; follow your fluid plan."
+  }
+ },
+ "drink-swap": {},
+ "eat-slowly": {
+  "precaution": "Don’t force a chewing count if you have jaw, dental or swallowing problems."
+ },
+ "three-good-things": {},
+ "mindfulness": {
+  "precaution": "Stop if you feel more distressed, and reach out for support."
+ },
+ "left-side": {
+  "intended": "For nighttime reflux"
+ },
+ "music": {},
+ "smell-training": {
+  "intended": "For smell loss after a virus",
+  "precaution": "Get lasting or unexplained smell loss checked by a clinician first. Never put oils or anything else inside your nose."
+ },
+ "prunes": {
+  "intended": "For constipation"
+ },
+ "cystitis": {
+  "intended": "For repeated bladder infections",
+  "question": {
+   "ask": "Do you have urinary symptoms right now, are you pregnant or breastfeeding, or have you been told to limit fluids?",
+   "keys": [
+    "current_urinary_symptoms",
+    "pregnancy",
+    "breastfeeding",
+    "fluid_restriction"
+   ],
+   "yes": "Then don’t start this. Get current symptoms checked, and follow your clinician’s fluid advice."
+  },
+  "guidance": "This plan is for repeated, confirmed bladder infections, so set it up with the clinician who manages them.",
+  "review": "Whether clinician involvement is needed once a person confirms recurrent, diagnosed cystitis and none of the exclusions."
+ },
+ "dash": {
+  "precaution": "If you have kidney disease or a potassium or fluid restriction, get dietary advice first. Don’t change your medicines."
+ },
+ "walking-breaks": {},
+ "one-brisk-walk": {},
+ "nap": {
+  "precaution": "Give yourself time to wake fully before driving."
+ },
+ "oats": {
+  "precaution": "If you need gluten-free food, choose oats labeled gluten-free."
+ },
+ "pelvic-floor": {
+  "intended": "For stress incontinence",
+  "guidance": "The studied program is supervised: a clinician checks your technique and tailors the exercises."
+ },
+ "handgrip": {
+  "question": {
+   "ask": "Do you have uncontrolled blood pressure, a recent heart problem, or have you been told to limit exercise?",
+   "keys": [
+    "exercise_restriction"
+   ],
+   "yes": "Then don’t start handgrip training. Ask your clinician first."
+  },
+  "guidance": "The studied routine sets the grip at about 30% of your maximum with a force gauge, so a first session with an exercise professional sets it up.",
+  "review": "Whether a calibrated home device can replace the supervised first session, and the blood-pressure threshold for “uncontrolled”."
+ },
+ "tai-chi": {
+  "intended": "For fall prevention"
+ },
+ "neck-strength": {
+  "intended": "For neck and shoulder pain",
+  "guidance": "The studied program starts with a physiotherapist teaching the exercise and how to progress it.",
+  "precaution": "Get new, severe or unexplained pain checked first."
+ },
+ "sleep-extension": {
+  "intended": "For habitual short sleepers",
+  "question": {
+   "ask": "Do you have insomnia or sleep apnea?",
+   "keys": [
+    "insomnia_or_apnea"
+   ],
+   "yes": "Then talk to a clinician first. More time in bed can make insomnia worse."
+  },
+  "review": "Confirm that counseling is optional once insomnia and sleep apnea are excluded."
+ },
+ "slow-breathing": {
+  "intended": "For high blood pressure",
+  "precaution": "Breathe gently. Stop if you feel light-headed. Keep taking any blood pressure medicine."
+ },
+ "humming": {},
+ "acupuncture-migraine": {
+  "intended": "For episodic migraine",
+  "guidance": "Acupuncture is given by a licensed practitioner; book a course of sessions with one.",
+  "precaution": "Tell the practitioner if you take blood thinners or are pregnant."
+ },
+ "weighted-blanket": {
+  "intended": "For insomnia",
+  "precaution": "You should be able to lift the blanket off yourself easily."
+ },
+ "stair-walk-energy": {
+  "precaution": "Hold the rail and go at an easy pace. Stop if you feel dizzy or short of breath."
+ },
+ "drawing-memory": {},
+ "toilet-footstool": {
+  "precaution": "See a doctor about new or lasting bowel changes."
+ },
+ "abdominal-massage": {
+  "intended": "For constipation",
+  "precaution": "Skip it if you have belly pain that hasn’t been checked. See a doctor about new or lasting bowel changes."
+ }
+}

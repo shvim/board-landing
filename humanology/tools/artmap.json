@@ -335,6 +335,54 @@
    "thumb": "sleep-extension",
    "status": "pass",
    "note": "Turning the lamp off early beside a clock; reads as extending, not restricting, sleep."
+  },
+  "slow-breathing": {
+   "hero": "long-exhale",
+   "thumb": "slow-breathing",
+   "status": "pass-with-live-text",
+   "note": "Ama exhaling slowly, hand on her belly. The pace (about 10 breaths a minute or fewer) is in live text."
+  },
+  "humming": {
+   "hero": "humming",
+   "thumb": "humming",
+   "status": "pass",
+   "note": "Walter seated, eyes closed, humming."
+  },
+  "weighted-blanket": {
+   "hero": "weighted-blanket",
+   "thumb": "weighted-blanket",
+   "status": "pass",
+   "note": "Nora wrapped in a quilted weighted blanket."
+  },
+  "drawing-memory": {
+   "hero": "sketch",
+   "thumb": "drawing-memory",
+   "status": "pass",
+   "note": "Nora sketching an object in a notebook."
+  },
+  "toilet-footstool": {
+   "hero": "footstool",
+   "thumb": "toilet-footstool",
+   "status": "pass-with-live-text",
+   "note": "A small wooden footstool. Its use is described in live text."
+  },
+  "abdominal-massage": {
+   "hero": "belly-massage",
+   "thumb": "abdominal-massage",
+   "status": "pass",
+   "note": "Ama reclining, hands on her belly."
+  },
+  "stair-walk-energy": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "No stair-walking painting in the folder. Shares the stairs request."
+  },
+  "acupuncture-migraine": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "No acupuncture painting. Request a calm practitioner-led session scene with no visible needle detail."
   }
  },
  "slots": {

@@ -1,0 +1,99 @@
+{
+  "heart.bp": [
+    "brisk-walking-1",
+    "brisk-walking-2",
+    "salt-swap-1",
+    "dash-1",
+    "dash-2",
+    "walking-breaks-1",
+    "handgrip-1"
+  ],
+  "heart.chol": [
+    "almonds-1",
+    "almonds-2",
+    "beans-1",
+    "whole-grains-1",
+    "whole-grains-2",
+    "apples-1",
+    "psyllium-1",
+    "oats-1"
+  ],
+  "heart.endurance": [],
+  "sleep.opportunity": [
+    "caffeine-1",
+    "sleep-extension-1"
+  ],
+  "sleep.falling": [
+    "bath-1",
+    "bedtime-list-1",
+    "bedtime-phone-1"
+  ],
+  "sleep.quality": [
+    "relax-muscles-1",
+    "bedtime-phone-2",
+    "screen-cap-2",
+    "music-1"
+  ],
+  "mood.stress": [
+    "mindfulness-1",
+    "screen-cap-3"
+  ],
+  "mood.mood": [
+    "cyclic-sighing-1",
+    "social-break-1",
+    "screen-cap-1",
+    "screen-cap-3",
+    "walking-breaks-2",
+    "three-good-things-1",
+    "optimism-1"
+  ],
+  "mood.connected": [
+    "volunteer-1"
+  ],
+  "energy.alert": [
+    "nap-1"
+  ],
+  "energy.fatigue": [
+    "walking-breaks-3",
+    "one-brisk-walk-1"
+  ],
+  "energy.breaks": [
+    "walking-breaks-3"
+  ],
+  "movement.strength": [
+    "resistance-sarcopenia-1"
+  ],
+  "movement.balance": [],
+  "movement.comfort": [
+    "neck-strength-1"
+  ],
+  "metabolic.food": [
+    "hummus-1",
+    "eat-slowly-1"
+  ],
+  "metabolic.sugar": [
+    "walk-after-meals-1",
+    "walk-after-meals-3",
+    "meal-order-1"
+  ],
+  "metabolic.weight": [
+    "water-premeal-1"
+  ],
+  "digestion.regularity": [
+    "kiwi-1",
+    "psyllium-2",
+    "prunes-1"
+  ],
+  "digestion.reflux": [
+    "left-side-1"
+  ],
+  "memory.recall": [
+    "retrieval-1"
+  ],
+  "memory.retain": [
+    "retrieval-1"
+  ],
+  "memory.strategies": [
+    "retrieval-1"
+  ]
+}

@@ -123,12 +123,13 @@ const ok = (name, cond, detail = '') => { results.push(`${cond ? 'PASS' : 'FAIL'
   await click('[data-act=eff5-pick][data-v=some]'); await p.waitForTimeout(400);
   const rs = await ev(() => ({ n: F.onb.set.length, ids: F.onb.set.map(x => x.h.id), both: F.onb.set.some(x => (x.mg || []).length > 1), pos: $('.dpos')?.textContent, peek: !!$('.dcard.peek'), h: $('.s-rec5 h2').textContent,
     goalsOk: F.onb.set.every(x => x.mg.every(g => ['heart', 'sleep'].includes(g))), auto: F.onb.set.every(x => !restricted52(x.h.c52)) }));
-  ok('several distinct matches, one card at a time with position and peek', rs.n >= 3 && new Set(rs.ids).size === rs.n && rs.pos === `1 of ${rs.n}` && rs.peek, `${rs.h}: ${rs.ids.join(', ')}`);
+  ok('several distinct matches, one card at a time with position and peek', (REV ? rs.n >= 2 : rs.n >= 3) && new Set(rs.ids).size === rs.n && rs.pos === `1 of ${rs.n}` && rs.peek, `${rs.h}: ${rs.ids.join(', ')}`);
   ok('recommendations respect goals and eligibility', rs.goalsOk && rs.auto);
   await click('[data-act=rec5-add]');
+  if (await p.$('.sheet [data-act=rec5-force]')) { ok('over-budget add asks first and offers Add it anyway', true); await click('.sheet [data-act=rec5-force]'); }
   await ev(() => { const o = F.onb; o.ri = o.set.length - 1; re(); });
   ok('final card has no next edge', await ev(() => !$('.dcard.peek') && $('[data-act=deck][data-d="1"]').disabled));
-  await ev(() => { const o = F.onb; o.pick[o.set[1].h.id] = 'later'; re(); });
+  await ev(() => { const o = F.onb; if (o.set[1]) o.pick[o.set[1].h.id] = 'later'; re(); });
   await ev(() => go('chosen')); await p.waitForTimeout(150);
   ok('editable selection summary', await ev(() => $('.ans52') !== null && $('.s-chosen5 h2').textContent.includes('chosen')));
   await click('[data-act=ch5-start]'); await p.waitForTimeout(300);
@@ -156,7 +157,7 @@ const ok = (name, cond, detail = '') => { results.push(`${cond ? 'PASS' : 'FAIL'
   ok('logging reminder offered when due and stays dismissed on return', /Log today|to log today/.test(dueA) && !/Log today|to log today/.test(dueB));
   await ev(() => { A.mood51({ dataset: { v: '4' } }); }); await p.waitForTimeout(500);
   ok('check-in prompt shows its completed state', await ev(() => ($('.due52')?.textContent || '').includes('Checked in') || ($('.ms51')?.textContent || '').includes('feeling')));
-  const sug = await ev(() => [...document.querySelectorAll('.sg52r small')].map(x => x.textContent));
+  const sug = await ev(() => [...document.querySelectorAll('.sg52r small, .sgt52 > small')].map(x => x.textContent));
   ok('might also like gives a reason tied to a confirmed goal', sug.length > 0 && sug.every(s => /Matches your goals?:|For your .+ goals?/.test(s)), sug[0]?.slice(0, 80));
   ok('points visible on Today', await ev(() => !!$('.pc51')));
 

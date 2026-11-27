@@ -1,0 +1,11 @@
+{
+ "brisk-walking":{"more":3,"some":2}, "walking-breaks":{"more":1,"some":3},
+ "walk-after-meals":{"more":1,"some":3}, "one-brisk-walk":{"more":3,"some":2},
+ "walk-for-ideas":{"some":2}, "stairs":{"more":3,"strenuous":true},
+ "handgrip":{"more":2,"seated":true,"strenuous":true}, "tai-chi":{"some":2},
+ "jumps":{"more":3,"strenuous":true}, "resistance-sarcopenia":{"more":3},
+ "pelvic-floor":{"some":1}, "neck-strength":{"some":2}, "oats":{"seated":true},
+ "almonds":{"seated":true}, "kiwi":{"seated":true}, "music":{"seated":true},
+ "retrieval":{"seated":true}, "mindfulness":{"seated":true}, "bedtime-list":{"seated":true},
+ "cyclic-sighing":{"seated":true}, "three-good-things":{"seated":true}, "optimism":{"seated":true}
+}

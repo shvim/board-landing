@@ -1,0 +1,76 @@
+benefit_id,card_id,catalog_goals,outcome,scope,specific_onboarding_matches
+walk-after-meals-1,walk-after-meals,metabolic,Smaller rise in blood glucose in the hours after a meal compared with continued sitting,variant,metabolic.sugar
+walk-after-meals-2,walk-after-meals,metabolic,Smaller insulin response after a meal,variant,
+walk-after-meals-3,walk-after-meals,metabolic,Lower post-meal glucose in adults with type 2 diabetes when walking after meals compared with one untimed daily walk,variant,metabolic.sugar
+brisk-walking-1,brisk-walking,heart,Lower resting systolic blood pressure on average after several months,card,heart.bp
+brisk-walking-2,brisk-walking,heart,Lower resting diastolic pressure among adults with hypertension,card,heart.bp
+brisk-walking-3,brisk-walking,movement,Improved aerobic fitness in previously sedentary adults,card,
+stairs-1,stairs,movement,Better aerobic fitness in inactive young adults,variant,
+almonds-1,almonds,heart,Slightly lower LDL cholesterol,card,heart.chol
+almonds-2,almonds,heart,Slightly lower total cholesterol,card,heart.chol
+almonds-3,almonds,heart,Slightly lower apolipoprotein B,card,
+sunscreen-1,sunscreen,,Slower visible skin aging over several years in a sunny climate,card,
+caffeine-1,caffeine,sleep,Late caffeine can reduce objectively measured sleep,card,sleep.opportunity
+caffeine-2,caffeine,sleep,A 400 mg dose disrupted some sleep measures even 12 hours before bedtime in a small trial,card,
+resistance-sarcopenia-1,resistance-sarcopenia,movement,Resistance-based programs improved strength and walking speed on average. A separate review found several average gains were below thresholds for clinically important change.,card,movement.strength
+bath-1,bath,sleep,"May shorten time to fall asleep, although reviews disagree",card,sleep.falling
+relax-muscles-1,relax-muscles,sleep,Better self-rated sleep quality in trials largely involving people with medical conditions,card,sleep.quality
+cyclic-sighing-1,cyclic-sighing,mood,Improved self-rated positive mood in one month-long trial,card,mood.mood
+cold-shower-1,cold-shower,,"Fewer self-reported days absent from work due to sickness in one trial, with no reduction in days feeling ill",card,
+meal-order-1,meal-order,metabolic,Smaller early post-meal glucose rise in some short feeding studies,card,metabolic.sugar
+bedtime-list-1,bedtime-list,sleep,Faster sleep onset in one sleep-lab trial compared with writing about completed tasks,card,sleep.falling
+kiwi-1,kiwi,digestion,More complete spontaneous bowel movements from baseline in adults with constipation,card,digestion.regularity
+kiwi-2,kiwi,digestion,Possible improvement in overall digestive comfort,card,
+beans-1,beans,heart,Lower LDL relative to a rice comparison in one trial in adults with elevated LDL,card,heart.chol
+salt-swap-1,salt-swap,heart,Lower average blood pressure compared with ordinary salt,card,heart.bp
+salt-swap-2,salt-swap,heart,Fewer strokes in a large trial in older high-risk adults in rural China,card,
+whole-grains-1,whole-grains,heart,Small average reduction in LDL across trials of different whole grains,card,heart.chol
+whole-grains-2,whole-grains,heart,Small average reduction in total cholesterol across randomized trials,card,heart.chol
+walk-for-ideas-1,walk-for-ideas,memory,More ideas on divergent-thinking tasks during or just after a walk,card,
+water-flosser-1,water-flosser,,Less bleeding between teeth in adults with gingivitis compared with brushing alone,card,
+social-break-1,social-break,mood,"One one-week trial found better self-reported wellbeing. Across abstinence studies, effects on related wellbeing measures were mixed.",card,mood.mood
+toothbrush-1,toothbrush,,Slightly more plaque removed in a single brushing compared with a manual brush,card,
+screen-cap-1,screen-cap,mood,Lower depressive symptom scores in a three-week trial in healthy students,card,mood.mood
+screen-cap-2,screen-cap,sleep,Lower self-reported insomnia severity in the same trial,card,sleep.quality
+screen-cap-3,screen-cap,mood,Possible short-term improvement in wellbeing and stress,card,"mood.stress, mood.mood"
+standing-stockings-1,standing-stockings,,Less lower-leg swelling during standing work in trials of healthcare workers and hairdressers.,card,
+optimism-1,optimism,mood,Higher short-term self-rated optimism,card,mood.mood
+bedtime-phone-1,bedtime-phone,sleep,Faster self-reported sleep onset,card,sleep.falling
+bedtime-phone-2,bedtime-phone,sleep,Better self-reported sleep quality,card,sleep.quality
+bedtime-phone-3,bedtime-phone,sleep,Less pre-sleep arousal,card,
+blink-1,blink,,Less discomfort in short studies of adults with dry eye,card,
+apples-1,apples,heart,Slightly lower LDL in one trial in adults with mildly elevated cholesterol,card,heart.chol
+work-breaks-1,work-breaks,,Less reported discomfort and eyestrain in data-entry workers,card,
+hummus-1,hummus,metabolic,Less hunger and later dessert snacking in a small trial,card,metabolic.food
+volunteer-1,volunteer,mood,Less self-reported loneliness in one trial of adults aged 59–79,card,mood.connected
+jumps-1,jumps,movement,Improved femoral-neck bone density across jump-training programs,card,
+psyllium-1,psyllium,heart,Lower LDL cholesterol across controlled trials,card,heart.chol
+psyllium-2,psyllium,digestion,Improved bowel frequency in adults with constipation,card,digestion.regularity
+retrieval-1,retrieval,memory,Better delayed recall of material practiced across spaced sessions,card,"memory.recall, memory.retain, memory.strategies"
+flight-stockings-1,flight-stockings,,Fewer ultrasound-detected symptomless leg clots on flights longer than five hours,card,
+fall-hazards-1,fall-hazards,movement,Fewer falls among higher-risk older adults when home hazards are assessed and addressed,card,
+handwash-1,handwash,,Handwashing-promotion programs reduced respiratory infections in some community settings. A smaller review of soap-and-water comparisons found no clear reduction.,card,
+water-premeal-1,water-premeal,metabolic,Premeal water may modestly increase weight loss over 12 weeks alongside weight-management support. The second trial’s adjusted estimate included no difference.,card,metabolic.weight
+drink-swap-1,drink-swap,metabolic,Studies have not established a clear weight-loss benefit from replacing sugary drinks with water.,research_only,
+eat-slowly-1,eat-slowly,metabolic,Lower intake during some experimental meals,card,metabolic.food
+three-good-things-1,three-good-things,mood,Participants in one online trial reported greater happiness at later follow-ups after writing three good things each evening for a week.,card,mood.mood
+mindfulness-1,mindfulness,mood,Lower self-reported stress in studied programs,card,mood.stress
+left-side-1,left-side,digestion,Fewer nighttime reflux symptoms with a device that encouraged left-side sleep compared with a sham device,card,digestion.reflux
+music-1,music,sleep,Better self-rated sleep quality in adults with sleep difficulty,card,sleep.quality
+smell-training-1,smell-training,,Possible improvement on smell tests in people with persistent post-viral smell loss,card,
+prunes-1,prunes,digestion,Small studies in adults with constipation found more complete spontaneous bowel movements during prune consumption.,card,digestion.regularity
+cystitis-1,cystitis,,Fewer recurrent cystitis episodes over a year in premenopausal women with low fluid intake and frequent previous episodes,card,
+dash-1,dash,heart,Lower systolic blood pressure versus a typical control diet,card,heart.bp
+dash-2,dash,heart,Lower diastolic blood pressure versus the same control diet,card,heart.bp
+walking-breaks-1,walking-breaks,heart,Lower same-day systolic pressure in tested light walking-break schedules,variant,heart.bp
+walking-breaks-2,walking-breaks,mood,Better self-rated mood over a seated day in tested schedules,variant,mood.mood
+walking-breaks-3,walking-breaks,energy,Less self-reported fatigue during tested light or moderate walking-break schedules,variant,"energy.fatigue, energy.breaks"
+one-brisk-walk-1,one-brisk-walk,energy,"Young adults reported less fatigue after a ten-minute brisk walk than before it, in one small trial",card,energy.fatigue
+nap-1,nap,energy,Less afternoon sleepiness in a small trial after a short night,card,energy.alert
+oats-1,oats,heart,Lower LDL cholesterol with at least 3 g daily of oat beta-glucan in controlled trials,card,heart.chol
+pelvic-floor-1,pelvic-floor,,Improved stress urinary incontinence in women receiving pelvic-floor muscle training,card,
+handgrip-1,handgrip,heart,Lower resting blood pressure after regular handgrip training,card,heart.bp
+tai-chi-1,tai-chi,movement,Fewer repeated falls in community-dwelling older adults compared with stretching,card,
+neck-strength-1,neck-strength,movement,Less neck and shoulder pain after a therapist-taught progressive exercise program in symptomatic workers,variant,movement.comfort
+sleep-extension-1,sleep-extension,sleep,Longer objectively measured sleep among habitual short sleepers with overweight,card,sleep.opportunity
+sleep-extension-2,sleep-extension,metabolic,Lower measured energy intake over two weeks in the same group,card,

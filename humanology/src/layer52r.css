@@ -95,3 +95,29 @@
 .hn51 small{white-space:nowrap}
 .hr51{gap:8px}
 .xb52,.xb52 h3,.rc52r .rbody,.rc52r h3.disp{text-align:left}
+/* ---------- matching and card fixes ---------- */
+.mt52{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin:0;font-size:14px;font-weight:600;color:var(--ink2)}
+.mtt52{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.mtt52 .ic{width:16px;height:16px;flex:none}
+.mte52{white-space:nowrap}
+.dot52{color:var(--ink2)}
+.rg52{font-weight:600}
+/* dashboard suggestions: the body is its own tappable area; actions sit in their own row beneath */
+.sgl52{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.sgc52{background:#fff;border-radius:var(--r-md);box-shadow:inset 0 0 0 1px var(--line);overflow:hidden}
+.sgb52{display:flex;align-items:flex-start;gap:12px;width:100%;padding:14px 16px 10px;border:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer}
+.sgb52 .th{--d:52px;flex:none}
+.sgt52{display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-width:0}
+.sgt52 b{font-size:16px;line-height:1.25}
+.sgt52 small{color:var(--ink2);font-size:13.5px;line-height:1.35}
+.sgt52 .tg52 li{font-size:12.5px;padding:3px 9px}
+.sgb52:focus-visible,.sgr52 button:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+.sgr52{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:4px 16px 14px}
+.sgr52 button{min-height:44px;min-width:44px;padding:0 18px;border-radius:999px;font:inherit;font-weight:700;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.sgadd52{border:0;background:var(--peach,#EFA986);color:var(--ink)}
+.sgadd52 .ic{width:18px;height:18px}
+.sgno52{border:0;background:none;box-shadow:inset 0 0 0 1px var(--line);color:var(--ink)}
+[data-text="larger"] .sgr52 button{flex:1 1 9em}
+.s-none52 .form{display:flex;flex-direction:column;gap:10px}
+.mte52 .dot52{margin-right:8px}
+.mt52.wrap52 .dot52{display:none}

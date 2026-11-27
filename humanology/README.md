@@ -165,3 +165,32 @@ Done today at 44 vs 48 px, with cooking, kiwi and the after-meal walk:
 - **Tests:** `node tests/e2e.cjs Humanology-5.2-revised.html` gives 69/69 ([results](tests/e2e-results-revised.txt)): the 59 original checks plus short cards, scoped tags, research closed by default, Nora faces loaded in order, mood save, reload and same-day edit, and the single reminder.
 - **Screenshots:** comparisons at 375 px (and larger text) are in `screenshots/redesign/compare/`. Raw before and after shots at 320, 375 and 390 px, with default and larger text, are in `screenshots/redesign/before|after/`.
 - **Limitation:** the brief's visual reference is the illustrated 5.1. The only illustrated copy found in Drive (`Humanology-V4-labeled.zip`, 15 MB) is over the connector's 10 MB download limit, so painting sizes were judged against the brief and the 5.2 screens rather than a pixel comparison with illustrated 5.1.
+
+## Matching and card fixes (Humanology-Matching-and-Card-Fixes.zip)
+
+The handoff files are in `matching/`. `match.mjs`, `refinements.json` and `activity.json` are embedded verbatim in `Humanology-5.2-revised.html` by the build. `tests/match-parity.mjs` proves the embedded matcher is the supplied file: same source, same data, and identical output on 2,000 random inputs.
+
+- **One matcher for onboarding and the Today suggestions** (`match52`):
+  - The chain is catalog eligibility (`recommend52`) → the supplied exact-outcome matcher (`refinedMatches`) → schedule and time resolution.
+  - Onboarding passes the current answers. The dashboard passes the saved profile: goals, per-goal refinements, activity and time. A 5.1 profile's single saved refinement is honored.
+- **No filler:**
+  - Only cards with a published result for the chosen refinement and activity appear. Heart → Blood pressure → More effort gives brisk walking, then walking breaks. It never gives oats, and handgrip appears only after eligibility and clearance are confirmed.
+  - Unsupported refinements (for example Sleep → Regularity, Heart → Endurance) show "No exact match yet", with buttons to broaden the goal, change activity, allow more time or browse Explore.
+- **Several goals:** the best match for each goal leads. Each card names only the goal(s) it matched.
+- **Time:**
+  - Time comes from the matched schedule (`VMINS52`), not one number per card.
+  - With a short budget, a schedule that fits is chosen when one exists. Otherwise the card is kept, moved after the ones that fit, and flagged.
+  - Unknown time is shown as "Time not stated" and isn't counted toward the budget.
+- **Saving onboarding:** the matched schedule and its minutes are saved into the plan. An explicit movement answer now replaces an earlier "seated" answer.
+- **Metadata fixes:** handgrip was added to the movement set, and the home fall-hazard assessment removed.
+- **Cards:** the painting stays dominant, with a quiet row such as "30 min · Strong evidence" beneath.
+  - The label is bound to the named outcome in the accessible name ("Strong evidence for blood pressure"). A second topic tag is shown only when it has the same evidence label.
+  - There is no evidence cue on previews, research-only results or personal habits. Effort stays off browse cards.
+- **Dashboard suggestions:**
+  - The card body is its own tap target, with an action row below: "+ Add" at the leading edge and "Not for me" at the trailing edge.
+  - Buttons are at least 44 px tall and at least 12 px apart, and stack full width at larger text.
+  - "Not for me" never adds the habit, and a dismissal survives reload.
+- **Tests:**
+  - `node tests/matching.cjs` gives 39/39, run through the real interface ([results](tests/matching-results.txt)). It covers Heart → Blood pressure → More effort, cholesterol, short and unknown times, an unsupported refinement, two goals with different refinements, seated then more effort, exclusions and clearance, a migrated profile, reload, Add / Not for me, keyboard order, and 320/375/390 px plus larger text.
+  - `matching/verify.mjs` passes against the built file. `e2e.cjs` passes 70/70 on the revised build and 59/59 on 5.2, and catalog parity passes.
+- **Screenshots:** in `screenshots/matching/`.

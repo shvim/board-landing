@@ -25,8 +25,9 @@ PASS  left-side study/device caveat is shown
 PASS  sources are grouped as direct, broader context and mixed — Direct evidence, Broader context
 PASS  time screen shows the four ranges in order
 PASS  activity screen keeps the four approved choices
-PASS  several distinct matches, one card at a time with position and peek — Three habits picked for you: walking-breaks, caffeine, dash
+PASS  several distinct matches, one card at a time with position and peek — Two habits picked for you: walking-breaks, brisk-walking
 PASS  recommendations respect goals and eligibility
+PASS  over-budget add asks first and offers Add it anyway
 PASS  final card has no next edge
 PASS  editable selection summary
 PASS  Let’s start lands on Today with the chosen habit — walking-breaks
@@ -68,4 +69,4 @@ PASS  every referenced painting file exists — 94 files
 PASS  no failed requests for local assets
 PASS  no console errors or exceptions
 
-69 passed, 0 failed
+70 passed, 0 failed

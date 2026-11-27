@@ -1,7 +1,9 @@
 """Build Humanology-5.2.html from the 5.1 baseline, the 2026-11-26.4 catalog and the 5.2 layer.
 Run from the humanology/ folder:  python3 tools/build52.py"""
 import json, re, os, shutil
-B = 'baseline/Humanology-5.1.html'; OUT = 'Humanology-5.2.html'; ASSETS = 'Humanology-5.2-assets'
+import sys
+REVISED = len(sys.argv) > 1 and sys.argv[1] == 'revised'
+B = 'baseline/Humanology-5.1.html'; OUT = 'Humanology-5.2-revised.html' if REVISED else 'Humanology-5.2.html'; ASSETS = 'Humanology-5.2-assets'
 src = open(B, encoding='utf-8').read()
 lines = src.split('\n')
 
@@ -32,7 +34,7 @@ src = src.replace('applyArt(); applyV4(); applyV5();', 'applyArt(); applyV4(); a
 assert 'buildCat52()' in src and 'apply52();' in src
 
 # 4. the 5.2 layer goes in just before boot
-layer = '\n'.join(open(f'src/{f}', encoding='utf-8').read() for f in ['layer52-data.js', 'layer52-ui.js'])
+layer = '\n'.join(open(f'src/{f}', encoding='utf-8').read() for f in ['layer52-data.js', 'layer52-ui.js'] + (['layer52r-data.js', 'layer52r-ui.js'] if REVISED else []))
 marker = '/* ---------- boot ---------- */'
 assert src.count(marker) == 1
 src = src.replace(marker, layer + '\n' + marker)
@@ -63,13 +65,19 @@ for k, ang in {'u5': 12, '5-10': 60, '10-20': 114, '20': 150}.items():
          + f'<g transform="rotate({ang} 50 62)"><rect x="48.5" y="36" width="3" height="28" rx="1.5" fill="#3D4652"/><rect x="48.5" y="34" width="3" height="9" rx="1.5" fill="#C0533F"/></g><circle cx="50" cy="62" r="4" fill="#3D4652"/></svg>')
     css.append(f'.i-sw-{k}{{background-image:{svg(s)}}}')
 mouths = ['M36 70 Q50 60 64 70', 'M36 68 Q50 63 64 68', 'M37 66 L63 66', 'M36 64 Q50 71 64 64', 'M34 62 Q50 76 66 62']
-for i, mth in enumerate(mouths, 1):
+for i, mth in enumerate([] if REVISED else mouths, 1):
     s = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#F3D9B8"/><circle cx="38" cy="44" r="3.5" fill="#4A3B30"/><circle cx="62" cy="44" r="3.5" fill="#4A3B30"/><path d="{mth}" stroke="#4A3B30" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg>'
     css.append(f'.th .bust.i-m{i},.i-m{i}{{background-image:{svg(s)};background-size:80%;background-position:center}}')
-layer_css = open('src/layer52.css', encoding='utf-8').read() + '\n' + '\n'.join(css)
+if REVISED:
+    # Nora's five painted faces from the illustrated 5.1, with 5.1's own bust crop for the circles
+    BW = {1: (1.1384, -0.0814), 2: (1.1382, -0.0829), 3: (1.1360, -0.0879), 4: (1.1382, -0.0787), 5: (1.1362, -0.0841)}
+    for i, (bw, bx) in BW.items():
+        css.append(f'.i-m{i}{{background-image:url({A}/mood/m{i}.webp)}}')
+        css.append(f'.th .bust.i-m{i}{{background-image:url({A}/mood/m{i}.webp);background-size:calc(var(--d)*{bw}) calc(var(--d)*1.2121);background-position:calc(var(--d)*{bx}) calc(var(--d)*.13)}}')
+layer_css = open('src/layer52.css', encoding='utf-8').read() + '\n' + '\n'.join(css) + ('\n' + open('src/layer52r.css', encoding='utf-8').read() if REVISED else '')
 last_style = src.rfind('</style>')
 src = src[:last_style] + layer_css + '\n' + src[last_style:]
-src = src.replace('<title>Humanology', '<title>Humanology 5.2', 1)
+src = src.replace('<title>Humanology', '<title>Humanology 5.2' + (' revised' if REVISED else ''), 1)
 open(OUT, 'w', encoding='utf-8').write(src)
 
 # 6. ship only the derivatives the page uses

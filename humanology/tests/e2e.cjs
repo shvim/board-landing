@@ -2,7 +2,8 @@
 const { chromium } = require('playwright');
 const path = require('path'); const fs = require('fs');
 const ROOT = path.resolve(__dirname, '..');
-const URL52 = 'file://' + path.join(ROOT, 'Humanology-5.2.html');
+const FILE52 = process.argv[2] || 'Humanology-5.2.html'; const REV = FILE52.includes('revised');
+const URL52 = 'file://' + path.join(ROOT, FILE52);
 const URL51 = 'file://' + path.join(ROOT, 'baseline/Humanology-5.1.html');
 const results = []; let failed = 0;
 const ok = (name, cond, detail = '') => { results.push(`${cond ? 'PASS' : 'FAIL'}  ${name}${detail ? ' — ' + detail : ''}`); if (!cond) failed++; };
@@ -37,14 +38,21 @@ const ok = (name, cond, detail = '') => { results.push(`${cond ? 'PASS' : 'FAIL'
 
   /* ---------- Explore: all 56 discoverable ---------- */
   await fresh('new'); await ev(() => { st.profile.onboarded = true; tab('explore'); });
-  const ex = await ev(() => ({ n: document.querySelectorAll('.x52 h3').length, t: new Set([...document.querySelectorAll('.x52 h3')].map(x => x.textContent)).size,
+  const ex = await ev(() => ({ n: document.querySelectorAll('.x52 h3, .x52r:not(.xpers52) h3').length, t: new Set([...document.querySelectorAll('.x52 h3, .x52r:not(.xpers52) h3')].map(x => x.textContent)).size,
     prev: document.querySelectorAll('.prev52').length, plusOnPrev: document.querySelectorAll('.prev52 .plus51').length }));
   ok('Explore All lists all 56 titles', ex.n === 56 && ex.t === 56, `${ex.t} distinct`);
+  if (REV) {
+    const rv = await ev(() => { const cards = [...document.querySelectorAll('.x52r:not(.xpers52)')]; return { tags: cards.map(c => c.querySelectorAll('.tg52 li').length), noStatement: cards.every(c => !c.querySelector('.xline, .xfor52, .evb')),
+      moodFromWalk: cards.filter(c => /walk/i.test(c.querySelector('h3').textContent) && [...c.querySelectorAll('.tg52 li')].some(li => li.textContent === 'Mood')).map(c => c.querySelector('h3').textContent) }; });
+    ok('Explore cards: short title, at most two topic tags, no evidence statement', rv.tags.every(n => n >= 1 && n <= 2) && rv.noStatement, `tags ${Math.min(...rv.tags)}–${Math.max(...rv.tags)}`);
+    const mw = await ev(() => recommend52(C52.raw, recOpts52({ goals: ['mood'] })).filter(r => /walk/.test(r.card.card_id)).map(r => [SHORT52[r.card.card_id], r.benefits.concat(r.variants.flatMap(v => v.benefits)).filter(b => b.goals.includes('mood')).length]));
+    ok('"Mood" appears on a walking card only with a published mood result for the shown schedule', rv.moodFromWalk.every(t => mw.some(([t2, n]) => n > 0 && t2 === t)), rv.moodFromWalk.join(', ') || 'none shown');
+  }
   ok('restricted routines show neutral previews without an add button', ex.prev === 34 && ex.plusOnPrev === 0, `${ex.prev} previews`);
   await click('[data-act=xgoal][data-g=_general]');
-  const gen = await ev(() => document.querySelectorAll('.x52').length);
+  const gen = await ev(() => document.querySelectorAll('.x52, .x52r').length);
   ok('untargeted routines are discoverable under Everyday care', gen === 12, `${gen}`);
-  const drink = await ev(() => { st.ui.explore.goals = []; st.ui.explore.q = 'sugary'; re(); const c = [...document.querySelectorAll('.x52')].find(x => x.textContent.includes('sugary drink')); return { trk: !!c?.querySelector('.trk52'), chip: !!c?.querySelector('.evb') }; });
+  const drink = await ev(() => { st.ui.explore.goals = []; st.ui.explore.q = 'sugary'; re(); const c = [...document.querySelectorAll('.x52, .x52r')].find(x => /sugary drink|soda for water/i.test(x.textContent)); return { trk: !!c?.querySelector('.trk52') || /Drink tracking/.test(c?.textContent || ''), chip: !!c?.querySelector('.evb') }; });
   ok('drink swap preview shows action and drink tracking, no benefit', drink.trk && !drink.chip);
   await ev(() => { st.ui.explore.q = ''; re(); });
 
@@ -52,14 +60,14 @@ const ok = (name, cond, detail = '') => { results.push(`${cond ? 'PASS' : 'FAIL'
   await click('[data-act=xgoal][data-g=sleep]');
   await ev(() => { $('#vp .scroll').scrollTop = 600; $('#vp .scroll').dispatchEvent(new Event('scroll')); });
   await p.waitForTimeout(100);
-  await ev(() => document.querySelectorAll('.x52 .xmain')[3].click()); await p.waitForTimeout(200);
+  await ev(() => document.querySelectorAll('.xcard .xmain')[3].click()); await p.waitForTimeout(200);
   await ev(() => back()); await p.waitForTimeout(200);
   const ret = await ev(() => ({ g: st.ui.explore.goals[0], top: $('#vp .scroll').scrollTop, on: $('.chip.on')?.dataset.g }));
   ok('Explore keeps filter and scroll after opening a habit', ret.g === 'sleep' && ret.on === 'sleep' && Math.abs(ret.top - 600) < 30, JSON.stringify(ret));
 
   /* ---------- eligibility, exclusions, clearance ---------- */
   await ev(() => go('habit', { id: 'salt-swap' })); await p.waitForTimeout(150);
-  ok('restricted card asks to check fit before adding', (await ev(() => $('#vp .dock').textContent)).includes('Check that this fits you'));
+  ok('restricted card asks to check fit before adding', /Check (that this|it) fits you/.test(await ev(() => $('#vp .dock').textContent)));
   await ev(() => A['quick-add']({ dataset: { id: 'salt-swap' } })); await p.waitForTimeout(150);
   ok('add attempt opens the fit check, not the plan', await ev(() => !!$('.fit52') && !st.plan.some(x => x.hid === 'salt-swap')));
   await p.check('input[data-fit52=block][value=kidney_disease]'); await p.check('input[data-fit52=ok]'); await click('[data-act=fit52-save]');
@@ -71,12 +79,22 @@ const ok = (name, cond, detail = '') => { results.push(`${cond ? 'PASS' : 'FAIL'
   const hg2 = await ev(() => canAdd52(C52.card.handgrip) && recommend52(C52.raw, recOpts52({ goals: ['heart'] })).some(r => r.card.card_id === 'handgrip'));
   ok('clinician-clearance card needs both confirmation and clearance', !hg1 && hg2);
 
+  if (REV) {
+    const d = await ev(() => { go('habit', { id: 'salt-swap' }); const r = $('details.rs52r'); return { closed: r && !r.open, safetyBeforeResearch: $('.safe52').compareDocumentPosition(r) & 4, sources: r.querySelectorAll('a[href^="https"]').length, summary: r.querySelector('summary').textContent.trim() }; });
+    ok('habit page opens with research folded and safety visible before it', d.closed && d.safetyBeforeResearch && d.sources > 0, d.summary);
+    await ev(() => { $('details.rs52r').open = true; $('details.rs52r').dispatchEvent(new Event('toggle')); E52().aud.push('type_2_diabetes'); go('habit', { id: 'walk-after-meals' }); });
+    await p.waitForTimeout(100); await ev(() => { $('details.rs52r').open = true; $('details.rs52r').dispatchEvent(new Event('toggle')); });
+    await p.check('input[data-vs52][value="walk-after-meals-2"]'); await p.waitForTimeout(150);
+    ok('research disclosure stays open after changing schedule', await ev(() => $('details.rs52r').open));
+    await ev(() => { E52().aud = []; });
+  }
   /* ---------- schedules update action, time, benefits and sources together ---------- */
   await ev(() => go('habit', { id: 'walk-after-meals' })); await p.waitForTimeout(150);
-  const s1 = await ev(() => ({ how: $('.do52 .how51').textContent, time: $('.facts52 dd').textContent, bens: [...document.querySelectorAll('.ben52 .bs52')].map(x => x.textContent), dis: $('input[data-vs52][value="walk-after-meals-2"]').disabled }));
+  const tsel = REV ? '.sc52 .vopt52.on b' : '.facts52 dd'; const hsel = REV ? '.do52 p' : '.do52 .how51';
+  const s1 = await ev(([h, t]) => ({ how: $(h).textContent, time: $(t).textContent, bens: [...document.querySelectorAll('.ben52 .bs52')].map(x => x.textContent), dis: $('input[data-vs52][value="walk-after-meals-2"]').disabled }), [hsel, tsel]);
   ok('audience-only schedule is locked until the condition is confirmed', s1.dis);
   await ev(() => { E52().aud.push('type_2_diabetes'); re(); }); await p.check('input[data-vs52][value="walk-after-meals-2"]'); await p.waitForTimeout(150);
-  const s2 = await ev(() => ({ how: $('.do52 .how51').textContent, time: $('.facts52 dd').textContent, bens: [...document.querySelectorAll('.ben52 .bs52')].map(x => x.textContent), srcs: [...document.querySelectorAll('.ben52 a')].map(a => a.href) }));
+  const s2 = await ev(([h, t]) => ({ how: $(h).textContent, time: $(t).textContent, bens: [...document.querySelectorAll('.ben52 .bs52')].map(x => x.textContent), srcs: [...document.querySelectorAll('.ben52 a')].map(a => a.href) }), [hsel, tsel]);
   const expect = await ev(() => ({ action: C52.vari['walk-after-meals-2'].action, b: C52.vari['walk-after-meals-2'].benefit_ids.map(id => C52.ben[id].statement), srcs: C52.vari['walk-after-meals-2'].benefit_ids.flatMap(id => C52.ben[id].source_urls) }));
   ok('choosing a schedule updates action, time and benefits', s2.how === expect.action && s2.time !== s1.time && JSON.stringify(s2.bens) === JSON.stringify(expect.b), s2.bens.join(' | ').slice(0, 90));
   ok('benefit sources follow the selected schedule', s2.srcs.length === expect.srcs.length && s2.srcs.every(u => expect.srcs.includes(u)));
@@ -86,7 +104,7 @@ const ok = (name, cond, detail = '') => { results.push(`${cond ? 'PASS' : 'FAIL'
     return { ro: t.includes('Research detail only'), weight: C52.raw.benefits.filter(b => b.card_id === 'drink-swap' && b.display_scope === 'research_only').every(b => t.includes(b.statement)), links: links.length, n: C52.card['drink-swap'].source_notes.length,
       summary: t.includes(C52.card['drink-swap'].research_summary) }; });
   ok('research_only result stays inside research details', sci.ro && sci.weight);
-  const dsDetail = await ev(() => { go('habit', { id: 'drink-swap' }); return [...document.querySelectorAll('.ben52 .bs52')].length; });
+  const dsDetail = await ev(() => { go('habit', { id: 'drink-swap' }); return [...document.querySelectorAll('.ben52:not(.ro52) .bs52')].length; });
   ok('drink swap detail shows no benefit outside research details', dsDetail === 0);
   ok('research summary and one link per source note', sci.summary && sci.links >= sci.n, `${sci.links} links / ${sci.n} notes`);
   const ls = await ev(() => { go('habit', { id: 'left-side' }); return $('#vp').textContent.includes(C52.card['left-side'].qualification) && /device/i.test(C52.card['left-side'].qualification + C52.card['left-side'].time_commitment); });
@@ -135,11 +153,11 @@ const ok = (name, cond, detail = '') => { results.push(`${cond ? 'PASS' : 'FAIL'
   const dueA = await ev(() => $('.due52')?.textContent || '');
   await ev(() => { A['due52-x']({ dataset: { k: 'log' } }); }); await p.reload(); await p.waitForTimeout(200);
   const dueB = await ev(() => $('.due52')?.textContent || '');
-  ok('logging reminder offered when due and stays dismissed on return', dueA.includes('Log today') && !dueB.includes('Log today'));
+  ok('logging reminder offered when due and stays dismissed on return', /Log today|to log today/.test(dueA) && !/Log today|to log today/.test(dueB));
   await ev(() => { A.mood51({ dataset: { v: '4' } }); }); await p.waitForTimeout(500);
-  ok('check-in prompt shows its completed state', (await ev(() => $('.due52')?.textContent || '')).includes('Checked in'));
+  ok('check-in prompt shows its completed state', await ev(() => ($('.due52')?.textContent || '').includes('Checked in') || ($('.ms51')?.textContent || '').includes('feeling')));
   const sug = await ev(() => [...document.querySelectorAll('.sg52r small')].map(x => x.textContent));
-  ok('might also like gives a reason tied to a confirmed goal', sug.length > 0 && sug.every(s => /Matches your goals?:/.test(s)), sug[0]?.slice(0, 80));
+  ok('might also like gives a reason tied to a confirmed goal', sug.length > 0 && sug.every(s => /Matches your goals?:|For your .+ goals?/.test(s)), sug[0]?.slice(0, 80));
   ok('points visible on Today', await ev(() => !!$('.pc51')));
 
   /* ---------- week row: multi-habit day, empty day, missed day, widths, large text ---------- */
@@ -183,6 +201,25 @@ const ok = (name, cond, detail = '') => { results.push(`${cond ? 'PASS' : 'FAIL'
   const legacyPage = await ev(() => { go('habit', { id: 'H046' }); return $('#vp').textContent; });
   ok('legacy habit page shows its original label without research claims', legacyPage.includes('Earlier version') && !legacyPage.includes('evidence'));
 
+  if (REV) {
+    await fresh('established');
+    const faces = await ev(() => [...document.querySelectorAll('.msr51 .mf51')].map(b => { const bust = b.querySelector('.bust'); const bg = getComputedStyle(bust).backgroundImage; const r = bust.getBoundingClientRect();
+      return { label: b.textContent.trim(), bg: (bg.match(/mood\/(m\d)\.webp/) || [])[1], w: Math.round(r.width), role: b.getAttribute('role') }; }));
+    const loaded = await ev(async () => { const urls = ['m1','m2','m3','m4','m5'].map(m => 'Humanology-5.2-assets/art/mood/' + m + '.webp');
+      const r = await Promise.all(urls.map(u => new Promise(res => { const i = new Image(); i.onload = () => res(i.naturalWidth > 0); i.onerror = () => res(false); i.src = u; }))); return r.every(Boolean); });
+    ok("Today shows Nora's five painted faces in order with labels", faces.length === 5 && faces.map(f => f.bg).join() === 'm1,m2,m3,m4,m5' && faces.map(f => f.label).join('|') === 'Low|A bit low|Okay|Good|Great' && faces.every(f => f.role === 'radio'), faces.map(f => f.w + 'px').join(' '));
+    ok('all five face images load', loaded);
+    ok('faces are at least 48 px', faces.every(f => f.w >= 48));
+    await ev(() => A.mood51({ dataset: { v: '2' } })); await p.waitForTimeout(500); await p.reload(); await p.waitForTimeout(300);
+    const m1 = await ev(() => ({ v: todayMood51()?.mood, sel: $('.mf51[aria-checked="true"] small')?.textContent }));
+    await ev(() => { busy = false; A.mood51({ dataset: { v: '5' } }); }); await p.waitForTimeout(500); await p.reload(); await p.waitForTimeout(300);
+    const m2 = await ev(() => ({ v: todayMood51()?.mood, n: st.checkins.filter(c => c.ts.startsWith(st.today) && c.mood && !c.sample).length, sel: $('.mf51[aria-checked="true"] small')?.textContent }));
+    ok('mood saves in one tap, survives reload, and a same-day edit updates the one entry', m1.v === 2 && m1.sel === 'A bit low' && m2.v === 5 && m2.n === 1 && m2.sel === 'Great', JSON.stringify([m1, m2]));
+    const ci = await ev(() => { F.ci = null; go('checkin', {}); return [...document.querySelectorAll('.s-ci3 .moods .bust')].map(b => (getComputedStyle(b).backgroundImage.match(/mood\/(m\d)/) || [])[1]).join(); });
+    ok('mood check-in page uses the same five faces', ci === 'm1,m2,m3,m4,m5', ci);
+    const rem = await ev(() => { tab('today'); return { n: document.querySelectorAll('.rm52r').length, btns: document.querySelectorAll('.rm52r .mini').length, dupMood: document.querySelectorAll('.du52').length }; });
+    ok('Today has one reminder with one action and no duplicate mood prompt', rem.n === 1 && rem.btns === 1 && rem.dupMood === 0);
+  }
   /* ---------- private challenge, rewards sample ---------- */
   await fresh('established');
   await ev(() => A.together({ dataset: { id: 'walk-after-meals' } })); await p.waitForTimeout(150);

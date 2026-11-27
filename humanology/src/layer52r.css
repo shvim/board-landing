@@ -1,0 +1,97 @@
+/* ================= Humanology 5.2 visual revision ================= */
+/* one inset for every card body, one chip style, times kept with their units */
+:root{--in52:16px}
+.sr52{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tg52{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.tg52 li{white-space:nowrap;padding:5px 11px;border-radius:999px;background:#EFE6D6;color:var(--ink);font-size:13.5px;font-weight:600;line-height:1.25}
+.tg52 li.fit{background:#EDE4F2;color:#55406A}
+.tg52 li.warn{background:#F6E1DA;color:#8A3B2E}
+.tg52 li.pers{background:#EAEFE4;color:#3E5B37}
+.tm52{display:flex;align-items:center;gap:6px;margin:0;font-size:14.5px;font-weight:600;color:var(--ink2);white-space:nowrap}
+.tm52 .ic{width:17px;height:17px;flex:none}
+
+/* goal tiles: the painting fills the tile above its short label */
+.s-goal5 .goal .full{left:3%;right:3%;top:4%;bottom:21%}
+.s-goal5 .goal b{padding-inline:8px;text-align:center;line-height:1.2}
+
+/* activity choices: figures fill their panels */
+.apic .art{left:3%;right:3%;top:4%;bottom:2%}
+
+/* recommendation carousel: a tall painting, then title, topics, time and the two actions */
+.rc52r .rpic{height:clamp(250px,72vw,320px)}
+.rc52r .rpic .sun{width:70%;top:8%}
+.rc52r .rpic .hero-art{width:100%;height:95%}
+.rc52r .rbody{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:var(--in52) var(--in52) 18px;text-align:left}
+.rc52r .rpos{margin:0;font-size:13px;font-weight:700;color:var(--ink2)}
+.rc52r h3.disp{margin:0;font-size:26px;line-height:1.12;text-wrap:balance}
+.racts52{display:flex;flex-wrap:wrap;gap:8px;width:100%;margin-top:6px;grid-template-columns:none}
+.racts52 > *{flex:1 1 9.5em;min-height:50px;margin:0!important}
+.racts52 .btn{padding:12px 14px}
+.rc52r .rbody > .link{margin:2px 0 0;padding:10px 0;min-height:44px}
+
+/* Today focal card: more room for the painting */
+.tpic51{height:clamp(300px,92vw,380px)}
+.tpic51 .sun{width:72%;top:7%}
+.tpic51 .hero-art{height:95%}
+.tb51 h3.disp{text-wrap:balance}
+
+/* one reminder, one action */
+.rm52r{display:flex;align-items:center;gap:10px;margin-top:12px;padding:10px 6px 10px 14px;border-radius:var(--r-md);background:#fff;box-shadow:inset 0 0 0 1px var(--line);text-align:left}
+.rm52r > .ic{width:20px;height:20px;flex:none}
+.rm52r span{flex:1;min-width:0}
+.rm52r .mini{flex:none;min-height:40px;padding:0 14px}
+.rm52r.done{background:#EEF3E8;box-shadow:none;padding:12px 14px;font-weight:600}
+
+/* Explore: a large painting on top, then a short title, topics and time, all on one left edge */
+.x52r{display:flex;flex-direction:column;grid-template-columns:none;min-height:0}
+.xp52{position:relative;height:clamp(220px,62vw,290px);display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+.xp52 .sun{position:absolute;width:62%;aspect-ratio:1;border-radius:50%;background:rgba(250,246,236,.45);top:8%;left:50%;transform:translateX(-50%)}
+.xp52 .art{position:relative;width:94%;height:94%}
+.xp52 .plus51{position:absolute;top:12px;right:12px;z-index:3}
+.xb52{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:14px var(--in52) 16px}
+.xb52 h3{margin:0;font-family:var(--f-disp);font-weight:500;font-size:22px;line-height:1.15;letter-spacing:-.01em;text-wrap:balance}
+.x52r.prev52 .xp52{filter:saturate(.85)}
+.s-exp52 .xlist{gap:16px}
+
+/* habit page: painting, a plain benefit, how to try it, schedule, safety, then the research behind one disclosure */
+.hr52{height:clamp(340px,100vw,440px)}
+.hr52 .hero-art{height:94%}
+.d52r{text-align:left;display:flex;flex-direction:column;gap:18px;padding-inline:var(--in52)}
+.d52r > *{margin-top:0;margin-bottom:0}
+.d52r h2.disp{font-size:30px;line-height:1.1;text-wrap:balance;text-align:left}
+.lead52{font-size:17px;line-height:1.45;margin:0}
+.d52r section > h3{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);margin:0 0 6px}
+.d52r .do52 p,.d52r .sc52 p{margin:0 0 6px;font-size:16px;line-height:1.5}
+.trk52r{color:var(--ink2)}
+.vs52r{margin:0}
+.vs52r .vopt52:first-of-type{margin-top:0}
+.vs52r .vopt52 b{font-weight:600;line-height:1.4}
+.d52r .safe52{margin:0}
+.d52r .row51{justify-content:flex-start}
+.rs52r{border-radius:var(--r-md);background:#fff;box-shadow:inset 0 0 0 1px var(--line)}
+.rs52r > summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;padding:0 var(--in52);cursor:pointer;list-style:none;font-weight:700;font-size:16px}
+.rs52r > summary::-webkit-details-marker{display:none}
+.rs52r > summary .ic{width:20px;height:20px;transition:transform .2s}
+.rs52r[open] > summary .ic{transform:rotate(180deg)}
+.rs52r > summary:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:var(--r-md)}
+.rsb52{padding:0 var(--in52) var(--in52);display:flex;flex-direction:column;gap:10px}
+.rsum52{margin:0;font-size:15.5px;line-height:1.5}
+.rsb52 .ben52{margin:0}
+.rsb52 > .btn{margin:4px 0 0}
+@media (prefers-reduced-motion:reduce){.rs52r > summary .ic{transition:none}}
+
+/* Nora's check-in faces: large enough to tell apart at every width */
+.msr52r{gap:4px}
+.msr52r .mf51 .th,.mf51 .th{--d:clamp(48px,calc((100vw - 104px) / 5),64px)}
+.s-ci3 .moods .th{--d:clamp(48px,calc((100vw - 100px) / 5),62px)}
+.mf51 small,.s-ci3 .moods small{white-space:nowrap}
+
+/* larger text: everything grows, nothing is clipped */
+[data-text="large"] .xb52 h3,[data-text="larger"] .xb52 h3{font-size:24px}
+[data-text="larger"] .tg52 li{font-size:15px}
+[data-text="larger"] .racts52 > *{flex-basis:100%}
+.sgm52 .tg52{margin-top:6px}
+.sgm52 .tg52 li{font-size:12.5px;padding:3px 9px}
+.hn51 small{white-space:nowrap}
+.hr51{gap:8px}
+.xb52,.xb52 h3,.rc52r .rbody,.rc52r h3.disp{text-align:left}

@@ -1,6 +1,7 @@
 /* ================= Humanology 5.2 — screens and behavior on top of 5.1 =================
    Loaded after every 5.1 layer and before boot. Anything assigned here replaces the 5.1 version. */
 "use strict";
+const SHORT52_ANY = c => (typeof SHORT52 !== "undefined" && SHORT52[c.card_id]) || "";
 const KEY52 = "humanology-v52:state", KEY51 = "humanology-v5:state";
 const card52 = id => C52.card[id] || null;
 const isCard52 = h => !!(h && h.c52);
@@ -223,7 +224,7 @@ function exploreList52() {
   let r = HM.CAT.habits.filter(h => {
     const c = h.c52;
     if (g === "_general") { if (c.goals.length) return false; } else if (g && !c.goals.includes(g)) return false;
-    if (q) { const hay = [c.title, c.action, c.tracking_prompt, c.studied_population, ...c.goals.map(goalLabel), ...c.benefit_ids.map(id => C52.ben[id].statement), ...C52.variantsOf(c.card_id).map(v => v.action)].join(" ").toLowerCase();
+    if (q) { const hay = [c.title, SHORT52_ANY(c), c.action, c.tracking_prompt, c.studied_population, ...c.goals.map(goalLabel), ...c.benefit_ids.map(id => C52.ben[id].statement), ...C52.variantsOf(c.card_id).map(v => v.action)].join(" ").toLowerCase();
       if (!q.split(/\s+/).every(w => hay.includes(w))) return false; }
     return true;
   });

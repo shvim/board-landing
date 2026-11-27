@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { recommend } from '../catalog/recommend.mjs';
-const html = readFileSync(new URL('../Humanology-5.2.html', import.meta.url), 'utf8');
+const html = readFileSync(new URL(process.argv[2] ? '../' + process.argv[2] : '../Humanology-5.2.html', import.meta.url), 'utf8');
 const catalog = JSON.parse(readFileSync(new URL('../catalog/catalog.json', import.meta.url), 'utf8'));
 const embedded = JSON.parse(html.match(/<script type="application\/json" id="catalog52">([\s\S]*?)<\/script>/)[1].replace(/<\\\//g, '</'));
 assert.deepEqual(embedded, catalog, 'embedded catalog equals catalog/catalog.json');

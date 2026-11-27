@@ -132,3 +132,36 @@ Done today at 44 vs 48 px, with cooking, kiwi and the after-meal walk:
 - The fit check is a self-report shortcut, not a health screen, as the catalog README says.
 - Tested in desktop Chromium at phone sizes, not on a physical iPhone. Safari on iOS 14+ supports the WebP paintings.
 - No backend, billing, deployment, native integration or React conversion, per the brief.
+
+## Visual revision (READ-FIRST-5.2-Redesign.md)
+
+`Humanology-5.2-revised.html` applies the visual revision. It's built with `python3 tools/build52.py revised` from the same 5.2 layer plus `src/layer52r-*`. `Humanology-5.2.html` is kept unchanged as the "before".
+
+- **Paintings first:**
+  - Goal and activity tiles: figures fill more of the panel.
+  - Recommendation card: painting 250–320 px tall (was 184–220).
+  - Today focal card: 300–380 px.
+  - Explore: painting on top, 220–290 px, instead of a narrow side strip.
+  - Habit page: 340–440 px.
+  - Buttons scroll; the carousel peek is kept.
+- **Short browsing cards:**
+  - Explore, recommendation and suggestion cards show a short action title (`SHORT52`), one or two topic tags (`TOPIC52`) and a time cue only when a time is stated.
+  - Topics come only from the results visible for the selected schedule and audience, so "Mood" never appears on a walking card without a published mood result.
+  - Restricted cards show "Check it fits you first".
+  - Today has one logging reminder with one action ("Log now"). The separate mood prompt was removed; the five-face row is the only mood prompt.
+- **Science one tap deeper:**
+  - The habit page shows the painting, the full title, one plain benefit sentence, how to try it (and how to log it), a schedule picker and "Before you start".
+  - Summary, grades, population, comparison and sources are in a closed "What does the research say?" disclosure. It stays open across schedule changes.
+  - Claims, scopes, variants, citations and the research-only rule are unchanged: parity and catalog tests pass.
+- **Nora's five painted faces:**
+  - `m1`–`m5` from `Nora-5.1-check-in.zip`, using 5.1's original bust crop, on Today and on the check-in page.
+  - The SVG stand-ins are removed in the revised build.
+  - Faces are 48–64 px.
+- **Mobile layout:**
+  - One 16 px inset, and left-aligned titles, tags and actions.
+  - Tags wrap as whole chips, and times keep their units.
+  - Add this habit / Maybe later stack when they would squeeze (always at larger text).
+  - Card heights grow with text.
+- **Tests:** `node tests/e2e.cjs Humanology-5.2-revised.html` gives 69/69 ([results](tests/e2e-results-revised.txt)): the 59 original checks plus short cards, scoped tags, research closed by default, Nora faces loaded in order, mood save, reload and same-day edit, and the single reminder.
+- **Screenshots:** comparisons at 375 px (and larger text) are in `screenshots/redesign/compare/`. Raw before and after shots at 320, 375 and 390 px, with default and larger text, are in `screenshots/redesign/before|after/`.
+- **Limitation:** the brief's visual reference is the illustrated 5.1. The only illustrated copy found in Drive (`Humanology-V4-labeled.zip`, 15 MB) is over the connector's 10 MB download limit, so painting sizes were judged against the brief and the 5.2 screens rather than a pixel comparison with illustrated 5.1.

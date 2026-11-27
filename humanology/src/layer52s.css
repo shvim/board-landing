@@ -1,0 +1,66 @@
+/* ================= habit sharing and tracking ================= */
+/* the warm peach share treatment from version 5's "Do this with someone", in a compact button */
+.shb52{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border:0;border-radius:999px;background:var(--peach);color:var(--ink);font:inherit;font-weight:700;font-size:15px;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(217,130,92,.28)}
+.shb52 .ic{width:18px;height:18px;stroke:var(--ink)}
+.shb52:hover{background:#F5CDB5}
+.shb52:focus-visible,.sho52:focus-visible,.mhc51:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ttl52{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.ttl52 h2.disp{margin:0}
+.aud52{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--sage-soft);color:#3D4A31;font-size:13.5px;font-weight:600;line-height:1.3}
+.lead52 .lev52{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:999px;background:#EFE6D6;font-size:12.5px;font-weight:700;vertical-align:2px;white-space:nowrap}
+.when52{display:flex;align-items:flex-start;gap:8px;margin:8px 0 0;color:var(--ink2);font-weight:600}
+.when52 .ic{width:18px;height:18px;flex:none;margin-top:2px}
+/* All my habits: open and share are siblings */
+.mh52{align-items:flex-start}
+.mhw52{display:flex;flex-direction:column;gap:8px;flex:none}
+.mhw52 .shb52.sm{min-height:44px;padding:0 14px;font-size:14px;align-self:stretch}
+.mhw52 .shb52.sm .ic{width:16px;height:16px}
+/* share sheet */
+.sh52{display:flex;flex-direction:column;gap:12px}
+.shp52{padding:12px 14px;border-radius:var(--r-md);background:var(--cream,#FAF6EC);box-shadow:inset 0 0 0 1px var(--line)}
+.shp52 p{margin:4px 0 0;line-height:1.45}
+.sho52{display:flex;align-items:center;gap:14px;width:100%;min-height:64px;padding:12px 14px;border:0;border-radius:var(--r-md);background:var(--peach);color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.sho52 + .sho52{background:#fff;box-shadow:inset 0 0 0 1.5px var(--peach-btn)}
+.sho52 span:last-child{display:flex;flex-direction:column;gap:2px;min-width:0}
+.sho52 b{font-size:16px}
+.sho52 small{color:var(--ink2);font-size:13.5px;line-height:1.35}
+.shi52{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#fff;flex:none}
+.shi52 .ic{width:20px;height:20px}
+.sh52 .btn{margin:0}
+/* tracker: sage panel */
+.trk52p{padding:14px 16px;border-radius:var(--r-md);background:var(--sage-soft);display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.trk52p h3{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0;font-size:16px;font-weight:700;text-transform:none;letter-spacing:0;color:var(--ink)}
+.trk52p h3 .ic{width:18px;height:18px}
+.trk52p p{margin:0}
+.trk52p.done52{background:#EEF2E8}
+.tko52{font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.7);color:#3D4A31}
+.tkv52{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.tkv52 b{font-family:var(--f-disp);font-weight:500;font-size:26px;line-height:1.1;white-space:nowrap}
+.tkv52 span{color:var(--ink2);font-weight:600;font-size:14px}
+.tkv52.none{color:var(--ink2);font-weight:600}
+.tkb52{width:auto;padding:12px 20px;margin:0;display:inline-flex;align-items:center;gap:6px;background:#fff}
+.tkb52 .ic{width:18px;height:18px}
+.tkh52{margin:0}
+.tkm52{width:100%}
+.tkm52 .ms51{margin:0;background:transparent;box-shadow:none;padding:0}
+/* entry sheet */
+.tks52{display:flex;flex-direction:column;gap:8px}
+.tks52 .btn{margin:6px 0 0}
+.tkvu52{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tkvu52 .in{flex:1 1 8em;min-width:0;font-size:20px}
+.tku52{font-weight:700}
+.tkr52{display:flex;flex-direction:column;gap:8px}
+.tkr52 button{min-height:48px;border-radius:12px;border:0;background:#fff;box-shadow:inset 0 0 0 1px var(--line);font:inherit;font-weight:600;cursor:pointer}
+.tkr52 button.on{box-shadow:inset 0 0 0 2.5px var(--ink);background:var(--sage-soft)}
+.tkl52{list-style:none;margin:0 0 10px;padding:0}
+.tkl52 button{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:56px;padding:8px 2px;border:0;border-bottom:1px solid var(--line);background:none;font:inherit;text-align:left;cursor:pointer}
+.tkl52 span{display:flex;flex-direction:column}
+.tkl52 small{color:var(--ink2)}
+.hv52{font-family:var(--f-disp);font-size:20px;white-space:nowrap}
+/* research: lavender, collapsed */
+.rs52l{background:var(--plum-soft,#EDE4F2);box-shadow:none}
+.rs52l .ben52{background:#fff}
+[data-text="larger"] .mhw52 .shb52.sm{font-size:15px}
+.mh52{align-items:stretch}
+.mhw52{justify-content:space-between}
+.mhw52 .mhc51{flex:1 0 auto}

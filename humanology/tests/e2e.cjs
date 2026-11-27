@@ -90,7 +90,7 @@ const ok = (name, cond, detail = '') => { results.push(`${cond ? 'PASS' : 'FAIL'
   }
   /* ---------- schedules update action, time, benefits and sources together ---------- */
   await ev(() => go('habit', { id: 'walk-after-meals' })); await p.waitForTimeout(150);
-  const tsel = REV ? '.sc52 .vopt52.on b' : '.facts52 dd'; const hsel = REV ? '.do52 p' : '.do52 .how51';
+  const tsel = REV ? '.vs52 .vopt52.on b' : '.facts52 dd'; const hsel = REV ? '.do52 p' : '.do52 .how51';
   const s1 = await ev(([h, t]) => ({ how: $(h).textContent, time: $(t).textContent, bens: [...document.querySelectorAll('.ben52 .bs52')].map(x => x.textContent), dis: $('input[data-vs52][value="walk-after-meals-2"]').disabled }), [hsel, tsel]);
   ok('audience-only schedule is locked until the condition is confirmed', s1.dis);
   await ev(() => { E52().aud.push('type_2_diabetes'); re(); }); await p.check('input[data-vs52][value="walk-after-meals-2"]'); await p.waitForTimeout(150);

@@ -61,8 +61,8 @@ function meta52(id, bens, mins, goal) {
   const t = mins == null ? "" : mins === 0 ? "No extra time" : `${mins} min`;
   const tSay = mins == null ? "" : mins === 0 ? "No extra time" : `${mins} minutes a day`;
   if (!t && !ev) return { topics, row: "" };
-  const say = [tSay, ev ? `${ev} for ${topics.join(" and ").toLowerCase()}` : ""].filter(Boolean).join(". ");
-  return { topics, row: `<p class="mt52" aria-label="${esc(say)}">${t ? `<span class="mtt52">${ico("clock")}${esc(t)}</span>` : ""}${ev ? `<span class="mte52">${t ? `<span class="dot52" aria-hidden="true">·</span>` : ""}${esc(ev)}</span>` : ""}</p>` };
+  const say = [tSay, ev ? `${typeof evWord52 === "function" ? evWord52(ev) : ev} for ${topics.join(" and ").toLowerCase()}` : ""].filter(Boolean).join(". ");
+  return { topics, row: `<p class="mt52" aria-label="${esc(say)}">${t ? `<span class="mtt52">${ico("clock")}${esc(t)}</span>` : ""}${ev ? `<span class="mte52">${t ? `<span class="dot52" aria-hidden="true">·</span>` : ""}${esc(typeof evWord52 === "function" ? evWord52(ev) : ev)}</span>` : ""}</p>` };
 }
 
 /* ---------- onboarding: exact matches only, no filler ---------- */

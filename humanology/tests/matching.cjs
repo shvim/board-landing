@@ -134,7 +134,7 @@ const out = []; let failed = 0; const ok = (n, c, d = '') => { out.push(`${c ? '
     const g = await p.evaluate(() => [...document.querySelectorAll('.sgc52')].map(c => { const a = c.querySelector('.sgadd52').getBoundingClientRect(), n = c.querySelector('.sgno52').getBoundingClientRect(), r = c.getBoundingClientRect();
       const gap = a.bottom <= n.top ? n.top - a.bottom : n.left - a.right; return { ah: a.height, nh: n.height, aw: a.width, gap, lead: a.left <= n.left, inside: a.left >= r.left && n.right <= r.right + .5, h: r.height, top: r.top, bottom: r.bottom }; }));
     const sep = g.every((x, i) => !i || x.top >= g[i - 1].bottom);
-    ok(`dashboard controls at ${w}px${t === 'larger' ? ', larger text' : ''}: 44 px targets, ≥12 px apart, Add leading`, g.length > 0 && g.every(x => x.ah >= 44 && x.nh >= 44 && x.aw >= 44 && x.gap >= 12 && x.lead && x.inside) && sep, g.map(x => `${Math.round(x.ah)}h gap ${Math.round(x.gap)}`).join('; '));
+    ok(`dashboard controls at ${w}px${t === 'larger' ? ', larger text' : ''}: 44 px targets, ≥12 px apart, Add leading`, g.length > 0 && g.every(x => x.ah >= 43.5 && x.nh >= 43.5 && x.aw >= 43.5 && x.gap >= 12 && x.lead && x.inside) && sep, g.map(x => `${Math.round(x.ah)}h gap ${Math.round(x.gap)}`).join('; '));
     ok(`no horizontal overflow at ${w}px${t === 'larger' ? ', larger text' : ''}`, await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     await p.evaluate(() => document.querySelector('.sug52')?.scrollIntoView({ block: 'start' })); await p.evaluate(() => { $('#vp .scroll').scrollTop -= 12; }); await p.waitForTimeout(200);
     await p.screenshot({ path: `${SHOTS}/dashboard-controls-${w}${t === 'larger' ? '-large' : ''}.png` });

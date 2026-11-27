@@ -36,7 +36,7 @@ src = src.replace('applyArt(); applyV4(); applyV5();', 'applyArt(); applyV4(); a
 assert 'buildCat52()' in src and 'apply52();' in src
 
 # 4. the 5.2 layer goes in just before boot
-layer = '\n'.join(open(f'src/{f}', encoding='utf-8').read() for f in ['layer52-data.js', 'layer52-ui.js'] + (['layer52r-data.js', 'layer52r-ui.js', 'layer52m-ui.js'] if REVISED else []))
+layer = '\n'.join(open(f'src/{f}', encoding='utf-8').read() for f in ['layer52-data.js', 'layer52-ui.js'] + (['layer52r-data.js', 'layer52r-ui.js', 'layer52m-ui.js', 'layer52s-ui.js'] if REVISED else []))
 if REVISED:
     # the supplied exact-outcome matcher, embedded verbatim (export keyword dropped), and its two data files
     msrc = open('matching/match.mjs', encoding='utf-8').read().replace('export function refinedMatches', 'function refinedMatches', 1)
@@ -80,7 +80,7 @@ if REVISED:
     for i, (bw, bx) in BW.items():
         css.append(f'.i-m{i}{{background-image:url({A}/mood/m{i}.webp)}}')
         css.append(f'.th .bust.i-m{i}{{background-image:url({A}/mood/m{i}.webp);background-size:calc(var(--d)*{bw}) calc(var(--d)*1.2121);background-position:calc(var(--d)*{bx}) calc(var(--d)*.13)}}')
-layer_css = open('src/layer52.css', encoding='utf-8').read() + '\n' + '\n'.join(css) + ('\n' + open('src/layer52r.css', encoding='utf-8').read() if REVISED else '')
+layer_css = open('src/layer52.css', encoding='utf-8').read() + '\n' + '\n'.join(css) + ('\n' + open('src/layer52r.css', encoding='utf-8').read() + '\n' + open('src/layer52s.css', encoding='utf-8').read() if REVISED else '')
 last_style = src.rfind('</style>')
 src = src[:last_style] + layer_css + '\n' + src[last_style:]
 src = src.replace('<title>Humanology', '<title>Humanology 5.2' + (' revised' if REVISED else ''), 1)

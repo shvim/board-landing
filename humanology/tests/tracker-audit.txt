@@ -1,0 +1,19 @@
+glucose (2): walk-after-meals, meal-order
+bp (5): brisk-walking, salt-swap, dash, walking-breaks, handgrip
+done (16): stairs, sunscreen, resistance-sarcopenia, cold-shower, walk-for-ideas, toothbrush, jumps, retrieval, flight-stockings, fall-hazards, handwash, eat-slowly, smell-training, cystitis, pelvic-floor, tai-chi
+ldl (6): almonds, beans, whole-grains, apples, psyllium, oats
+sleepq (7): caffeine, bath, relax-muscles, bedtime-list, bedtime-phone, music, sleep-extension
+mood (5): cyclic-sighing, social-break, screen-cap, optimism, three-good-things
+regularity (2): kiwi, prunes
+gums (1): water-flosser
+swelling (1): standing-stockings
+eyes (1): blink
+eyestrain (1): work-breaks
+hunger (1): hummus
+connected (1): volunteer
+weight (1): water-premeal
+drinks (1): drink-swap
+stress (1): mindfulness
+reflux (1): left-side
+energy (2): one-brisk-walk, nap
+neckpain (1): neck-strength

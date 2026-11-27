@@ -194,3 +194,25 @@ The handoff files are in `matching/`. `match.mjs`, `refinements.json` and `activ
   - `node tests/matching.cjs` gives 39/39, run through the real interface ([results](tests/matching-results.txt)). It covers Heart → Blood pressure → More effort, cholesterol, short and unknown times, an unsupported refinement, two goals with different refinements, seated then more effort, exclusions and clearance, a migrated profile, reload, Add / Not for me, keyboard order, and 320/375/390 px plus larger text.
   - `matching/verify.mjs` passes against the built file. `e2e.cjs` passes 70/70 on the revised build and 59/59 on 5.2, and catalog parity passes.
 - **Screenshots:** in `screenshots/matching/`.
+
+## Habit sharing and tracking (Habit-Sharing-and-Tracking.md)
+
+Layer: `src/layer52s-ui.js` and `src/layer52s.css`. Starts from the matching build. "Humanology 5.2 revised 2.zip" isn't in Drive; this is the build it describes.
+
+- **Share habit:**
+  - A peach button (version 5's warm "Do this with someone" treatment) sits on its own line under the title on every opened habit, and on each habit in Today → All my habits as a sibling of the open control. The old "With someone" entry lower on the page is removed.
+  - The sheet is labeled with the habit and offers "Share this habit" or "Invite someone to do it with me". The first uses the phone share menu, then copy, then manual copy. The second opens the existing private circle/invite flow with that habit, labeled as simulated.
+  - The payload is only the habit title and its public benefit sentence. Personal habits share their description only if you tick it. No link is included because the prototype has no public habit page.
+- **Habit page:** the painting, the short title, Share, an audience pill where it matters, one benefit (with "Early research" wording for early evidence), and how and when (the schedule once).
+  - "Before you start" shows only when the habit needs a fit check, has exclusions, or the qualification mentions safety.
+  - A tracker comes next, then the research folded in a lavender "What does the research say?" panel.
+- **Trackers:** every one of the 56 habits has one ([audit](tests/tracker-audit.txt)).
+  - **LDL cholesterol** (date, value, mg/dL or mmol/L, editable) for apples, oats, almonds, beans, whole grains and psyllium. One shared history.
+  - **Blood pressure** with both numbers.
+  - **Blood glucose**, **weight** and **sugary drinks**.
+  - **Mood** with Nora's faces, plus sleep, stress and energy.
+  - **Labeled personal observations** for digestion, gums, swelling, eyes, eyestrain, hunger, connection, reflux and neck pain.
+  - **Completion only** where the outcome can't be entered at home.
+  - The latest real entry and its date appear in Today → Your health after the first save. Saving never completes a habit or adds points. There are no testing prompts, retest timers or overdue states.
+- **Tests:** `node tests/sharing.cjs` gives 42/42 ([results](tests/sharing-results.txt)). Matching 39/39 and e2e 70/70 still pass, along with parity and verify.
+- **Screenshots:** in `screenshots/sharing/`.

@@ -1,4 +1,4 @@
-PASS  opened habit: peach Share habit is visible on first phone view — {"top":488.18878173828125,"bottom":532.1887817382812,"h":44,"vh":844,"peach":"rgb(248, 217, 198)"}
+PASS  opened habit: peach Share habit is visible on first phone view — {"top":488.1983947753906,"bottom":532.1983642578125,"h":43.999969482421875,"vh":844,"peach":"rgb(248, 217, 198)"}
 PASS  no redundant sharing entry lower on the page
 PASS  science is folded under "What does the research say?"
 PASS  no copy telling you to get tested
@@ -31,7 +31,7 @@ PASS  apples panel shows the value and date — LDL cholesterol 131 mg/dL Nov 12
 PASS  the same reading is visible from oats
 PASS  Today → Your health shows the LDL value and date once — LDL cholesterol Nov 12 131 mg/dL
 PASS  reading survives reload
-PASS  editing keeps one entry and preserves the chosen unit — {"id":"r005q","value":3.4,"unit":"mmol/L","date":"2026-11-12","ts":"2026-11-24T07:00","edited":"2026-11-24"}
+PASS  editing keeps one entry and preserves the chosen unit — {"id":"r005q","value":3.4,"unit":"mmol/L","date":"2026-11-12","ts":"2026-11-24T16:00","edited":"2026-11-24"}
 PASS  brisk walking has a blood pressure tracker
 PASS  blood pressure saves both numbers and shows them
 PASS  mood habit offers Nora's five faces — m1,m2,m3,m4,m5

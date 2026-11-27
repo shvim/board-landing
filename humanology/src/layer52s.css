@@ -111,3 +111,5 @@
 .shb52t small{color:var(--ink2);font-size:13px;font-weight:600}
 .shc52:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .d52r .trk52p > h3{text-transform:none;letter-spacing:0;font-size:16px;color:var(--ink)}
+/* art round 5: painted reward tiles */
+.rpic5 .rw52{display:block;width:100%;aspect-ratio:1;background-size:contain;background-position:center;background-repeat:no-repeat}

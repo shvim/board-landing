@@ -9,19 +9,19 @@
   ]
  },
  "almonds": {
-  "src": "nuts",
+  "src": "almonds",
   "c": [
-   0.51,
-   0.555,
-   0.13
+   0.53,
+   0.56,
+   0.4
   ]
  },
  "walk-after-meals": {
-  "src": "green-walk",
+  "src": "circle-after-meal-walk",
   "c": [
-   0.585,
-   0.83,
-   0.2
+   0.55,
+   0.53,
+   0.78
   ]
  },
  "walk-for-ideas": {
@@ -185,11 +185,11 @@
   ]
  },
  "mindfulness": {
-  "src": "box-breath",
+  "src": "mindfulness",
   "c": [
    0.5,
-   0.53,
-   0.72
+   0.22,
+   0.42
   ]
  },
  "left-side": {
@@ -257,19 +257,19 @@
   ]
  },
  "resistance-sarcopenia": {
-  "src": "strength-row",
+  "src": "strength-row-walter",
   "c": [
-   0.55,
-   0.55,
+   0.42,
+   0.45,
    0.62
   ]
  },
  "nap": {
-  "src": "moment-rest-day",
+  "src": "nap",
   "c": [
-   0.5,
-   0.55,
-   0.62
+   0.62,
+   0.46,
+   0.52
   ]
  },
  "fx-cooking": {
@@ -414,6 +414,198 @@
    0.5,
    0.56,
    0.62
+  ]
+ },
+ "water-premeal": {
+  "src": "water-premeal",
+  "c": [
+   0.4,
+   0.4,
+   0.4
+  ]
+ },
+ "cystitis": {
+  "src": "water-cystitis",
+  "c": [
+   0.5,
+   0.52,
+   0.46
+  ]
+ },
+ "drink-swap": {
+  "src": "drink-swap",
+  "c": [
+   0.47,
+   0.48,
+   0.4
+  ]
+ },
+ "stairs": {
+  "src": "stairs",
+  "c": [
+   0.52,
+   0.42,
+   0.72
+  ]
+ },
+ "stair-walk-energy": {
+  "src": "stair-walk-easy",
+  "c": [
+   0.46,
+   0.42,
+   0.72
+  ]
+ },
+ "caffeine": {
+  "src": "caffeine-earlier",
+  "c": [
+   0.52,
+   0.66,
+   0.42
+  ]
+ },
+ "sunscreen": {
+  "src": "sunscreen",
+  "c": [
+   0.53,
+   0.7,
+   0.44
+  ]
+ },
+ "water-flosser": {
+  "src": "water-flosser",
+  "c": [
+   0.4,
+   0.44,
+   0.44
+  ]
+ },
+ "toothbrush": {
+  "src": "powered-toothbrush",
+  "c": [
+   0.4,
+   0.36,
+   0.4
+  ]
+ },
+ "social-break": {
+  "src": "social-break",
+  "c": [
+   0.55,
+   0.72,
+   0.36
+  ]
+ },
+ "screen-cap": {
+  "src": "screen-cap",
+  "c": [
+   0.66,
+   0.45,
+   0.4
+  ]
+ },
+ "standing-stockings": {
+  "src": "standing-stockings",
+  "c": [
+   0.55,
+   0.52,
+   0.4
+  ]
+ },
+ "flight-stockings": {
+  "src": "flight-stockings",
+  "c": [
+   0.56,
+   0.7,
+   0.38
+  ]
+ },
+ "bedtime-phone": {
+  "src": "bedtime-phone",
+  "c": [
+   0.62,
+   0.66,
+   0.4
+  ]
+ },
+ "blink": {
+  "src": "blink",
+  "c": [
+   0.56,
+   0.37,
+   0.52
+  ]
+ },
+ "apples": {
+  "src": "apples",
+  "c": [
+   0.53,
+   0.56,
+   0.44
+  ]
+ },
+ "hummus": {
+  "src": "hummus",
+  "c": [
+   0.48,
+   0.77,
+   0.42
+  ]
+ },
+ "volunteer": {
+  "src": "volunteer",
+  "c": [
+   0.5,
+   0.55,
+   0.8
+  ]
+ },
+ "psyllium": {
+  "src": "psyllium",
+  "c": [
+   0.54,
+   0.8,
+   0.36
+  ]
+ },
+ "fall-hazards": {
+  "src": "fall-hazards",
+  "c": [
+   0.5,
+   0.52,
+   0.9
+  ]
+ },
+ "handwash": {
+  "src": "handwash",
+  "c": [
+   0.58,
+   0.66,
+   0.34
+  ]
+ },
+ "smell-training": {
+  "src": "smell-training",
+  "c": [
+   0.57,
+   0.36,
+   0.44
+  ]
+ },
+ "pelvic-floor": {
+  "src": "pelvic-floor",
+  "c": [
+   0.58,
+   0.66,
+   0.46
+  ]
+ },
+ "acupuncture-migraine": {
+  "src": "acupuncture",
+  "c": [
+   0.43,
+   0.38,
+   0.5
   ]
  }
 }

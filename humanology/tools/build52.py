@@ -70,7 +70,7 @@ for k, ang in {'u5': 12, '5-10': 60, '10-20': 114, '20': 150}.items():
          f'<circle cx="50" cy="62" r="40" fill="#5B7088"/><circle cx="50" cy="62" r="32" fill="#F6F0E2"/>'
          + ''.join(f'<rect x="49" y="32" width="2" height="5" fill="#9AA6B2" transform="rotate({a} 50 62)"/>' for a in range(0, 360, 30))
          + f'<g transform="rotate({ang} 50 62)"><rect x="48.5" y="36" width="3" height="28" rx="1.5" fill="#3D4652"/><rect x="48.5" y="34" width="3" height="9" rx="1.5" fill="#C0533F"/></g><circle cx="50" cy="62" r="4" fill="#3D4652"/></svg>')
-    css.append(f'.i-sw-{k}{{background-image:{svg(s)}}}')
+    css.append(f'.i-sw-{k}{{background-image:{svg(s) if not REVISED else "url(" + A + "/sw/sw-" + k + ".webp)"}}}')
 mouths = ['M36 70 Q50 60 64 70', 'M36 68 Q50 63 64 68', 'M37 66 L63 66', 'M36 64 Q50 71 64 64', 'M34 62 Q50 76 66 62']
 for i, mth in enumerate([] if REVISED else mouths, 1):
     s = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#F3D9B8"/><circle cx="38" cy="44" r="3.5" fill="#4A3B30"/><circle cx="62" cy="44" r="3.5" fill="#4A3B30"/><path d="{mth}" stroke="#4A3B30" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg>'
@@ -84,11 +84,17 @@ if REVISED:
 layer_css = open('src/layer52.css', encoding='utf-8').read() + '\n' + '\n'.join(css) + ('\n' + open('src/layer52r.css', encoding='utf-8').read() + '\n' + open('src/layer52s.css', encoding='utf-8').read() if REVISED else '')
 last_style = src.rfind('</style>')
 src = src[:last_style] + layer_css + '\n' + src[last_style:]
+if REVISED:
+    src = src.replace('Man opening a gift envelope', 'Man opening a small gift box')
+    os.makedirs(A + '/sw', exist_ok=True)
+    for k in ['u5', '5-10', '10-20', '20']: shutil.copy(f'work/sw/sw-{k}.webp', f'{A}/sw/sw-{k}.webp')
 src = src.replace('<title>Humanology', '<title>Humanology 5.2' + (' revised' if REVISED else ''), 1)
 open(OUT, 'w', encoding='utf-8').write(src)
 
 # 6. ship only the derivatives the page uses
-keep = used_heroes
+keep = set(used_heroes)
+other = 'Humanology-5.2.html' if REVISED else 'Humanology-5.2-revised.html'
+if os.path.exists(other): keep |= set(re.findall(r'art/hero/([a-z0-9-]+)\.webp', open(other, encoding='utf-8').read()))
 shutil.rmtree(A + '/hero', ignore_errors=True); os.makedirs(A + '/hero')
 for k in keep: shutil.copy(f'work/hero-all/{k}.webp', f'{A}/hero/{k}.webp')
 print('built', OUT, round(len(src) / 1024), 'KB;', len(keep), 'hero derivatives')

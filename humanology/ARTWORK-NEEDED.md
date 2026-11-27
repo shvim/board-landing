@@ -1,5 +1,7 @@
 # Humanology 5.2 · Artwork needed
 
+> **Update (art round 5):** all 45 commissioned paintings arrived and are now in the prototype. Every habit card, goal tile, activity card, the stopwatch, the rewards picture and the three reward tiles use them. Nothing below is still blocking. Originals are in `art-src/r5/`; the map is `tools/artmap.json`.
+
 > **Full, copy-ready prompts for every missing picture are in `ART-PROMPTS.md`** (45 prompts). They replace the short prompts below where the two differ.
 
 All 98 production illustrations in the Drive images folder were opened and checked by eye on a pastel tile. Every one has true transparency. Every one also carries a burned-in white caption strip below the square scene, so the prototype uses display derivatives: the strip is removed, excess transparent margin is trimmed, and each circle gets its own crop around the distinguishing action. Cards are matched by filename and by what the painting actually shows. The full card-by-card decision is in `CARD-ART-MAPPING.md`.

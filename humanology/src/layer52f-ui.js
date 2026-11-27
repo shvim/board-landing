@@ -223,3 +223,12 @@ SCREENS.habit = (prev => p => {
 })(SCREENS.habit);
 /* the tracker panel: no fine print, one obvious action */
 trackerPanel52 = (tp => h => tp(h).replace(/<p class="fine">Optional\.[\s\S]*?<\/p>/, ""))(trackerPanel52);
+
+/* ---------- art round 5: painted reward-category still lifes replace the coded SVG icons ---------- */
+if (typeof REWARD_ART === "object") {
+  Object.assign(REWARD_ART, {
+    Coffee: `<span class="rw52 i-reward-coffee" role="img" aria-label="Cup of coffee"></span>`,
+    Books: `<span class="rw52 i-reward-books" role="img" aria-label="Two books"></span>`,
+    Groceries: `<span class="rw52 i-reward-groceries" role="img" aria-label="Bag of groceries"></span>`,
+  });
+}

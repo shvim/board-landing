@@ -1,20 +1,16 @@
-PASS  64 unique cards and titles — 64 cards, 64 titles, 64 in HM.CAT
-PASS  82 benefits, 9 schedule variants, 155 publications, unique IDs
+PASS  56 unique cards and titles — 56 cards, 56 titles, 56 in HM.CAT
+PASS  75 benefits, 9 schedule variants, 146 publications, unique IDs
 PASS  every benefit, variant, note and source reference resolves
 PASS  every publication link is https
-PASS  Explore All lists all 64 titles — 64 distinct
-PASS  Explore cards: short title, at most two topic tags, no evidence statement — tags 1–2
-PASS  "Mood" appears on a walking card only with a published mood result for the shown schedule — Walk breaks from sitting
-PASS  no generic “check if it fits” previews remain in Explore
-PASS  untargeted routines are discoverable under Everyday care — 14
+PASS  Explore All lists all 56 titles — 56 distinct
+PASS  restricted routines show neutral previews without an add button — 34 previews
+PASS  untargeted routines are discoverable under Everyday care — 12
 PASS  drink swap preview shows action and drink tracking, no benefit
 PASS  Explore keeps filter and scroll after opening a habit — {"g":"sleep","top":600,"on":"sleep"}
-PASS  a card with a real exclusion shows Add habit, not a generic check
-PASS  Add asks the specific question first and adds nothing yet
-PASS  a Yes keeps the card out of adding and recommendations — Not suggested for you · Change answer
-PASS  handgrip keeps its question and professional guidance before matching — [false,false,true]
-PASS  habit page opens with research folded and safety visible before it — What does the research say?
-PASS  research disclosure stays open after changing schedule
+PASS  restricted card asks to check fit before adding
+PASS  add attempt opens the fit check, not the plan
+PASS  an exclusion keeps the card out of adding and recommendations
+PASS  clinician-clearance card needs both confirmation and clearance
 PASS  audience-only schedule is locked until the condition is confirmed
 PASS  choosing a schedule updates action, time and benefits — Lower post-meal glucose in adults with type 2 diabetes when walking after meals compared w
 PASS  benefit sources follow the selected schedule
@@ -25,9 +21,8 @@ PASS  left-side study/device caveat is shown
 PASS  sources are grouped as direct, broader context and mixed — Direct evidence, Broader context
 PASS  time screen shows the four ranges in order
 PASS  activity screen keeps the four approved choices
-PASS  several distinct matches, one card at a time with position and peek — Two habits picked for you: walking-breaks, brisk-walking
+PASS  several distinct matches, one card at a time with position and peek — Three habits picked for you: walking-breaks, caffeine, dash
 PASS  recommendations respect goals and eligibility
-PASS  over-budget add asks first and offers Add it anyway
 PASS  final card has no next edge
 PASS  editable selection summary
 PASS  Let’s start lands on Today with the chosen habit — walking-breaks
@@ -36,7 +31,7 @@ PASS  undo removes the point, redo restores it, reload keeps it — 0 / 1
 PASS  history opens for the habit
 PASS  logging reminder offered when due and stays dismissed on return
 PASS  check-in prompt shows its completed state
-PASS  might also like gives a reason tied to a confirmed goal — For your sleep & recovery goal
+PASS  might also like gives a reason tied to a confirmed goal — Matches your goal: Sleep & recovery. May shorten time to fall asleep, although r
 PASS  points visible on Today
 PASS  week row at 320px, default text: 7 days, no overlap, fits — circle 28.5625px, target 70px
 PASS  week row at 320px, larger text: 7 days, no overlap, fits — circle 28.5604px, target 87px
@@ -53,20 +48,14 @@ PASS  unmatched habits never enter recommendations
 PASS  a restricted exact match is paused until eligibility is confirmed
 PASS  5.1 saved data is left untouched for comparison
 PASS  legacy habit page shows its original label without research claims
-PASS  Today shows Nora's five painted faces in order with labels — 57px 57px 57px 57px 57px
-PASS  all five face images load
-PASS  faces are at least 48 px
-PASS  mood saves in one tap, survives reload, and a same-day edit updates the one entry — [{"v":2,"sel":"A bit low"},{"v":5,"n":1,"sel":"Great"}]
-PASS  mood check-in page uses the same five faces — m1,m2,m3,m4,m5
-PASS  Today has one reminder with one action and no duplicate mood prompt
 PASS  private challenge invitation opens from a habit
 PASS  circles screen renders
 PASS  reward demo distinguishes sample categories
 PASS  points history marks example points
 PASS  health history names metric, unit, date range and comparison — Resting heart rate · bpmOct 25 – Nov 23, compared with Sep 25 – Oct 24.Average 61 bpm, compared with 62 bpm in the previ
 PASS  every screen renders without an exception
-PASS  every referenced painting file exists — 105 files
+PASS  every referenced painting file exists — 89 files
 PASS  no failed requests for local assets
 PASS  no console errors or exceptions
 
-70 passed, 0 failed
+59 passed, 0 failed

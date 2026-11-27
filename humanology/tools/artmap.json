@@ -3,8 +3,8 @@
   "walk-after-meals": {
    "hero": "green-walk",
    "thumb": "walk-after-meals",
-   "status": "pass-with-live-text",
-   "note": "Walking reads clearly. Thumbnail is the walking shoe; 'After-meal walk' timing stays in live text. A plate cue would need new circle art (optional)."
+   "status": "pass",
+   "note": "Hero hm-green-walk; circle is the commissioned shoe-and-plate painting."
   },
   "brisk-walking": {
    "hero": "intervals",
@@ -13,34 +13,34 @@
    "note": "Ama's power-walk with pumping arms reads as brisk. Chosen over hm-green-walk, a leisurely stroll."
   },
   "stairs": {
-   "hero": null,
-   "thumb": null,
-   "status": "access-issue",
-   "note": "Mapped asset 05-taking-the-stairs.png is an earlier embedded 5.1 painting; it is not in the Drive folders and the supplied 5.1 baseline has its paintings removed. New art requested."
+   "hero": "stairs",
+   "thumb": "stairs",
+   "status": "pass",
+   "note": "Commissioned painting hm-stairs.png (Drive art round 5)."
   },
   "almonds": {
-   "hero": null,
+   "hero": "almonds",
    "thumb": "almonds",
-   "status": "thumb-only",
-   "note": "Thumbnail (hand pinching one almond) passes. No hero passes: hm-nuts shows walnuts beside the almonds, and a crop that removes them leaves the almond barely visible. New hero art requested."
+   "status": "pass",
+   "note": "Commissioned painting hm-almonds.png (Drive art round 5)."
   },
   "sunscreen": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "No existing scene."
+   "hero": "sunscreen",
+   "thumb": "sunscreen",
+   "status": "pass",
+   "note": "Commissioned painting hm-sunscreen.png (Drive art round 5)."
   },
   "caffeine": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "hm-tea is red hibiscus tea in a glass mug: a caffeine-free drink, so it would illustrate the wrong drink."
+   "hero": "caffeine-earlier",
+   "thumb": "caffeine",
+   "status": "pass",
+   "note": "Commissioned painting hm-caffeine-earlier.png (Drive art round 5)."
   },
   "resistance-sarcopenia": {
-   "hero": "strength-row",
+   "hero": "strength-row-walter",
    "thumb": "resistance-sarcopenia",
-   "status": "pass-with-live-text",
-   "note": "Seated band row is a resistance exercise. Marco is younger than the studied population; an older-cast version is optional polish."
+   "status": "pass",
+   "note": "Commissioned painting hm-strength-row-walter.png (Drive art round 5)."
   },
   "bath": {
    "hero": "warm-bath",
@@ -109,34 +109,34 @@
    "note": "Nora walking, looking up as if thinking. Shared generic walk."
   },
   "water-flosser": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "No existing scene."
+   "hero": "water-flosser",
+   "thumb": "water-flosser",
+   "status": "pass",
+   "note": "Commissioned painting hm-water-flosser.png (Drive art round 5)."
   },
   "social-break": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "hm-pleasant-plan has a wall calendar but no phone set aside."
+   "hero": "social-break",
+   "thumb": "social-break",
+   "status": "pass",
+   "note": "Commissioned painting hm-social-break.png (Drive art round 5)."
   },
   "toothbrush": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "No existing scene."
+   "hero": "powered-toothbrush",
+   "thumb": "toothbrush",
+   "status": "pass",
+   "note": "Commissioned painting hm-powered-toothbrush.png (Drive art round 5)."
   },
   "screen-cap": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "No existing scene."
+   "hero": "screen-cap",
+   "thumb": "screen-cap",
+   "status": "pass",
+   "note": "Commissioned painting hm-screen-cap.png (Drive art round 5)."
   },
   "standing-stockings": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "No existing scene."
+   "hero": "standing-stockings",
+   "thumb": "standing-stockings",
+   "status": "pass",
+   "note": "Commissioned painting hm-standing-stockings.png (Drive art round 5)."
   },
   "optimism": {
    "hero": "future",
@@ -145,22 +145,22 @@
    "note": "Sam imagining, pen on notebook."
   },
   "bedtime-phone": {
-   "hero": null,
-   "thumb": null,
-   "status": "access-issue",
-   "note": "Mapped asset 06-taking-a-screen-break.png is not accessible. hm-blue-glasses shows someone using a phone in bed, the opposite action. New art requested."
+   "hero": "bedtime-phone",
+   "thumb": "bedtime-phone",
+   "status": "pass",
+   "note": "Commissioned painting hm-bedtime-phone.png (Drive art round 5)."
   },
   "blink": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "No existing scene."
+   "hero": "blink",
+   "thumb": "blink",
+   "status": "pass",
+   "note": "Commissioned painting hm-blink.png (Drive art round 5)."
   },
   "apples": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "hm-mix-study shows a picture card of an apple, not whole apples."
+   "hero": "apples",
+   "thumb": "apples",
+   "status": "pass",
+   "note": "Commissioned painting hm-apples.png (Drive art round 5)."
   },
   "work-breaks": {
    "hero": "desk-stand",
@@ -169,16 +169,16 @@
    "note": "Getting up from a desk; no exercise implied. Thumbnail: hand on desk beside chair."
   },
   "hummus": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "No existing scene."
+   "hero": "hummus",
+   "thumb": "hummus",
+   "status": "pass",
+   "note": "Commissioned painting hm-hummus.png (Drive art round 5)."
   },
   "volunteer": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "No existing scene. hm-kind-act is a gift, not a structured volunteering session."
+   "hero": "volunteer",
+   "thumb": "volunteer",
+   "status": "pass",
+   "note": "Commissioned painting hm-volunteer.png (Drive art round 5)."
   },
   "jumps": {
    "hero": "jump",
@@ -187,10 +187,10 @@
    "note": "Full body including both feet just off the floor."
   },
   "psyllium": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "hm-supplement shows a bottle being read, not psyllium mixed into water."
+   "hero": "psyllium",
+   "thumb": "psyllium",
+   "status": "pass",
+   "note": "Commissioned painting hm-psyllium.png (Drive art round 5)."
   },
   "retrieval": {
    "hero": "recall",
@@ -199,34 +199,34 @@
    "note": "Index card in hand, book closed."
   },
   "flight-stockings": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "hm-travel-sleep is a seat scene with long trousers; no below-knee stockings are visible."
+   "hero": "flight-stockings",
+   "thumb": "flight-stockings",
+   "status": "pass",
+   "note": "Commissioned painting hm-flight-stockings.png (Drive art round 5)."
   },
   "fall-hazards": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "No existing scene."
+   "hero": "fall-hazards",
+   "thumb": "fall-hazards",
+   "status": "pass",
+   "note": "Commissioned painting hm-fall-hazards.png (Drive art round 5)."
   },
   "handwash": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "No existing scene."
+   "hero": "handwash",
+   "thumb": "handwash",
+   "status": "pass",
+   "note": "Commissioned painting hm-handwash.png (Drive art round 5)."
   },
   "water-premeal": {
-   "hero": null,
-   "thumb": null,
-   "status": "access-issue",
-   "note": "Mapped asset 01-drinking-a-glass-of-water.png is not accessible. New water art requested (shared with cystitis)."
+   "hero": "water-premeal",
+   "thumb": "water-premeal",
+   "status": "pass",
+   "note": "Commissioned painting hm-water-premeal.png (Drive art round 5)."
   },
   "drink-swap": {
-   "hero": null,
-   "thumb": null,
-   "status": "access-issue",
-   "note": "Mapped asset 01-drinking-a-glass-of-water.png is not accessible, and the card prefers a visible swap from a sugary drink to water."
+   "hero": "drink-swap",
+   "thumb": "drink-swap",
+   "status": "pass",
+   "note": "Commissioned painting hm-drink-swap.png (Drive art round 5)."
   },
   "eat-slowly": {
    "hero": "slow-eating",
@@ -241,10 +241,10 @@
    "note": "Shared journal scene with a different thumbnail crop (writer and notebook)."
   },
   "mindfulness": {
-   "hero": "box-breath",
+   "hero": "mindfulness",
    "thumb": "mindfulness",
-   "status": "pass-with-live-text",
-   "note": "Mapped 02-Seated-mindfulness.png is not accessible. hm-box-breath shows Priya (current cast) in a seated, eyes-closed pose with no technique-specific cue; the guided practice is described in text."
+   "status": "pass",
+   "note": "Commissioned painting hm-mindfulness.png (Drive art round 5)."
   },
   "left-side": {
    "hero": "left-side",
@@ -259,10 +259,10 @@
    "note": "Headphones in bed."
   },
   "smell-training": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "No existing scene."
+   "hero": "smell-training",
+   "thumb": "smell-training",
+   "status": "pass",
+   "note": "Commissioned painting hm-smell-training.png (Drive art round 5)."
   },
   "prunes": {
    "hero": "prunes",
@@ -271,10 +271,10 @@
    "note": "Bowl of prunes, hand picking one."
   },
   "cystitis": {
-   "hero": null,
-   "thumb": null,
-   "status": "access-issue",
-   "note": "Mapped asset 01-drinking-a-glass-of-water.png is not accessible. Shares the requested water scene."
+   "hero": "water-cystitis",
+   "thumb": "cystitis",
+   "status": "pass",
+   "note": "Commissioned painting hm-water-cystitis.png (Drive art round 5)."
   },
   "dash": {
    "hero": "dash-plate",
@@ -295,10 +295,10 @@
    "note": "Shares the brisk-walk scene; thumbnail is the striding legs. 'Ten minutes' stays in live text."
   },
   "nap": {
-   "hero": "moment-rest-day",
+   "hero": "nap",
    "thumb": "nap",
-   "status": "pass-with-live-text",
-   "note": "Mapped 03-Resting.png is not accessible. hm-moment-rest-day shows Priya resting eyes-closed in an armchair under a blanket: a relaxed daytime rest. Also used for the rest-day screen."
+   "status": "pass",
+   "note": "Commissioned painting hm-nap.png (Drive art round 5)."
   },
   "oats": {
    "hero": "oatmeal",
@@ -307,10 +307,10 @@
    "note": "Oat bowl. Beta-glucan label instruction stays in copy."
   },
   "pelvic-floor": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "No existing scene."
+   "hero": "pelvic-floor",
+   "thumb": "pelvic-floor",
+   "status": "pass",
+   "note": "Commissioned painting hm-pelvic-floor.png (Drive art round 5)."
   },
   "handgrip": {
    "hero": "handgrip",
@@ -373,16 +373,16 @@
    "note": "Ama reclining, hands on her belly."
   },
   "stair-walk-energy": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "No stair-walking painting in the folder. Shares the stairs request."
+   "hero": "stair-walk-easy",
+   "thumb": "stair-walk-energy",
+   "status": "pass",
+   "note": "Commissioned painting hm-stair-walk-easy.png (Drive art round 5)."
   },
   "acupuncture-migraine": {
-   "hero": null,
-   "thumb": null,
-   "status": "new-art",
-   "note": "No acupuncture painting. Request a calm practitioner-led session scene with no visible needle detail."
+   "hero": "acupuncture",
+   "thumb": "acupuncture-migraine",
+   "status": "pass",
+   "note": "Commissioned painting hm-acupuncture.png (Drive art round 5)."
   }
  },
  "slots": {
@@ -441,64 +441,64 @@
    "note": "Empty states (Walter thinking)."
   },
   "gift": {
-   "hero": null,
+   "hero": "gift",
    "thumb": null,
-   "status": "access-issue",
-   "note": "Rewards hero 'man opening a gift' was an embedded 5.1 painting and is not accessible."
+   "status": "pass",
+   "note": "Commissioned: Theo opening a plain gift box (no gift card shown)."
   },
   "goal-heart": {
-   "hero": "intervals",
+   "hero": "goal-heart",
    "thumb": null,
-   "status": "stand-in",
-   "note": "Goal tile. Approved 5.1 tile and Walter heart-health concept are not accessible."
+   "status": "pass",
+   "note": "Commissioned goal tile (Drive art round 5)."
   },
   "goal-sleep": {
-   "hero": "music",
+   "hero": "goal-sleep",
    "thumb": null,
-   "status": "stand-in",
-   "note": "Goal tile stand-in."
+   "status": "pass",
+   "note": "Commissioned goal tile (Drive art round 5)."
   },
   "goal-mood": {
-   "hero": "humming",
+   "hero": "goal-mood",
    "thumb": null,
-   "status": "stand-in",
-   "note": "Goal tile stand-in."
+   "status": "pass",
+   "note": "Commissioned goal tile (Drive art round 5)."
   },
   "goal-energy": {
-   "hero": "active-game",
+   "hero": "goal-energy",
    "thumb": null,
-   "status": "stand-in",
-   "note": "Goal tile stand-in."
+   "status": "pass",
+   "note": "Commissioned goal tile (Drive art round 5)."
   },
   "goal-movement": {
-   "hero": "band-raise",
+   "hero": "goal-strength",
    "thumb": null,
-   "status": "stand-in",
-   "note": "Goal tile stand-in."
+   "status": "pass",
+   "note": "Commissioned goal tile: Marco bodyweight squat."
   },
   "goal-metabolic": {
-   "hero": "veg-first",
+   "hero": "goal-nutrition",
    "thumb": null,
-   "status": "stand-in",
-   "note": "Goal tile stand-in."
+   "status": "pass",
+   "note": "Commissioned goal tile: Theo with a bowl of fresh food."
   },
   "goal-digestion": {
-   "hero": "kiwi",
+   "hero": "goal-digestion",
    "thumb": null,
-   "status": "stand-in",
-   "note": "Goal tile stand-in."
+   "status": "pass",
+   "note": "Commissioned goal tile (Drive art round 5)."
   },
   "goal-memory": {
-   "hero": "recall",
+   "hero": "goal-memory",
    "thumb": null,
-   "status": "stand-in",
-   "note": "Goal tile stand-in."
+   "status": "pass",
+   "note": "Commissioned goal tile (Drive art round 5)."
   },
   "act-gentle": {
-   "hero": "yoga",
+   "hero": "act-gentle",
    "thumb": null,
-   "status": "access-issue",
-   "note": "Approved Priya standing side-stretch cutout is not accessible; Priya's gentle seated stretch stands in."
+   "status": "pass",
+   "note": "Commissioned activity cut-out: Priya standing side stretch."
   },
   "act-some": {
    "hero": "green-walk",
@@ -507,16 +507,16 @@
    "note": "Approved walking Nora: hm-green-walk is the current Nora walking."
   },
   "act-more": {
-   "hero": "circuit",
+   "hero": "act-more",
    "thumb": null,
-   "status": "access-issue",
-   "note": "Approved Marco dumbbell crop is not accessible; Marco's wall push-up stands in."
+   "status": "pass",
+   "note": "Commissioned activity cut-out: Marco dumbbell curl, closer crop."
   },
   "act-seated": {
-   "hero": "future",
+   "hero": "act-seated",
    "thumb": null,
-   "status": "access-issue",
-   "note": "Approved Sam reading on a wooden chair is not accessible; Sam seated at a desk stands in."
+   "status": "pass",
+   "note": "Commissioned activity cut-out: Sam reading on a wooden chair."
   },
   "cast-nora": {
    "hero": null,
@@ -571,6 +571,24 @@
    "thumb": "fx-cooking-oil",
    "status": "fixture",
    "note": "Visual fixture only: pouring oil into a pan of vegetables."
+  },
+  "reward-coffee": {
+   "hero": "reward-coffee",
+   "thumb": null,
+   "status": "pass",
+   "note": "Commissioned reward-category still life."
+  },
+  "reward-books": {
+   "hero": "reward-books",
+   "thumb": null,
+   "status": "pass",
+   "note": "Commissioned reward-category still life."
+  },
+  "reward-groceries": {
+   "hero": "reward-groceries",
+   "thumb": null,
+   "status": "pass",
+   "note": "Commissioned reward-category still life."
   }
  }
 }

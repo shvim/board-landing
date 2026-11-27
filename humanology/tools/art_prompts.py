@@ -560,68 +560,59 @@ for oid, fname, obj in [
         focal="the single object",
         checks=["Matches the other two reward tiles in scale, angle and light.", "Reads at 56 px.", "No text or logos."])
 
-# ---------------------------------------------------------------- render
+# ---------------------------------------------------------------- render (plain Markdown: no code blocks)
 L = []
 w = L.append
-w("# Humanology · Painting prompts for every missing picture\n")
-w(f"One copy-ready prompt per picture the app still needs: **{len(P)} prompts** in four groups. Each prompt is complete on its own, so you can paste it into an image tool as is. "
-  "The shared style, format and avoid-list are already built into every prompt.\n")
-w("| Group | What it covers | Prompts |\n|---|---|---|")
+w("# Humanology: painting prompts for every missing picture\n")
+w(f"There are {len(P)} prompts here, one for each picture the app still needs. Each prompt is complete on its own: copy the paragraphs under \"The prompt\" and paste them into your image tool.\n")
+w("## Contents\n")
 groups = {}
-for p in P: groups.setdefault(p['sec'], []).append(p['id'])
-desc = {SEC_A: "Live habit cards showing a placeholder today", SEC_B: "A clearer 48 px circle for one card",
-        SEC_C: "5.1 originals missing from Drive (use only if the originals are really gone)", SEC_D: "Nice to have, not blocking"}
-for s, ids in groups.items(): w(f"| {s} | {desc[s]} | {len(ids)}: {', '.join(ids)} |")
+for p in P: groups.setdefault(p['sec'], []).append(p)
+desc = {SEC_A: "habit cards that show a placeholder today", SEC_B: "a clearer small circle for one card",
+        SEC_C: "pictures from 5.1 that weren't in the Drive folders; use these only if the originals are really gone", SEC_D: "nice to have, not blocking"}
+for s, ps in groups.items():
+    w(f"- **{s}** ({len(ps)}): {desc[s]}")
+    for x in ps: w(f"    - {x['id']}: {x['title']} ({x['file']})")
 w("")
 w("## How to use these\n")
-w("1. **Attach the reference paintings** listed for each prompt. They're in the Drive images folder and in `humanology/art-src/`. `hm-kiwi.png` is the style anchor for the whole set; attach it every time. If your tool takes only one image, attach the identity reference for the person in the scene.")
-w("2. **Paste the whole prompt block** (scene + composition + style + format). Put the avoid list in the tool's negative-prompt field if it has one; otherwise leave it at the end of the prompt. Each prompt is 3,500 to 4,450 characters; without the AVOID line every one is under 3,750, which fits tools with a 4,000-character limit.")
-w("3. **Generate at 1536 × 1536** and keep the background transparent. If your tool can't do transparency, use the flat-white fallback described in the format paragraph and remove the background afterwards.")
-w("4. **Check the result** against the checklist under each prompt, and compare the face with the reference before accepting it. Fix hands at this stage, not after cropping.")
-w("5. **Name the file exactly** as given and drop it in the images folder. I'll run it through the existing pipeline (`tools/make_heroes.py` and `tools/make_thumbs.py`), which trims the margin and makes the hero and the 48 px circle.\n")
-w("Changes from the short prompts in `ARTWORK-NEEDED.md`: water now has two separate paintings (W1 for drinking before meals, W2 for cystitis), because the habits and the people studied are different. "
-  "The stair card (A1) now shows Marco climbing fast, since the single-session trial was in young men, and the easy-pace stair card has its own painting (N2). "
-  "The volunteer scene (A15) now matches the study: an older volunteer helping a nursing-home resident. Walter no longer appears in a yellow cardigan, which belongs to Priya.\n")
+w("1. Attach the reference paintings listed for each prompt. They're in the Drive images folder. Always include hm-kiwi.png, which sets the style for the whole set. If your tool takes only one image, attach the one that shows the person in the scene.")
+w("2. Copy everything under \"The prompt\" for that picture. If your tool has a separate \"negative prompt\" or \"avoid\" box, put the last paragraph (the one starting with AVOID) there instead.")
+w("3. Each prompt is 3,500 to 4,450 characters. If your tool stops at 4,000, leave out the AVOID paragraph; everything else fits.")
+w("4. Ask for a square image, 1536 by 1536, with a transparent background. If the tool can't do transparency, a plain white background is fine; it can be removed afterwards.")
+w("5. Check the result against the checklist under the prompt, and compare the face with the reference painting before you accept it.")
+w("6. Save it with the file name given and put it in the Drive images folder. I'll make the app versions and the small circle crops from there.\n")
+w("**Changes from the earlier short prompts:** water now has two paintings (W1 for drinking before meals, W2 for cystitis), because the habits and the people studied are different. "
+  "The fast stair routine (A1) now shows Marco, because that trial was in young men, and the easy stair walk has its own gentler painting (N2). "
+  "The volunteering scene (A15) now shows what the study tested: an older volunteer helping a nursing-home resident.\n")
 
 w("## The cast\n")
-w("Use these descriptions to keep every person consistent. Each prompt already includes the relevant one.\n")
-w("| Person | Look | Usual clothes | Best reference |\n|---|---|---|---|")
-for n, c in CAST.items(): w(f"| **{n}** | {c['look']} | {c['wear']} | `{c['ref']}` |")
-w("\nNew people who appear once only (the occupational therapist, the nursing-home resident, the physiotherapist and the acupuncturist) are described in full in their prompts. Make them look distinct from the main cast.\n")
-
-w("## Shared style (already inside every prompt)\n")
-w("> " + STYLE + "\n")
-w("> " + FORMAT + "\n")
-w("**Avoid list (negative prompt):** " + NEGATIVE + "\n")
+w("Every prompt already includes the right description. These are here so you can check results against them.\n")
+for n, c in CAST.items():
+    w(f"**{n}.** Looks like {c['look']}. Usually wears {c['wear']}. Best reference: {c['ref']}.\n")
+w("People who appear only once (the occupational therapist, the nursing-home resident, the physiotherapist and the acupuncturist) are described in full in their own prompts. They should look clearly different from the main cast.\n")
 
 cur = None
 for p in P:
     if p['sec'] != cur:
         cur = p['sec']
         w(f"\n---\n\n## {cur}\n")
-        if cur == SEC_C: w(SEC_C_NOTE + "\n")
-    w(f"### {p['id']} · `{p['file']}`\n")
-    w(f"- **Used for:** {p['slot']}: *{p['title']}*")
-    w(f"- **Why it's needed:** {p['why']}")
-    w(f"- **Attach:** {p['attach']}\n")
-    w("**Prompt (copy everything in the box):**\n")
-    w("```text")
-    w(f"Painted editorial illustration for the Humanology health app: {p['title'].lower()}.")
-    w("")
-    w("SCENE: " + p['scene'])
-    w("")
-    w("COMPOSITION: " + p['comp'] + " " + CIRCLE + f" Key detail for the circle: {p['focal']}.")
-    w("")
-    w(STYLE)
-    w("")
-    w(FORMAT)
-    w("")
-    w("AVOID: " + NEGATIVE + ".")
-    w("```\n")
-    w("**Check before accepting:**")
-    for c in p['checks']: w(f"- [ ] {c}")
-    w("- [ ] Transparent background, no caption strip, nothing touching the edges.")
-    w("- [ ] Hands correct (five fingers each), no text anywhere.\n")
+        if cur == SEC_C: w(SEC_C_NOTE.replace("**", "") + "\n")
+    w(f"### {p['id']}: {p['title']}\n")
+    w(f"**File name:** {p['file']}\n")
+    w(f"**Where it's used:** {p['slot']}\n")
+    w(f"**Why it's needed:** {p['why'].replace('**','')}\n")
+    w(f"**Attach these references:** {p['attach']}\n")
+    w("#### The prompt\n")
+    w(f"Painted editorial illustration for the Humanology health app: {p['title'].lower()}.\n")
+    w("SCENE: " + p['scene'].replace('**','') + "\n")
+    w("COMPOSITION: " + p['comp'] + " " + CIRCLE + f" Key detail for the circle: {p['focal']}.\n")
+    w(STYLE + "\n")
+    w(FORMAT + "\n")
+    w("AVOID: " + NEGATIVE + ".\n")
+    w("#### Check before accepting\n")
+    for c in p['checks']: w(f"- {c}")
+    w("- Transparent (or plain white) background, no caption strip, nothing touching the edges.")
+    w("- Hands look right (five fingers each), and there's no text anywhere.\n")
 
 open(OUT, "w").write("\n".join(L))
 print(len(P), "prompts", sum(len(x) for x in L), "chars")

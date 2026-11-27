@@ -1,0 +1,528 @@
+{
+ "cards": {
+  "walk-after-meals": {
+   "hero": "green-walk",
+   "thumb": "walk-after-meals",
+   "status": "pass-with-live-text",
+   "note": "Walking reads clearly. Thumbnail is the walking shoe; 'After-meal walk' timing stays in live text. A plate cue would need new circle art (optional)."
+  },
+  "brisk-walking": {
+   "hero": "intervals",
+   "thumb": "brisk-walking",
+   "status": "pass",
+   "note": "Ama's power-walk with pumping arms reads as brisk. Chosen over hm-green-walk, a leisurely stroll."
+  },
+  "stairs": {
+   "hero": null,
+   "thumb": null,
+   "status": "access-issue",
+   "note": "Mapped asset 05-taking-the-stairs.png is an earlier embedded 5.1 painting; it is not in the Drive folders and the supplied 5.1 baseline has its paintings removed. New art requested."
+  },
+  "almonds": {
+   "hero": null,
+   "thumb": "almonds",
+   "status": "thumb-only",
+   "note": "Thumbnail (hand pinching one almond) passes. No hero passes: hm-nuts shows walnuts beside the almonds, and a crop that removes them leaves the almond barely visible. New hero art requested."
+  },
+  "sunscreen": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "No existing scene."
+  },
+  "caffeine": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "hm-tea is red hibiscus tea in a glass mug: a caffeine-free drink, so it would illustrate the wrong drink."
+  },
+  "resistance-sarcopenia": {
+   "hero": "strength-row",
+   "thumb": "resistance-sarcopenia",
+   "status": "pass-with-live-text",
+   "note": "Seated band row is a resistance exercise. Marco is younger than the studied population; an older-cast version is optional polish."
+  },
+  "bath": {
+   "hero": "warm-bath",
+   "thumb": "bath",
+   "status": "pass",
+   "note": "Priya testing bath water. Thumbnail keeps the hand in the water."
+  },
+  "relax-muscles": {
+   "hero": "pmr",
+   "thumb": "relax-muscles",
+   "status": "pass",
+   "note": "Bedtime timing in live text."
+  },
+  "cyclic-sighing": {
+   "hero": "sigh-breath",
+   "thumb": "cyclic-sighing",
+   "status": "pass",
+   "note": "Sequence explained in text."
+  },
+  "cold-shower": {
+   "hero": "cold-shower",
+   "thumb": "cold-shower",
+   "status": "pass-with-live-text",
+   "note": "Post-shower towel scene; 'cold water at the end' stays in live text."
+  },
+  "meal-order": {
+   "hero": "veg-first",
+   "thumb": "meal-order",
+   "status": "pass",
+   "note": "Divided plate with salad first."
+  },
+  "bedtime-list": {
+   "hero": "journal",
+   "thumb": "bedtime-list",
+   "status": "pass-with-live-text",
+   "note": "Shared writing scene; planning is named in live text. Thumbnail: notebook and pencil."
+  },
+  "kiwi": {
+   "hero": "kiwi",
+   "thumb": "kiwi",
+   "status": "pass",
+   "note": "Thumbnail keeps the cut kiwi with its seeded center and the spoon."
+  },
+  "beans": {
+   "hero": "beans",
+   "thumb": "beans",
+   "status": "pass",
+   "note": "Bowl of beans held in both hands. The card names canned beans in live text."
+  },
+  "salt-swap": {
+   "hero": "potassium-salt",
+   "thumb": "salt-swap",
+   "status": "pass",
+   "note": "Pouring action over a pot. Qualification retained."
+  },
+  "whole-grains": {
+   "hero": "slow-carbs",
+   "thumb": "whole-grains",
+   "status": "pass-with-live-text",
+   "note": "Grain-and-lentil bowl reads as a whole-grain staple."
+  },
+  "walk-for-ideas": {
+   "hero": "green-walk",
+   "thumb": "walk-for-ideas",
+   "status": "pass",
+   "note": "Nora walking, looking up as if thinking. Shared generic walk."
+  },
+  "water-flosser": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "No existing scene."
+  },
+  "social-break": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "hm-pleasant-plan has a wall calendar but no phone set aside."
+  },
+  "toothbrush": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "No existing scene."
+  },
+  "screen-cap": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "No existing scene."
+  },
+  "standing-stockings": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "No existing scene."
+  },
+  "optimism": {
+   "hero": "future",
+   "thumb": "optimism",
+   "status": "pass",
+   "note": "Sam imagining, pen on notebook."
+  },
+  "bedtime-phone": {
+   "hero": null,
+   "thumb": null,
+   "status": "access-issue",
+   "note": "Mapped asset 06-taking-a-screen-break.png is not accessible. hm-blue-glasses shows someone using a phone in bed, the opposite action. New art requested."
+  },
+  "blink": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "No existing scene."
+  },
+  "apples": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "hm-mix-study shows a picture card of an apple, not whole apples."
+  },
+  "work-breaks": {
+   "hero": "desk-stand",
+   "thumb": "work-breaks",
+   "status": "pass-with-live-text",
+   "note": "Getting up from a desk; no exercise implied. Thumbnail: hand on desk beside chair."
+  },
+  "hummus": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "No existing scene."
+  },
+  "volunteer": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "No existing scene. hm-kind-act is a gift, not a structured volunteering session."
+  },
+  "jumps": {
+   "hero": "jump",
+   "thumb": "jumps",
+   "status": "pass",
+   "note": "Full body including both feet just off the floor."
+  },
+  "psyllium": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "hm-supplement shows a bottle being read, not psyllium mixed into water."
+  },
+  "retrieval": {
+   "hero": "recall",
+   "thumb": "retrieval",
+   "status": "pass",
+   "note": "Index card in hand, book closed."
+  },
+  "flight-stockings": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "hm-travel-sleep is a seat scene with long trousers; no below-knee stockings are visible."
+  },
+  "fall-hazards": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "No existing scene."
+  },
+  "handwash": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "No existing scene."
+  },
+  "water-premeal": {
+   "hero": null,
+   "thumb": null,
+   "status": "access-issue",
+   "note": "Mapped asset 01-drinking-a-glass-of-water.png is not accessible. New water art requested (shared with cystitis)."
+  },
+  "drink-swap": {
+   "hero": null,
+   "thumb": null,
+   "status": "access-issue",
+   "note": "Mapped asset 01-drinking-a-glass-of-water.png is not accessible, and the card prefers a visible swap from a sugary drink to water."
+  },
+  "eat-slowly": {
+   "hero": "slow-eating",
+   "thumb": "eat-slowly",
+   "status": "pass",
+   "note": "Plate and resting fork kept in the thumbnail."
+  },
+  "three-good-things": {
+   "hero": "journal",
+   "thumb": "three-good-things",
+   "status": "pass-with-live-text",
+   "note": "Shared journal scene with a different thumbnail crop (writer and notebook)."
+  },
+  "mindfulness": {
+   "hero": "box-breath",
+   "thumb": "mindfulness",
+   "status": "pass-with-live-text",
+   "note": "Mapped 02-Seated-mindfulness.png is not accessible. hm-box-breath shows Priya (current cast) in a seated, eyes-closed pose with no technique-specific cue; the guided practice is described in text."
+  },
+  "left-side": {
+   "hero": "left-side",
+   "thumb": "left-side",
+   "status": "pass",
+   "note": "Side-lying posture with pillow and bed kept. Device-study caveat stays in text."
+  },
+  "music": {
+   "hero": "music",
+   "thumb": "music",
+   "status": "pass",
+   "note": "Headphones in bed."
+  },
+  "smell-training": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "No existing scene."
+  },
+  "prunes": {
+   "hero": "prunes",
+   "thumb": "prunes",
+   "status": "pass",
+   "note": "Bowl of prunes, hand picking one."
+  },
+  "cystitis": {
+   "hero": null,
+   "thumb": null,
+   "status": "access-issue",
+   "note": "Mapped asset 01-drinking-a-glass-of-water.png is not accessible. Shares the requested water scene."
+  },
+  "dash": {
+   "hero": "dash-plate",
+   "thumb": "dash",
+   "status": "pass",
+   "note": "Plate prominent."
+  },
+  "walking-breaks": {
+   "hero": "desk-stand",
+   "thumb": "walking-breaks",
+   "status": "pass",
+   "note": "Desk-to-walk cue (Priya rising from a desk chair to walk) chosen over the generic walk."
+  },
+  "one-brisk-walk": {
+   "hero": "intervals",
+   "thumb": "one-brisk-walk",
+   "status": "pass-with-live-text",
+   "note": "Shares the brisk-walk scene; thumbnail is the striding legs. 'Ten minutes' stays in live text."
+  },
+  "nap": {
+   "hero": "moment-rest-day",
+   "thumb": "nap",
+   "status": "pass-with-live-text",
+   "note": "Mapped 03-Resting.png is not accessible. hm-moment-rest-day shows Priya resting eyes-closed in an armchair under a blanket: a relaxed daytime rest. Also used for the rest-day screen."
+  },
+  "oats": {
+   "hero": "oatmeal",
+   "thumb": "oats",
+   "status": "pass",
+   "note": "Oat bowl. Beta-glucan label instruction stays in copy."
+  },
+  "pelvic-floor": {
+   "hero": null,
+   "thumb": null,
+   "status": "new-art",
+   "note": "No existing scene."
+  },
+  "handgrip": {
+   "hero": "handgrip",
+   "thumb": "handgrip",
+   "status": "pass",
+   "note": "Thumbnail shows the hand and the dial gripper."
+  },
+  "tai-chi": {
+   "hero": "tai-chi",
+   "thumb": "tai-chi",
+   "status": "pass",
+   "note": "Posture and limbs intact."
+  },
+  "neck-strength": {
+   "hero": "band-raise",
+   "thumb": "neck-strength",
+   "status": "pass",
+   "note": "Band, hands and shoulders visible."
+  },
+  "sleep-extension": {
+   "hero": "sleep-window",
+   "thumb": "sleep-extension",
+   "status": "pass",
+   "note": "Turning the lamp off early beside a clock; reads as extending, not restricting, sleep."
+  }
+ },
+ "slots": {
+  "walk": {
+   "hero": "green-walk",
+   "thumb": null,
+   "status": "pass",
+   "note": "Welcome screen: Nora in her orange coat walking."
+  },
+  "welcome": {
+   "hero": "onb-welcome-back",
+   "thumb": null,
+   "status": "pass",
+   "note": "Walter waving (You header, empty Today)."
+  },
+  "onb-welcome-back": {
+   "hero": "onb-welcome-back",
+   "thumb": "cast-walter",
+   "status": "pass",
+   "note": "Welcome-back banner."
+  },
+  "milestone": {
+   "hero": "moment-first-week",
+   "thumb": null,
+   "status": "pass",
+   "note": "Done screen and first-week milestone."
+  },
+  "moment-first-week": {
+   "hero": "moment-first-week",
+   "thumb": null,
+   "status": "pass",
+   "note": "Milestone."
+  },
+  "moment-month": {
+   "hero": "moment-month",
+   "thumb": null,
+   "status": "pass",
+   "note": "Milestone."
+  },
+  "moment-weekly-review": {
+   "hero": "moment-weekly-review",
+   "thumb": null,
+   "status": "pass",
+   "note": "Weekly review."
+  },
+  "moment-rest-day": {
+   "hero": "moment-rest-day",
+   "thumb": null,
+   "status": "pass",
+   "note": "All done / rest day."
+  },
+  "reflect": {
+   "hero": "step-back",
+   "thumb": null,
+   "status": "pass",
+   "note": "Empty states (Walter thinking)."
+  },
+  "gift": {
+   "hero": null,
+   "thumb": null,
+   "status": "access-issue",
+   "note": "Rewards hero 'man opening a gift' was an embedded 5.1 painting and is not accessible."
+  },
+  "goal-heart": {
+   "hero": "intervals",
+   "thumb": null,
+   "status": "stand-in",
+   "note": "Goal tile. Approved 5.1 tile and Walter heart-health concept are not accessible."
+  },
+  "goal-sleep": {
+   "hero": "music",
+   "thumb": null,
+   "status": "stand-in",
+   "note": "Goal tile stand-in."
+  },
+  "goal-mood": {
+   "hero": "humming",
+   "thumb": null,
+   "status": "stand-in",
+   "note": "Goal tile stand-in."
+  },
+  "goal-energy": {
+   "hero": "active-game",
+   "thumb": null,
+   "status": "stand-in",
+   "note": "Goal tile stand-in."
+  },
+  "goal-movement": {
+   "hero": "band-raise",
+   "thumb": null,
+   "status": "stand-in",
+   "note": "Goal tile stand-in."
+  },
+  "goal-metabolic": {
+   "hero": "veg-first",
+   "thumb": null,
+   "status": "stand-in",
+   "note": "Goal tile stand-in."
+  },
+  "goal-digestion": {
+   "hero": "kiwi",
+   "thumb": null,
+   "status": "stand-in",
+   "note": "Goal tile stand-in."
+  },
+  "goal-memory": {
+   "hero": "recall",
+   "thumb": null,
+   "status": "stand-in",
+   "note": "Goal tile stand-in."
+  },
+  "act-gentle": {
+   "hero": "yoga",
+   "thumb": null,
+   "status": "access-issue",
+   "note": "Approved Priya standing side-stretch cutout is not accessible; Priya's gentle seated stretch stands in."
+  },
+  "act-some": {
+   "hero": "green-walk",
+   "thumb": null,
+   "status": "pass",
+   "note": "Approved walking Nora: hm-green-walk is the current Nora walking."
+  },
+  "act-more": {
+   "hero": "circuit",
+   "thumb": null,
+   "status": "access-issue",
+   "note": "Approved Marco dumbbell crop is not accessible; Marco's wall push-up stands in."
+  },
+  "act-seated": {
+   "hero": "future",
+   "thumb": null,
+   "status": "access-issue",
+   "note": "Approved Sam reading on a wooden chair is not accessible; Sam seated at a desk stands in."
+  },
+  "cast-nora": {
+   "hero": null,
+   "thumb": "cast-nora",
+   "status": "pass",
+   "note": "Face crop from hm-moment-first-week."
+  },
+  "cast-theo": {
+   "hero": null,
+   "thumb": "cast-theo",
+   "status": "pass",
+   "note": "Face crop from hm-garlic."
+  },
+  "cast-ama": {
+   "hero": null,
+   "thumb": "cast-ama",
+   "status": "pass",
+   "note": "Face crop from hm-cocoa."
+  },
+  "cast-walter": {
+   "hero": null,
+   "thumb": "cast-walter",
+   "status": "pass",
+   "note": "Face crop from hm-onb-welcome-back."
+  },
+  "cast-priya": {
+   "hero": null,
+   "thumb": "cast-priya",
+   "status": "pass",
+   "note": "Face crop from hm-oatmeal."
+  },
+  "cast-marco": {
+   "hero": null,
+   "thumb": "cast-marco",
+   "status": "pass",
+   "note": "Face crop from hm-beet-juice."
+  },
+  "cast-sam": {
+   "hero": null,
+   "thumb": "cast-sam",
+   "status": "pass",
+   "note": "Face crop from hm-mediterranean."
+  },
+  "fx-cooking": {
+   "hero": "soy",
+   "thumb": "fx-cooking",
+   "status": "fixture",
+   "note": "Visual fixture only (not a catalog card): pan with vegetables and the working hand."
+  },
+  "fx-cooking-oil": {
+   "hero": "olive-oil",
+   "thumb": "fx-cooking-oil",
+   "status": "fixture",
+   "note": "Visual fixture only: pouring oil into a pan of vegetables."
+  }
+ }
+}

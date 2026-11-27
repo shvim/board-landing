@@ -1,0 +1,1131 @@
+# Humanology Complete Design Brief for Claude
+
+Prepared for Claude
+Revised November 24 2026
+Claude-specific revision 4: complete coded HTML app, founder-supplied painted people, independent twelve-skill minimum, and bespoke SVG icon system
+
+## How to use this brief
+
+Build Humanology from this document as a polished, responsive, interactive HTML app prototype. Claude is responsible for the entire interface, visual design, color system, implementation, behavior, and verification. The founder will supply all painted human illustration assets separately. Treat this as the complete product, design, behavior, and implementation brief. Part One defines the app. Part Two defines the brand and visual system. Part Three defines the human illustration reference, required asset inventory, founder request process, and integration rules. The appendices contain delivery order, acceptance criteria, historical decisions, sources, skill research, and verification.
+
+The deliverable is a working Humanology.html file with embedded CSS and vanilla JavaScript. In this brief, HTML app means a real coded interface: HTML supplies the structure, CSS supplies the appearance and responsive layout, and JavaScript supplies behavior and local demonstration state. Code-created inline SVG can supply precise icons, logo geometry, charts, and diagrams within the HTML. This is not a request for raster screen mockups, a design-only report, or a framework application that the founder must assemble before opening it.
+
+Create a usable demonstration of the full consumer experience with connected screens and meaningful interactions. Accounts, billing, health-device connections, message delivery, and gift-card fulfillment are simulated. No backend, paid API key, actual payment, or native health permission is required to evaluate the app. Preserve the complete product vision; the delivery sequence establishes one strong journey first and then completes the required prototype. It does not authorize stopping at a home screen.
+
+## Non-negotiable production boundary
+
+1. CODE ALL UI/UX. Layouts, typography, navigation, buttons, forms, cards, dialogs, sheets, tabs, controls, calendars, timers, charts, heatmaps, evidence labels, research views, progress indicators, rewards, gift-card representations, subscription screens, logos, icons, gradients, backgrounds, decorative geometry, loading states, and error states must be implemented in HTML/CSS/JavaScript and, where useful, inline SVG. Text remains selectable, accessible, editable, and responsive. Do not put invisible click targets over a raster screenshot of an interface.
+
+2. USE ONLY FOUNDER-SUPPLIED HUMAN ARTWORK. Claude must not create or commission raster illustrations, invoke an external artwork service, use stock photography, or make substitute painted people with SVG, canvas, CSS, or other tools. The founder provides the illustrated human figures: activity poses, welcoming gestures, and matched facial-expression variants. Clothing and ordinary worn accessories are part of the person. Use only the approved supplied assets. For every missing or unsuitable person asset, ask the founder directly for it, describing its intended screen, action or expression, character identity, crop, dimensions, transparency, and any continuity requirements. Do not create it yourself. Continue the coded implementation in parallel wherever possible, using a clean neutral coded placeholder or an appropriate activity icon until the requested asset is supplied. All surrounding composition, objects, backgrounds, decorations, icons, and interface elements are Claude’s responsibility in code. See Part Three for the asset request and integration workflow.
+
+3. KEEP ONE PAINTING STYLE. Every supplied illustrated person must follow the contemporary, lifelike, Rockwell-inspired opaque acrylic/editorial painting direction in Part Three. Alternate men and women and include Black men and Black women as distinct, recurring adults in the same visual family. Use one style anchor and stable identity references; do not mix flat vectors, watercolor, photographic people, and glossy 3D figures.
+
+4. GIVE THE PEOPLE MORE PRESENCE. The founder wants stronger images: confident brushwork, richer controlled color, readable faces, clear silhouettes, and deliberate placement. Do not reduce the people to faint decorative stickers. Keep the action, science, and controls easy to find. Larger art is appropriate when it serves welcome, an activity, or a mood check-in; accounting and source-reading views can remain mostly typographic.
+
+5. MAKE INDEPENDENT DESIGN DECISIONS. Me+ is a slight reference for approachable routines and simple check-ins. It is not the target design, the only inspiration, a required layout, or a prescribed palette. Headspace remains a reference for warmth. Humanology's requirements and audience determine the final provisional system. Colors, typefaces, logo execution, component treatment, and composition remain open to informed exploration.
+
+6. USE DESIGN SKILLS ACTIVELY. At build time, use your available Product Design skills and broadly research free, relevant GitHub skills for UI/UX, product interfaces, typography, accessibility, design taste, and avoiding generic AI-generated design. Independently discover, download, read, and actually apply at least twelve distinct complementary free GitHub skills: six UI/UX skills, four visual/product design skills, and two anti-AI-slop design critique skills. Use additional relevant skills where useful; your installed Product Design capabilities supplement rather than replace this minimum. Appendix F gives optional starting points, selection criteria, installation boundaries, and phase-by-phase use. Merely listing skill names does not satisfy the instruction.
+
+7. DELIVER ONE PORTABLE HTML FILE. Embed the final people assets and required styles/scripts in Humanology.html. Keep original supplied assets and references in the working project for later changes, but the delivered HTML must not depend on those folders, expiring image URLs, a CDN, a package install, or the original workspace path. External research links may open their real sources when the viewer is online. The app itself must open and remain usable offline with its fictional dataset. If a font is used, embed a properly licensed local font or use a dependable system stack.
+
+8. COMPLETE AND VERIFY THE EXPERIENCE. Implement the rewards module and all required core screens in code. Use a discreet review mode for palette alternatives, sample profiles, simulated outcomes, and demo reset. Review actual browser-rendered HTML at phone, tablet, and desktop sizes. Check the real interactions and repair concrete defects before delivery. A screenshot or attractive static mockup is not evidence that the HTML works.
+
+## Decisions and design latitude
+
+Established direction: The name is Humanology. The product translates credible health research into small, practical habits. Scientific evidence must remain prominent, including onboarding and habit cards. The experience must be personal, warm, inviting, attractive, and suitable for adults. A clean, predominantly white interface remains the starting preference. Use the painted human illustration system specified here for this build; the exact app palette is still open.
+
+Agreed product refinements: recommend one starting habit by default, with an optional Add another action; put the next action first on Today; make routine logging and straightforward rescheduling take one or two taps; explain how the starter action compares with the studied intervention; make discovery useful by time, goal, and ability; turn the weekly review into a way to adjust next week's plan; let someone experience a full first-habit journey through one completion before presenting a blocking subscription offer; and make optional reward opportunities fair across different approved schedules.
+
+Preserved earlier concepts: reliability grades with A as strongest; A/B/C habit browsing; a deeper A/B/C/D/X research taxonomy previously suggested; research links, mechanisms, effect sizes, optional instructional videos; habits across heart, mind, and body; personalization; habit stacks; mood, energy, symptom, and sleep logs; home and wearable measurements; heatmaps, trends, and exploratory correlations; reminders; later AI, coaching, community, and continuous glucose monitoring.
+
+Current commercial proposals rather than final launch commitments: a $6.99 monthly subscription; an optional rewards program funded by roughly $1 per paid member per billing period; and gift-card redemption with Amazon as an example. Detailed reward accounting and free-versus-paid entitlements are illustrative design assumptions until finalized. Optional rewards still require a complete coded prototype, including a coherent rewards-off state.
+
+The final palette is NOT locked. Light sage is a promising experiment, not an approved final color scheme. Suggested greens, plums, blues, peaches, and lavenders below are references. Create at least three meaningfully different CODED palette and component treatments, including at least two independently developed alternatives beyond the supplied combinations. Compare the same welcome fragment, Today action, and science component using the same painting style and content. Recommend one, keep it provisional, and continue building without requiring the founder to approve every routine decision. Keep alternatives reviewable in the design-review area rather than adding a consumer onboarding choice.
+
+Typography and the final wordmark or logo remain open. The active illustration direction is the more lifelike painted human treatment explored as Set Two, with stronger visual presence and expressive faces. The earlier pebble, fruit, geometric character, fantasy companion, and illustrated-landscape routes are historical exploration, not competing directions to reopen for this build. No nonhuman mascot is required; do not introduce one as a replacement for the supplied painted people.
+
+The interface is coded entirely; the only raster artwork consists of human illustrations supplied by the founder. Me+ supplies limited inspiration, and neither its palette nor its exact flow is binding. Use several relevant design sources and skills, then exercise your own judgment to establish one coherent Humanology design system. Preserve readable hierarchy, visible science, a welcoming adult tone, and the complete functional scope. Do not invent clinical validation, commercial partnerships, actual account connections, or legal approval.
+
+# Part One The Humanology App
+
+## 1 Product purpose
+
+Humanology is a science-backed personal health improvement app that helps adults discover useful small habits, understand the evidence behind them, choose the habits that fit their lives, and practice them consistently. It combines a simple daily plan with a deeper, browsable scientific habit library. Optional rewards add a tangible acknowledgement of participation.
+
+The core promise is: A healthier you. Backed by science.
+
+Supporting explanation: Discover research-backed habits, understand why they may help, and build a routine that fits your life.
+
+Humanology should help someone answer five practical questions: What could I change? How credible is the evidence? Why might this fit my circumstances? What exactly do I do today? What am I noticing over time?
+
+The original emphasis was cardiovascular health, extending into anxiety and stress support, sleep, fatigue, and broader heart, mind, and body outcomes. Retain that substance while using approachable everyday language. A person can explore blood-pressure-related research without the app presenting itself as a doctor or promising treatment.
+
+Many suggested actions are measurable micro-habits taking less than 15 minutes. This is a starting philosophy, not a universal duration limit. Some meaningful routines require longer sessions or several sessions a week. Show the actual time and frequency instead of compressing every behavior into an implausibly tiny intervention.
+
+The product must work for two kinds of engagement. A user can open Today, do one clear thing, and leave. Another user can browse the library, compare evidence, inspect studies, and build a custom stack. Both should feel like parts of the same app.
+
+## 2 Intended users and emotional experience
+
+Design primarily for adults who want better everyday health but feel overwhelmed by conflicting advice or struggle to turn intentions into routines. They may be busy parents, workers with limited spare time, skeptical readers who want sources, or people who enjoy learning about health without wanting a clinical dashboard every morning.
+
+Do not assume an athlete, a wearable owner, a young single person, or a person whose primary goal is weight loss. Support different starting points, mobility levels, schedules, and comfort with tracking. Begin with one manageable habit by default and a manual check-in.
+
+The intended emotional sequence is curiosity, confidence, a manageable decision, a small accomplishment, and willingness to return. The app should feel like thoughtful help from a warm, intelligent guide. The science should make the user confident; the interface should make participation feel approachable.
+
+Avoid guilt for missing a day. Never imply that poor health reflects poor character. Do not make an illustrated person suffer, become thinner, lose affection, or look disappointed because someone misses a habit. Support normal breaks, illness, travel, caregiving, and changes in routine.
+
+## 3 Core experience
+
+The primary journey is: understand the science-led promise; answer a few questions; receive a manageable plan; inspect the reason and evidence behind each suggestion; schedule the actions; complete or adjust them; review progress; optionally earn redeemable rewards; refine the plan over time.
+
+Daily use should take seconds when a person only wants to record a habit. More detail should be available through deliberate taps. A completion action should never require reading a research paper, and opening the research should never require completing a habit first.
+
+The default starter plan contains one recommended habit. Show exactly what to do, when and for how long, why it fits this user, and what evidence supports trying it. Offer Add another as a secondary choice for people who want more; do not require choosing several habits. Allow swapping the recommendation, choosing a simpler version, or changing its schedule. The full library and multi-habit plans remain available. The plan should reflect what the user already does so it does not present established routines as new opportunities.
+
+The first prototype priority is one complete habit journey: goals, recommendation, concrete science, scheduling, one completion, a useful review, and an adjustment to the next plan. Establish that journey before polishing every secondary screen. This is a sequence for design work, not a deletion of the full product scope.
+
+## 4 Four concepts that must remain distinct
+
+| Concept | Meaning | Suggested presentation |
+| --- | --- | --- |
+| Evidence | Confidence in a defined research claim | Letter grade, readable label, and research link |
+| Personal fit | Relevance to stated goals and circumstances | A short explanation of why the habit was suggested |
+| Progress | Participation in the user's scheduled routine | Completion counts, milestones, and history |
+| Rewards | Redeemable value under specific earning rules | A separate points balance and gift-card progress |
+
+Do not combine these into a single medical-looking health score. A completed checklist does not measure overall health. A highly supported habit does not necessarily offer the greatest additional benefit to someone already doing it. Reward points do not measure scientific quality or effort intensity.
+
+If a numerical evidence score is explored later, define and explain its methodology before presenting numbers. For the initial design, letters plus plain-language explanations preserve the original reliability-score concept without invented precision such as 93.7 out of 100.
+
+## 5 Scientific evidence and editorial model
+
+Use A/B/C as the ordinary library vocabulary. Preserve D/X in the methodology and research-only views so the earlier expanded idea remains represented. The following is a proposed Humanology editorial framework, subject to expert refinement before public use.
+
+| Level | User-facing label | Intended meaning |
+| --- | --- | --- |
+| A | Strong evidence | A substantial, directly relevant body of human research supports the stated outcome, with appropriate quality and consistency |
+| B | Moderate evidence | Human research supports the stated outcome, with meaningful limitations or remaining uncertainty |
+| C | Preliminary evidence | Early, small, or otherwise limited human research that needs cautious interpretation |
+| D | Observational evidence | Associations in observational research; doing the habit has not thereby been shown to cause the outcome |
+| X | Not established | Insufficient appropriate human evidence to recommend the behavior for the stated outcome |
+| Unreviewed | Evidence review pending | An editorial workflow state, not an evidence grade |
+
+The earlier proposal associated A with multiple large human randomized trials and high-quality meta-analyses; B with more limited trials or a strong synthesis; C with pilot studies; D with observational reports; and X with animal, theoretical, or anecdotal evidence. Retain that history, but do not automate grades by counting studies. A meta-analysis can summarize weak evidence. Consider risk of bias, consistency, precision, directness, studied population, dose, and publication limitations.
+
+The grade belongs to a particular behavior and outcome in a particular research context. A habit can have different evidence for sleep, mood, or blood pressure. Design claim-level grades within a habit's detail page. Do not let one strong outcome imply that every proposed benefit is equally supported.
+
+Keep study effects distinct from the starter action. A ten-minute beginner action may be a useful way to begin a longer program, but it must not inherit the numerical effect of a different dose or population without justification. Mechanistic plausibility also does not establish that a behavior produces a meaningful benefit.
+
+A habit's research area should accommodate: a plain-language summary; the outcome measured; research design; participants and population limitations; intervention, frequency, duration, and comparison; findings; verified effect size with units and uncertainty where appropriate; conflicting evidence; cautions; source links; last editorial review; and correction history. Only display a reviewer or institution when that relationship actually exists.
+
+The prototype may use clearly labeled demonstration grades to show visual hierarchy. It must not fabricate study titles, PubMed identifiers, DOI links, participant counts, effect percentages, reviewer names, or publication dates. Use verified sources when supplied; otherwise show Evidence review pending and a clearly labeled source placeholder. Keep the prototype disclaimer visible within science views and in the demonstration guide.
+
+## 6 Habit library and content structure
+
+Organize the library around approachable benefit categories, with optional Heart, Mind, and Body collections as broader entry points. Proposed categories are Movement and Strength; Sleep and Daily Rhythm; Calm and Stress Support; Nutrition and Hydration; Mobility and Posture; Daylight and Environment; and Everyday Well-being. Energy and Fatigue can be a goal filter spanning categories instead of forcing every habit into a single bucket.
+
+Historical topics to preserve in the content inventory include breathing exercises, garlic, posture, light exposure, hydration, and warm water. Recent examples include short walks, consistent sleep routines, resistance exercise, mindfulness, and reading. These are research candidates and demonstration topics, not a list already certified as effective. In particular, do not present garlic or warm water as proven treatments because they appeared in a discussion. Form, dose, population, safety, and the specific claim require review.
+
+Each habit record should support these information groups:
+
+- Identity: title, short action, category, an optional supplied human activity figure or a coded category icon, and unique content identifier.
+- Practical action: starter version, full studied version where relevant, steps, duration, frequency, equipment, setting, time of day, effort, accessible alternatives, and optional video.
+- Science: outcome-specific grades, plain-language benefit, mechanism, sources, limitations, cautions, review date, and editorial status. Record the studied population, intervention, session duration, frequency, study length, measured outcome, and verified result so the interface can compare the research with the selected starter action.
+- Personal relevance: matching goals, current baseline, explanation of fit, reasons to adapt, and alternatives.
+- Routine: selected days, time or cue, reminders, stack membership, pause state, and completion rule.
+- Tracking: binary completion, count, duration, or other appropriate measure; self-reported or imported source; optional note; and history.
+- Rewards: whether an action can qualify under the optional program, with eligibility described separately from its evidence grade.
+
+Make discovery practical from its first view. Offer visible entry points such as By goal, By time, and By ability or adaptation. Useful choices include five minutes or less, no equipment, seated options, low-impact movement, and beginner-friendly actions when those adaptations are supported by the content. Let people describe what they can comfortably do without requiring a diagnosis or disability label.
+
+Offer search by ordinary words such as sleep, energy, walking, or stress. Filters should include category or goal, evidence level, time required, ability or adaptation, effort, equipment, and frequency. Label sorting clearly: strongest evidence, shortest time, or best fit for selected goals. These are different orderings. Include saved habits, recently viewed items, and a beginner collection. Preserve a path for the question: What has strong evidence, fits in ten minutes, and suits what I can comfortably do?
+
+## 7 Navigation and information architecture
+
+Recommended mobile navigation is Today, Discover, Progress, and Rewards. Access Profile and Settings through a persistent account button. My Plan belongs inside Today; Saved Habits and Stacks are reachable from Discover and the plan editor. Scientific methodology belongs in both the relevant evidence sheet and the About section.
+
+When rewards are disabled, show three primary tabs and remove reward promotions throughout the app. Do not leave a nonfunctional fourth tab or a promise of gift cards. When rewards are available but the user hides them, keep a secondary way to reach the balance and existing redemptions.
+
+On wider screens, use a left navigation rail, a constrained main column, and a useful secondary panel where appropriate. A Today screen might pair the plan with a small weekly summary; a research page might pair the article with its evidence facts. The desktop layout must feel designed for the available space.
+
+Maintain stable back behavior, selected tab, scroll position, and filter state. A user opening a habit from search should return to the same results, not the app's home screen.
+
+## 8 Complete screen inventory
+
+The following inventory includes full screens, sheets, dialogs, and important subviews. Several can share a route or appear within one flow.
+
+| Group | Required views |
+| --- | --- |
+| Entry | Welcome; how it works; sign in; sign up; recovery; returning-user state |
+| Onboarding | Goals; starting point; time and ability preferences; optional accessibility preferences; privacy and connection choice; one recommended habit; plan editing; plan ready |
+| Daily routine | Next action first; Today; day selection; habit action; guided session; completion and undo; quick reschedule; empty plan; rest day; all done; subscription invitation after first completion |
+| Planning | My Plan; add habit; frequency and reminder editor; stack list; stack detail; create or edit stack; paused habits |
+| Discovery | Library home; time, goal, and ability browsing; search results; filter sheet; category collection; saved habits; habit overview; instructions; science; sources; evidence methodology |
+| Reflection | Progress overview; habit history; completion heatmap; optional metric heatmap; weekly review; check-in; log history; manual metric entry; trend detail; exploratory habit and metric comparison |
+| Rewards | Rewards home; earning rules; transaction ledger; gift-card detail; redemption review; pending; success; failure; unavailable; cap reached; terms and support |
+| Account | Profile and goals; reminders; appearance; accessibility; connections and permissions; subscription management; privacy; export; deletion; help; report a content issue; about the science |
+| Future | Grounded AI guide concept; community or accountability concept; coaching concept; CGM connection concept; expanded integrations |
+
+## 9 Welcome and onboarding in detail
+
+### 9.1 Welcome
+
+Use a white or subtly warm-white canvas with generous breathing room. Put a coded Humanology wordmark and a visually confident painted human figure above or beside the headline, preserving the headline and primary action as readable interface elements. Use A healthier you. Backed by science. as the leading option. Follow with: Small, practical habits. Clear evidence. A routine that fits your life.
+
+Primary action: Build my plan. Secondary action: Explore the science. Existing-member link: Sign in. A compact preview can show a habit with an evidence badge. Rewards, when enabled, appear as a supporting benefit rather than the main purchase proposition.
+
+### 9.2 How it works
+
+Explain choosing one useful starting habit, understanding its research, and building a manageable routine. Mention that additional habits can be added when wanted. Use concise copy and no more than a few illustrated panels. Allow skipping or moving directly into the questionnaire. A separate optional rewards panel can explain earned points without implying income.
+
+### 9.3 Goals
+
+Ask What would you like to work on? Offer Better sleep; More daily movement; Strength and mobility; A calmer routine; More everyday energy; Cardiovascular well-being; and A healthier routine overall. Let users select a main goal and optional additional interests. Avoid a medical diagnosis questionnaire disguised as casual onboarding.
+
+### 9.4 Starting point
+
+Ask which habits are already part of the person's life and what feels difficult to maintain. Use a few friendly choices instead of long mandatory forms. Examples include regular movement, a consistent sleep routine, and taking short breaks. Support I am not sure and Skip. This information changes recommendations rather than merely decorating a profile.
+
+### 9.5 Time and practical preferences
+
+Ask how much time feels manageable: about five minutes, ten minutes, fifteen minutes, or a flexible amount. Ask preferred time of day and whether activities should require no equipment. Include accessibility or seated alternatives without requiring a disability label. Do not prescribe a longer plan than the selected time while claiming it fits.
+
+### 9.6 Connection and privacy choice
+
+Explain that connections may simplify tracking. Offer Set up later with equal prominence to Connect when appropriate. Ask for permissions only when a relevant action is chosen. The prototype must show simulated permissions rather than imitating an authentic operating-system authorization grant.
+
+### 9.7 Recommended plan
+
+Lead with one recommended habit and a clear action to start it. Show the action, duration, frequency, evidence label, and Why this fits you explanation. Provide View the science, Swap, and Adjust controls. A secondary Add another action exposes optional additional recommendations or the library without suggesting that the initial choice is inadequate. Show total commitment only for the habits the user actually selects. Do not display a default three-card commitment screen.
+
+Use transparent matching explanations: You chose a brief movement habit and prefer activities without equipment. Do not imply Humanology predicted the person's medical response.
+
+### 9.8 Scheduling and account
+
+Let the person assign a time, existing routine cue, or flexible slot. Account creation can occur after the value of the plan is visible. Simulate email or social sign-in states without capturing real passwords. The person must be able to inspect the recommendation and its science, schedule the habit, complete one occurrence, and see the result before a blocking subscription offer. No payment card is required to complete this starter experience. This is a free first experience, not an invented auto-renewing trial.
+
+### 9.9 Plan ready
+
+Summarize the one selected starter habit, its next occurrence, and the reminder preference. Show additional habits only if the user deliberately added them. Use a calm visual acknowledgement. Primary action: Go to Today. Preserve progress if the user goes back to edit a question. Returning users should not be forced through onboarding again.
+
+## 10 Today and daily habit interaction
+
+Today is the most important screen. Directly below a compact date and account header, give the next planned action the strongest visual priority. A new user with one habit should see that habit immediately. Keep greeting, navigation, and progress supporting it. Avoid stacking a large illustration, upsell, reward promotion, calendar, and multiple charts above the action.
+
+Suggested order: compact date and profile header; next habit action with duration, evidence badge, and completion control; any remaining planned actions; then a compact schedule or week selector and concise progress summary. Optional check-in, science discovery, and reward progress sit below the routine or behind a deliberate expansion. Do not require all optional modules on a sparse first-day screen.
+
+A habit card contains the action title, an optional painted human activity figure or a coded category icon, duration or target, time or cue, a readable evidence grade, completion status, and one obvious primary action. Give a featured person enough size to read the pose and brushwork; compact list rows can use the coded icon. Use coded icons only or place a decorative art banner above the next action. A week selector is useful only if it preserves this action-first hierarchy. Example action text: Take a short walk. Secondary text: 10 minutes, after lunch. A science link stays visible or one tap away. The completion control must be distinct from the card link so a user does not accidentally mark completion while reading.
+
+A straightforward completion should take one tap from Today, followed by a short confirmation with Undo. A straightforward reschedule should take two taps: open Move, then choose a suitable quick option such as Later today, Tomorrow, or the next planned slot. Keep a full date-and-time editor available for precise changes without putting it in every routine interaction. Rescheduling must preserve a twice-weekly or other chosen frequency rather than adding extra sessions automatically.
+
+Completion should update the card, daily count, history, and any eligible reward activity consistently. An accidental tap followed by undo must not create duplicate points. Guided sessions can open a timer or instruction panel when appropriate. Evidence remains visible on the card and one tap away in more detail.
+
+States to design: due now; later today; complete; skipped; rescheduled; paused; imported completion; waiting for sync; locally saved; and save failed. Skip today, pause the habit, and remove from plan are different actions. Show the consequences clearly.
+
+If a habit is scheduled twice weekly, the other days are not failures. A day with no scheduled actions should read Nothing scheduled today or Your plan has a rest day. An all-complete day should let the person leave with satisfaction. A missed day should offer a smaller next step or a restart, without a red failure screen.
+
+Past-day corrections are allowed for tracking, with the date clearly shown. The optional reward program can limit retroactive earning separately. Time-zone changes must not duplicate a day or reset a streak unpredictably.
+
+## 11 Habit detail and research screens
+
+The habit detail is the second signature screen. Use a welcoming illustration, title, concise practical action, and prominent evidence label. Present the content in sections or tabs such as Overview, How to do it, and The science. On a long mobile page, a sticky Add to my plan or Edit my plan action can remain available without covering content.
+
+Overview explains the intended outcome, expected effort, frequency, equipment, starter version, and why the habit might fit. Where the user has chosen a relevant goal, show the matching explanation. If the user already practices the habit, offer tracking or refinement rather than claiming a new benefit.
+
+How to do it gives clear ordered steps, a reasonable starter version, and adaptations. Offer optional audio or instructional video only when content exists. Otherwise use a clearly identified placeholder in the prototype. Include captions or a transcript and controls for pause, volume, and playback. Avoid autoplay.
+
+The science begins with a concrete comparison: What researchers tested and Your starting action. Show the studied population, action, frequency, duration, and outcome when verified, alongside the user's practical starter action. Add a brief What this means for you explanation of any difference in dose, population, or timeframe. If the starter action is only an adoption step toward the studied routine, say so plainly. Keep this comparison near the top of The science, rather than burying it in the source list.
+
+Then provide claim-specific evidence badges, what remains uncertain, mechanism information, and verified sources. Offer progressively deeper detail rather than an uninterrupted paper-like wall of text. Do not invent a comparison when source details are missing; show the review state clearly.
+
+A research source card includes verified title, author or organization, year, publication, study type, studied population, and a source link. An effect-size section needs units, time period, comparison, and uncertainty. A source list with no accessible full text should still display the bibliographic information and available abstract link.
+
+Show Why this grade? beside the grade. The explanation must match the actual claim and editorial review. Mechanism is a separate labeled section. A plausible biological story must not visually masquerade as proof.
+
+Include Last reviewed, Content version, and Report a source issue when real values are available. If the evidence changes, the interface should support an update note without silently rewriting a user's prior saved explanation. A removed or revised habit needs a readable transition state.
+
+## 12 Evidence methodology
+
+Create a friendly About our evidence screen. Explain the letters in ordinary language, how sources are selected, why human studies matter for human recommendations, what limitations mean, and why strong evidence is not a personal guarantee. Retain the D and X explanations in an expanded research section.
+
+Explain that Humanology's grades are editorial assessments unless a validated external system is formally adopted. Do not claim government approval or certification. The no-heart logo choice is a design constraint from earlier discussions, not a statement that heart symbols are universally prohibited by law.
+
+The research-only collection can discuss popular ideas with insufficient evidence. These items should not appear as recommended proven actions or earn a high grade merely because they are popular. Give users a useful explanation of uncertainty without ridiculing their questions.
+
+## 13 My Plan and habit stacks
+
+My Plan shows active habits, their schedule, time commitment, reminders, and pause state. Provide Edit, Reorder, Add a habit, and View paused habits. Show a manageable total rather than encouraging users to collect as many habits as possible.
+
+The schedule editor supports selected days, times or broad time windows, an existing cue such as after lunch, target duration or quantity where appropriate, start date, and optional reminder. Changes apply prospectively by default so historical completion percentages remain interpretable.
+
+Habit stacks group actions around a familiar cue: After breakfast, During a work break, or Before bed. Each action retains its own evidence grade and completion history. A stack can have a total duration and a sequence, but it must not inherit a scientific grade as though the combination itself were studied.
+
+Create stack list, stack detail, and create/edit stack views. Support adding, removing, and reordering steps; a keyboard-accessible alternative to dragging; pausing the whole stack; and marking individual actions. Completing a stack must not automatically claim every action occurred unless the user confirms it.
+
+Custom personal habits may be useful for routine management, but they should be labeled Personal habit with no scientific grade. Their reward eligibility is a separate decision; do not award arbitrary custom habits as verified science-backed actions by default.
+
+## 14 Guided sessions
+
+Create a reusable guided-session layout for a breathing practice, short movement routine, or timer. Include the title, instructions, readable timer, Start, Pause, Resume, Finish, and an unobtrusive exit. Show whether leaving saves partial progress. Keep completion rules explicit.
+
+A slow expanding shape can support a breathing session if the content is reviewed, but reduced-motion users need a static or text alternative. Do not imply that an attractive timer makes an unreviewed intervention clinically effective. Avoid forced breath holds or escalating intensity in demonstration content.
+
+A supplied painted human figure may demonstrate a relaxed pose or accompany a completion, using the same style and cast as the rest of the app. The timer, breathing shape, instructions, controls, and feedback are coded. The person must not obscure instructions or act as an unqualified clinician. Keep sound optional and off until requested.
+
+## 15 Check-ins and personal logs
+
+Preserve the original mood, symptom, energy, fatigue, and sleep-quality logging idea. Offer a quick optional check-in that can be completed in a few taps. Suggested fields are mood, energy, perceived stress, sleep quality, and an optional note. Let people select which metrics they want to track.
+
+Use consistent labeled scales with accessible text, such as Very low through Very high, and a clear numerical mapping if charts need numbers. Explain the direction of each scale. High stress and high energy do not mean the same thing. Do not label an informal mood question as a validated anxiety assessment.
+
+For the optional mood flow, use one expressive painted portrait and five clear text choices, for example Low, A bit low, Okay, Good, and Great. Selecting a choice previews the corresponding supplied image when available (otherwise the selected text remains visible); Save check-in records the value. Cancel or Skip leaves history unchanged. Keep one person, crop, wardrobe, and lighting across every expression in that sequence. Let gender and ethnicity vary across the wider app, not between the five moods of one sequence. Labels and selected-state controls are coded and remain understandable without the portrait.
+
+The expression follows only the mood explicitly selected or logged by the user. Do not infer a mood from habits, wearables, inactivity, subscription status, or reward points. Completing an action must not automatically turn a low mood into a happy face. Mood choice does not change earning eligibility or the amount of a reward. A low-mood entry can optionally lead to a user-controlled smaller-plan suggestion; it must not silently change the plan. Do not portray a racial or gender group as the default negative state.
+
+Provide edit, delete, and history views. A missing entry stays missing. Notes should never become public or appear in reward-provider data. Sensitive check-ins should be skippable and should not determine whether a person deserves a reward.
+
+For symptom tracking, keep the first version user-selected and descriptive. Do not create an unreviewed diagnostic engine, symptom severity triage, or medication adjustment flow. If specialized medical interpretation is added later, it needs its own product and content specification.
+
+## 16 Measurements and device connections
+
+Preserve the original data interests: blood pressure, resting heart rate, heart-rate variability, sleep, and activity. Include optional manual readings from home devices, with date, time, units, source, and an optional context note. A blood-pressure record has systolic and diastolic values and may include pulse. Display measurements as logged data, not a diagnosis.
+
+The earlier integration ideas included Apple Watch, Fitbit, Garmin, and Bluetooth home blood-pressure monitors. Apple Health or HealthKit and Android Health Connect are possible connection routes discussed more recently. Show them as planned or simulated integrations until actual support is verified. Do not imply that a web prototype can already read native health data or connect to any brand of cuff.
+
+The Connections screen lists the source, supported data categories, permissions, last sync, and connection state. Include not connected, connecting, connected, partial permission, denied, disconnected, stale, error, and reconnect states. Provide a clear explanation before requesting a permission and a manual alternative afterward.
+
+Imported records should show where they came from. If two devices supply the same activity, duplicate records must not inflate habit completion or points. HRV and sleep metrics from different devices may use different methods; do not merge unlike measures into an unexplained single trend.
+
+Disconnecting a device should explain the difference between stopping future imports and deleting existing records. Use realistic sync timestamps in the demo, always marked as sample data. Do not display a live or connected label unless the prototype explicitly says it is simulated.
+
+## 17 Progress and reflection
+
+The Progress overview should first answer What did I do this week? and What would make next week work better? Lead with completed scheduled actions, the current routine, and one clear route to review or adjust the plan. Then offer selected logs, heatmaps, measurement trends, and the exploratory What am I noticing? views. Do not overwhelm a new user with empty charts or make chart interpretation necessary for a useful review.
+
+Provide week, month, and longer-range views where meaningful. Display denominators for percentages. An example of 9 out of 12 scheduled actions is 75 percent completion; it is not a 75 percent health score. Scheduled rest days, paused periods, and skipped actions need distinct treatment in the legend.
+
+For adherence percentages, count scheduled actions whose due window has ended in the selected period. Exclude future actions and prospectively scheduled rest or paused periods. An action that was due and then skipped remains in that historical denominator. Preserve the schedule that applied at the time so deleting a habit today does not rewrite last month's adherence. Today's planning summary may show all actions scheduled today, but label that as a plan count rather than a completed-period adherence rate.
+
+Preserve the calendar heatmap. Let users switch between completion and a selected metric, but change the legend and units clearly. Missing data needs a neutral pattern or empty state separate from a genuine zero or a low value. Clicking a day opens the underlying entries.
+
+A habit history page shows schedule, completed actions, edits, and notes. A metric trend page shows units, date range, source, individual values, gaps, and a text summary. Keep charts legible and avoid dual axes that visually exaggerate a relationship.
+
+The weekly review should show a concise factual recap, ask whether the plan was manageable, and let the user make a practical decision about next week. Offer Keep this plan, Make it easier, Change the schedule, or Swap the habit. Show a simple preview of next week's action, frequency, and estimated commitment before applying a change. Preserve the user's history and show how a rewards-enabled schedule change affects future earning; do not silently rewrite either.
+
+Suggested summaries can say You completed three of four planned walks. They must not say that an unverified health change was caused by those walks. Include this review and next-week adjustment in the first complete prototype journey, using clearly labeled sample history where time has not actually elapsed.
+
+## 18 Exploratory habit and outcome comparisons
+
+Preserve the original habit-to-biometric correlation concept as an advanced exploration view. Users can compare a behavior with a chosen recorded metric over the same period. Show dates, number of usable observations, missing data, and sources. Provide an insufficient-data state.
+
+Use language such as These patterns appeared together in your records. Explain that an association does not establish cause and can reflect other changes, measurement differences, or chance. Do not manufacture percentages of improvement, statistical confidence, or claims that one behavior lowered blood pressure from a mock chart.
+
+A more sophisticated analysis belongs later. For the first prototype, a coherent demonstration of two aligned timelines and a cautious narrative is enough. The editorial and analytical rules for real automated insights must be designed separately before launch.
+
+## 19 Optional rewards program
+
+Rewards are an optional product module, not an approved launch commitment. The founder wants everyone to have a defined way to earn tangible value through participation, potentially redeemable for an Amazon-style gift card. Preserve that intention. The model is earned value with published rules; random winners, wagers, prize pools, and competitive leaderboards are outside the selected direction.
+
+Build the full rewards experience as interactive HTML/CSS/JavaScript so it can be enabled or disabled without changing the core app. Every balance, progress bar, gift-card representation, ledger, earning explanation, confirmation, and redemption state is coded; no raster reward artwork or screenshot-based rewards screen is allowed. When disabled, remove reward claims from onboarding, subscription copy, completion messages, navigation, and profile. When enabled, the habit experience must remain useful after a user reaches the reward cap.
+
+The revised design must be fair across different appropriate schedules. A person following a twice-weekly routine should have the same possible reward ceiling as a person following a daily routine. More scheduled days, more intense exercise, or a higher evidence grade should not automatically mean more money. This replaces the earlier proposed award of 50 points per participation day, which disadvantaged people with fewer scheduled days.
+
+### 19.1 Proposed rules for a coherent prototype
+
+The following is one suggested accounting model to make the prototype concrete. Its exact rules are a design proposal, not a finalized business policy. Keep it replaceable if the founder chooses another equally fair model.
+
+Consumer explanation: Follow the routine you chose. Its scheduled sessions share up to 1,000 points each paid period. A twice-weekly routine and a daily routine can earn the same total.
+
+| Item | Demonstration rule |
+| --- | --- |
+| Subscription | Proposed price of $6.99 per month |
+| Earning focus | One eligible focus routine chosen from content-supported habits; the initial routine normally contains the one starter habit |
+| Earning event | Completing an eligible scheduled session once |
+| Session allocation | The period's 1,000-point budget is divided across the actual eligible sessions in the selected schedule, with whole-point rounding |
+| Billing-period maximum | 1,000 points per paid subscription period across the account, regardless of habit frequency |
+| Conversion | 1,000 points equals $1 of gift-card value |
+| Example redemption | 5,000 points for a $5 gift card |
+| Carryover | Earned points remain in the balance between periods |
+| Reset | A new earning allocation begins with the next paid billing period; the earned balance does not reset |
+| Extra habits | Adding more habits does not create another reward budget |
+| Transfer or purchase | No buying, selling, or transferring points in this concept |
+| Cash withdrawal | Not included in the proposed first version |
+| Extra intensity | No additional money for longer, harder, or riskier activity |
+
+Show the actual paid period dates and count the sessions scheduled within those dates. Do not assume every billing period is four weeks or thirty days. A valid twice-weekly schedule with eight sessions in the sample period allocates 125 points to each. A ten-session schedule allocates 100 each. A thirty-session schedule allocates 33 points to twenty sessions and 34 points to ten sessions. Completing the full eligible schedule earns exactly 1,000 points in every example.
+
+Assign each scheduled session a stable whole-point allocation when the plan is established, distributing any remainder deterministically across the schedule. The allocations must sum to exactly 1,000. Show the next session's value in its reward explanation. The value reflects the schedule allocation, not how healthy, hard, or scientifically valuable the activity is. Do not calculate a second, conflicting cumulative formula elsewhere in the interface.
+
+The focus routine must use a suitable frequency supported by the content and any offered adaptation. Do not invite users to invent a one-session monthly plan simply to collect the full allowance. The eventual eligibility policy needs to define acceptable schedules, adaptations, enrollment timing, and recording windows. In the prototype, show a clear supported choice rather than an unrestricted reward-schedule loophole.
+
+A missed session's allocation remains unearned and is not automatically redistributed. Rest days with no scheduled session are not misses. On a prospective plan change, preserve completed, pending, and past missed allocations; redistribute only the still-future unused allocation across the revised eligible future schedule. Preview the change before confirming it. A simple move of the same occurrence keeps its identity and allocation. Moving an occurrence across a billing boundary must not create a second award; the final cross-period policy remains a prelaunch decision.
+
+For example, a ten-session plan starts with 100 points per session. After two completed sessions, one missed session, and seven future sessions, the account has earned 200 points; the missed 100 remains unearned; and 700 is still allocated to future sessions. If a supported prospective plan change leaves two future sessions, those sessions can share the remaining 700. Completing both brings this period's earned amount to 900, not 1,000. The past miss is preserved. Pausing itself earns nothing; if no eligible sessions remain, the unused amount stays unearned. Do not offer plan changes as a way to erase misses or accelerate rewards.
+
+Pending awards reserve their session allocations against the same billing-period maximum. A session can be credited only once, whether recorded manually, imported, rescheduled, or corrected. Use the account's chosen time zone to display dates, but changing that zone or importing the same activity later must not create a new earning event.
+
+Under this proposed paid-member model, the free first-habit experience records progress without issuing redeemable points. Demonstrate real-value reward behavior with a separate paid-member sample profile. Do not show free users an earned balance that later disappears or requires payment to unlock. Any introductory reward would need separate published rules and funding.
+
+Reward participation in a reasonable action, not a lower weight, lower blood pressure, longer fast, larger water intake, or better mood rating. Optional device connections can simplify recording, but provide a comparable manual path. Do not require access to sensitive health data or enablement of system functions as the price of obtaining rewards. See the platform notes in Appendix D.
+
+For motivation, use completion counts, personal milestones, and optional streaks. The earlier idea of unlimited nonredeemable motivational points can remain a future variant. The simpler default reserves the word points for the redeemable balance. If both systems are shown, label them distinctly and never imply progress points can be exchanged for gift cards.
+
+### 19.2 Honest economics in the design
+
+At 1,000 points per paid period, a new member starting at zero needs five fully earned periods to reach a 5,000-point reward. Do not imply a $5 gift card will arrive within a few days. With 10,000 paid subscribers and a $1 face-value allowance each, the maximum new face-value liability is $10,000 per paid period, before applicable fees. These are arithmetic examples of the proposed budget, not forecasts of uptake, retention, profitability, or redemption cost.
+
+Unredeemed balances remain outstanding obligations in the business model. Expiration, refunds, fees, and cancelled subscriptions need final program decisions. A $1 reward allocation does not by itself establish profit after billing fees, taxes, operating costs, and acquisition spending.
+
+The earlier suggestion of a $5 welcome reward after three paid months is not included by default: the ordinary allowance over those periods is only $3. A larger welcome bonus would need a separately funded acquisition promotion. Merchant-funded discounts, free products, or sponsored offers are later options, but do not assume a sponsor is already available or that a discount has the same value as a gift card.
+
+### 19.3 Rewards home
+
+Show available points, their gift-card equivalent, progress to a selected reward, this period's confirmed and pending earnings, the period maximum, and the next reset date. Include the selected focus routine, its schedule, the allocation for its next eligible session, a concise How to earn explanation, and an activity ledger. Keep the ordinary consumer explanation short; put calculation details in an expandable explanation.
+
+Label the remaining opportunity precisely as Future scheduled points. It is the sum of unearned allocations still attached to future eligible sessions, not always 1,000 minus confirmed earnings. Missed sessions and pending reservations can make those numbers different. Separate an available balance from pending points and a maximum from an earned amount. Do not describe a missed allocation as a debt or fine.
+
+Use this consistent primary example: a paid member has 3,200 points available, equal to $3.20 in gift-card value; a 5,000-point reward is 64 percent funded, with 1,800 points remaining. The selected routine has ten scheduled sessions in the sample paid period, each allocated 100 points. The ledger contains 3,000 carried from earlier periods and 200 confirmed from two completed sessions this period. With no misses, eight future sessions hold 800 future scheduled points.
+
+When the third session is completed, show 3,200 available, 100 pending, and 700 still attached to future sessions. After the brief simulated confirmation, show 3,300 available, 300 confirmed this period, 66 percent progress to the gift card, 1,700 points remaining, and 700 future scheduled points. Pending awards count against the session and period allocation, preventing duplicates. Update every view together.
+
+The reward card can say $5 gift card and use Amazon as a clearly labeled merchant example. The actual merchant, country, denomination, and provider are not confirmed. Do not display an official partnership seal or a fabricated merchant-approved graphic.
+
+### 19.4 Gift-card detail and redemption
+
+The gift-card detail shows merchant, currency, region, denomination, point cost, terms, availability, and delivery method. Insufficient balance should explain the remaining amount without an aggressive subscription upsell. A progress estimate must reflect eligible scheduled allocations, missed sessions, and the remaining period ceiling. Display an estimate as conditional on future completion, never as a guaranteed payout date.
+
+At a sufficient demo balance, open a redemption-review screen. Show the point cost, resulting balance, delivery destination, and relevant restrictions. Confirm before simulating issuance. Prevent double taps from creating duplicate orders.
+
+While processing, reserve the points and show Pending. A successful mock redemption shows a completed transaction and a visibly fictitious delivery preview, not a realistic usable code. A confirmed failure releases the reserved points. A temporary delay keeps a single pending order rather than inviting repeated purchases.
+
+Provide ledger entries for earned, pending, available, redeemed, reversed, and failed transactions, with date and plain-language reasons. A reversal must reference the original event. Avoid mysterious deductions.
+
+### 19.5 Edge cases
+
+Design states for zero balance; period maximum reached; This scheduled session is already credited; completion undone; a prospective schedule change; missed session; paused routine; provider unavailable; merchant unavailable; unsupported region; delivery address unverified; pending payment; cancellation scheduled; subscription expired; and disputed transaction.
+
+When a completion is undone before confirmation, remove that session's pending award. If the award was confirmed but remains unspent, reverse its exact allocation from the available balance and the corresponding period's confirmed total. In the primary ten-session example, undoing the third completion reverses 100 points and returns the balance from 3,300 to 3,200. Preserve a reversal entry and the session's original identity and allocation. Re-recording that same eligible occurrence can restore that allocation within the program's recording window; it must not mint a new one or transfer the award to an unrelated event. Corrections after redemption need a defined support policy; the prototype should not create an unexplained negative balance.
+
+The proposed cancellation design stops new earning after the paid-through date and preserves visible earned balances. Treatment of a balance below the minimum after cancellation remains an explicit prelaunch policy decision. Do not silently erase it or invent a guarantee that it is cash payable. Account deletion should disclose any pending redemption or unresolved balance before confirmation.
+
+### 19.6 Fulfillment and program status
+
+Tremendous and Tango are candidate providers, not selected partners. Verify actual merchant availability, country restrictions, denominations, funding fees, terms, and integration support before real issuance. A $5 Amazon card is a design assumption, not a confirmed provider minimum. Current official Tremendous information confirms Amazon gift-card distribution but says denominations vary by country. [3]
+
+The prototype should use simulated points and fulfillment only. Real issuance needs appropriate account, transaction, and fraud controls plus review of the actual rewards rules and relevant platform requirements. Gift cards are not a blanket exemption from legal or platform obligations. Keep this implementation note in the handoff, not as a frightening warning repeated throughout the consumer experience.
+
+## 20 Subscription and access design
+
+Use $6.99 per month as the current working price and label it as a proposal in the design notes. Do not invent an annual price, a lifetime plan, an auto-renewing free trial, or a discount that was never decided.
+
+The initial experience must let the user receive one personalized recommendation, inspect its evidence, choose a schedule, complete one real occurrence, and see that completion recorded before a blocking paywall. Do not gate Add to my plan, the starter habit's research, or its first completion behind payment. A user who wants to subscribe voluntarily can find pricing earlier, but it must not interrupt this journey.
+
+Define the value moment as experiencing that complete first-habit journey once. Do not interpret full habit cycle as waiting until a health outcome appears, requiring a perfect week, or demanding a month of adherence. Let people complete the action in their own time; the prototype can simulate the passage of time without telling them to mark unfinished activity complete.
+
+After the first completion and its acknowledgement, show a clear, dismissible invitation to continue with the paid experience. The proposed paid offering includes ongoing personalized routine management and deeper tracking; exact continuing free-versus-paid entitlements remain open. Preserve access to the starter record, evidence explanation, account controls, and support. Keep preview weekly-review and plan-adjustment states available in the design demonstration so the full journey can be assessed.
+
+This paywall timing is a starting design hypothesis. Evaluate whether people understand the value and choose to subscribe; do not claim that a later paywall necessarily increases revenue. Rewards remain optional and should not be the only reason the core app appears worth paying for. Show pre-subscription reward illustrations as previews, with no redeemable credit awarded unless a separately funded promotion is approved.
+
+The subscription screen needs a concise feature summary, price, billing interval, recurring-payment explanation, clear action, and links to terms and privacy. A demo must not pretend a real payment has been taken. If a native purchase route is shown, simulate restore-purchase and manage-subscription states with truthful labels.
+
+Subscription management shows status, current billing period, renewal date, cancellation status, and a clear management route. Include payment failure, cancellation at period end, expired access, and return-to-paid states. Export, account deletion, support, and access to the user's existing rewards information should remain understandable.
+
+Earlier structured courses or short guided habit programs can be represented as optional future paid content. Do not make a large course catalog mandatory for the first product or imply those courses already exist.
+
+## 21 Settings and account screens
+
+Profile and Goals lets the user edit name, goals, available time, preferences, and selected habits. Explain whether changing goals will suggest revisions rather than silently replacing an established plan.
+
+Notifications supports per-habit reminders, quiet hours, time zone, pause reminders, and an optional weekly review. Offer frequency controls and a respectful adaptive suggestion such as Would evenings suit you better? Do not move schedules without consent or use guilt-based notifications. Provide a device-free or recurring quiet period option for people who want it.
+
+Appearance and Accessibility supports text scaling, reduced motion, and a quieter illustration mode. A polished light theme is the priority. A dark theme is optional and should be complete if included, with independently checked contrast rather than automatic inversion.
+
+Privacy and Data explains what is recorded, which sources are connected, and who can access it. Provide export, deletion, connection revocation, and a brief explanation of retention. Do not claim HIPAA certification, medical-device status, or other compliance credentials that have not been established.
+
+Help includes how evidence grades work, recording habits, reminders, syncing, subscription questions, and rewards. Offer a content-error report with a habit or source already attached. Contact and feedback can be simulated in the prototype without actually sending messages.
+
+Account screens include sign-in, sign-out, recovery, verification, authentication failure, and account deletion confirmation. Real credentials and payment details are outside the frontend demonstration.
+
+## 22 Privacy and permissions as part of the experience
+
+Keep required onboarding data minimal. Let the user browse and understand the app before requesting health-data access. Explain the benefit of each connection in plain language, distinguish optional from necessary information, and provide a continuing path after denial.
+
+The design should make imported and manually logged data visible to the user. If data export is demonstrated, export only the sample dataset and label it clearly. Do not put actual sensitive health entries into an insecure public prototype or share them with unrelated external services.
+
+Rewards fulfillment should receive only the information necessary to deliver the reward, not raw readings, mood logs, habit histories, or inferred medical conditions. Third-party AI, if later introduced, needs separate disclosure and an informed choice. [1][2]
+
+## 23 Learning and discovery features
+
+Preserve the option of short explanatory articles, instructional videos, and guided habit programs. A Learn or Read the science entry can live inside Discover rather than adding another main tab.
+
+Content formats can include a habit explainer, a research update, a mechanism diagram, a beginner sequence, and a comparison of evidence for popular claims. Any scientific diagram is drawn in code from reviewed content; science graphics and charts are coded. Each needs an author or organization when real, review information, sources, and an appropriate reading time. Avoid an endless newsfeed that competes with completing the user's chosen plan.
+
+Saved reading and saved habits should have distinct states. Saving an article does not create a scheduled habit. A new finding should not automatically change a user's routine without explanation.
+
+## 24 Future concepts retained in the architecture
+
+AI personalization or a conversational guide was an earlier expansion idea. A future guide should answer from the curated evidence library, expose its sources, acknowledge uncertainty, and help choose practical routines. It should not be a free-form diagnostic chatbot or a replacement for medical care. Design a concept entry and representative interaction without making generative AI necessary for the core app.
+
+Community, accountability pods, private challenges, and coaching were also explored. Preserve them as optional future concepts. They should support participation and encouragement, with privacy controls and moderation appropriate to any sharing. The selected reward model does not depend on public health rankings, winner-takes-all competitions, or pooled wagers.
+
+Continuous glucose monitoring is a future connection concept, not a default onboarding request. Expanded wearables and home devices, richer correlation analysis, clinician-facing exports, and advanced personalization can be mapped as later work. An export of user-selected records can be useful without representing a diagnostic report.
+
+A growing avatar, category companions, geometric figures, and an illustrated world were earlier visual options. Preserve them as historical context only. The current build uses the consistent painted adult cast in Part Three, with all surrounding graphics coded. Do not add an evolving body or a nonhuman mascot. A future progress metaphor can be explored separately, but appearance must not become healthier-looking, thinner, or more valuable as the user earns points. The final app palette remains open.
+
+Merchant-sponsored offers, subscription credits, free products, partner rewards, and a separately budgeted welcome bonus remain possible commercial experiments. Preserve them in the roadmap, not as promised launch inventory.
+
+## 25 Shared interaction states
+
+| State | Required response |
+| --- | --- |
+| First use | Explain the next action without invented personal history |
+| Empty plan | Offer a first habit or guided recommendations |
+| Empty saved collection | Explain saving and provide a useful discovery link |
+| No search results | Preserve the query and offer clearing filters |
+| Rest day | Show a normal neutral state rather than a failure |
+| Everything complete | Acknowledge completion and let the person stop |
+| Missed days | Offer a manageable restart without shame |
+| Loading | Keep the layout stable with an appropriate bounded indicator |
+| Offline | Explain what can be viewed or recorded locally in the demonstration |
+| Save failed | Preserve the user's entry and offer Retry |
+| Pending sync | Distinguish local changes from confirmed imported records |
+| Permission denied | Continue with a manual route |
+| No chart data | Explain what the chart will show once entries exist |
+| Incomplete data | Display gaps and avoid interpolating a false zero |
+| Content revised | Explain the change and retain a route to relevant history |
+| Reward cap reached | Continue ordinary tracking and show the reset date |
+| Redemption pending | Show one order and prevent duplicate spending |
+| Subscription expired | Explain feature access and preserve account-management routes |
+| Reduced motion | Replace movement with a quiet static acknowledgment |
+| Larger text | Reflow content while keeping labels and actions usable |
+
+Every dialog needs a clear title, primary action, secondary or close action, focus behavior, and escape behavior where appropriate. Preserve unsaved edits when possible, and warn before a destructive change only when meaningful work would be lost.
+
+## 26 Accessibility and responsive behavior
+
+Design for narrow phones through tablet and desktop. Suggested review widths are 360, 390, 430, 768, and 1440 CSS pixels, with an additional narrow and zoomed layout check. Preserve readable evidence labels, safe-area spacing, keyboard access, and usable navigation at every size.
+
+Aim for at least 44 by 44 CSS-pixel touch areas on important controls as a product usability target. WCAG 2.2's target-size minimum is 24 by 24 CSS pixels with specified exceptions; larger controls are a deliberate design choice here. Ordinary text should meet at least 4.5:1 contrast and large text at least 3:1. Check actual combinations, including tinted cards and gradients. [4][5]
+
+Use visible keyboard focus, semantic headings and controls, labels for icon buttons, meaningful alternative text where needed, and a logical reading order. Color cannot be the only indication of evidence level, completion, or error. Charts need accessible summaries and data values. Timed confirmations should remain understandable without requiring a fast response.
+
+Respect reduced motion. Keep text selectable and real, including sources and numbers. Do not bake interface labels into illustration assets. Ensure dialogs are usable with a keyboard and screen reader; a bottom sheet should not leave focus behind it. Avoid a sticky action or bottom navigation covering the final paragraphs or the keyboard.
+
+## 27 Coherent demonstration content
+
+Use a fictional demonstration profile rather than the founder's real health records. Suggested profile: Alex, an adult with limited spare time who wants more consistent movement and sleep routines. Make its fictional status clear in the prototype controls.
+
+Create enough library entries to demonstrate different categories, time commitments, evidence states, and filters. Twelve thoughtfully populated examples are preferable to hundreds of repetitive cards. Suggested topics are short walking, strength sessions, a consistent wind-down cue, a regular sleep schedule, reviewed breathing practice, movement breaks, mobility or posture, daylight exposure, hydration, a food-related habit, reading or reflection, and a research-only popular claim. Do not assign clinical claims or grades without verified content or an explicit demonstration label.
+
+Provide distinct sample states: a new user with exactly one recommended starting habit and no history; that user after their first completion, when a subscription invitation becomes eligible; an established user with several weeks of entries; a missed-day return; rewards off; the paid-member ten-session rewards example at 3,200 points described in Section 19; and a separate redemption-ready example at 5,250 points. The last example redeems 5,000 points and leaves 250. Keep it separate from the 3,200-point profile so the interface does not jump between incompatible balances. The first-use journey must work without simulated payment, and its progress must not be confused with the paid reward balance.
+
+A simple numerical progress fixture can show nine completed actions out of twelve due scheduled actions for a prior week, with three missed actions. The calendar and summary must agree. Chart data should contain deliberate gaps, source labels, and realistic variations without asserting that a habit caused a health change.
+
+Use sample dates consistently across Today, the weekly review, subscription dates, reset dates, and the ledger. A demonstration-state selector can live in a discreet design-review menu, not in the normal consumer flow.
+
+## 28 Frontend implementation and demonstration requirements
+
+### 28.1 Deliverable and code structure
+
+Deliver Humanology.html as one portable, responsive, working file. Use semantic HTML, embedded CSS, and embedded vanilla JavaScript. Use inline SVG where precise code-drawn icons, charts, progress rings, or logo geometry are useful. Avoid required React, Next.js, Tailwind runtime, component-library installation, a build server, or a package manager in the founder's launch path. Development tools may assist production, but their output must resolve to this portable deliverable. Keep code organized into readable sections, reusable renderers or components, design tokens, data, state changes, and derived calculations rather than unrelated duplicated screens.
+
+Every UI element must be real code, including all reward screens. Never use a full-screen raster image, a background screenshot of an interface, text painted into an image, or a canvas of fake controls as the application. The only raster illustration assets are the founder-supplied people described in Part Three. Do not use stock human photography or mismatched substitute illustration as the final art. Claude may create inline SVG and CSS graphics for the interface, but not substitute human artwork.
+
+Use CSS variables for color roles, type scale, spacing, radii, borders, elevation, and motion. Keep palette alternatives as alternate token sets and deliberate component treatments using the same product data. Build the alternatives entirely in code. Keep review controls separate from consumer navigation.
+
+### 28.2 Required functional coverage
+
+Establish the connected starter journey first: welcome, optional exploration, lightweight onboarding, one recommendation, the concrete research comparison, scheduling, Today, completion and undo, the appropriately timed subscription invitation, a weekly review, and next-week adjustment. This is the order of work; final delivery also includes the other core screens in Section 8.
+
+Complete Discover, combined time/goal/ability/evidence filters, sorting, no-results recovery, saved habits and reading, habit detail, sources, methodology, adding and removing habits, schedules, quick occurrence rescheduling, pausing, and stacks. Complete guided-session controls, optional check-ins, log history and corrections, manual readings, progress ranges, the calendar heatmap, and the cautious exploratory comparison view. A source link opens a real verified source or a clearly pending state; never fabricate a paper.
+
+Complete rewards home, earning rules, session allocations, ledger detail, gift-card detail, insufficient balance, review, confirmation, pending, success, failure, unavailable, cap reached, undo/reversal, and rewards-off flows. Complete subscription, account, profile, preferences, notification settings, privacy, sample-data export, demo deletion/reset, and help. Simulated connections still need functioning local connecting, connected, denied, stale, disconnected, error, and retry states.
+
+Every visible actionable control must produce the appropriate navigation, local state change, or explicit simulated result. Do not substitute a generic Coming soon page for a required core feature. True roadmap concepts from Section 24 may have a coded concept view; the external service can remain unimplemented. Simulating fulfillment does not excuse an inert redemption interface.
+
+### 28.3 One coherent local state model
+
+Keep one source of truth for profile, habits, schedules, stable occurrence IDs, completions, check-ins, measurements, saved items, subscription state, reward allocations, ledger events, and redemption orders. Derive balances, progress percentages, chart values, and summaries from these records. Do not hard-code conflicting values separately on different screens.
+
+Preserve fictional demonstration state across navigation and refresh using a versioned browser-local store on the supported launch path. Handle unavailable, malformed, or full storage without crashing. If persistence is unavailable in the viewer, keep the app usable in memory and clearly disclose that changes will not survive refresh. The file itself must still open directly without setup. Provide a discreet review menu with Reset this demo, sample-scenario switching, and a way to inspect otherwise hard-to-reach states. Reset must actually reset data; switching a profile must not merge one user's habit history or reward balance into another.
+
+Use a consistent demonstration clock and billing-period fixture. Reviewers must be able to inspect the weekly review, next period, delayed confirmation, and redemption success or failure without waiting real days. Ordinary consumer screens show understandable dates; time controls belong in the reviewer area. Keep the actual current date separate from a simulated sample date.
+
+Completion, undo, pause, skip, correction, and reschedule must retain occurrence identity and preserve historical schedules. Prevent duplicate clicks, repeated imports, refreshes, and re-entry from creating a second reward. Keep pending reservations, available points, redeemed points, past misses, future allocations, and period caps reconciled according to Section 19. Prefer integer points and derive monetary formatting rather than accumulating floating-point money values.
+
+### 28.4 Honest local simulation
+
+Use only the fictional demonstration records. Do not request real passwords, credit-card details, health-device permission, or a user's real medical data. A real sign-in, billing service, notification delivery, support email, health connection, or gift-card order is not part of this frontend build. Label the overall prototype and relevant service simulations clearly without filling every consumer card with implementation notes.
+
+An export button should download the fictional records in a usable file. A simulated save failure should preserve the entered information and offer Retry. A mock redemption should reserve points once, resolve or remain pending once, and update its ledger consistently. A confirmed failure releases its reservation; repeated confirmation cannot create duplicate orders. Browser-local state is demonstration convenience, not production account security.
+
+### 28.5 Verification before delivery
+
+Open the actual HTML in a browser and use it. Review 360, 390, 430, 768, and 1440 CSS-pixel widths, keyboard navigation, enlarged text, reduced motion, focus, dialogs, empty states, long labels, asset failures, and storage fallback. Inspect actual screenshots of the coded app for spacing, hierarchy, contrast, art placement, and overflow. These screenshots are review evidence, not production UI assets.
+
+Use meaningful checks for the first habit journey, plan changes, shared state, persistence/reset, reward allocations, undo, double-submit prevention, and redemption balance conservation. Check the specific arithmetic examples in Sections 19 and 27. Fix concrete defects and rerun the affected check. Apply design critique and accessibility skills to the real result, then document what was actually verified and any remaining limitation. Do not equate the number of downloaded skills with a completed design review.
+
+## 29 Editorial administration concept
+
+Preserve a content-management outline because the science promise depends on maintainable evidence. A full administration application is later work, but the handoff should document the fields and states the public design depends on.
+
+An editorial habit record needs draft, review pending, reviewed, published, revised, and retired states; claim-level grades; citations; version dates; review notes; and a correction route. A content issue raised by a user should identify the relevant habit, claim, and source. Review status must not be conflated with scientific strength: a reviewed article can conclude that evidence is weak.
+
+An operational rewards view may eventually need outstanding points, pending redemptions, failed fulfillment, and adjustment history. This is an internal operational concept, not another tab in the consumer app.
+
+## 30 What the first release must feel like
+
+The first experience should be complete even with a limited curated library and no device connections. Someone should understand the proposition, trust the transparency of its evidence, choose one useful action, complete it easily, and return without needing to manage an elaborate system.
+
+The full product map is intentionally larger than a first release. Preserve every idea in this brief, while keeping Today simple, scientific detail organized, and future features out of the way until useful.
+
+The business objective is a product people find worth paying for and keep using. Design the key journeys so the team can later assess plan creation, first completion, continued participation, and subscription retention. If rewards are enabled, compare their effect on retention and participation with their real cost before expanding the program. No analytics vendor or live tracking is required for the design prototype.
+
+# Part Two Branding and Visual Direction
+
+## 31 Brand idea and personality
+
+Humanology should feel like a welcoming guide to health science, with the visual care of a thoughtful consumer brand. The user should feel that the app takes the research seriously and treats people kindly. Scientific transparency and emotional warmth must reinforce each other.
+
+Use these personality qualities as practical design criteria: curious, thoughtful, optimistic, candid about uncertainty, calm, and human. The founder's reference to a smiling, menschy quality means a sense of decency, friendliness, and approachability. It does not require a literal portrait or cultural costume.
+
+Headspace is an emotional reference for ease, warmth, and visual pleasure. Me+ is a slight reference for approachable habit rows and clear mood choices, based on its public routine and mood screenshots. [6] Neither defines Humanology's palette, cast, screen architecture, or exact composition. Study other relevant sources through the design-skill workflow and make independent choices. Humanology combines its own expressive painted adult cast with the clarity and source visibility of a well-edited science publication.
+
+Within a few seconds, a person should understand that this is about practical health habits supported by research. The first impression must not depend on reading a dense paragraph. The visual design should make a small next action feel realistic, and the evidence badge should help the person know why to consider it.
+
+## 32 Positioning and copy
+
+Preferred headline: A healthier you. Backed by science.
+
+Alternative brand line: The science of living better, made simple.
+
+Suggested short descriptor: Science-backed habits for everyday life.
+
+Suggested onboarding explanation: Discover small habits supported by research. Find the ones that fit your life, understand the evidence, and build a routine at your own pace.
+
+When rewards are enabled, optional supporting text can say: Earn points toward eligible rewards as you build your routine. This needs the published earning limits nearby in the rewards experience. Do not say that the app pays for itself or pays users to become healthy under the proposed economics.
+
+Use plain sentences, sentence case, specific verbs, and short paragraphs. Explain technical words when they matter. Let the product be intelligent without sounding like a lecture. Avoid blanket claims such as scientifically proven, guaranteed results, reverse aging, or clinically validated unless the precise claim is actually supported.
+
+## 33 Color principles
+
+Keep the primary canvas white. Warmth belongs in selected cards, illustrations, quiet accents, and occasional broad gradients. The founder previously rejected a predominantly peach background and excessive color. Retain that constraint while using the newer Headspace-inspired warmth.
+
+Keep each proposed visual direction internally coordinated, with dark readable text and a deliberate main action color. Most cards should remain white or lightly tinted. The welcome screen, a discovery feature, and meaningful milestones can be more expressive than routine logging and research pages. Do not treat any existing swatch, character color, or earlier suggestion as an approved final palette.
+
+Explicit instruction to Claude: I want to see your own palette and visual-style options as well. The following colors are suggestions only. Present at least three meaningfully different directions, with at least two independently developed alternatives beyond these supplied combinations. You may vary accent families, typography, coded gradient treatment, component shapes, density, and composition while keeping a predominantly white, readable, welcoming interface and the same painted-human technique. Do not merely shift the shade of green across all options.
+
+Use the same welcome fragment and Today habit card to compare the options fairly. Include a short rationale and your recommendation. You may use that recommendation provisionally to build the first complete habit journey, but keep the alternatives reviewable and label the chosen direction as provisional. Do not require approval for every routine layout decision. Do not merge competing palettes into one rainbow interface.
+
+| Role | Direction A Sage and plum | Direction B Blue and teal | Direction C Lilac and clay |
+| --- | --- | --- | --- |
+| Main canvas | #FFFFFF | #FFFFFF | #FFFFFF |
+| Secondary neutral | #F7F8F6 | #F6F8FA | #F8F7FA |
+| Primary text | #302C38 | #24343E | #2C2D40 |
+| Primary action | #355F50 | #286D72 | #55508A |
+| Soft surface 1 | #E3EEE5 | #E4F0EC | #E8EFE8 |
+| Soft surface 2 | #F8E6DA | #F7E8DE | #F8E2DE |
+| Soft surface 3 | #E9E1F1 | #E8E3F3 | #E8E1F6 |
+| Soft surface 4 | #DFEAF2 | #DCE8F1 | #E1E8F3 |
+| Illustration accent | #A785A4 | #6D9DC5 | #C98E84 |
+
+Reference directions only: sage with plum-charcoal, blue with teal, and lilac with clay are possible starting points. No preference order or final selection is imposed on Claude. These swatches are not a finished accessibility-tested palette, and the founder specifically wants alternatives informed by Claude's design judgment.
+
+Keep category color separate from evidence meaning. A lavender sleep illustration does not determine the grade. Evidence badges should contain a letter and readable label even if color is removed. Progress and rewards also need distinct labels and shapes, rather than relying on a shared green color to imply the same meaning.
+
+## 34 Gradients and surfaces
+
+Create any broad low-contrast gradients directly in CSS in the palette being explored. Pale sage to lavender or peach blending into white are examples, not mandatory colors. Claude should propose other suitable combinations as part of its alternatives. Good locations are behind a welcome illustration, inside one featured discovery card, or in a small milestone composition.
+
+Keep dense scientific text on a stable surface with reliable contrast. Avoid gradients behind long source lists. Do not apply a different dramatic gradient to every card. Avoid glass-like effects that make evidence labels hard to read, exaggerated blur, glowing neon edges, or glossy plastic surfaces.
+
+Use a consistent spacing and radius system. Suggested card radii are roughly 16 to 24 CSS pixels, smaller on fields and chips. A restrained border and very soft elevation can define a card. Not every paragraph needs its own container. Group by meaning and use whitespace as part of the hierarchy.
+
+## 35 Typography and layout
+
+Typography remains open. Choose a friendly, highly readable type system and show how it supports the proposed visual direction. Manrope or DM Sans are examples only; Claude may propose other families or pairings. A legible sans serif is a useful body-text starting point. At most two font families are needed. Prioritize readability, an adult tone, hierarchy, and actual availability. Confirm licensing for any chosen font.
+
+Suggested mobile scale: 16 to 18 pixels for primary body copy, about 14 pixels for supporting labels, 22 to 30 pixels for screen titles, and a larger headline on the welcome screen where space permits. These are design starting points, not fixed values that override text scaling. Use comfortable line height and avoid thin faint lettering.
+
+Use tabular numerals when comparing points, dates, quantities, and chart values. Keep source metadata readable; scientific credibility should not be reduced to tiny gray text. Restrict long text to a comfortable line length on desktop.
+
+Mobile layouts should have clear margins and thumb-friendly actions. Tablet layouts can introduce two columns selectively. Desktop should use a real app layout with a sidebar and constrained reading columns. Avoid showing the entire app only inside a decorative phone frame.
+
+## 36 Wordmark and logo
+
+Keep the earlier logo exploration available as a reference: a relatively thick circular ring with a short, slightly curved inner line. It is not an approved final mark. Claude may develop it or propose another recognizable abstract direction that fits the chosen visual system. Any mark should work in monochrome and at app-icon size.
+
+Explore Humanology and lowercase humanology wordmarks. A trailing period is optional. Keep the wordmark legible and adult. The mark must remain distinct from the recurring painted people so the product is recognizable in account screens, browser tabs, and small icons where a detailed figure would be too busy.
+
+Avoid a heart as the primary logo. Alternative abstract H, overlapping-ring, simplified human, waveform, or nature-inspired directions were previously discussed; retain them as optional explorations if the circular concept proves weak. Do not turn these into a new round of mandatory naming or logo choices before producing the app design.
+
+Build the final logo in code as precise inline SVG or interface-native geometry. Claude is responsible for the logo geometry, app icon, and interface typography. Do not use medical seals, approval emblems, or unearned institutional symbols.
+
+## 37 Iconography and evidence badges
+
+Design Humanology’s own original icon family as the first choice, using hand-authored inline SVG geometry derived from the selected design system. Establish a shared viewBox/grid, optical sizing, stroke weight, cap and join style, corner treatment, alignment, active/inactive states, and color tokens. Draw the core navigation, activity, evidence, calendar, progress, mood, rewards, settings, and utility icons to match this system; keep familiar meanings readily recognizable. Test at actual display sizes and ensure accessible labels and consistent touch targets. If a custom icon cannot be made clear or polished, use Lucide (https://lucide.dev/) as the fallback, adapting its stroke, size, and color to match the system and retaining its license. Embed all SVG geometry locally so it works offline. Do not substitute an entire stock icon pack merely for convenience. Do not use raster icons. Keep Today, Discover, Progress, and Rewards recognizable and labeled. Do not mix unrelated emoji, glossy icons, and line icons as the primary system.
+
+Evidence badges can use a modest pill or rounded rectangle reading A Strong evidence, B Moderate evidence, or C Preliminary evidence. The badge is a navigable explanation, not an achievement medal. For research-only entries, use neutral D Observational or X Not established styling. The pending state must look different from an assigned grade.
+
+Use plain symbols for habit status, and include words where ambiguity matters. A checkmark should mean completed, not medically approved. Reward points can use a simple mark or small token shape, avoiding piles of cash, casino chips, treasure chests, or exaggerated gold effects.
+
+## 38 Illustration system
+
+Use contemporary, lifelike painted human figures with the warmth, observed gestures, and expressive faces associated with Norman Rockwell-inspired editorial illustration. The reference style for selecting supplied art is opaque acrylic/editorial painting with oil-like color modeling, confident visible strokes, natural adult anatomy, believable facial structure, modeled clothing folds, and controlled depth. Keep it clearly illustrated: no photographs, hyperreal skin, CGI, plastic toy rendering, flat vector bodies, stick figures, thin watercolor washes, or distressed vintage paper. Part Three specifies the founder-supplied artwork and how to select, request, and place it consistently.
+
+The people should look clean, modern, approachable, and individual. Use present-day clothes and tidy grooming. Avoid shabby coats, ragged hems, muddy colors, sepia nostalgia, caricatured bulk, or unnaturally elongated bodies. Natural variation in adult appearance is welcome; appearance is not a health score or a reward.
+
+Use a coherent founder-supplied cast of men and women including Black men and Black women. Each person has a stable face, complexion, hair, proportions, wardrobe, and identity reference. Painting technique, detail, edge treatment, and light remain consistent across the cast. Different people must be distinct characters, not one face recolored. Do not associate one gender or ethnicity exclusively with a mood, difficulty, activity level, or screen type.
+
+Strengthen the artwork through rich but controlled garment colors, clear silhouettes, readable expressions, and intentional local contrast. Do not bleach the figures into pale pastel silhouettes merely to match a sage interface. A warm orange coat and blue trousers are useful reference colors; other cast wardrobes can vary coherently without locking the interface palette. The app's white and lightly colored surfaces should accommodate the paintings.
+
+Give art a functional role. Welcome can use a substantial inviting figure; Today can place an expressive walking person beside the featured action; a mood screen can use a larger portrait because the expression conveys the selected feeling. Starting size ranges on a typical phone are approximately 110–170 CSS pixels high for a featured activity and 180–240 for welcome or a mood portrait. Adjust from actual browser review rather than treating these as fixed requirements. Maintain visibility of the title, duration, evidence, and primary control. Avoid many tiny people scattered around the screen or text laid over detailed clothing.
+
+Mood states use the same person and composition throughout the sequence. Change only facial expression and a small amount of posture to reflect the user's explicit choice. Neutral, low, good, and very good should read naturally, with neither theatrical despair nor a forced grin. A missed habit never makes the person disappointed with the user. Dense science, settings, ledger, and history views can be mainly typographic, with exact information drawn in code.
+
+The personal profile image is separate from brand art. Coded initials are sufficient. Do not imply that a cast member depicts the user's real appearance or medical condition. A quieter illustration setting and image-failure fallback must preserve all meaning and functionality.
+
+## 39 Motion and sound
+
+Use brief, purposeful motion: a gentle onboarding transition, a subtle completed-state change, a short settling motion, or a quiet wave on welcome. A small milestone acknowledgement can last long enough to be noticed without blocking the next action.
+
+Avoid perpetual bouncing, constant pulsing, distracting background movement, and repeated full-screen confetti. All essential information must work without animation. Implement transitions and feedback in CSS/JavaScript. Matched mood portraits may change instantly or use a short opacity transition after an explicit selection; do not morph a person into another identity or imply automatic recovery. Respect reduced motion and keep sound off unless the user deliberately starts audio.
+
+If a breathing-session animation is used, its timing must match the reviewed content and be adjustable or replaceable by static instructions. Decorative timing must never imply a clinically established protocol by itself.
+
+## 40 Brand voice examples
+
+| Situation | Suggested wording |
+| --- | --- |
+| Welcome | A healthier you. Backed by science. |
+| Science invitation | See what the research supports. |
+| Plan setup | Let's find a starting point that fits your life. |
+| Why suggested | You asked for a simple way to move more. |
+| Preliminary evidence | The evidence is early or limited. See what it does and does not show. |
+| Completion | Logged. A small step you made time for. |
+| Missed days | Ready for a fresh start? |
+| Plan feels difficult | Would a smaller plan fit better this week? |
+| Weekly review | What felt manageable? What would you change? |
+| Reward progress | Your consistency is adding up. |
+| No chart data | Your entries will appear here as you record them. |
+| Exploratory comparison | These changes happened together. That does not tell us what caused them. |
+
+Avoid sarcasm, baby talk, competitive pressure, medical certainty, and guilt. Do not celebrate more tracking as proof of better health. Keep account and billing copy especially direct and clear.
+
+## 41 Design system deliverables for Claude
+
+Use the available Product Design capabilities and the researched skill collection in Appendix F. Establish a concise Humanology design rationale covering audience, primary actions, research visibility, visual warmth, and accessibility. Decide which recommendations apply; document meaningful conflicts and resolve them in favor of this brief. Do not create a hybrid of unrelated templates.
+
+Build at least three comparable palette and component treatments IN CODE, including original alternatives beyond the supplied combinations. Use identical app content and the same painted-person style. Show a welcome fragment, Today action, and science component so each treatment is judged on more than a swatch row. Recommend one and use it provisionally without stalling the build for approval. Me+ is one light reference and does not control these alternatives.
+
+Define color roles, typography, spacing, radii, borders, elevation, controls, navigation, cards, evidence badges, charts, dialogs, feedback, states, and people placement. Implement these as a coherent reusable system in the HTML. Use the human illustrations supplied by the founder, following Part Three. Identify missing assets in a specific, consolidated request to the founder rather than creating artwork yourself. Continue all independent coded design work while waiting.
+
+First complete the core habit journey, then apply the same system to every required core screen including rewards, progress, logs, and settings. Keep palette options, scenario controls, skill/source notes, and unresolved business assumptions in a discreet review area or delivery notes. Product screens should focus on the user's task. Finish with visual critique, interaction checks, and accessibility review of the actual coded app.
+
+# Part Three Founder-Supplied Human Illustrations and Asset Integration
+
+## 42 Exact art direction and identity system
+
+The current build uses the more lifelike painted human direction explored as Set Two. The recognizable reference is a woman walking in side profile, with flowing brown hair, an orange open coat, a cream top, cropped blue trousers, and dark flat shoes, together with a neatly groomed brown-haired man in a blue sweater. The reference has expressive adult faces, plausible anatomy, opaque layered paint, visible directional brush strokes, clean present-day clothing, and clear silhouettes on a light background. Select supplied illustrations that carry that technique into a broader cast; the same face should not represent every person.
+
+The supplied art should follow a contemporary Rockwell-inspired observational approach: telling a small human story through posture, eyes, mouth, hands, and the way clothes move. Preserve warmth and individuality without reproducing a recognizable published painting or imposing historical costumes. This is the reference technique for all supplied people, not another four-style exploration. The final UI colors and logo are still open.
+
+Artwork selection and consistency specification:
+
+- Medium: opaque acrylic/editorial painting with oil-like color modeling and visible, confident brushwork. Edges are intentional; some soft internal transitions can coexist with a clean outer silhouette.
+- Realism: lifelike adult face and anatomy, simplified enough to read as illustration. Faces and hands are believable, with restrained painted highlights. No photographic pores, glossy skin, lens blur, cinematic spotlight, extreme depth, plastic CGI, flat vector limbs, or thick cartoon outlines.
+- Proportion and posing: natural adult proportions, readable hands and joints, relaxed unforced gestures. Favor side profile or gentle three-quarter views for walking and movement. Do not exaggerate stockiness, muscularity, head size, leg length, or thinness.
+- Finish: clean contemporary clothing, neat grooming, intact fabric, controlled texture. No distressed paper, shabby outfits, muddy grunge, sepia wash, or nostalgic scene dressing.
+- Color strength: rich but restrained clothing colors, nuanced natural skin tones, enough contrast to remain present on white or pale sage. Avoid pale washed-out figures and neon saturation. Do not tint every person green to match a UI theme.
+- Emotion: attentive, thoughtful, quietly pleased, restful, or gently low as appropriate. Use natural eyes and modest changes of brows, mouth, and posture; not perpetual closed-eye bliss, exaggerated tears, or a theatrical grin.
+- Supplied asset format: one isolated person and clothing on real transparency, with clean padding. No scenery, floor, props, furniture, gradient, invented backdrop, label, icon, badge, logo, or interface fragment.
+
+Keep a stable cast register. The following working IDs can be changed internally, but their distinct roles must be covered:
+
+| Working ID | Person and continuity | Initial uses |
+| --- | --- | --- |
+| person-01 | Adult woman, carrying forward the reference walking woman's identity when that reference is available | Walking, welcome, reflection |
+| person-02 | Adult man, carrying forward the blue-sweater reference identity when available | Stretching, attentive explanation, alternate activity |
+| person-03 | Black adult woman with her own facial structure, hairstyle, natural complexion, proportions, and coherent wardrobe | Rest, alternate walking or movement, welcome |
+| person-04 | Black adult man with his own facial structure, hairstyle, natural complexion, proportions, and coherent wardrobe | Mindfulness, walking or welcome, mood check-in if chosen |
+
+Vary age and ordinary adult appearance across the cast; do not make every person the same youthful fitness-model archetype. Additional people can broaden representation if useful. Black characters must have the same artistic care, lighting quality, emotional range, and active roles as the rest of the cast. Do not simply recolor a white reference face. Alternate men and women across activities without tying gender or ethnicity to ability, emotional severity, or reward status.
+
+For each recurring person, preserve face, hair, complexion, body proportions, and the established wardrobe across poses. A change of activity must not silently create a new identity. All five moods in one expression sequence use the same person, framing, clothes, light, and paint treatment. Changing mood must never change gender or ethnicity.
+
+## 43 Artwork supplied by the founder: intake and missing-asset requests
+
+The founder is responsible for creating and supplying all illustrated human assets. Inspect the actual supplied references and finished assets first. The selected Set Two artwork is the controlling visual reference; a written description is not a substitute for it. Claude’s job is to choose suitable supplied images, organize them, preserve their consistency, and integrate them into the coded app. Do not draw replacement people, call an artwork service, or attempt to recreate the portraits through SVG or procedural graphics. If a style reference is missing, ask the founder for it rather than improvising one.
+
+### Asset request and intake procedure
+
+Start by inventorying the supplied images against Section 44. Reuse appropriate images across screens to keep the cast recognizable, and identify only genuinely missing assets. If an existing portrait or activity illustration does not match the approved style, request a corrected version from the founder. Prefer expressive everyday people and broader matte painted forms; a stronger illustration means clearer silhouette, expressive personality, richer controlled color, and better placement, not more photorealism, glossy skin, tiny facial details, or heavier texture.
+
+Provide a consolidated, actionable request to the founder whenever additional artwork is needed. Ask for the specific deliverable rather than giving a generic instruction such as “provide more images.” For each asset, specify:
+
+- Filename or asset ID and intended screen or component.
+- Person ID or new cast member, identity reference, activity or expression, wardrobe, and continuity requirements.
+- Required framing, viewing angle, aspect ratio, minimum useful resolution, safe padding, and transparent background where appropriate.
+- Reason the asset is needed and priority (required for a complete illustrated core flow, or optional refinement).
+- For mood portraits, the matching sequence and specific missing expression, using the same identity and framing as existing portraits.
+- Any supplied image that should be used as the reference for consistency or a corrected replacement.
+
+Ask the founder directly for these files. The founder will handle artwork creation separately and return the assets for integration.
+
+For example, a request can identify a missing person-04-mood-low portrait for Check-in, using the same person, sweater, crop, and lighting as the supplied neutral portrait, with a gently lowered gaze and restrained expression. Request a transparent asset with clean edges and matching dimensions; do not request a complete UI screen.
+
+Continue the HTML, CSS, JavaScript, SVG, state model, palette exploration, and other independent work while awaiting the files. Make missing-art slots intentional and replaceable: use an appropriate coded activity icon, neutral space, or text-only state without suggesting that it is the final illustration. Do not invent an illustration or use a mismatched substitute.
+
+When files arrive, inspect their consistency, preserve their originals, optimize copies for the intended UI sizes, and embed them into the portable HTML. If the artwork is supplied as a sheet, crop or extract the already supplied individual figures where appropriate; do not invent missing portions or redraw the artwork.
+
+The final review should distinguish completed coded functionality from missing founder-supplied assets. Do not call an illustrated flow visually complete until its required artwork is present. All non-art-dependent flows should remain usable.
+
+Use the asset register in Section 47 to track supplied, requested, integrated, and replacement-needed files, and verify that each is used consistently in the app.
+
+## 44 Required asset inventory and integration sequence
+
+Inventory the founder-supplied people needed for the finished prototype. Plan reusable assets first so a modal, reward state, or palette option does not require unnecessary new artwork. Keep every non-person element in code. The following is an asset coverage checklist, not a direction for Claude to create illustrations.
+
+| Asset | Suggested casting | Required composition and purpose |
+| --- | --- | --- |
+| Walking primary | person-01 | Full-body side profile, comfortable natural stride; featured walking habit and welcome |
+| Mindfulness | person-04 | Calm seated or cross-legged person, plausible hands and legs, no cushion or room; mindfulness detail |
+| Rest or sleep | person-03 | Side-view upper body, eyes gently closed, head resting on the person's own folded hands; no bed or pillow |
+| Gentle stretch | person-02 | Full-body or deliberate upper-body stretch with plausible shoulders, arms, and hands |
+| Alternate active pose | person-03 | Comfortable walk or movement, maintaining her established identity; another category or discovery feature |
+| Welcome or return | person-04 | Open relaxed upper-body gesture; welcome and returning after a break |
+| Thoughtful learning | person-02 or person-01 | Attentive upper-body expression, no book, chart, or scientific prop; optional learning context |
+| Quiet milestone | Any established cast member | Modest pleased gesture; optional acknowledgment, with all rewards and points drawn in code |
+| Matched mood sequence | One established person for the initial flow | Five separate, consistent portraits matching Low, A bit low, Okay, Good, and Great |
+
+For the initial working app, aim to integrate at least the four core activity assets and one complete five-expression mood sequence supplied by the founder, plus any welcome or alternate poses actually used in the final layout. Reuse a suitable activity asset for welcome when the composition works. Request any missing files directly from the founder. If a character selector is offered in the mood flow, every selectable person needs a complete matched sequence; otherwise keep one stable person for that flow. Do not offer incomplete choices or switch people as mood values change.
+
+The same cast can appear across goals and activities, but avoid filling every page with a figure. Use simple coded icons for categories and status when a person does not help. A rewards confirmation can be attractive with coded type, shapes, and feedback alone; use no raster gift-card art, coin pile, or mascot.
+
+Build the coded structure and initial palette alternatives using the supplied style reference and core people as available. Inspect the images at their actual intended UI sizes. Continue to the complete app using the provisional design direction. Request additional required human assets from the founder, then replace temporary asset slots as the files arrive. If required artwork is missing, complete the coded work that is possible and report the exact missing assets and blocker; do not claim the illustration requirement is finished or silently substitute a different medium.
+
+## 45 Activity-specific artwork selection and placement requirements
+
+Use these criteria to choose among the supplied assets, determine suitable crops and placements, and identify missing artwork in requests to the founder. These are requirements for the asset appearance, not instructions for Claude to draw the person.
+
+Walking: A person in a readable side profile or gentle three-quarter profile, taking an ordinary comfortable step, with a natural arm swing and modest movement in hair or clothing. Plausible balance, full-body crop, and padding around head, hands, and feet. No path, floor, scenery, or separate shadow is needed in the asset; surrounding composition is coded.
+
+Mindfulness: A comfortably seated person with a calm natural face and relaxed hands. A believable position appropriate to the demonstration, without an extreme pose, idealized flexibility, or spiritual costume. The person alone is sufficient; any surrounding support, breathing animation, timer, or instructions will be coded.
+
+Rest: A deliberate side-view upper-body crop with eyes softly closed and head resting on the person’s own folded hands. The person communicates rest without a painted bedroom, pillow, furniture, stars, or moon. Facial identity and anatomy should be consistent.
+
+Stretching: A person in a simple gentle stretch with plausible shoulder placement, arms, hands, and balance, without exaggerated range of motion or muscular definition. The pose should remain readable at card size. No equipment or background is needed.
+
+Welcome or return: A person with an open, relaxed stance or upper-body gesture and an easy natural expression. Adult dignity and individuality should be preserved. Avoid assets in which the person points at imaginary UI, holds a sign, wears a lab coat, or implies clinical authority.
+
+Thoughtful learning or reflection: A person who appears attentive or quietly reflective, with a modest head or hand gesture. No books, laboratory props, scientist costume, charts, or floating symbols are required. All research, labels, and explanatory graphics are real HTML or inline SVG beside the person.
+
+## 46 Matched mood-expression assets and coded behavior
+
+### Required supplied portrait sequence
+
+The five supplied portraits for a mood sequence must represent the same painted adult, with identical facial identity, complexion, hairstyle, wardrobe, crop, scale, viewpoint, lighting, edge treatment, and opaque acrylic brushwork. Use the actual neutral portrait as the reference when checking continuity or requesting a missing variant from the founder.
+
+The expressions should differ only through small changes in posture and the face. Low: gently lowered gaze, slightly subdued mouth, quiet energy, no tears or shame. A bit low: softer neutral expression and mildly tired eyes. Okay: attentive, open eyes and relaxed neutral mouth. Good: a small natural smile with warmer eyes. Great: a clearly brighter, open expression and a slightly larger believable smile. Preserve the person’s identity and adult dignity in every state. No exaggerated despair, forced grin, or change in perceived health, body size, age, attractiveness, ethnicity, or gender.
+
+The supplied variants should be separate transparent files with no text, labels, UI, background, props, or icons. Match the neutral portrait’s framing so the app can switch images without a layout jump. If an expression is missing, ask the founder for that specific variant; until it is supplied, show the selected mood in text without pretending an unrelated portrait represents it.
+
+### Implement the actual mood interaction in code
+
+Connect the five supplied variants to coded mood choices. Use plain text labels and a visible selected state so the user does not need to interpret a face or distinguish colors. Selecting previews the supplied expression when available, Save records the value, and Skip exits without an entry. The image switch can be immediate or a brief opacity transition; reduced-motion settings remove the transition. Log editing and deletion update the same stored record and history.
+
+The person expresses the user's stated mood only. It does not react to points, a subscription purchase, a missed day, or the completion of a habit. Keep emotional expression separate from rewards and medical claims. The app may later show the person's reported mood history, but it must not infer that Humanology caused an improvement.
+
+## 47 Asset delivery, placement, and quality checks
+
+Use descriptive names that preserve identity and role, such as humanology-person-01-walking, humanology-person-03-resting, humanology-person-04-mood-low, and humanology-person-04-mood-good. Keep a working asset register with filename, person ID, action/expression, style reference, identity reference, supply/request status, intended placement, dimensions, and alt-text treatment. The register can be documented in build notes or code comments; it need not become a consumer screen.
+
+Check that supplied files have adequate resolution for the chosen display size; about 1024 pixels on the long edge is a useful starting point. Preserve the founder’s original files and reference artwork. Prefer clean alpha transparency with no painted checkerboard, white box, clipped hair, detached limbs, or accidental text. Optimize display copies while retaining visible paint and facial quality. Embed the finished supplied people in the portable HTML; do not hotlink temporary or remote artwork URLs. If a file needs replacement or a different crop that cannot be made from the supplied original, request it from the founder.
+
+Inspect every asset for anatomy, hand and limb count, expression, identity, complexion, clothing continuity, paint consistency, edge halos, padding, and readability on all provisional palettes. Look at the actual browser composition, not only the full-size original. Avoid arbitrary cropping through faces, hands, joints, or important gestures. Do not shrink a detailed face until it becomes indistinct.
+
+Give the art enough presence while maintaining the action and evidence hierarchy. Use supplied artwork without baked-in text or interface elements. Backgrounds, layouts, icons, logos, badges, charts, progress rings, gift-card visuals, buttons, dialogs, gradients, and decorative shapes are always coded. A decorative person can have empty alt text; a meaningful activity illustration needs a concise appropriate text alternative. The mood label must carry the meaning even when the portrait is unavailable.
+
+Keep the app coherent with images disabled or reduced. A neutral coded placeholder can support development until the founder provides a missing asset; the illustrated prototype is complete when the required supplied people are integrated. A later change of palette should require changing CSS tokens, not replacing UI with images or rebuilding the app layout.
+
+# Appendices for the Claude Build
+
+## Appendix A Design scope and delivery order
+
+Map the complete product architecture and core state model. Read this brief and the available Product Design skills, then research, download, review, and apply relevant free design skills using Appendix F. Preserve all core product requirements and document genuine roadmap features separately. This sequence organizes implementation; it does not reduce final scope.
+
+First, inspect the founder-supplied painted-human style and initial cast references, inventory available assets, and request any missing required artwork. Build at least three comparable palette and component alternatives in HTML/CSS using the same welcome fragment, Today action, and research component. Include at least two independent alternatives beyond the suggested color combinations. Use your recommended system provisionally, leave the alternatives reviewable, and continue without blocking on a palette vote. Me+ is a light starting reference only.
+
+Second, complete the connected first-habit journey: welcome, lightweight onboarding, one recommendation, practical action and time commitment, visible evidence, study-versus-starter comparison, scheduling, Today, completion and undo, an appropriately timed dismissible subscription invitation, weekly recap, and prospective next-week adjustment. No payment or payment card is needed to inspect this journey.
+
+Third, complete Discover, combined filters, saved items, source detail, optional habits, plan editing, quick rescheduling, pausing, stacks, guided sessions, logs, manual readings, and settings. Keep the first-use experience simple while these capabilities become available.
+
+Fourth, implement every rewards view and state in code: earning explanation, fair session allocation, balances, ledger, gift-card detail, insufficient balance, redemption review, pending, success, failure, unavailable, cap reached, reversals, subscription states, and a coherent rewards-off mode. Keep the commercial assumptions editable and use the consistent examples in Section 19.
+
+Fifth, complete the mood-expression behavior, remaining logs, connection simulations, progress ranges, heatmap, metric trends, and cautious exploratory comparisons. Integrate all available required people assets and their placement, and request any missing variants from the founder. Later AI, coaching, community, CGM, expanded integrations, sponsored offers, and optional courses retain documented locations and coded concept views when useful; no real external integration is required.
+
+Finally, use browser review and the design skills to critique and refine the complete result. Verify responsive layouts, accessibility, key journeys, demo persistence and reset, image consistency, source honesty, and reward arithmetic. Fix defects found by the checks before delivering the final file.
+
+Expected deliverables: one self-contained Humanology.html with embedded styling, behavior, and people; reviewable coded palette alternatives; the complete core screen/state inventory; coherent fictional sample scenarios; an editable provisional design system; a working asset register and retained source assets; a concise skill/source register; and a short validation and unresolved-decisions note. Supporting notes may live in a discreet review view or code comments so the founder can open the app by opening one file. All app UI and non-person graphics are code; the only raster illustrations are people supplied by the founder. Include a precise outstanding-asset request if any required files have not yet arrived.
+
+## Appendix B Acceptance checklist
+
+- The first screen explicitly communicates science-backed habits and a personal benefit.
+- The primary background remains white, with restrained color and selective gradients.
+- The app feels warm and adult, with a distinct visual identity.
+- Claude presents at least three coded palette/component alternatives, including at least two independent directions beyond the suggested combinations; the palette remains provisional while the painted-human technique stays consistent.
+- One full habit journey is reviewed before every secondary screen receives final polish.
+- The weekly review shows what happened and supports a preview of next week's adjusted plan.
+- One recommended habit is the default; Add another is optional, and its science is available before committing.
+- Evidence, personal fit, progress, and rewards are clearly separated.
+- Evidence grades are outcome-specific and have readable explanations.
+- Sources, effect sizes, and reviewer information are verified or explicitly pending; the studied intervention is compared clearly with the starter action.
+- Discovery works by time, goal, and ability or adaptation, while preserving evidence filters, saved items, and stacks.
+- Today puts the next action immediately after the compact header, with one-tap logging and two-tap quick rescheduling.
+- Completion, undo, skipping, rescheduling, pausing, and past-day corrections have coherent behavior.
+- Twice-weekly habits and rest days are handled without false failures.
+- Mood, symptoms, energy, fatigue, and sleep logs remain optional.
+- BP, HRV, resting heart rate, sleep, and activity trends have units, sources, and missing-data states.
+- Heatmaps distinguish absence of data from low values or incomplete habits.
+- Correlations are described as exploratory associations, not causal discoveries.
+- Health connections are optional and simulated honestly in the prototype.
+- Rewards can be removed consistently from the whole experience.
+- Reward balances, session allocations, period limits, carryover, undo, and redemption math agree; supported twice-weekly and daily schedules can reach the same period ceiling.
+- The minimum earning time for the illustrated $5 reward is not concealed.
+- Redemption has sufficient-balance, confirmation, pending, success, failure, and unavailable states.
+- The user can receive, understand, schedule, and complete one starter habit before a blocking subscription offer; price and ongoing entitlements remain labeled working assumptions.
+- Account, privacy, export, deletion, notification, and help routes are present.
+- Founder-supplied human illustrations are, visually confident, and consistent with the specified painted style; men, women, Black men, and Black women appear as distinct adults. Nonhuman mascots and the superseded four-style exploration are not reintroduced.
+- All typography, science, UI, backgrounds, icons, logos, charts, reward graphics, and interaction states are coded. The only raster illustrations are founder-supplied people, with real transparency and consistent references. Claude has not created substitute people; missing assets have been explicitly requested from the founder and are identified in review notes.
+- Keyboard navigation, text scaling, contrast, reduced motion, and narrow screens work.
+- All key journeys use a coherent fictional dataset, share one state model, preserve state across refresh where storage is available, and can be reset or switched cleanly for review.
+- No real payment, account creation, gift-card order, or health-device connection is falsely claimed.
+- The future ideas remain documented without making the first release unnecessarily complex.
+- Humanology.html opens as one portable file with embedded people, CSS, JavaScript, and any required fonts; no setup or temporary remote asset URL is required.
+- Me+ is used only as a light reference. The design reflects Humanology's brief and independent decisions informed by multiple relevant skills.
+- Available Product Design skills and at least twelve independently selected free GitHub skills (six UI/UX, four design, two anti-AI-slop) are actually applied; sources, primary categories, roles, license checks, concrete contributions, and any genuine shortfall are recorded. Original custom SVG icons are preferred, with Lucide used only where needed as a fallback.
+- Mood expressions follow only an explicit self-reported selection, preserve one person's identity within the sequence, and never change rewards.
+- Required core screens, especially rewards, science, progress, and settings, contain real working controls rather than static images or generic unfinished panels.
+- The actual coded HTML has been inspected in a browser and the meaningful checks in Appendix G have been completed or reported accurately.
+
+## Appendix C Historical feature crosswalk
+
+This crosswalk preserves the earlier Humanology direction and the ideas explored in the current conversation. It also makes clear which suggestions remain optional.
+
+| Earlier or current concept | Where it is retained | Status |
+| --- | --- | --- |
+| Humanology name and science-first promise | Product purpose and brand positioning | Established direction |
+| Humanio or Human naming explorations | Historical naming context only | Superseded by Humanology |
+| Small measurable habits often under 15 minutes | Product purpose and habit records | Preserved principle |
+| Cardiovascular focus expanding to heart, mind, and body | Goals, categories, and measurements | Preserved scope |
+| Anxiety, stress, fatigue, mood, and sleep | Goals, check-ins, and progress | Preserved interests |
+| Reliability score with A highest | Evidence model and badges | Established concept |
+| A/B/C ordinary evidence grades | Library, habit detail, methodology | Preserved design |
+| A/B/C/D/X expanded proposal | Methodology and research-only content | Earlier proposal needing refinement |
+| Human RCT and meta-analysis grounding | Editorial model | Preserved with quality safeguards |
+| PubMed, DOI, and research links | Source cards | Preserved requirement |
+| Mechanism and information tabs | Habit science detail | Preserved requirement |
+| Effect sizes and study context | Research detail and study-versus-starter comparison | Preserved when verified; starter adaptations distinguished |
+| Instructional videos | Habit instructions and learning | Optional content |
+| Breathing, garlic, posture, light, hydration, warm water | Research inventory | Topics requiring evidence review |
+| Walking, sleep schedule, strength, mindfulness, reading | Demo content and library | Example topics requiring review |
+| Personalized recommendations | Onboarding and plan | Preserved requirement |
+| One habit first with optional additions | Onboarding and next-action experience | Current approved refinement |
+| Three starting habits | Historical planning option | Superseded as the default |
+| First complete habit experience before paywall | Onboarding and subscription | Current approved refinement |
+| Next action first and one- or two-tap routine controls | Today and schedule controls | Current interaction requirement |
+| Browse by time, goal, and ability | Discover | Current approved refinement |
+| Weekly recap and next-week adjustment | Progress and core journey | Current approved refinement |
+| Evidence versus personal additional benefit | Four concepts and recommendation explanations | Clarified distinction |
+| Library, filters, categories, and saved habits | Discover | Preserved requirement |
+| Custom habit stacks | My Plan and stack editor | Preserved requirement |
+| Symptom, mood, energy, fatigue, sleep check-ins | Logs and Progress | Preserved requirement |
+| Apple Watch, Fitbit, Garmin | Connections | Proposed integrations |
+| Bluetooth blood-pressure monitors | Measurements and Connections | Proposed integration |
+| Apple Health and Health Connect | Optional connection routes | Later discussion proposal |
+| BP, HRV, resting heart rate, sleep metrics | Logs and trends | Preserved scope |
+| Heatmaps and habit-to-outcome correlations | Progress and exploratory comparison | Preserved with careful interpretation |
+| Adaptive reminders | Notification settings and weekly review | Preserved with user control |
+| Guided consumer experience plus deep science discovery | Today and Discover | Current packaging direction |
+| Science prominent during onboarding | Welcome and how it works | Explicit current preference |
+| $6.99 monthly subscription | Subscription design | Proposed price |
+| Approximately $1 per member toward rewards | Optional rewards model | Proposed budget |
+| Everyone can earn under published rules | Optional participation rewards | Current preference; no random winners |
+| Equal possible rewards across different schedules | Proposed focus-routine session allocations | Current fairness requirement; exact formula still proposed |
+| 50 points per participation day | Earlier earning formula | Superseded because fewer scheduled days earned less |
+| Redeemable points toward gift cards | Rewards and redemption | Current preference |
+| 100 points equals 10 cents | Equivalent 1,000-point conversion | Preserved arithmetic |
+| 5,000 points for a $5 card | Redemption example | Provider-dependent assumption |
+| Amazon as first reward example | Gift-card detail | Unconfirmed merchant option |
+| Tremendous or Tango fulfillment | Provider notes | Candidate services |
+| Unlimited motivational points plus redeemable points | Optional later variant | Simplified default uses one points balance |
+| $5 welcome reward after three months | Commercial options | Deferred unless separately funded |
+| Discounts, free products, credits, merchant sponsorship | Roadmap | Optional alternatives |
+| Random drawing or pooled competition | Rewards decision record | Not selected after user's clarification |
+| Structured courses or a short bounded program | Learning and roadmap | Optional packaging |
+| Social loops, accountability, coaching | Future concepts | Optional expansion |
+| AI personalization and CGM | Future concepts | Earlier roadmap |
+| Headspace-inspired warmth and gradients | Brand direction | Current preference |
+| Mostly white backgrounds with possible muted accents | Palette and surfaces | White canvas retained; final accent colors open |
+| Thick circular logo with short curved inner line | Logo section | Earlier exploration; final execution open |
+| Avoid a heart logo | Logo constraint | Preserved visual preference |
+| Friendly scientist, evolving companion, category mascots | Historical illustration context | Earlier alternatives; not the active build direction |
+| Green pebble or fruit-like companion | Earlier illustration exploration | Not selected; no longer the default |
+| Editorial humans, geometric characters, curious companion, illustrated world | Historical exploration | Superseded four-way comparison; the current build uses painted people |
+| Central nonhuman mascot | Historical illustration options | Not part of the current people-only build |
+| Final palette and typography | Coded visual alternatives | Open; Claude must show independent options |
+| More lifelike Set Two painted human style | Parts Two and Three | Current required illustration technique for the prototype |
+| Stronger image presence | Color strength, silhouette, expression, and placement | Current explicit preference |
+| Men and women, including Black men and Black women | Cast register and activity assets | Current explicit requirement |
+| Expressions that reflect a logged mood | Mood flow and matched portrait assets | Current exploration implemented from explicit user selection |
+| Me+ routine and mood inspiration | Brand references and coded flow decisions | Light reference only; no palette or app clone |
+| Claude builds the HTML app; founder supplies people artwork | Production boundary and delivery contract | Current Claude-specific builder direction |
+| All human artwork comes from the founder; missing assets requested directly | Part Three and acceptance checks | Mandatory production boundary |
+| All UI, charts, rewards, backgrounds, and logos coded | Frontend implementation | Mandatory production boundary |
+| Free GitHub design, UI/UX, taste, and anti-generic-design skills | Appendix F | Broad research, download, review, and relevant application required at build time |
+
+The earlier discussion mentioned humanology.cc as available at that time. Do not state that the domain remains available or include it as an owned website without a current check. The current product name remains Humanology regardless of a later domain choice.
+
+## Appendix D Sources and implementation notes
+
+These sources support a small number of concrete platform and accessibility constraints. They are not clinical sources for the demonstration habit library, and they do not constitute approval of the business model. Current online guidance was checked on November 24, 2026.
+
+[1] Apple App Review Guidelines, sections 5.1.2 and 5.1.3.
+https://developer.apple.com/app-store/review/guidelines/
+Apple restricts requiring system functionalities to receive compensation, including gift cards. Its health-data provisions allow certain direct benefits under conditions and restrict disclosure and use of health information. Design implication: provide an optional connection path, meaningful manual participation, and separation between health records and fulfillment information. This is a design inference, not a promise of App Store approval.
+
+[2] Google Play Android Health Permissions Guidance and FAQs.
+https://support.google.com/googleplay/android-developer/answer/12991134?hl=en
+Google lists rewards for healthy habits among approved health-permission use cases while maintaining consent, limited-use, and data-handling requirements. Do not assume either that all rewards are prohibited or that Humanology is automatically approved. Verify the actual implementation before launch.
+
+[3] Tremendous Amazon gift-card catalog information and pricing.
+https://www.tremendous.com/catalog/amazon-gift-cards/
+https://www.tremendous.com/pricing/
+Official information confirms Amazon gift-card distribution and says denominations vary by country. The exact $5 US option and chosen account's terms still need verification. The design should not assume reward face value equals the full cost under every funding method.
+
+[4] W3C Understanding WCAG 2.2 Contrast Minimum.
+https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html
+Supports the 4.5:1 ordinary-text and 3:1 large-text contrast requirements used in the design brief.
+
+[5] W3C Understanding WCAG 2.2 Target Size Minimum.
+https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html
+Describes the 24 by 24 CSS-pixel minimum with defined exceptions. The larger 44-pixel product target in this brief is a usability recommendation.
+
+[6] Me+ official product page and App Store listing, reviewed as visual references.
+https://enerjoy.life/me-plus/
+https://apps.apple.com/us/app/me-lifestyle-routine/id1596403446
+The official routine and mood screenshots provide limited reference points for readable daily tasks and labeled mood choices. They are not a requirement to copy the palette, mascot, exact screens, marketing claims, or feature inventory.
+
+[7] Anthropic frontend-design skill and its skill-specific license.
+https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md
+https://github.com/anthropics/skills/blob/main/skills/frontend-design/LICENSE.txt
+Primary source for intentional, subject-specific art direction, typography, and composition. Verify the license for each selected skill; do not assume every item in a collection has identical terms.
+
+[8] UI UX Pro Max.
+https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+Primary source for a broad design and UX reference collection. Its stack defaults must be adapted to this brief's native CSS/JavaScript and portable HTML requirement.
+
+[9] Impeccable.
+https://github.com/pbakaus/impeccable
+Primary source for design critique, typography and layout refinement, accessibility review, and interface polish. Read its current tools and instructions before use; use ordinary permission-preserving workflows.
+
+[10] Vercel web-design-guidelines.
+https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines
+Primary source for reviewing general web interface behavior and accessibility. The neighboring framework-specific skills are not automatically applicable to this prototype.
+
+[11] Interface Design.
+https://github.com/Dammyjay93/interface-design
+Primary source aimed at product interfaces, apps, tools, and consistent design decisions. Adapt visual exploration guidance into coded comparisons; use only the founder-supplied human illustrations.
+
+[12] Taste Skill.
+https://github.com/Leonxlnx/taste-skill
+Primary source for additional art-direction and browser-review ideas. Its current company-website and photographic defaults are not a fit for Humanology's routine screens; use only compatible guidance and do not import its template or media requirements wholesale.
+
+The design-skill sources above were checked on November 24, 2026 as starting candidates. They are not a fixed highest-rated ranking. Verify current contents, maintenance, terms, and tool behavior at build time.
+
+## Appendix E Final instruction to Claude
+
+Build the complete Humanology prototype in one self-contained Humanology.html file using real semantic HTML, embedded CSS, vanilla JavaScript, and code-drawn inline SVG where needed. Design and implement every screen, layout, control, source view, chart, progress component, reward view, gift-card representation, and interaction in code. Use HTML/CSS/JavaScript and inline SVG for all interface visuals; Prefer original custom inline SVG icons designed for Humanology’s own design system; use Lucide only as a fallback where custom geometry is not sufficiently clear or polished.
+
+Use the founder-supplied painted people, following the reference and asset requirements in Part Three. Maintain the coherent cast of men and women including Black men and Black women, stable identities, and matched mood-expression sets. Give the illustrations strong visual presence through deliberate composition, scale, and surrounding CSS color. Embed the supplied transparent people in the HTML. Do not create any new raster artwork or draw substitute people. Ask the founder directly for every missing or unsuitable required asset, with a specific description of what is needed, and continue independent coded work while awaiting it.
+
+Use the available Product Design skills and independently research, download, read, and apply at least twelve distinct free GitHub skills (six UI/UX, four design, two anti-AI-slop), plus any additional relevant skills. Use Appendix F as the starting workflow, then make independent design decisions from this brief. Me+ is only a slight reference; neither its colors nor its exact app are the intended destination. Keep the main canvas predominantly white, propose at least three coded palette treatments, and keep the recommendation provisional while continuing the build.
+
+Make science visible, start with one manageable habit, retain the full feature architecture, and complete the optional rewards experience in code. Keep evidence, personal fit, progress, and redeemable value distinct. Use coherent fictional data, honest service simulations, and the exact reward arithmetic in this brief. Integrate the founder-supplied human art, inspect the real HTML in a browser, verify the important flows, and refine the design before delivery. Do not stop at a proposal, a home screen, or static mockups.
+
+The design should make someone feel: I understand why this matters, I trust what I can inspect, and I can take a small practical step today.
+
+## Appendix F Design-skill research, download, and application
+
+### F.1 Research broadly before implementation
+
+Use your installed Product Design capabilities and your own product judgment. Also search public GitHub sources for a broad collection of free skills covering product UI/UX, information architecture, onboarding, habit interactions, typography, layout, color, responsive HTML/CSS, accessibility, forms, charts, restrained motion, design taste, visual critique, and avoidance of generic AI-generated interface patterns. The founder wants multiple useful skills informing the work, not one template deciding the app.
+
+Prioritize highly adopted, well-maintained candidates, but inspect the actual SKILL.md, referenced guidance, examples, license, and implementation assumptions. Stars and adoption can help find candidates; they do not establish design quality or fitness for this app. Do not claim a universal highest-rated ranking. If popularity is used to justify selection, record the observed repository count and review date, distinguishing collection-wide popularity from a particular skill.
+
+Independently search beyond the optional seed list. Claude must select, download, read, and apply at least twelve distinct, relevant free GitHub skills, with a minimum of six primarily focused on UI/UX (interaction design, information architecture, responsive behavior, accessibility, onboarding, and usability); four primarily focused on visual/product design (art direction, typography, color, composition, and design systems); and two primarily focused on anti-AI-slop critique (eliminating generic AI aesthetics, strengthening taste, and reviewing visual specificity). Count each skill once in its primary category; do not count duplicate forks, overlapping copies, or repository names without a distinct skill. The listed candidates are optional suggestions, not mandatory choices or a ceiling. Claude must find its own additional candidates and make its own selection based on current relevance, quality, popularity, maintenance, and licensing. Use more than twelve if complementary guidance materially improves the app. Installed Product Design skills are additional to the GitHub minimum. If access or permissions genuinely prevent meeting the minimum, disclose the shortfall and reason, ask the founder for assistance where needed, and continue authorized work without pretending the requirement was met. Prefer canonical upstream sources and current documentation over copied summaries.
+
+### F.2 Optional starting candidates
+
+The following repositories are optional examples, not an exclusive list, a mandatory selection, or an instruction to obey every default. Claude must independently discover and select its own collection that satisfies the minimum in F.1. Check current licenses and contents at the time of the build.
+
+| Candidate | Intended contribution | Required adaptation for Humanology |
+| --- | --- | --- |
+| Anthropic frontend-design [7] | Deliberate art direction, typography, hierarchy, visual specificity | Preserve the warm adult painting style and real app use cases; do not substitute a generic marketing page |
+| UI UX Pro Max [8] | Broad palette, typography, chart, layout, and UX reference research | Translate applicable guidance to native CSS/JavaScript; do not introduce Tailwind or a framework by default |
+| Impeccable [9] | Critique, audit, typography, layout, refinement, edge-case hardening, and polish | Review the actual coded app; use compatible read/review workflows with normal tool permissions |
+| Vercel web-design-guidelines [10] | Web semantics, focus, forms, feedback, motion preferences, responsiveness, and usability checks | Use the general web guidelines; avoid unrelated React or deployment requirements |
+| Interface Design [11] | Product-screen hierarchy, consistent components, and retained design decisions | Keep all UI exploration coded rather than using raster boards or paintovers |
+| Taste Skill [12] | Additional design judgment and browser-review ideas when applicable | Its current marketing-site, photography, and full-screen-section defaults must not govern the app; omit incompatible parts |
+
+### F.3 Download and activate responsibly
+
+At the build stage, download the selected skill directories and the supporting resources they actually need into the project or the environment's supported skill location. Read the selected instructions and retain applicable license notices. Record repository URL, skill path, revision or commit when available, review date, license, primary category, purpose, and the concrete design or verification decision informed by each skill. Report the actual count by category and any shortfall. Do not claim that a downloaded folder was activated without using the environment's supported loading process or explicitly reading and applying its guidance.
+
+Use free, inspectable resources that fit the project. Review included scripts, hooks, installers, and dependencies before running them. Keep normal tool permissions and the existing approval rules; never enable a mode that disables approvals, bypasses a sandbox, or asks for unrelated credentials. Reading the relevant guidance is sufficient when an optional installer or live-edit helper is inappropriate. Do not require a paid design subscription, model service, hosting account, or commercial component package merely to use a skill.
+
+Some skills recommend raster design boards, real photography, full-screen marketing sections, React, Tailwind, or a preset palette. The current Humanology production constraints take precedence over those recommendations: founder-supplied painted people only, coded UI and visuals, one portable native HTML/CSS/JavaScript file, visible science, the complete required flows, and an open palette. Do not import a skill’s template and rename it Humanology. Do not use any skill or external service to create artwork; request missing illustrations directly from the founder.
+
+If a candidate is unavailable, incompatible, unlicensed for the intended use, redundant, or blocked, record the concrete reason and continue with suitable alternatives. Do not invent a download, installation, review, or rating. A missing optional third-party skill must not become an excuse to leave authorized design work unfinished.
+
+### F.4 Apply the collection in phases
+
+During definition, use product-design and UX guidance to map the primary tasks, evidence hierarchy, navigation, one-habit start, and optional rewards. During visual exploration, use art-direction, typography, and color guidance to create the three coded alternatives. Keep the same people and content across them.
+
+During implementation, use interface and interaction guidance for coherent components, forms, data views, feedback, and responsive behavior. Apply accessibility guidance as controls are created, not only at the end. During refinement, use critique and polish guidance on actual Today, habit science, mood, Progress, Rewards, and Settings screens. Use the browser to inspect results and resolve the highest-impact concrete defects first.
+
+Maintain one Humanology design system. Resolve conflicting advice deliberately instead of blending several unrelated systems. Explain the major choices briefly in build notes, including which sources influenced them and which recommendations were rejected because they did not fit. Skill research should lead to a better completed app, not replace building it with a long report.
+
+### F.5 Avoid generic design through specific decisions
+
+Use the product's real tasks and content to determine hierarchy and composition. Avoid repetitive cards nested inside cards, decorative icon tiles on every heading, unexplained giant numbers, generic wellness slogans, unreadable pale text, arbitrary gradients, stock dashboard widgets, and excessive animation. A familiar pattern is welcome when it serves the task; novelty alone is not the goal. Let readable science, useful routine controls, and the consistent expressive people make Humanology recognizable.
+
+## Appendix G Concrete verification scenarios for the HTML
+
+### G.1 Journey and state checks
+
+Walk through a new fictional user's onboarding, one recommendation, evidence, schedule, first completion, undo, subscription invitation, and sample weekly review. Confirm no payment blocks the first completed habit. Add a second optional habit and verify it does not obscure the starter flow. Combine Discover filters, save a habit, open and return from a source, create a stack, reschedule an occurrence, pause a plan, and apply a next-week adjustment while preserving past history.
+
+Save, edit, and delete a mood log. Confirm its portrait follows the explicit selection and Skip creates no entry. Verify all five supplied expression assets show the same person, or record exactly which assets still need to be supplied. Confirm that the chosen mood never affects reward value. Add a manual measurement with units, inspect the corresponding history and chart, and confirm a missing value remains a gap rather than zero.
+
+Refresh after a meaningful state change, switch sample profiles, reset the demo, simulate a save failure, and verify recovery. Check browser Back behavior, selected filters, navigation state, and open-dialog focus. Verify sample export downloads only the fictional records and reset/deletion actually change the local store.
+
+### G.2 Rewards arithmetic and interaction checks
+
+Verify supported eight-, ten-, and thirty-session schedules allocate exactly 1,000 whole points in total. The allocation belongs to stable scheduled occurrences. Rest days are neutral, past missed allocations stay unearned, and a prospective change redistributes only the still-future amount under Section 19.
+
+In the primary paid-member profile, completing the third 100-point session must show 3,200 available plus 100 pending, then 3,300 available after simulated confirmation. The ledger, period earnings, future allocation, and 66 percent progress toward the 5,000-point gift card must agree. Undo reverses the same 100-point award once. Repeating a click, reloading, importing the same activity, or moving the occurrence cannot create a duplicate award.
+
+In the separate redemption-ready profile, begin with 5,250 points. Reserve 5,000 once for the $5 example reward. Success leaves 250 available and one completed redemption; a confirmed failure releases the reservation. A temporary delay remains one pending order. Double confirmation must not create another order or an unexplained negative balance. Exercise insufficient balance, merchant unavailable, unsupported region, cap reached, and reversal states.
+
+Turn rewards off and inspect navigation, onboarding, completion copy, subscription messaging, and settings. The core app remains complete without gift-card promotions. Switch back to the paid-member scenario without merging its balance into the unpaid starter profile. Verify the first free completion records progress without pretending to award redeemable points.
+
+### G.3 Visual, asset, and accessibility checks
+
+Inspect the actual coded app at the widths in Section 26, including enlarged text and an additional narrow layout. Check that the next action, evidence label, duration, and primary control retain priority. Look for clipping, horizontal overflow, tiny source text, crowded controls, excessive whitespace, and artwork that overwhelms or disappears. Compare the coded palette alternatives using the same content and human assets.
+
+Use the keyboard throughout the core flow. Verify visible focus, meaningful labels, semantic headings, form errors, dialog focus entry and restoration, escape behavior, and accessible chart summaries. Test reduced motion and image failure. Confirm that no essential meaning depends only on color, a portrait's expression, hover, or a fleeting animation.
+
+Review all supplied people together and in their UI placements. Check consistent paint, identity, complexion, wardrobe, anatomy, crop, transparency, and visual strength. Confirm Black men and Black women have distinct identities and meaningful roles. Search the final implementation for remote asset dependencies and verify the portable file still works offline. Confirm that every non-person visual and every interface label is real code.
+
+Report the checks actually performed, material defects fixed, and any remaining blocker. The final handoff should give the founder a functioning app to inspect, with clear review notes and no false claim that a static image, downloaded skill, or untested screen is a finished interactive experience.

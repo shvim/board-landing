@@ -1,0 +1,30 @@
+{
+  "source_claim_rows": 380,
+  "source_routines": 303,
+  "source_ready_rows": 74,
+  "withheld_source_ready": 7,
+  "selected_ready_rows": 67,
+  "canonical_cards": 56,
+  "published_benefits": 75,
+  "original_grades": {
+    "A": 23,
+    "Insufficient": 131,
+    "B": 86,
+    "C": 138,
+    "unevaluated": 2
+  },
+  "benefit_grades": {
+    "A": 17,
+    "B": 38,
+    "C": 20
+  },
+  "cards_by_highest_grade": {
+    "A": 15,
+    "B": 25,
+    "C": 16
+  },
+  "unique_source_links": 146,
+  "indexed_publications_retrieved": 296,
+  "cards_with_one_publication": 4,
+  "cards_with_multiple_publications": 52
+}

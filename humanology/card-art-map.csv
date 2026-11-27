@@ -1,0 +1,57 @@
+card_id,catalog_title,existing_project_asset_filename,assignment,visual_direction
+walk-after-meals,Take short walks after a meal,hm-green-walk.png,candidate,Walking is clear. Pair with meal timing in live text.
+brisk-walking,Make brisk walking a weekly habit,hm-green-walk.png,candidate,Verify that pace reads as brisk.
+stairs,Choose a stair-climbing routine,05-taking-the-stairs.png,earlier reference,Check current likeness and stair direction.
+almonds,Make almonds a daily snack,hm-nuts.png,candidate,Check that nuts are identifiable as almonds.
+sunscreen,Use sunscreen daily,,new scene candidate,Applying sunscreen to exposed forearm.
+caffeine,Move caffeine earlier,hm-tea.png,candidate,Drink only. Time belongs in live text.
+resistance-sarcopenia,Practice resistance exercises for sarcopenia,hm-strength-row.png,candidate,Confirm age and taught exercise fit the selected plan.
+bath,Take a warm bath or shower before bed,hm-warm-bath.png,match,Priya testing bath water.
+relax-muscles,Practice progressive muscle relaxation for sleep,hm-pmr.png,match,Bedtime muscle relaxation.
+cyclic-sighing,Try five minutes of cyclic sighing,hm-sigh-breath.png,match,Use for the scene. Explain the sequence in text.
+cold-shower,Finish a shower with cold water,hm-cold-shower.png,candidate,Post-shower towel scene. Check recognition.
+meal-order,Eat vegetables and protein before starch,hm-veg-first.png,match,Show meal order in card copy.
+bedtime-list,Write down tomorrow’s tasks,hm-journal.png,candidate,Writing scene. Distinguish planning from reflection with text.
+kiwi,Try two green kiwifruit a day,hm-kiwi.png,match,Keep fruit and spoon visible in small crop.
+beans,Add canned beans to meals,hm-beans.png,match,Keep can or beans in crop.
+salt-swap,Use a potassium-enriched salt substitute,hm-potassium-salt.png,match,Use container or pouring action. Retain qualification.
+whole-grains,Choose whole-grain staples,hm-slow-carbs.png,candidate,Confirm a recognizable whole-grain staple.
+walk-for-ideas,Walk while brainstorming,hm-green-walk.png,candidate,A general walking scene can be shared with a distinctive action label.
+water-flosser,Clean between your teeth daily,,new scene candidate,Hand using powered water flosser beside sink.
+social-break,Take a week off social media,,new scene candidate,Phone set aside beside a paper calendar.
+toothbrush,Use a powered toothbrush,,new scene candidate,Powered toothbrush in use with its distinctive handle visible.
+screen-cap,Set a daily phone screen-time cap,,new scene candidate,Hand setting daily phone use limit. No legible interface text in painting.
+standing-stockings,Use fitted stockings during standing shifts,,new scene candidate,Standing worker adjusting fitted graduated compression stocking.
+optimism,Imagine your best possible future,hm-future.png,match,Future-self visualization.
+bedtime-phone,Put your phone away before bed,06-taking-a-screen-break.png,earlier reference,Check bedtime context. Request bedside phone put-away scene if unsuitable.
+blink,Practice complete blinks,,new scene candidate,Close view of adult gently closing eyes. Supply movement sequence in text.
+apples,Try two whole apples daily,,new scene candidate,Two whole apples held at chest level.
+work-breaks,Add four breaks to a desk shift,hm-desk-stand.png,candidate,Desk break illustration. Do not imply that an exercise is mandatory.
+hummus,Try an afternoon hummus snack,,new scene candidate,Bowl of hummus and pretzels with dipping hand.
+volunteer,Try a structured volunteering session,,new scene candidate,Volunteer sharing an activity with an older resident.
+jumps,Practice short sets of vertical jumps,hm-jump.png,match,Maintain full body including feet.
+psyllium,Use psyllium regularly,,new scene candidate,Mixing psyllium powder into a full glass of water.
+retrieval,Practice recalling what you learn,hm-recall.png,match,Keep learning material and thinking gesture visible.
+flight-stockings,Wear fitted stockings on a long flight,hm-travel-sleep.png,candidate,Seat context only. Require visible below-knee stockings or request new art.
+fall-hazards,Arrange a home fall-hazard assessment,,new scene candidate,Resident and assessor reviewing a loose rug together.
+handwash,Wash hands regularly,,new scene candidate,Lathering hands at a sink.
+water-premeal,Drink water before meals in a structured weight program,01-drinking-a-glass-of-water.png,earlier reference,Check water and meal context. Qualification appears before adding.
+drink-swap,Replace a sugary drink with water,01-drinking-a-glass-of-water.png,earlier reference,Prefer visible glass of water replacing a sugary drink.
+eat-slowly,Slow down at a meal,hm-slow-eating.png,match,Preserve plate and hand.
+three-good-things,Write down three good things,hm-journal.png,candidate,General journal image. Use specific title beside it.
+mindfulness,Try a brief guided mindfulness practice,02-Seated-mindfulness.png,earlier reference,Inspect current cast compatibility.
+left-side,Try positional therapy for nighttime reflux,hm-left-side.png,match,Preserve side-sleep posture. Keep device-study distinction in text.
+music,Listen to music before bed,hm-music.png,match,Show headphones and bedtime setting.
+smell-training,Practice smell training,,new scene candidate,Adult gently smelling one of four small scent jars.
+prunes,Try prunes for constipation,hm-prunes.png,match,Show dried fruit clearly.
+cystitis,Add water for recurrent cystitis prevention,01-drinking-a-glass-of-water.png,earlier reference,Water scene only. Use exact studied audience and amount in text.
+dash,Build meals around the DASH pattern,hm-dash-plate.png,match,Keep plate prominent.
+walking-breaks,Break up a seated workday with walks,hm-green-walk.png,candidate,Prefer desk-to-walk cue if generic walk fails.
+one-brisk-walk,Try a ten-minute brisk walk,hm-green-walk.png,candidate,Ten minutes in live text.
+nap,Try a brief post-lunch nap opportunity,03-Resting.png,earlier reference,Check relaxed daytime nap scene.
+oats,Choose oats with a stated beta-glucan amount,hm-oatmeal.png,match,Oat bowl. Keep beta-glucan label instruction in copy.
+pelvic-floor,Follow a supervised pelvic-floor training plan,,new scene candidate,Private consultation with a qualified clinician in a neutral setting.
+handgrip,Practice isometric handgrip training,hm-handgrip.png,match,Show grip device and hand.
+tai-chi,Join a fall-prevention tai chi program,hm-tai-chi.png,match,Keep posture and limbs intact.
+neck-strength,Follow a taught resistance routine for neck and shoulder pain,hm-band-raise.png,match,"Keep band, hands and shoulders visible. Taught routine."
+sleep-extension,Work with a counselor to extend short sleep,hm-sleep-window.png,candidate,Check visual against sleep extension. Avoid suggesting sleep restriction.
